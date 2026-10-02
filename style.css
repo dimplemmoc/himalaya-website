@@ -1,0 +1,3799 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #eef2ef;
+    font-family: "DM Sans", sans-serif;
+    color: #214c40;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    height: 105px;
+
+    padding: 0 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #e8eeeb;
+
+    border-bottom: 1px solid rgba(33, 76, 64, 0.05);
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+    color: #164f40;
+
+    flex-shrink: 0;
+}
+
+.logo-circle {
+    width: 55px;
+    height: 55px;
+
+    border: 1.5px solid #165442;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 17px;
+}
+
+.logo-circle svg {
+    width: 39px;
+    height: 39px;
+
+    color: #165442;
+}
+
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1;
+}
+
+
+.brand-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: 26px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+
+    color: #173f35;
+}
+
+
+.brand-subtitle {
+    margin-top: 5px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    color: #6d7b75;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    display: flex;
+    align-items: center;
+
+    gap: 37px;
+
+    margin-left: auto;
+    margin-right: 65px;
+}
+
+.navbar a {
+    position: relative;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    color: #425c54;
+
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #155b47;
+}
+
+
+/* Small underline on hover */
+
+.navbar a::after {
+    content: "";
+
+    position: absolute;
+
+    width: 0;
+    height: 2px;
+
+    background: #185b47;
+
+    left: 0;
+    bottom: -7px;
+
+    transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.header-right {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-btn {
+    width: 28px;
+    height: 28px;
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: #155947;
+}
+
+.search-btn svg {
+    width: 25px;
+    height: 25px;
+}
+
+
+/* =========================
+   PLAN YOUR TRIP BUTTON
+========================= */
+
+.trip-btn {
+    height: 62px;
+
+    min-width: 261px;
+
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    text-decoration: none;
+
+    border-radius: 40px;
+
+    background: #185b47;
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.trip-btn:hover {
+    background: #114938;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 25px rgba(24, 91, 71, 0.18);
+}
+
+
+.arrow {
+    font-size: 27px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    margin-left: 20px;
+
+    transition: transform 0.3s ease;
+}
+
+.trip-btn:hover .arrow {
+    transform: translateX(5px);
+}
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.menu-btn {
+    display: none;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.menu-btn span {
+    display: block;
+
+    width: 25px;
+    height: 2px;
+
+    background: #185b47;
+
+    margin-left: auto;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1200px) {
+
+    .header {
+        padding: 0 30px;
+    }
+
+    .navbar {
+        gap: 22px;
+        margin-right: 30px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .trip-btn {
+        min-width: 220px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .header {
+        height: 85px;
+
+        padding: 0 25px;
+    }
+
+    .logo-circle {
+        width: 48px;
+        height: 48px;
+
+        margin-right: 12px;
+    }
+
+    .logo-circle svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .brand-name {
+        font-size: 21px;
+    }
+
+    .brand-subtitle {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .header-right {
+        margin-left: auto;
+        margin-right: 18px;
+    }
+
+    .trip-btn {
+        height: 48px;
+
+        min-width: auto;
+
+        padding: 0 20px;
+
+        font-size: 12px;
+
+        letter-spacing: 1px;
+    }
+
+    .search-btn {
+        display: none;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .header {
+        padding: 0 18px;
+    }
+
+    .logo-circle {
+        width: 43px;
+        height: 43px;
+
+        margin-right: 10px;
+    }
+
+    .brand-name {
+        font-size: 19px;
+    }
+
+    .brand-subtitle {
+        font-size: 8px;
+    }
+
+    .trip-btn {
+        display: none;
+    }
+}
+/* ========================================
+   HERO SECTION
+======================================== */
+
+.hero {
+    position: relative;
+
+    width: 100%;
+    height: calc(100vh - 105px);
+    min-height: 620px;
+
+    background-image: url("images/pexels-urtimud-89-76108288-32261668.jpg");
+    background-size: cover;
+    background-position: center center;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* ========================================
+   DARK GREEN OVERLAY
+======================================== */
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 46, 38, 0.88) 0%,
+            rgba(8, 46, 38, 0.70) 32%,
+            rgba(8, 46, 38, 0.42) 62%,
+            rgba(8, 46, 38, 0.18) 100%
+        );
+
+    z-index: 1;
+}
+
+
+/* Extra dark layer at bottom */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 35%;
+
+    background: linear-gradient(
+        to top,
+        rgba(5, 38, 32, 0.45),
+        transparent
+    );
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* ========================================
+   HERO CONTENT
+======================================== */
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    padding-left: 48px;
+
+    margin-top: -5px;
+}
+
+
+/* ========================================
+   HERO TITLE
+======================================== */
+
+.hero-title {
+    margin: 0;
+
+    color: #f7f5ed;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(75px, 7.4vw, 145px);
+
+    font-weight: 500;
+
+    line-height: 0.92;
+
+    letter-spacing: -5px;
+
+    max-width: 850px;
+}
+
+
+.hero-title span {
+    display: block;
+}
+
+
+/* Italic Lines */
+
+.hero-title .italic {
+    font-style: italic;
+
+    font-weight: 500;
+
+    color: #e9eee5;
+}
+
+
+/* ========================================
+   DESCRIPTION
+======================================== */
+
+.hero-description {
+    margin-top: 43px;
+
+    color: rgba(255, 255, 255, 0.90);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    font-weight: 400;
+
+    line-height: 1.95;
+
+    max-width: 720px;
+}
+
+
+/* ========================================
+   HERO ACTIONS
+======================================== */
+
+.hero-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    margin-top: 55px;
+}
+
+
+/* ========================================
+   EXPLORE BUTTON
+======================================== */
+
+.explore-btn {
+    height: 61px;
+
+    min-width: 327px;
+
+    padding: 0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    text-decoration: none;
+
+    background: #ffffff;
+
+    color: #214d41;
+
+    border-radius: 40px;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.explore-btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+
+.explore-arrow {
+    font-size: 28px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    margin-left: 20px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.explore-btn:hover .explore-arrow {
+    transform: translateX(5px);
+}
+
+
+/* ========================================
+   STORY BUTTON
+======================================== */
+
+.story-btn {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    text-decoration: none;
+
+    color: white;
+}
+
+
+/* Circle */
+
+.play-circle {
+    width: 66px;
+
+    height: 66px;
+
+    border: 1px solid rgba(255, 255, 255, 0.70);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.story-btn:hover .play-circle {
+    background: rgba(255, 255, 255, 0.15);
+
+    transform: scale(1.06);
+}
+
+
+/* Play Triangle */
+
+.play-icon {
+    width: 0;
+
+    height: 0;
+
+    border-top: 8px solid transparent;
+
+    border-bottom: 8px solid transparent;
+
+    border-left: 12px solid white;
+
+    margin-left: 4px;
+}
+
+
+/* Watch text */
+
+.story-text {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   REAL LOCAL AUTHENTIC
+======================================== */
+
+.authentic-text {
+
+    position: absolute;
+
+    z-index: 3;
+
+    right: 42px;
+
+    bottom: -7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(42px, 3.5vw, 68px);
+
+    font-weight: 700;
+
+    line-height: 0.82;
+
+    letter-spacing: -3px;
+
+    transform: rotate(-4deg);
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+.authentic-text span {
+    display: block;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1200px) {
+
+    .hero-content {
+        padding-left: 40px;
+    }
+
+    .hero-title {
+        font-size: clamp(65px, 8vw, 110px);
+
+        max-width: 720px;
+    }
+
+    .hero-description {
+        font-size: 18px;
+
+        margin-top: 35px;
+    }
+
+    .hero-actions {
+        margin-top: 40px;
+    }
+
+    .authentic-text {
+        right: 25px;
+    }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .hero {
+
+        height: calc(100vh - 85px);
+
+        min-height: 650px;
+
+        background-position: center;
+    }
+
+
+    .hero-content {
+
+        padding: 0 25px;
+
+        margin-top: -30px;
+    }
+
+
+    .hero-title {
+
+        font-size: clamp(55px, 12vw, 90px);
+
+        line-height: 0.94;
+
+        letter-spacing: -3px;
+
+        max-width: 650px;
+    }
+
+
+    .hero-description {
+
+        font-size: 16px;
+
+        line-height: 1.7;
+
+        margin-top: 35px;
+
+        max-width: 600px;
+    }
+
+
+    .hero-description br {
+        display: none;
+    }
+
+
+    .hero-actions {
+
+        margin-top: 35px;
+
+        gap: 18px;
+    }
+
+
+    .explore-btn {
+
+        min-width: 270px;
+
+        height: 55px;
+
+        font-size: 12px;
+
+        letter-spacing: 1.3px;
+    }
+
+
+    .play-circle {
+
+        width: 55px;
+
+        height: 55px;
+    }
+
+
+    .story-text {
+
+        font-size: 14px;
+    }
+
+
+    .authentic-text {
+
+        font-size: 40px;
+
+        right: 18px;
+
+        bottom: 10px;
+    }
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .hero {
+
+        min-height: 700px;
+
+        align-items: flex-start;
+    }
+
+
+    .hero-content {
+
+        padding: 60px 20px 0;
+    }
+
+
+    .hero-title {
+
+        font-size: 56px;
+
+        letter-spacing: -2px;
+
+        line-height: 0.95;
+    }
+
+
+    .hero-description {
+
+        font-size: 15px;
+
+        margin-top: 30px;
+
+        max-width: 95%;
+    }
+
+
+    .hero-actions {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        margin-top: 30px;
+    }
+
+
+    .explore-btn {
+
+        width: 270px;
+
+        min-width: 270px;
+    }
+
+
+    .story-btn {
+
+        margin-left: 5px;
+    }
+
+
+    .authentic-text {
+
+        font-size: 32px;
+
+        right: 15px;
+
+        bottom: 12px;
+    }
+}
+/* =========================================
+   JOURNEY SECTION
+========================================= */
+
+.journey-section {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 760px;
+
+    padding: 75px 42px 100px;
+
+    display: flex;
+
+    background: #f5f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.journey-left {
+
+    width: 68%;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.journey-title {
+
+    margin: 45px 0 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 4.4vw, 82px);
+
+    font-weight: 600;
+
+    line-height: 0.95;
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.journey-description {
+
+    margin-top: 28px;
+
+    color: #526c65;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 2;
+
+    font-weight: 400;
+}
+
+
+/* =========================================
+   CARDS GRID
+========================================= */
+
+.journey-cards {
+
+    margin-top: 60px;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+/* =========================================
+   CATEGORY CARD
+========================================= */
+
+.journey-card {
+
+    height: 155px;
+
+    background: #ffffff;
+
+    border-radius: 23px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 23px;
+
+    text-decoration: none;
+
+    color: #174f40;
+
+    box-shadow: 0 5px 25px rgba(35, 70, 60, 0.025);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.journey-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(35, 70, 60, 0.10);
+}
+
+
+/* =========================================
+   CARD ICON
+========================================= */
+
+.card-icon {
+
+    width: 35px;
+
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #17614c;
+}
+
+
+.card-icon svg {
+
+    width: 31px;
+
+    height: 31px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.6;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* =========================================
+   CARD TEXT
+========================================= */
+
+.journey-card span {
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #164e40;
+}
+
+
+/* =========================================
+   RIGHT SIDE
+========================================= */
+
+.journey-right {
+
+    position: relative;
+
+    width: 32%;
+
+    min-height: 650px;
+}
+
+
+/* =========================================
+   SMALL STAYS HEADING
+========================================= */
+
+.stay-heading {
+
+    position: absolute;
+
+    z-index: 3;
+
+    top: -25px;
+
+    left: 15px;
+
+    color: #347365;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 37px;
+
+    line-height: 0.9;
+
+    text-align: center;
+
+    transform: rotate(3deg);
+}
+
+
+.stay-heading span {
+
+    display: block;
+}
+
+
+/* =========================================
+   POLAROID
+========================================= */
+
+.polaroid {
+
+    position: absolute;
+
+    top: 25px;
+
+    right: 10px;
+
+    width: 455px;
+
+    padding: 16px 16px 32px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 20px 45px rgba(40, 58, 50, 0.13);
+
+    transform: rotate(3deg);
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   POLAROID IMAGE
+========================================= */
+
+.polaroid img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 520px;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border: none;
+}
+
+
+/* =========================================
+   POLAROID CAPTION
+========================================= */
+
+.polaroid p {
+
+    margin: 18px 0 0;
+
+    text-align: center;
+
+    color: #427367;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 23px;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1200px) {
+
+    .journey-section {
+
+        padding-left: 30px;
+
+        padding-right: 30px;
+    }
+
+
+    .journey-left {
+
+        width: 67%;
+    }
+
+
+    .journey-right {
+
+        width: 33%;
+    }
+
+
+    .journey-title {
+
+        font-size: 55px;
+    }
+
+
+    .journey-description {
+
+        font-size: 17px;
+    }
+
+
+    .journey-description br {
+
+        display: none;
+    }
+
+
+    .polaroid {
+
+        width: 350px;
+
+        right: -15px;
+    }
+
+
+    .polaroid img {
+
+        height: 430px;
+    }
+
+
+    .stay-heading {
+
+        font-size: 29px;
+
+        left: -5px;
+    }
+}
+
+
+/* =========================================
+   TABLET / SMALL LAPTOP
+========================================= */
+
+@media (max-width: 950px) {
+
+    .journey-section {
+
+        flex-direction: column;
+
+        padding: 70px 25px 80px;
+    }
+
+
+    .journey-left {
+
+        width: 100%;
+    }
+
+
+    .journey-right {
+
+        width: 100%;
+
+        height: 600px;
+
+        margin-top: 80px;
+    }
+
+
+    .journey-cards {
+
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    .polaroid {
+
+        right: 50%;
+
+        transform: translateX(50%) rotate(3deg);
+
+        width: 430px;
+    }
+
+
+    .stay-heading {
+
+        left: 50%;
+
+        transform:
+            translateX(-50%)
+            rotate(3deg);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .journey-section {
+
+        padding: 60px 18px 70px;
+    }
+
+
+    .journey-title {
+
+        margin-top: 0;
+
+        font-size: 48px;
+
+        line-height: 0.98;
+
+        letter-spacing: -2px;
+    }
+
+
+    .journey-description {
+
+        font-size: 16px;
+
+        line-height: 1.7;
+
+        margin-top: 25px;
+    }
+
+
+    .journey-cards {
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+
+        margin-top: 40px;
+    }
+
+
+    .journey-card {
+
+        height: 135px;
+
+        border-radius: 18px;
+
+        gap: 15px;
+    }
+
+
+    .journey-card span {
+
+        font-size: 14px;
+
+        text-align: center;
+    }
+
+
+    .card-icon {
+
+        width: 30px;
+
+        height: 30px;
+    }
+
+
+    .card-icon svg {
+
+        width: 27px;
+
+        height: 27px;
+    }
+
+
+    .journey-right {
+
+        height: 520px;
+
+        margin-top: 70px;
+    }
+
+
+    .stay-heading {
+
+        font-size: 28px;
+
+        top: -10px;
+    }
+
+
+    .polaroid {
+
+        width: 310px;
+
+        padding: 11px 11px 25px;
+
+        top: 35px;
+    }
+
+
+    .polaroid img {
+
+        height: 350px;
+    }
+
+
+    .polaroid p {
+
+        font-size: 19px;
+
+        margin-top: 14px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+    .journey-title {
+
+        font-size: 42px;
+    }
+
+
+    .journey-cards {
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .journey-card {
+
+        height: 125px;
+    }
+
+
+    .journey-right {
+
+        height: 480px;
+    }
+
+
+    .polaroid {
+
+        width: 285px;
+    }
+
+
+    .polaroid img {
+
+        height: 320px;
+    }
+}
+/* =========================================
+   FEATURED EXPERIENCES
+========================================= */
+
+.featured-section {
+
+    width: 100%;
+
+    padding: 70px 48px 100px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.featured-header {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 55px;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.featured-title {
+
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 4.3vw, 78px);
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================
+   VIEW ALL
+========================================= */
+
+.view-all {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    text-decoration: none;
+
+    color: #155b48;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+
+    margin-top: 10px;
+}
+
+
+.view-arrow {
+
+    font-size: 27px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+
+.view-all:hover .view-arrow {
+
+    transform: translateX(6px);
+}
+
+
+/* =========================================
+   EXPERIENCE GRID
+========================================= */
+
+.experience-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 30px;
+}
+
+
+/* =========================================
+   EXPERIENCE CARD
+========================================= */
+
+.experience-card {
+
+    min-width: 0;
+
+    position: relative;
+}
+
+
+/* =========================================
+   IMAGE LINK
+========================================= */
+
+.experience-image-link {
+
+    display: block;
+
+    width: 100%;
+
+    height: 370px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.experience-image {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.6s ease,
+        filter 0.4s ease;
+}
+
+
+.experience-card:hover .experience-image {
+
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   CARD INFORMATION
+========================================= */
+
+.experience-info {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding-top: 26px;
+}
+
+
+.experience-content {
+
+    min-width: 0;
+}
+
+
+/* =========================================
+   CATEGORY
+========================================= */
+
+.experience-category {
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   EXPERIENCE NAME
+========================================= */
+
+.experience-name {
+
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.8px;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.experience-description {
+
+    margin: 16px 0 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 19px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   CARD ARROW
+========================================= */
+
+.experience-arrow {
+
+    flex-shrink: 0;
+
+    width: 50px;
+
+    height: 50px;
+
+    border: 1px solid #cbd9d3;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    color: #185b47;
+
+    font-size: 26px;
+
+    font-weight: 300;
+
+    margin-top: 38px;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.experience-arrow:hover {
+
+    background: #185b47;
+
+    color: #ffffff;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================
+   CARD 2 SLIGHTLY HIGHER
+========================================= */
+
+
+
+
+/* =========================================
+   CARD 3
+========================================= */
+
+.experience-card:nth-child(3) {
+
+    margin-top: 0;
+}
+
+
+/* =========================================
+   CARD 4
+========================================= */
+
+.experience-card:nth-child(4) {
+
+    margin-top: 0;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .featured-section {
+
+        padding-left: 30px;
+
+        padding-right: 30px;
+    }
+
+
+    .experience-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        row-gap: 55px;
+
+        column-gap: 25px;
+    }
+
+
+    .experience-card:nth-child(2) {
+
+        margin-top: 0;
+    }
+
+
+    .experience-image-link {
+
+        height: 390px;
+    }
+
+
+    .experience-name {
+
+        font-size: 28px;
+    }
+}
+
+
+/* =========================================
+   TABLET SMALL
+========================================= */
+
+@media (max-width: 800px) {
+
+    .featured-section {
+
+        padding: 60px 25px 80px;
+    }
+
+
+    .featured-header {
+
+        margin-bottom: 40px;
+
+        align-items: flex-end;
+    }
+
+
+    .featured-title {
+
+        font-size: 53px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .view-all {
+
+        font-size: 12px;
+
+        letter-spacing: 1.4px;
+
+        gap: 10px;
+    }
+
+
+    .view-arrow {
+
+        font-size: 22px;
+    }
+
+
+    .experience-grid {
+
+        gap: 40px 18px;
+    }
+
+
+    .experience-image-link {
+
+        height: 330px;
+
+        border-radius: 18px;
+    }
+
+
+    .experience-info {
+
+        padding-top: 20px;
+    }
+
+
+    .experience-category {
+
+        font-size: 12px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .experience-name {
+
+        font-size: 25px;
+    }
+
+
+    .experience-description {
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    .experience-arrow {
+
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .featured-section {
+
+        padding: 55px 18px 70px;
+    }
+
+
+    .featured-header {
+
+        display: block;
+
+        margin-bottom: 35px;
+    }
+
+
+    .featured-title {
+
+        font-size: 48px;
+
+        line-height: 0.98;
+
+        letter-spacing: -2px;
+    }
+
+
+    .view-all {
+
+        margin-top: 20px;
+
+        justify-content: flex-start;
+    }
+
+
+    .experience-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+
+    .experience-image-link {
+
+        height: 380px;
+
+        border-radius: 20px;
+    }
+
+
+    .experience-name {
+
+        font-size: 29px;
+    }
+
+
+    .experience-description {
+
+        font-size: 17px;
+    }
+
+
+    .experience-arrow {
+
+        width: 48px;
+
+        height: 48px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .featured-title {
+
+        font-size: 42px;
+    }
+
+
+    .experience-image-link {
+
+        height: 330px;
+    }
+
+
+    .experience-name {
+
+        font-size: 26px;
+    }
+
+
+    .experience-description {
+
+        font-size: 16px;
+    }
+}
+/* =========================================
+   REAL STORIES SECTION
+========================================= */
+
+.real-stories {
+    width: 100%;
+    min-height: 700px;
+    height: 100vh;
+    max-height: 800px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background: #183d34;
+}
+
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.story-left {
+    position: relative;
+    min-height: 700px;
+
+    background-image:
+        linear-gradient(
+            rgba(16, 52, 45, 0.72),
+            rgba(16, 52, 45, 0.78)
+        ),
+        url("images/pexels-harsh-kukadiya-244412142-31756509.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* Extra dark gradient */
+.story-left::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to right,
+        rgba(12, 45, 38, 0.15),
+        rgba(12, 45, 38, 0.20)
+    );
+
+    pointer-events: none;
+}
+
+
+/* Content */
+
+.story-content {
+    position: absolute;
+    z-index: 2;
+
+    left: 12%;
+    bottom: 9%;
+
+    color: #fff;
+}
+
+
+/* Quote */
+
+.quote-mark {
+    font-family: "Playfair Display", serif;
+    font-size: 70px;
+    line-height: 40px;
+
+    margin-bottom: 28px;
+}
+
+
+/* Heading */
+
+.story-content h2 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+    font-size: clamp(42px, 4vw, 62px);
+    font-weight: 400;
+    line-height: 0.96;
+
+    letter-spacing: -2px;
+}
+
+
+/* Author */
+
+.story-author {
+    margin-top: 28px;
+    margin-bottom: 36px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+
+    color: #ffffff;
+}
+
+
+/* Link */
+
+.story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition: all 0.3s ease;
+}
+
+.story-link span {
+    font-size: 27px;
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+.story-link:hover span {
+    transform: translateX(7px);
+}
+
+
+/* =========================================
+   RIGHT SIDE
+========================================= */
+
+.story-right {
+    position: relative;
+    overflow: hidden;
+
+    background: #222;
+}
+
+
+/* Person image */
+
+.story-person-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* =========================================
+   PLAY BUTTON
+========================================= */
+
+.story-play-button {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 96px;
+    height: 96px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    z-index: 5;
+}
+
+
+.story-play-button span {
+    margin-left: 5px;
+
+    color: #176048;
+    font-size: 25px;
+}
+
+
+.story-play-button:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   RIGHT BOTTOM TEXT
+========================================= */
+
+.story-label {
+    position: absolute;
+
+    right: 7%;
+    bottom: 7%;
+
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    color: #fff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(35px, 3.2vw, 55px);
+    font-weight: 400;
+
+    line-height: 0.78;
+
+    transform: rotate(-5deg);
+
+    text-align: right;
+
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .real-stories {
+        height: auto;
+        min-height: 900px;
+
+        grid-template-columns: 1fr;
+    }
+
+    .story-left {
+        min-height: 500px;
+    }
+
+    .story-right {
+        min-height: 500px;
+    }
+
+    .story-content {
+        left: 8%;
+        bottom: 10%;
+    }
+
+    .story-content h2 {
+        font-size: 48px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .real-stories {
+        display: block;
+        min-height: auto;
+    }
+
+    .story-left {
+        min-height: 520px;
+    }
+
+    .story-right {
+        height: 520px;
+        min-height: 520px;
+    }
+
+    .story-content {
+        left: 7%;
+        right: 7%;
+        bottom: 10%;
+    }
+
+    .quote-mark {
+        font-size: 55px;
+        margin-bottom: 20px;
+    }
+
+    .story-content h2 {
+        font-size: 39px;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .story-author {
+        font-size: 15px;
+        margin-top: 22px;
+        margin-bottom: 28px;
+    }
+
+    .story-link {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+    }
+
+    .story-play-button {
+        width: 75px;
+        height: 75px;
+    }
+
+    .story-play-button span {
+        font-size: 20px;
+    }
+
+    .story-label {
+        right: 6%;
+        bottom: 7%;
+
+        font-size: 35px;
+    }
+
+}
+/* =========================================
+   OUR PACKAGES
+========================================= */
+
+.packages-section {
+    width: 100%;
+    padding: 75px 44px 100px;
+
+    background: #f6f5ee;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.packages-header {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    margin-bottom: 65px;
+}
+
+
+.packages-header h2 {
+    margin: 0;
+
+    color: #143f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 5vw, 76px);
+    font-weight: 400;
+
+    line-height: 0.95;
+
+    letter-spacing: -2px;
+}
+
+
+.packages-header p {
+    margin: 28px 0 0;
+
+    color: #426779;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 21px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   VIEW ALL PACKAGES
+========================================= */
+
+.view-packages {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    margin-bottom: 2px;
+
+    color: #155b48;
+
+    text-decoration: none;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+}
+
+
+.view-packages span {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+
+.view-packages:hover span {
+    transform: translateX(7px);
+}
+
+
+/* =========================================
+   PACKAGES GRID
+========================================= */
+
+.packages-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 30px;
+}
+
+
+/* =========================================
+   PACKAGE CARD
+========================================= */
+
+.package-card {
+    overflow: hidden;
+
+    background: #fbfaf5;
+
+    border: 1px solid #dce1db;
+
+    border-radius: 22px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.package-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(20, 63, 52, 0.10);
+}
+
+
+/* =========================================
+   PACKAGE IMAGE
+========================================= */
+
+.package-image {
+    width: 100%;
+    height: 400px;
+
+    overflow: hidden;
+}
+
+
+.package-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.package-card:hover .package-image img {
+    transform: scale(1.04);
+}
+
+
+/* =========================================
+   PACKAGE CONTENT
+========================================= */
+
+.package-content {
+    padding: 35px 30px 34px;
+}
+
+
+/* =========================================
+   TITLE + ARROW
+========================================= */
+
+.package-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+
+.package-title-row h3 {
+    margin: 0;
+
+    color: #073e34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+    font-weight: 400;
+
+    line-height: 1.15;
+}
+
+
+.package-days {
+    display: block;
+
+    margin-top: 10px;
+
+    color: #668277;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 17px;
+    font-weight: 500;
+}
+
+
+.package-arrow {
+    flex-shrink: 0;
+
+    color: #17604c;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 30px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+
+.package-arrow:hover {
+    transform: translateX(6px);
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.package-content > p {
+    margin: 30px 0 0;
+
+    color: #4d7181;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .packages-section {
+        padding: 65px 30px 80px;
+    }
+
+    .packages-header {
+        margin-bottom: 45px;
+    }
+
+    .packages-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .package-image {
+        height: 360px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .packages-section {
+        padding: 55px 20px 70px;
+    }
+
+    .packages-header {
+        display: block;
+    }
+
+    .packages-header h2 {
+        font-size: 52px;
+    }
+
+    .packages-header p {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    .view-packages {
+        margin-top: 30px;
+    }
+
+    .packages-grid {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+    .package-image {
+        height: 330px;
+    }
+
+    .package-content {
+        padding: 28px 24px 30px;
+    }
+
+    .package-title-row h3 {
+        font-size: 27px;
+    }
+
+    .package-content > p {
+        font-size: 17px;
+        margin-top: 25px;
+    }
+
+}
+/* =========================================
+   FINAL CTA SECTION
+========================================= */
+
+.final-cta {
+    position: relative;
+
+    width: 100%;
+    min-height: 700px;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            rgba(5, 42, 34, 0.90),
+            rgba(5, 42, 34, 0.92)
+        ),
+        url("images/pexels-ex-route-adventures-656223369-20282345.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* =========================================
+   BACKGROUND OVERLAY
+========================================= */
+
+.final-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 55% 30%,
+            rgba(20, 91, 72, 0.25),
+            transparent 45%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.final-cta-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    min-height: 700px;
+
+    padding: 110px 47px 90px;
+
+    display: grid;
+
+    grid-template-columns: 1.25fr 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+}
+
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.cta-left {
+    color: #ffffff;
+}
+
+
+.cta-small-title {
+    margin-bottom: 34px;
+
+    color: #e7d9a7;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+.cta-left h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 5.3vw, 78px);
+
+    font-weight: 400;
+
+    line-height: 0.98;
+
+    letter-spacing: -2.5px;
+}
+
+
+.cta-left p {
+    margin: 30px 0 42px;
+
+    color: #f1e7c4;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   GET IN TOUCH BUTTON
+========================================= */
+
+.cta-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    min-width: 240px;
+
+    padding: 20px 30px;
+
+    border-radius: 50px;
+
+    background: #ffffff;
+
+    color: #103f34;
+
+    text-decoration: none;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition: all 0.3s ease;
+}
+
+
+.cta-button span {
+    font-size: 28px;
+
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+
+.cta-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+.cta-button:hover span {
+    transform: translateX(6px);
+}
+
+
+/* =========================================
+   RIGHT FEATURES
+========================================= */
+
+.cta-features {
+    min-height: 135px;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+
+    padding-left: 45px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    align-items: center;
+
+    gap: 35px;
+}
+
+
+/* =========================================
+   FEATURE
+========================================= */
+
+.cta-feature {
+    text-align: center;
+
+    color: #ffffff;
+}
+
+
+.feature-icon {
+    width: 42px;
+    height: 42px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.feature-icon svg {
+    width: 35px;
+    height: 35px;
+
+    stroke: #dce5d5;
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.cta-feature h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .final-cta-content {
+        grid-template-columns: 1fr;
+
+        padding: 90px 45px;
+
+        gap: 70px;
+    }
+
+
+    .cta-left h2 {
+        font-size: 60px;
+    }
+
+
+    .cta-features {
+        width: 100%;
+
+        border-left: none;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+
+        padding-left: 0;
+
+        padding-top: 45px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .final-cta {
+        min-height: auto;
+    }
+
+
+    .final-cta-content {
+        min-height: auto;
+
+        padding: 75px 25px 70px;
+
+        gap: 60px;
+    }
+
+
+    .cta-small-title {
+        font-size: 11px;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .cta-left h2 {
+        font-size: 45px;
+
+        line-height: 1;
+
+        letter-spacing: -1.5px;
+    }
+
+
+    .cta-left p {
+        font-size: 17px;
+
+        margin: 25px 0 32px;
+    }
+
+
+    .cta-button {
+        min-width: 210px;
+
+        padding: 17px 25px;
+
+        font-size: 13px;
+    }
+
+
+    .cta-features {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+        padding-top: 35px;
+    }
+
+
+    .cta-feature {
+        display: flex;
+
+        align-items: center;
+
+        text-align: left;
+
+        gap: 20px;
+    }
+
+
+    .feature-icon {
+        flex-shrink: 0;
+
+        margin: 0;
+    }
+
+
+    .cta-feature h3 {
+        font-size: 14px;
+    }
+
+}
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+    width: 100%;
+
+    background: #123f34;
+
+    color: #ffffff;
+
+    padding: 75px 48px 25px;
+}
+
+
+/* =========================================
+   FOOTER MAIN
+========================================= */
+
+.footer-main {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        1.35fr
+        0.85fr
+        0.85fr
+        1.4fr;
+
+    gap: 70px;
+
+    padding-bottom: 100px;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Logo */
+
+.footer-logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+.footer-logo-icon {
+    width: 60px;
+    height: 60px;
+
+    border: 1px solid rgba(255,255,255,0.75);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.footer-logo-icon svg {
+    width: 34px;
+    height: 34px;
+
+    stroke: #ffffff;
+
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.footer-logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.footer-logo-text strong {
+    font-family: "Playfair Display", serif;
+
+    font-size: 29px;
+
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+
+.footer-logo-text span {
+    margin-top: 4px;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+}
+
+
+/* Tagline */
+
+.footer-tagline {
+    margin: 40px 0 0;
+
+    color: #c5d7cf;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   SOCIAL ICONS
+========================================= */
+
+.footer-socials {
+    display: flex;
+
+    gap: 23px;
+
+    margin-top: 38px;
+}
+
+
+.footer-socials a {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+}
+
+
+.footer-socials svg {
+    width: 24px;
+    height: 24px;
+
+    stroke: currentColor;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    fill: none;
+
+    transition: transform 0.3s ease;
+}
+
+
+.footer-socials a:hover svg {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   FOOTER COLUMNS
+========================================= */
+
+.footer-column {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+
+.footer-column h3 {
+    margin: 0 0 12px;
+
+    color: #cbdccf;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+.footer-column a {
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    transition: color 0.3s ease;
+}
+
+
+.footer-column a:hover {
+    color: #c9dfd4;
+}
+
+
+/* =========================================
+   NEWSLETTER
+========================================= */
+
+.footer-newsletter h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 37px;
+
+    font-weight: 400;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+.footer-newsletter > p {
+    margin: 25px 0 35px;
+
+    color: #c5d7cf;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   NEWSLETTER FORM
+========================================= */
+
+.newsletter-form {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    border-bottom: 1px solid rgba(255,255,255,0.45);
+
+    padding-bottom: 14px;
+}
+
+
+.newsletter-form input {
+    flex: 1;
+
+    min-width: 0;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 18px;
+}
+
+
+.newsletter-form input::placeholder {
+    color: #c5d7cf;
+
+    opacity: 1;
+}
+
+
+.newsletter-form button {
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.newsletter-form button svg {
+    width: 27px;
+    height: 27px;
+
+    stroke: currentColor;
+
+    fill: none;
+
+    stroke-width: 1.6;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+
+/* =========================================
+   FOOTER BOTTOM
+========================================= */
+
+.footer-bottom {
+    width: 100%;
+
+    padding-top: 35px;
+
+    border-top: 1px solid rgba(255,255,255,0.25);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.footer-bottom p {
+    margin: 0;
+
+    color: #b9d0c7;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .site-footer {
+        padding: 65px 35px 25px;
+    }
+
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 60px;
+
+        padding-bottom: 70px;
+    }
+
+
+    .footer-brand {
+        grid-column: span 2;
+    }
+
+
+    .footer-newsletter {
+        grid-column: span 2;
+    }
+
+}
+
+/* =========================================
+MOBILE NAVBAR - FINAL FIX
+========================================= */
+
+@media (max-width: 900px) {
+.header {
+position: relative;
+width: 100%;
+height: 85px;
+padding: 0 20px;
+display: flex;
+flex-wrap: nowrap;
+align-items: center;
+justify-content: space-between;
+}
+
+
+/* Mobile dropdown menu */
+.navbar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 12px 22px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: #e8eeeb;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+}
+
+.navbar.active {
+    display: flex;
+}
+
+.navbar a {
+    display: block;
+    width: 100%;
+    padding: 13px 0;
+    font-size: 13px;
+}
+
+/* Right side buttons */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 12px 0 auto;
+    flex-shrink: 0;
+}
+
+/* Search button */
+.search-btn {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 35px;
+    flex-shrink: 0;
+}
+
+.search-btn::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #155947;
+    border-radius: 50%;
+}
+
+.search-btn::after {
+    content: "";
+    position: absolute;
+    top: 23px;
+    left: 18px;
+    width: 7px;
+    height: 2px;
+    background: #155947;
+    transform: rotate(45deg);
+    transform-origin: left center;
+}
+
+/* Plan your trip button */
+.trip-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    min-width: 0;
+    padding: 0 13px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.trip-btn .arrow {
+    font-size: 19px;
+    margin-left: 8px;
+}
+
+/* Hamburger button */
+.menu-btn {
+    display: flex;
+    flex-shrink: 0;
+    width: 35px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #185b47;
+}
+
+}
+
+/* Small mobile */
+@media (max-width: 600px) {
+.header {
+padding: 0 12px;
+}
+
+.logo-circle {
+    width: 38px;
+    height: 38px;
+    margin-right: 7px;
+}
+
+.logo-circle svg {
+    width: 29px;
+    height: 29px;
+}
+
+.brand-name {
+    font-size: 17px;
+}
+
+.brand-subtitle {
+    font-size: 7px;
+    letter-spacing: 2px;
+}
+
+.header-right {
+    gap: 7px;
+    margin-right: 7px;
+}
+
+.trip-btn {
+    height: 36px;
+    padding: 0 8px;
+    font-size: 9px;
+    letter-spacing: 0;
+}
+
+.trip-btn .arrow {
+    display: none;
+}
+
+.search-btn {
+    width: 24px;
+}
+
+.menu-btn {
+    width: 30px;
+}
+
+
+}
+
+/* Very small mobile */
+@media (max-width: 360px) {
+.header {
+padding: 0 8px;
+}
+
+
+.logo-circle {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+}
+
+.brand-name {
+    font-size: 15px;
+}
+
+.brand-subtitle {
+    font-size: 6px;
+    letter-spacing: 1.5px;
+}
+
+.header-right {
+    gap: 5px;
+    margin-right: 4px;
+}
+
+.trip-btn {
+    padding: 0 6px;
+    font-size: 8px;
+}
+
+}

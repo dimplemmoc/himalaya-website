@@ -1,0 +1,2252 @@
+/* =========================================
+   EXPERIENCE PAGE
+   Does NOT modify navbar or footer
+========================================= */
+
+.experience-page {
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/* =========================================
+RESPONSIVE CATEGORY LAYOUT
+Navbar and footer remain unchanged
+========================================= */
+
+.experience-categories {
+width: 100%;
+padding: 70px 5%;
+background: #ffffff;
+box-sizing: border-box;
+}
+
+.category-list {
+width: 100%;
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+align-items: stretch;
+gap: 18px;
+border: none;
+}
+
+/* Category items */
+.experience-categories .category-item {
+flex: 0 1 calc(33.333% - 18px);
+min-width: 220px;
+min-height: 85px;
+padding: 18px 22px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+box-sizing: border-box;
+
+
+background: #f5f4ed;
+border: 1px solid #d9dfda;
+border-radius: 8px;
+
+color: #123f34;
+text-decoration: none;
+transition: background 0.3s ease, transform 0.3s ease;
+
+
+}
+
+.category-item:hover,
+.category-item.active {
+background: #e7eee8;
+transform: translateY(-3px);
+}
+
+/* Number, title and arrow */
+.category-number {
+flex-shrink: 0;
+color: #8aa098;
+font-size: 12px;
+font-weight: 700;
+}
+
+.category-name {
+flex: 1;
+font-family: "Playfair Display", serif;
+font-size: 23px;
+line-height: 1.2;
+}
+
+.category-arrow {
+flex-shrink: 0;
+font-size: 20px;
+transition: transform 0.3s ease;
+}
+
+.category-item:hover .category-arrow {
+transform: translateX(5px);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+.experience-categories {
+padding: 60px 5%;
+}
+
+
+.category-list {
+    gap: 14px;
+}
+
+.experience-categories .category-item {
+    flex-basis: calc(50% - 14px);
+    min-width: 0;
+    min-height: 75px;
+    padding: 16px;
+}
+
+.category-name {
+    font-size: 21px;
+}
+
+
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+.experience-categories {
+padding: 45px 18px;
+}
+
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.experience-categories .category-item {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 65px;
+    padding: 15px 18px;
+}
+
+.category-name {
+    font-size: 21px;
+}
+
+
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+.experience-categories {
+padding: 35px 14px;
+}
+
+
+.experience-categories .category-item {
+    min-height: 60px;
+    padding: 13px;
+}
+
+.category-name {
+    font-size: 19px;
+}
+
+}
+
+/* ===== EXPERIENCE CATEGORY PILLS ===== */
+
+.experience-categories {
+    width: 100%;
+    padding: 35px 3%;
+    background: #fbfaf6;
+    box-sizing: border-box;
+}
+
+.category-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 12px;
+    width: 100%;
+    border: none;
+}
+
+/* Individual category */
+.experience-categories .category-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 0;
+    width: auto;
+    padding: 13px 24px;
+    border: none;
+    border-radius: 50px;
+    background: #edf1eb;
+    color: #496b65;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* Hide old numbers and arrows, if present */
+.category-number,
+.category-arrow {
+    display: none;
+}
+
+/* Active pill */
+.experience-categories .category-item.active {
+    background: #195b48;
+    color: #fff;
+}
+
+/* Hover */
+.experience-categories .category-item:hover {
+    background: #195b48;
+    color: #fff;
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 1100px) {
+    .category-list {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+    }
+
+    .category-list::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .experience-categories {
+        padding: 25px 16px;
+    }
+
+    .category-list {
+        gap: 8px;
+    }
+
+    .experience-categories .category-item {
+        padding: 11px 17px;
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.experience-hero {
+    position: relative;
+
+    width: 100%;
+    height: 88vh;
+    min-height: 600px;
+
+    background-image: url("./images/pexels-achyutha-b-s-2567973-34265169.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #fff;
+}
+
+
+.experience-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.30),
+            rgba(0, 0, 0, 0.55)
+        );
+}
+
+
+.experience-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+
+    max-width: 900px;
+}
+
+
+/* Small text */
+
+.experience-eyebrow {
+    margin: 0 0 22px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    color: #f1e8d8;
+}
+
+
+/* EXPERIENCE */
+
+.experience-hero h1 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(65px, 11vw, 145px);
+
+    font-weight: 400;
+
+    line-height: 0.95;
+
+    letter-spacing: 10px;
+
+    text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Subtitle */
+
+.experience-subtitle {
+    margin: 30px auto 0;
+
+    max-width: 650px;
+
+    font-size: 19px;
+
+    line-height: 1.7;
+
+    color: #fff;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.experience-intro {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 120px 25px;
+
+    text-align: center;
+}
+
+
+.experience-label {
+    margin-bottom: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    color: #927655;
+}
+
+
+.experience-intro h2 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1.15;
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+.experience-intro h2 em {
+    color: #987d5b;
+}
+
+
+.experience-intro-text {
+    max-width: 650px;
+
+    margin: 30px auto 0;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color: #687168;
+}
+
+
+/* =========================================
+   EXPERIENCE LIST
+========================================= */
+
+.experience-list {
+    padding: 100px 6% 130px;
+
+    background: #eeeae2;
+}
+
+
+.experience-heading {
+    max-width: 700px;
+
+    margin: 0 auto 60px;
+
+    text-align: center;
+}
+
+
+.experience-heading h2 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(40px, 5vw, 60px);
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+/* =========================================
+   CARDS GRID
+========================================= */
+
+.experience-grid {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 35px;
+}
+
+
+.experience-card {
+    background: #f9f7f2;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+.experience-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(35, 45, 38, 0.13);
+}
+
+
+/* Card image */
+
+.experience-card-image {
+    height: 380px;
+
+    overflow: hidden;
+}
+
+
+.experience-card-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.6s ease;
+}
+
+
+.experience-card:hover
+.experience-card-image img {
+    transform: scale(1.06);
+}
+
+
+/* Card content */
+
+.experience-card-content {
+    padding: 32px;
+}
+
+
+.experience-number {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #987d5b;
+}
+
+
+.experience-card h3 {
+    margin: 12px 0 14px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 31px;
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+.experience-card p {
+    margin: 0 0 22px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #687168;
+}
+
+
+.experience-card a {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #26372d;
+
+    transition: color 0.3s ease;
+}
+
+
+.experience-card a:hover {
+    color: #987d5b;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.experience-cta {
+    position: relative;
+
+    min-height: 550px;
+
+    background-image: url("../images/himalayan-village.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #fff;
+}
+
+
+.experience-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(20, 31, 24, 0.55);
+}
+
+
+.experience-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+
+    max-width: 800px;
+}
+
+
+.experience-cta-content .experience-label {
+    color: #eadfce;
+}
+
+
+.experience-cta-content h2 {
+    margin: 0 0 30px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(45px, 6vw, 75px);
+
+    line-height: 1.1;
+
+    font-weight: 400;
+}
+
+
+.experience-cta-content a {
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    border: 1px solid #fff;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    transition: all 0.3s ease;
+}
+
+
+.experience-cta-content a:hover {
+    background: #fff;
+
+    color: #26372d;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-card-image {
+        height: 420px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .experience-hero {
+        height: 80vh;
+
+        min-height: 520px;
+    }
+
+
+    .experience-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .experience-hero h1 {
+        font-size: 50px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .experience-subtitle {
+        font-size: 15px;
+
+        line-height: 1.6;
+    }
+
+
+    .experience-intro {
+        padding: 80px 25px;
+    }
+
+
+    .experience-intro h2 {
+        font-size: 40px;
+    }
+
+
+    .experience-list {
+        padding: 80px 20px 90px;
+    }
+
+
+    .experience-card-image {
+        height: 300px;
+    }
+
+
+    .experience-card-content {
+        padding: 25px;
+    }
+
+
+    .experience-card h3 {
+        font-size: 28px;
+    }
+
+
+    .experience-cta {
+        min-height: 480px;
+    }
+
+}
+/* =========================================
+   EXPERIENCE PAGE
+   Does NOT modify navbar or footer
+========================================= */
+
+.experience-page {
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.experience-hero {
+    position: relative;
+
+    width: 100%;
+    height: 88vh;
+    min-height: 600px;
+
+    background-image: url("../images/himalayan-experience.jpg");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #fff;
+}
+
+
+.experience-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.30),
+            rgba(0, 0, 0, 0.55)
+        );
+}
+
+
+.experience-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+
+    max-width: 900px;
+}
+
+
+/* Small text */
+
+.experience-eyebrow {
+    margin: 0 0 22px;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    color: #f1e8d8;
+}
+
+
+/* EXPERIENCE */
+
+.experience-hero h1 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(65px, 11vw, 145px);
+
+    font-weight: 400;
+
+    line-height: 0.95;
+
+    letter-spacing: 10px;
+
+    text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Subtitle */
+
+.experience-subtitle {
+    margin: 30px auto 0;
+
+    max-width: 650px;
+
+    font-size: 19px;
+
+    line-height: 1.7;
+
+    color: #fff;
+}
+
+
+/* =========================================
+   INTRO
+========================================= */
+
+.experience-intro {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    padding: 120px 25px;
+
+    text-align: center;
+}
+
+
+.experience-label {
+    margin-bottom: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    color: #927655;
+}
+
+
+.experience-intro h2 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1.15;
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+.experience-intro h2 em {
+    color: #987d5b;
+}
+
+
+.experience-intro-text {
+    max-width: 650px;
+
+    margin: 30px auto 0;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color: #687168;
+}
+
+
+/* =========================================
+   EXPERIENCE LIST
+========================================= */
+
+.experience-list {
+    padding: 100px 6% 130px;
+
+    background: #eeeae2;
+}
+
+
+.experience-heading {
+    max-width: 700px;
+
+    margin: 0 auto 60px;
+
+    text-align: center;
+}
+
+
+.experience-heading h2 {
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(40px, 5vw, 60px);
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+/* =========================================
+   CARDS GRID
+========================================= */
+
+.experience-grid {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 35px;
+}
+
+
+.experience-card {
+    background: #f9f7f2;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+.experience-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(35, 45, 38, 0.13);
+}
+
+
+/* Card image */
+
+.experience-card-image {
+    height: 380px;
+
+    overflow: hidden;
+}
+
+
+.experience-card-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.6s ease;
+}
+
+
+.experience-card:hover
+.experience-card-image img {
+    transform: scale(1.06);
+}
+
+
+/* Card content */
+
+.experience-card-content {
+    padding: 32px;
+}
+
+
+.experience-number {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #987d5b;
+}
+
+
+.experience-card h3 {
+    margin: 12px 0 14px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 31px;
+
+    font-weight: 400;
+
+    color: #26372d;
+}
+
+
+.experience-card p {
+    margin: 0 0 22px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #687168;
+}
+
+
+.experience-card a {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #26372d;
+
+    transition: color 0.3s ease;
+}
+
+
+.experience-card a:hover {
+    color: #987d5b;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.experience-cta {
+    position: relative;
+
+    min-height: 550px;
+
+    background-image: url("../images/himalayan-village.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color: #fff;
+}
+
+
+.experience-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(20, 31, 24, 0.55);
+}
+
+
+.experience-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+
+    max-width: 800px;
+}
+
+
+.experience-cta-content .experience-label {
+    color: #eadfce;
+}
+
+
+.experience-cta-content h2 {
+    margin: 0 0 30px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(45px, 6vw, 75px);
+
+    line-height: 1.1;
+
+    font-weight: 400;
+}
+
+
+.experience-cta-content a {
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    border: 1px solid #fff;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    transition: all 0.3s ease;
+}
+
+
+.experience-cta-content a:hover {
+    background: #fff;
+
+    color: #26372d;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-card-image {
+        height: 420px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .experience-hero {
+        height: 80vh;
+
+        min-height: 520px;
+    }
+
+
+    .experience-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .experience-hero h1 {
+        font-size: 50px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .experience-subtitle {
+        font-size: 15px;
+
+        line-height: 1.6;
+    }
+
+
+    .experience-intro {
+        padding: 80px 25px;
+    }
+
+
+    .experience-intro h2 {
+        font-size: 40px;
+    }
+
+
+    .experience-list {
+        padding: 80px 20px 90px;
+    }
+
+
+    .experience-card-image {
+        height: 300px;
+    }
+
+
+    .experience-card-content {
+        padding: 25px;
+    }
+
+
+    .experience-card h3 {
+        font-size: 28px;
+    }
+
+
+    .experience-cta {
+        min-height: 480px;
+    }
+
+}
+/* =========================================================
+   EXPERIENCE PAGE
+========================================================= */
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.experience-hero {
+    position: relative;
+    width: 100%;
+    min-height: 680px;
+    height: calc(100vh - 105px);
+
+    background-image: url("images/experience-hero.jpg");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.experience-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10, 48, 40, 0.82),
+            rgba(10, 48, 40, 0.35),
+            rgba(10, 48, 40, 0.55)
+        );
+}
+
+
+.experience-hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1000px;
+
+    padding: 40px;
+
+    text-align: center;
+    color: #ffffff;
+}
+
+
+.experience-hero-small {
+    margin: 0 0 28px;
+
+    color: #e8d9a5;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+
+.experience-hero-content h1 {
+    margin: 0;
+
+    color: #f8f6ee;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(75px, 11vw, 155px);
+
+    font-weight: 500;
+
+    line-height: 0.9;
+
+    letter-spacing: -6px;
+}
+
+
+.experience-hero-subtitle {
+    max-width: 700px;
+
+    margin: 38px auto 0;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.experience-intro {
+    padding: 115px 30px 105px;
+
+    background: #f5f4ed;
+
+    text-align: center;
+}
+
+
+.section-small-title {
+    margin: 0 0 22px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+.experience-intro h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(50px, 6vw, 82px);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -4px;
+}
+
+
+.experience-intro > p:last-child {
+    max-width: 720px;
+
+    margin: 35px auto 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.experience-categories {
+    padding: 105px 7% 110px;
+
+    background: #ffffff;
+}
+
+
+.categories-heading {
+    margin-bottom: 55px;
+}
+
+
+.categories-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 5vw, 70px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.category-list {
+    border-top: 1px solid #d9dfda;
+}
+
+
+.category-item {
+    min-height: 88px;
+
+    display: grid;
+
+    grid-template-columns: 80px 1fr 60px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    border-bottom: 1px solid #d9dfda;
+
+    color: #123f34;
+
+    text-decoration: none;
+
+    transition:
+        padding 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.category-item:hover,
+.category-item.active {
+    padding-left: 20px;
+
+    background: #f5f4ed;
+}
+
+
+.category-number {
+    color: #8aa098;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.category-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+
+    font-weight: 500;
+}
+
+
+.category-arrow {
+    font-size: 22px;
+
+    text-align: right;
+
+    transition: transform 0.3s ease;
+}
+
+
+.category-item:hover .category-arrow {
+    transform: translateX(7px);
+}
+
+
+/* =========================================================
+   EXPERIENCES SECTION
+========================================================= */
+
+.experiences-section {
+    padding: 110px 7% 120px;
+
+    background: #f5f4ed;
+}
+
+
+.experiences-heading {
+    margin-bottom: 60px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.experiences-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 5vw, 72px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.experiences-heading-text {
+    max-width: 400px;
+
+    margin: 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   EXPERIENCE GRID
+========================================================= */
+
+.experience-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 55px 35px;
+}
+
+
+/* =========================================================
+   BLOG CARD
+========================================================= */
+
+.experience-blog-card {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 10px 35px rgba(18, 63, 52, 0.06);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.experience-blog-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 22px 50px rgba(18, 63, 52, 0.13);
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.experience-image-link {
+    position: relative;
+
+    display: block;
+
+    height: 430px;
+
+    overflow: hidden;
+}
+
+
+.experience-image-link img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.7s ease;
+}
+
+
+.experience-blog-card:hover .experience-image-link img {
+    transform: scale(1.05);
+}
+
+
+.experience-card-location {
+    position: absolute;
+
+    left: 25px;
+    bottom: 25px;
+
+    padding: 9px 14px;
+
+    background: rgba(18, 63, 52, 0.9);
+
+    color: #ffffff;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.experience-card-content {
+    padding: 32px 32px 35px;
+}
+
+
+.experience-card-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 16px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.experience-card-content h3 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+.experience-card-content > p {
+    margin: 18px 0 27px;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.75;
+}
+
+
+.experience-read-more {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #185b47;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+}
+
+
+.experience-read-more span {
+    font-size: 18px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.experience-read-more:hover span {
+    transform: translateX(6px);
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.experience-cta {
+    position: relative;
+
+    min-height: 600px;
+
+    padding: 100px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background-image: url("images/experience-cta.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    overflow: hidden;
+}
+
+
+.experience-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(10, 48, 40, 0.72);
+}
+
+
+.experience-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 850px;
+
+    color: #ffffff;
+}
+
+
+.experience-cta-content .section-small-title {
+    color: #e8d9a5;
+}
+
+
+.experience-cta-content h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 6vw, 82px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.experience-cta-content > p:not(.section-small-title) {
+    max-width: 600px;
+
+    margin: 30px auto 35px;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+.experience-cta-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding: 0 30px;
+
+    background: #e8d9a5;
+
+    color: #123f34;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.experience-cta-button:hover {
+    background: #ffffff;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .experience-hero {
+        min-height: 600px;
+        height: calc(100vh - 85px);
+    }
+
+
+    .experience-categories {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+
+    .experiences-section {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .experience-image-link {
+        height: 450px;
+    }
+
+
+    .experiences-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    .experiences-heading-text {
+        max-width: 600px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .experience-hero {
+        min-height: 570px;
+
+        background-position: center;
+    }
+
+
+    .experience-hero-content {
+        padding: 25px 20px;
+    }
+
+
+    .experience-hero-small {
+        margin-bottom: 20px;
+
+        font-size: 11px;
+
+        letter-spacing: 2.5px;
+    }
+
+
+    .experience-hero-content h1 {
+        font-size: 60px;
+
+        letter-spacing: -3px;
+    }
+
+
+    .experience-hero-subtitle {
+        margin-top: 25px;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    /* INTRO */
+
+    .experience-intro {
+        padding: 80px 20px;
+    }
+
+
+    .experience-intro h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .experience-intro h2 br {
+        display: none;
+    }
+
+
+    .experience-intro > p:last-child {
+        font-size: 16px;
+    }
+
+
+    /* CATEGORIES */
+
+    .experience-categories {
+        padding: 75px 20px;
+    }
+
+
+    .categories-heading h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .category-item {
+        min-height: 75px;
+
+        grid-template-columns: 45px 1fr 35px;
+
+        gap: 10px;
+    }
+
+
+    .category-item:hover,
+    .category-item.active {
+        padding-left: 10px;
+    }
+
+
+    .category-name {
+        font-size: 23px;
+    }
+
+
+    .category-arrow {
+        font-size: 18px;
+    }
+
+
+    /* EXPERIENCES */
+
+    .experiences-section {
+        padding: 75px 20px 85px;
+    }
+
+
+    .experiences-heading {
+        margin-bottom: 45px;
+    }
+
+
+    .experiences-heading h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .experience-grid {
+        gap: 35px;
+    }
+
+
+    .experience-image-link {
+        height: 350px;
+    }
+
+
+    .experience-card-content {
+        padding: 25px;
+    }
+
+
+    .experience-card-content h3 {
+        font-size: 29px;
+    }
+
+
+    .experience-card-content > p {
+        font-size: 15px;
+    }
+
+
+    /* CTA */
+
+    .experience-cta {
+        min-height: 520px;
+
+        padding: 80px 20px;
+    }
+
+
+    .experience-cta-content h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .experience-cta-content h2 br {
+        display: none;
+    }
+
+
+    .experience-cta-content > p:not(.section-small-title) {
+        font-size: 15px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .experience-hero-content h1 {
+        font-size: 52px;
+    }
+
+
+    .experience-intro h2,
+    .categories-heading h2,
+    .experiences-heading h2 {
+        font-size: 42px;
+    }
+
+
+    .category-name {
+        font-size: 20px;
+    }
+
+
+    .experience-image-link {
+        height: 310px;
+    }
+
+
+    .experience-card-content h3 {
+        font-size: 26px;
+    }
+
+}
+/* =========================================
+   FINAL CATEGORY LAYOUT FIX
+   Paste this at the VERY END of your CSS
+========================================= */
+
+.experience-categories {
+    width: 100%;
+    padding: 75px 5%;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.experience-categories .category-list {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    border: none;
+    overflow: visible;
+    padding: 0;
+}
+
+.experience-categories .category-item {
+    width: auto;
+    min-width: 0;
+    min-height: 80px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
+
+    border: 1px solid #d9dfda;
+    border-radius: 8px;
+    background: #f5f4ed;
+    color: #123f34;
+    text-decoration: none;
+    white-space: normal;
+
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.experience-categories .category-item:hover,
+.experience-categories .category-item.active {
+    background: #e7eee8;
+    transform: translateY(-3px);
+}
+
+.experience-categories .category-number {
+    display: block;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #8aa098;
+}
+
+.experience-categories .category-name {
+    flex: 1;
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.experience-categories .category-arrow {
+    display: block;
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) {
+    .experience-categories {
+        padding: 60px 5%;
+    }
+
+    .experience-categories .category-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .experience-categories .category-item {
+        min-height: 72px;
+        padding: 16px;
+    }
+
+    .experience-categories .category-name {
+        font-size: 20px;
+    }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+    .experience-categories {
+        padding: 45px 18px;
+    }
+
+    .experience-categories .category-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .experience-categories .category-item {
+        width: 100%;
+        min-height: 65px;
+        padding: 15px 18px;
+    }
+
+    .experience-categories .category-name {
+        font-size: 20px;
+    }
+}

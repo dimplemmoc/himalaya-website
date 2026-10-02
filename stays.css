@@ -1,0 +1,2527 @@
+/* =========================================================
+   STAYS PAGE
+========================================================= */
+
+
+/* =========================================================
+   STAYS HERO
+========================================================= */
+
+.stays-hero {
+    position: relative;
+
+    width: 100%;
+
+    height: calc(100vh - 105px);
+
+    min-height: 650px;
+
+    background-image: url("images/stays-hero.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.stays-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10, 48, 40, 0.82),
+            rgba(10, 48, 40, 0.35),
+            rgba(10, 48, 40, 0.55)
+        );
+}
+
+
+.stays-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    color: white;
+}
+
+
+.stays-hero-small {
+    margin: 0 0 28px;
+
+    color: #e8d9a5;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+}
+
+
+.stays-hero-content h1 {
+    margin: 0;
+
+    color: #f8f6ee;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(80px, 11vw, 155px);
+
+    font-weight: 500;
+
+    line-height: 0.9;
+
+    letter-spacing: -6px;
+}
+
+
+.stays-hero-subtitle {
+    max-width: 700px;
+
+    margin: 38px auto 0;
+
+    color: rgba(255,255,255,0.92);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 20px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.stays-intro {
+    padding: 115px 30px 105px;
+
+    background: #f5f4ed;
+
+    text-align: center;
+}
+
+
+.stays-intro h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(50px, 6vw, 82px);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -4px;
+}
+
+
+.stays-intro > p:last-child {
+    max-width: 720px;
+
+    margin: 35px auto 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.stay-categories {
+    padding: 105px 7% 110px;
+
+    background: #ffffff;
+}
+
+
+.stay-categories-heading {
+    margin-bottom: 55px;
+}
+
+
+.stay-categories-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 5vw, 70px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stay-category-list {
+    border-top: 1px solid #d9dfda;
+}
+
+
+.stay-category {
+    min-height: 88px;
+
+    display: grid;
+
+    grid-template-columns: 80px 1fr 60px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    border-bottom: 1px solid #d9dfda;
+
+    color: #123f34;
+
+    text-decoration: none;
+
+    transition:
+        padding 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.stay-category:hover,
+.stay-category.active {
+    padding-left: 20px;
+
+    background: #f5f4ed;
+}
+
+
+.stay-category-number {
+    color: #8aa098;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.stay-category-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+
+    font-weight: 500;
+}
+
+
+.stay-category-arrow {
+    font-size: 22px;
+
+    text-align: right;
+
+    transition: transform 0.3s ease;
+}
+
+
+.stay-category:hover .stay-category-arrow {
+    transform: translateX(7px);
+}
+
+
+/* =========================================================
+   STAYS SECTION
+========================================================= */
+
+.stays-section {
+    padding: 110px 7% 120px;
+
+    background: #f5f4ed;
+}
+
+
+.stays-section-heading {
+    margin-bottom: 60px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.stays-section-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 5vw, 72px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-section-heading > p {
+    max-width: 400px;
+
+    margin: 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   STAYS GRID
+========================================================= */
+
+.stays-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 55px 35px;
+}
+
+
+/* =========================================================
+   STAY CARD
+========================================================= */
+
+.stay-card {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 10px 35px rgba(18,63,52,0.06);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.stay-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 22px 50px rgba(18,63,52,0.13);
+}
+
+
+/* =========================================================
+   STAY IMAGE
+========================================================= */
+
+.stay-card-image {
+    position: relative;
+
+    display: block;
+
+    height: 430px;
+
+    overflow: hidden;
+}
+
+
+.stay-card-image img {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.7s ease;
+}
+
+
+.stay-card:hover .stay-card-image img {
+    transform: scale(1.05);
+}
+
+
+.stay-location {
+    position: absolute;
+
+    left: 25px;
+
+    bottom: 25px;
+
+    padding: 9px 14px;
+
+    background: rgba(18,63,52,0.9);
+
+    color: #ffffff;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   STAY CONTENT
+========================================================= */
+
+.stay-card-content {
+    padding: 32px;
+}
+
+
+.stay-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 16px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.stay-card-content h3 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+.stay-card-content > p {
+    margin: 18px 0 30px;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   PRICE + LINK
+========================================================= */
+
+.stay-card-bottom {
+    padding-top: 22px;
+
+    border-top: 1px solid #e2e6e2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.stay-price {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+}
+
+
+.stay-price span {
+    width: 100%;
+
+    color: #8aa098;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.stay-price strong {
+    color: #123f34;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+.stay-price small {
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+}
+
+
+.stay-view-link {
+    color: #185b47;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+
+.stay-view-link:hover {
+    color: #103f34;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.stays-cta {
+    position: relative;
+
+    min-height: 600px;
+
+    padding: 100px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background-image: url("images/stays-cta.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    overflow: hidden;
+}
+
+
+.stays-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(10,48,40,0.72);
+}
+
+
+.stays-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 850px;
+
+    color: #ffffff;
+}
+
+
+.stays-cta-content .section-small-title {
+    color: #e8d9a5;
+}
+
+
+.stays-cta-content h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 6vw, 82px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-cta-content > p:not(.section-small-title) {
+    max-width: 600px;
+
+    margin: 30px auto 35px;
+
+    color: rgba(255,255,255,0.85);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+.stays-cta-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding: 0 30px;
+
+    background: #e8d9a5;
+
+    color: #123f34;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.stays-cta-button:hover {
+    background: #ffffff;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .stays-hero {
+        height: calc(100vh - 85px);
+
+        min-height: 600px;
+    }
+
+
+    .stay-categories,
+    .stays-section {
+        padding-left: 5%;
+
+        padding-right: 5%;
+    }
+
+
+    .stays-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .stays-section-heading {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+    }
+
+
+    .stays-section-heading > p {
+        max-width: 600px;
+    }
+
+
+    .stay-card-image {
+        height: 450px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .stays-hero {
+        min-height: 570px;
+
+        background-position: center;
+    }
+
+
+    .stays-hero-content {
+        padding: 25px 20px;
+    }
+
+
+    .stays-hero-small {
+        margin-bottom: 20px;
+
+        font-size: 11px;
+
+        letter-spacing: 2.5px;
+    }
+
+
+    .stays-hero-content h1 {
+        font-size: 62px;
+
+        letter-spacing: -3px;
+    }
+
+
+    .stays-hero-subtitle {
+        margin-top: 25px;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    /* INTRO */
+
+    .stays-intro {
+        padding: 80px 20px;
+    }
+
+
+    .stays-intro h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-intro h2 br {
+        display: none;
+    }
+
+
+    .stays-intro > p:last-child {
+        font-size: 16px;
+    }
+
+
+    /* CATEGORIES */
+
+    .stay-categories {
+        padding: 75px 20px;
+    }
+
+
+    .stay-categories-heading h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stay-category {
+        min-height: 75px;
+
+        grid-template-columns: 45px 1fr 35px;
+
+        gap: 10px;
+    }
+
+
+    .stay-category:hover,
+    .stay-category.active {
+        padding-left: 10px;
+    }
+
+
+    .stay-category-name {
+        font-size: 23px;
+    }
+
+
+    .stay-category-arrow {
+        font-size: 18px;
+    }
+
+
+    /* STAYS */
+
+    .stays-section {
+        padding: 75px 20px 85px;
+    }
+
+
+    .stays-section-heading h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-grid {
+        gap: 35px;
+    }
+
+
+    .stay-card-image {
+        height: 350px;
+    }
+
+
+    .stay-card-content {
+        padding: 25px;
+    }
+
+
+    .stay-card-content h3 {
+        font-size: 29px;
+    }
+
+
+    .stay-card-bottom {
+        align-items: flex-end;
+    }
+
+
+    .stay-price strong {
+        font-size: 21px;
+    }
+
+
+    /* CTA */
+
+    .stays-cta {
+        min-height: 520px;
+
+        padding: 80px 20px;
+    }
+
+
+    .stays-cta-content h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-cta-content h2 br {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .stays-hero-content h1 {
+        font-size: 52px;
+    }
+
+
+    .stays-intro h2,
+    .stay-categories-heading h2,
+    .stays-section-heading h2 {
+        font-size: 42px;
+    }
+
+
+    .stay-category-name {
+        font-size: 20px;
+    }
+
+
+    .stay-card-image {
+        height: 310px;
+    }
+
+
+    .stay-card-content h3 {
+        font-size: 26px;
+    }
+
+
+    .stay-card-bottom {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+/* =========================================================
+   STAYS PAGE
+   MATCHING EXPERIENCE PAGE DESIGN
+========================================================= */
+
+
+/* =========================================================
+   STAYS HERO
+========================================================= */
+
+.stays-hero {
+    position: relative;
+
+    width: 100%;
+    height: calc(100vh - 105px);
+
+    min-height: 600px;
+
+    background-image: url("images/stays-hero.jpg");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.stays-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 46, 38, 0.80),
+            rgba(8, 46, 38, 0.40),
+            rgba(8, 46, 38, 0.55)
+        );
+
+    z-index: 1;
+}
+
+
+.stays-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+    color: white;
+
+    padding: 30px;
+}
+
+
+.stays-tag {
+    margin: 0 0 25px;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+    color: #e8d9a5;
+}
+
+
+.stays-content h1 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(70px, 10vw, 150px);
+
+    font-weight: 500;
+
+    line-height: 0.9;
+
+    letter-spacing: -5px;
+
+    color: #f8f6ee;
+}
+
+
+.stays-subtitle {
+    margin: 35px auto 0;
+
+    max-width: 700px;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 21px;
+
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* =========================================================
+   STAYS INTRO
+========================================================= */
+
+.stays-intro {
+    width: 100%;
+
+    padding: 110px 48px 100px;
+
+    background: #f5f4ed;
+
+    text-align: center;
+}
+
+
+.stays-intro-tag {
+    margin: 0 0 25px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+.stays-intro h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 5vw, 75px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-intro-text {
+    max-width: 700px;
+
+    margin: 35px auto 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 19px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   STAY CATEGORIES
+========================================================= */
+
+.stays-categories {
+    width: 100%;
+
+    padding: 100px 7% 110px;
+
+    background: #ffffff;
+}
+
+
+.stays-categories-heading {
+    margin-bottom: 50px;
+}
+
+
+.stays-categories-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 5vw, 70px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-category-list {
+    border-top: 1px solid #d9dfda;
+}
+
+
+.stays-category {
+    min-height: 88px;
+
+    display: grid;
+
+    grid-template-columns: 80px 1fr 60px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    border-bottom: 1px solid #d9dfda;
+
+    color: #123f34;
+
+    text-decoration: none;
+
+    transition:
+        padding 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.stays-category:hover,
+.stays-category.active {
+    padding-left: 20px;
+
+    background: #f5f4ed;
+}
+
+
+.stays-category-number {
+    color: #8aa098;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.stays-category-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: 30px;
+
+    font-weight: 500;
+}
+
+
+.stays-category-arrow {
+    font-size: 22px;
+
+    text-align: right;
+
+    transition: transform 0.3s ease;
+}
+
+
+.stays-category:hover .stays-category-arrow {
+    transform: translateX(7px);
+}
+
+
+/* =========================================================
+   STAYS LIST
+========================================================= */
+
+.stays-list {
+    width: 100%;
+
+    padding: 100px 7% 110px;
+
+    background: #f5f4ed;
+}
+
+
+.stays-list-heading {
+    margin-bottom: 60px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.stays-list-heading h2 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(45px, 5vw, 72px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-heading-text {
+    max-width: 400px;
+
+    margin: 0;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   STAYS GRID
+========================================================= */
+
+.stays-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 55px 35px;
+}
+
+
+/* =========================================================
+   STAY CARD
+========================================================= */
+
+.stay-blog-card {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 10px 35px rgba(18, 63, 52, 0.06);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.stay-blog-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 22px 50px rgba(18, 63, 52, 0.13);
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.stay-image-link {
+    position: relative;
+
+    display: block;
+
+    height: 430px;
+
+    overflow: hidden;
+}
+
+
+.stay-image-link img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.stay-blog-card:hover .stay-image-link img {
+    transform: scale(1.04);
+}
+
+
+.stay-card-location {
+    position: absolute;
+
+    left: 25px;
+    bottom: 25px;
+
+    padding: 9px 14px;
+
+    background: rgba(18, 63, 52, 0.9);
+
+    color: #ffffff;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.stay-card-content {
+    padding: 30px;
+}
+
+
+.stay-card-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 15px;
+
+    color: #63837a;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.stay-card-content h3 {
+    margin: 0;
+
+    color: #123f34;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 34px;
+
+    font-weight: 500;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+.stay-card-content > p {
+    margin: 18px 0 25px;
+
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PRICE + VIEW STAY
+========================================================= */
+
+.stay-card-footer {
+    padding-top: 23px;
+
+    border-top: 1px solid #e2e6e2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.stay-price {
+    display: flex;
+
+    align-items: baseline;
+
+    flex-wrap: wrap;
+
+    column-gap: 6px;
+}
+
+
+.stay-price span {
+    width: 100%;
+
+    margin-bottom: 2px;
+
+    color: #8aa098;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.stay-price strong {
+    color: #123f34;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+.stay-price small {
+    color: #60756f;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+}
+
+
+.stay-explore-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #185b47;
+
+    text-decoration: none;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    white-space: nowrap;
+}
+
+
+.stay-explore-link span {
+    font-size: 18px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.stay-explore-link:hover span {
+    transform: translateX(6px);
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.stays-cta {
+    position: relative;
+
+    min-height: 600px;
+
+    padding: 100px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background-image: url("images/stays-cta.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    overflow: hidden;
+}
+
+
+.stays-cta-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(10, 48, 40, 0.72);
+}
+
+
+.stays-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 850px;
+
+    color: #ffffff;
+}
+
+
+.stays-cta-content .stays-intro-tag {
+    color: #e8d9a5;
+}
+
+
+.stays-cta-content h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(48px, 6vw, 82px);
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+.stays-cta-content > p:not(.stays-intro-tag) {
+    max-width: 600px;
+
+    margin: 30px auto 35px;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+.stays-cta-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding: 0 30px;
+
+    background: #e8d9a5;
+
+    color: #123f34;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.stays-cta-button:hover {
+    background: #ffffff;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .stays-hero {
+        height: calc(100vh - 85px);
+    }
+
+
+    .stays-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .stays-list-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    .stays-heading-text {
+        max-width: 600px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .stays-hero {
+        min-height: 600px;
+
+        background-position: center;
+    }
+
+
+    .stays-content {
+        padding: 20px;
+    }
+
+
+    .stays-tag {
+        font-size: 12px;
+
+        letter-spacing: 2.5px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .stays-content h1 {
+        font-size: 60px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-subtitle {
+        margin-top: 25px;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    /* INTRO */
+
+    .stays-intro {
+        padding: 75px 20px 70px;
+    }
+
+
+    .stays-intro h2 {
+        font-size: 45px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-intro h2 br {
+        display: none;
+    }
+
+
+    .stays-intro-text {
+        font-size: 16px;
+
+        line-height: 1.7;
+    }
+
+
+    /* CATEGORIES */
+
+    .stays-categories {
+        padding: 75px 20px 70px;
+    }
+
+
+    .stays-categories-heading h2 {
+        font-size: 45px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-category {
+        min-height: 75px;
+
+        grid-template-columns: 45px 1fr 35px;
+
+        gap: 10px;
+    }
+
+
+    .stays-category:hover,
+    .stays-category.active {
+        padding-left: 10px;
+    }
+
+
+    .stays-category-name {
+        font-size: 23px;
+    }
+
+
+    .stays-category-arrow {
+        font-size: 18px;
+    }
+
+
+    /* STAYS */
+
+    .stays-list {
+        padding: 75px 20px 80px;
+    }
+
+
+    .stays-list-heading {
+        margin-bottom: 45px;
+    }
+
+
+    .stays-list-heading h2 {
+        font-size: 45px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-grid {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+
+    .stay-image-link {
+        height: 350px;
+    }
+
+
+    .stay-card-content {
+        padding: 25px;
+    }
+
+
+    .stay-card-content h3 {
+        font-size: 29px;
+    }
+
+
+    .stay-card-content > p {
+        font-size: 15px;
+    }
+
+
+    .stay-card-footer {
+        align-items: flex-end;
+    }
+
+
+    .stay-price strong {
+        font-size: 21px;
+    }
+
+
+    /* CTA */
+
+    .stays-cta {
+        min-height: 520px;
+
+        padding: 80px 20px;
+    }
+
+
+    .stays-cta-content h2 {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .stays-cta-content h2 br {
+        display: none;
+    }
+
+
+    .stays-cta-content > p:not(.stays-intro-tag) {
+        font-size: 15px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .stays-content h1 {
+        font-size: 52px;
+    }
+
+
+    .stays-intro h2,
+    .stays-categories-heading h2,
+    .stays-list-heading h2 {
+        font-size: 42px;
+    }
+
+
+    .stays-category-name {
+        font-size: 20px;
+    }
+
+
+    .stay-image-link {
+        height: 320px;
+    }
+
+
+    .stay-card-content h3 {
+        font-size: 27px;
+    }
+
+
+    .stay-card-footer {
+        gap: 15px;
+    }
+
+}
+/* MOBILE NAVBAR FIX */
+@media (max-width: 768px) {
+
+    .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+
+    .logo {
+        flex-shrink: 0;
+    }
+
+    /* Search aur Plan Your Trip visible */
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: auto;
+    }
+
+    .search-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .search-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .trip-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px 12px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    /* Toggle button */
+    .menu-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+        flex-shrink: 0;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .menu-btn span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: currentColor;
+    }
+
+    /* Mobile menu closed */
+    .navbar {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 20px;
+        background: #ffffff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+    }
+
+    /* Mobile menu open */
+    .navbar.active {
+        display: flex;
+    }
+
+    .navbar a {
+        display: block;
+        width: 100%;
+        padding: 14px 5px;
+        border-bottom: 1px solid #e5e5e5;
+    }
+}
+
+/* Very narrow screens */
+@media (max-width: 380px) {
+    .header {
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .brand-subtitle {
+        font-size: 9px;
+    }
+
+    .brand-name {
+        font-size: 14px;
+    }
+
+    .header-right {
+        gap: 5px;
+    }
+
+    .trip-btn {
+        padding: 9px 7px;
+        font-size: 9px;
+    }
+
+    .search-btn {
+        width: 30px;
+    }
+
+    .menu-btn {
+        width: 30px;
+    }
+}
+
+/* EXPERIENCE DETAIL MODAL */
+
+.experience-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.experience-modal.active {
+    display: flex;
+}
+
+.experience-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 30, 25, 0.75);
+}
+
+.experience-modal-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: 12px;
+}
+
+.experience-modal-content > img {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+}
+
+.experience-modal-text {
+    align-self: center;
+    padding: 45px;
+}
+
+.experience-modal-text > span {
+    color: #63837a;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.experience-modal-text h2 {
+    margin: 15px 0;
+    color: #123f34;
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+}
+
+.experience-modal-text p {
+    color: #60756f;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.experience-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    color: #123f34;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-contact-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 14px 20px;
+    background: #195b48;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+    .experience-modal {
+        padding: 12px;
+    }
+
+    .experience-modal-content {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+    }
+
+    .experience-modal-content > img {
+        height: 240px;
+        min-height: 0;
+    }
+
+    .experience-modal-text {
+        padding: 25px;
+    }
+
+    .experience-modal-text h2 {
+        font-size: 28px;
+    }
+}
+
+/* Full-width Experience Detail */
+.experience-detail-section {
+  width: 100%;
+  background: #f8f7f2;
+  padding: 35px 0 80px;
+}
+
+.experience-detail-section[hidden] {
+  display: none !important;
+}
+
+.detail-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.detail-back-btn {
+  display: inline-block;
+  border: 1px solid #315b45;
+  background: transparent;
+  color: #315b45;
+  padding: 11px 18px;
+  margin-bottom: 25px;
+  border-radius: 4px;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+
+.detail-back-btn:hover {
+  background: #315b45;
+  color: #fff;
+}
+
+.detail-hero {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #d9dfd7;
+}
+
+.detail-hero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px;
+  color: #fff;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72),
+    transparent 75%
+  );
+}
+
+.detail-category {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.detail-hero-overlay h1 {
+  font-size: clamp(32px, 5vw, 58px);
+  line-height: 1.1;
+  margin: 0;
+  max-width: 800px;
+}
+
+.detail-content {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 55px;
+  padding: 55px 0 0;
+  align-items: start;
+}
+
+.detail-main h2 {
+  color: #263e30;
+  font-size: 30px;
+  margin: 0 0 20px;
+}
+
+.detail-main p {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.85;
+  margin: 0 0 18px;
+}
+
+.detail-sidebar {
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #e6e4dc;
+  border-radius: 8px;
+}
+
+.detail-sidebar h3 {
+  color: #263e30;
+  font-size: 23px;
+  margin: 0 0 12px;
+}
+
+.detail-sidebar p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.detail-contact-btn {
+  display: inline-block;
+  padding: 14px 20px;
+  background: #315b45;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  transition: background 0.25s;
+}
+
+.detail-contact-btn:hover {
+  background: #203f30;
+}
+
+/* Tablet and mobile */
+@media (max-width: 768px) {
+  .detail-container {
+    padding: 0 16px;
+  }
+
+  .detail-hero {
+    height: 350px;
+  }
+
+  .detail-hero-overlay {
+    padding: 25px;
+  }
+
+  .detail-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-top: 35px;
+  }
+
+  .detail-main h2 {
+    font-size: 25px;
+  }
+
+  .detail-main p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-hero {
+    height: 280px;
+  }
+
+  .detail-hero-overlay {
+    padding: 20px;
+  }
+
+  .detail-sidebar {
+    padding: 22px;
+  }
+}
+
+/* Experience detail page */
+.experience-detail {
+  width: 100%;
+  background: #f5f7f4;
+  color: #244b40;
+  overflow: hidden;
+}
+
+.experience-detail[hidden] {
+  display: none !important;
+}
+
+/* Hero image */
+.experience-hero {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+}
+
+.experience-hero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.experience-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72),
+    rgba(0, 0, 0, 0.05) 75%
+  );
+}
+
+.experience-hero-content {
+  position: absolute;
+  left: max(6%, calc((100% - 1200px) / 2));
+  right: 6%;
+  bottom: 55px;
+  color: #fff;
+  z-index: 1;
+}
+
+.experience-hero-content span {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.experience-hero-content h1 {
+  margin: 0;
+  max-width: 850px;
+  font-size: clamp(32px, 5vw, 60px);
+  line-height: 1.1;
+  color: #fff;
+}
+
+/* Main content layout */
+.experience-content {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 55px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 30px;
+}
+
+.experience-main h2 {
+  margin: 0 0 20px;
+  font-size: clamp(25px, 3vw, 36px);
+  line-height: 1.25;
+}
+
+.experience-main p,
+.experience-main li {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #52665e;
+}
+
+.experience-main h3 {
+  margin-top: 35px;
+  font-size: 23px;
+}
+
+.experience-main ul {
+  padding-left: 22px;
+}
+
+.experience-booking {
+  align-self: start;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #e1e8e2;
+  border-radius: 12px;
+}
+
+.experience-booking h3 {
+  margin: 0 0 14px;
+  font-size: 24px;
+}
+
+.experience-booking p {
+  color: #65756d;
+  line-height: 1.6;
+}
+
+.experience-booking-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 14px 18px;
+  background: #174c40;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.experience-booking-link:hover {
+  background: #286757;
+}
+
+.back-experiences {
+  display: block;
+  margin: 0 auto 55px;
+  padding: 12px 22px;
+  border: 1px solid #174c40;
+  border-radius: 5px;
+  background: transparent;
+  color: #174c40;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.back-experiences:hover {
+  background: #174c40;
+  color: #fff;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .experience-hero {
+    height: 390px;
+  }
+
+  .experience-hero-content {
+    left: 22px;
+    right: 22px;
+    bottom: 30px;
+  }
+
+  .experience-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 22px;
+  }
+
+  .experience-booking {
+    padding: 24px;
+  }
+}

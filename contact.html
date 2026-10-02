@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Experiences - Live Local Himalaya</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="contact.css">
+   
+
+</head>
+
+
+
+<body>
+<div id="navbar-container"></div>
+    <!-- NAVBAR -->
+    <div id="navbar"></div>
+
+
+    <!-- =========================
+         PAGE CONTENT
+    ========================== -->
+
+     <main>
+        <!-- COMMON HEADER -->
+    <div id="header"></div>
+
+    <!-- HERO -->
+    <section class="contact-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-eyebrow">LIVE LOCAL HIMALAYA</span>
+            <h1>Let’s plan your journey.</h1>
+            <p>
+                Tell us what kind of Himalayan experience you’re looking for.
+                We’ll reply with<br class="desktop-break">
+                thoughtful ideas, not a template.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM SECTION -->
+    <section class="contact-main">
+
+        <div class="contact-info">
+            <span class="section-eyebrow">START A CONVERSATION</span>
+
+            <h2>Your kind of trip<br>
+                starts with a hello.
+            </h2>
+
+            <div class="contact-details">
+
+                <a href="mailto:hello@livelocalhimalaya.com"
+                   class="contact-detail">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <path d="m3 7 9 7 9-7"/>
+                    </svg>
+                    <span>hello@livelocalhimalaya.com</span>
+                </a>
+
+                <a href="tel:+919876543210" class="contact-detail">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2
+                        19.8 19.8 0 0 1-8.6-3.1
+                        19.4 19.4 0 0 1-6-6
+                        19.8 19.8 0 0 1-3.1-8.6
+                        A2 2 0 0 1 4.1 2h3
+                        a2 2 0 0 1 2 1.7
+                        c.1 1.1.4 2.2.8 3.2
+                        a2 2 0 0 1-.5 2.1L8.1 10.3
+                        a16 16 0 0 0 6 6l1.3-1.3
+                        a2 2 0 0 1 2.1-.5
+                        c1 .4 2.1.7 3.2.8
+                        a2 2 0 0 1 1.3 1.6Z"/>
+                    </svg>
+                    <span>+91 98765 43210</span>
+                </a>
+
+                <a href="https://wa.me/919876543210"
+                   target="_blank" class="contact-detail">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 11.5a8.4 8.4 0 0 1-.9
+                        3.8 8.5 8.5 0 0 1-7.6 4.7
+                        8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7
+                        a8.4 8.4 0 0 1-.9-3.8
+                        8.5 8.5 0 0 1 4.7-7.6
+                        8.4 8.4 0 0 1 3.8-.9h.5
+                        a8.5 8.5 0 0 1 8 8v.5Z"/>
+                    </svg>
+                    <span>WhatsApp us anytime</span>
+                </a>
+
+                <div class="contact-detail">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 10c0 5-8 12-8 12S4 15 4 10
+                        a8 8 0 1 1 16 0Z"/>
+                        <circle cx="12" cy="10" r="2.5"/>
+                    </svg>
+                    <span>Kumaon, Uttarakhand, India</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="contact-form-card">
+            <form id="travelForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="fullName">FULL NAME</label>
+                        <input type="text" id="fullName"
+                               name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email"
+                               name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">PHONE</label>
+                        <input type="tel" id="phone"
+                               name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="travelDate">TRAVEL DATE</label>
+                        <input type="date" id="travelDate"
+                               name="travelDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="travellers">NUMBER OF TRAVELLERS</label>
+                        <input type="number" id="travellers"
+                               name="travellers" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interested">INTERESTED IN</label>
+                        <input type="text" id="interested"
+                               name="interested"
+                               placeholder="Village stays, food, trails...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">BUDGET RANGE</label>
+                        <input type="text" id="budget"
+                               name="budget" placeholder="Optional">
+                    </div>
+
+                </div>
+
+                <div class="form-group message-group">
+                    <label for="message">MESSAGE</label>
+                    <textarea id="message" name="message"
+                        placeholder="Tell us a little about your ideal journey"
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="send-btn">
+                    SEND ENQUIRY <span>→</span>
+                </button>
+
+                <p id="formStatus" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <span class="section-eyebrow">A FEW ANSWERS</span>
+        <h2>Questions before you go?</h2>
+
+        <div class="faq-grid">
+
+            <details class="faq-item">
+                <summary>
+                    How do I get to the villages?
+                    <span class="faq-arrow">⌄</span>
+                </summary>
+                <p>
+                    We can help you plan your route, including
+                    transport options and local travel arrangements
+                    for your chosen village.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>
+                    Can I customise a package?
+                    <span class="faq-arrow">⌄</span>
+                </summary>
+                <p>
+                    Yes. Share your interests, travel dates and
+                    preferences with us so we can discuss a journey
+                    tailored to your needs.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary>
+                    Is this suitable for solo travellers?
+                    <span class="faq-arrow">⌄</span>
+                </summary>
+                <p>
+                    Solo travel enquiries are welcome. We can discuss
+                    suitable stays, activities and travel arrangements
+                    for your trip.
+                </p>
+            </details>
+
+        </div>
+    </section>
+
+<!-- WHY TRAVEL WITH US -->
+<section class="why-travel">
+    <div class="why-heading">
+        <span class="section-eyebrow">THE LIVE LOCAL WAY</span>
+        <h2>More than a trip.<br><em>A feeling that stays.</em></h2>
+        <p>
+            We believe the best journeys aren't just about
+            places. They're about the people you meet,
+            the stories you discover and the moments
+            you carry home.
+        </p>
+    </div>
+
+    <div class="why-grid">
+        <div class="why-card">
+            <span class="why-number">01</span>
+            <div class="why-icon">⌂</div>
+            <h3>Stay with locals</h3>
+            <p>
+                Discover the warmth of mountain hospitality
+                through village stays and meaningful
+                connections with local communities.
+            </p>
+        </div>
+
+        <div class="why-card">
+            <span class="why-number">02</span>
+            <div class="why-icon">✧</div>
+            <h3>Travel at your pace</h3>
+            <p>
+                No rushed itineraries. Just thoughtful
+                journeys shaped around your interests,
+                your time and your way of exploring.
+            </p>
+        </div>
+
+        <div class="why-card">
+            <span class="why-number">03</span>
+            <div class="why-icon">♧</div>
+            <h3>Discover the real Himalayas</h3>
+            <p>
+                Explore local food, quiet trails,
+                hidden villages and the everyday
+                beauty of mountain life.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="journey-process">
+    <div class="process-heading">
+        <span class="section-eyebrow">SIMPLE & THOUGHTFUL</span>
+        <h2>From hello to <em>the Himalayas.</em></h2>
+        <p>
+            A little conversation is all it takes
+            to get your journey started.
+        </p>
+    </div>
+
+    <div class="process-grid">
+        <div class="process-step">
+            <span class="process-count">01</span>
+            <div class="process-line"></div>
+            <h3>Tell us your ideas</h3>
+            <p>
+                Share your travel dates, interests,
+                group size and the kind of experience
+                you're dreaming of.
+            </p>
+        </div>
+
+        <div class="process-step">
+            <span class="process-count">02</span>
+            <div class="process-line"></div>
+            <h3>Let's plan together</h3>
+            <p>
+                We'll discuss destinations, local
+                experiences and travel options
+                suited to your preferences.
+            </p>
+        </div>
+
+        <div class="process-step">
+            <span class="process-count">03</span>
+            <div class="process-line"></div>
+            <h3>Shape your journey</h3>
+            <p>
+                Refine your itinerary, stays
+                and activities with our team
+                before confirming your plans.
+            </p>
+        </div>
+
+        <div class="process-step">
+            <span class="process-count">04</span>
+            <div class="process-line"></div>
+            <h3>Begin your adventure</h3>
+            <p>
+                Get ready to slow down, explore
+                mountain life and create
+                memories along the way.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- DESTINATIONS -->
+<section class="destination-section">
+    <div class="destination-heading">
+        <div>
+            <span class="section-eyebrow">FIND YOUR PLACE</span>
+            <h2>Somewhere in the <em>mountains.</em></h2>
+        </div>
+        <p>
+            Every corner of the Himalayas
+            has a story waiting to be discovered.
+        </p>
+    </div>
+
+    <div class="destination-grid">
+
+        <a href="experiences.html" class="destination-card">
+            <img src="images/pexels-shivam-murarka-748437262-18636614.jpg"
+                 alt="Kumaon Himalayan mountains">
+            <div class="destination-overlay"></div>
+            <div class="destination-content">
+                <span>01 / UTTARAKHAND</span>
+                <h3>Kumaon</h3>
+                <p>Quiet villages & mountain views ↗</p>
+            </div>
+        </a>
+
+        <a href="experiences.html" class="destination-card">
+            <img src="images/pexels-chalta-phirta-307182428-15404469.jpg"
+                 alt="Himachal mountain landscape">
+            <div class="destination-overlay"></div>
+            <div class="destination-content">
+                <span>02 / HIMACHAL PRADESH</span>
+                <h3>Himachal</h3>
+                <p>Trails, forests & local culture ↗</p>
+            </div>
+        </a>
+
+        <a href="experiences.html" class="destination-card">
+            <img src="images/pexels-ajin-k-s-69039054-12772065.jpg"
+                 alt="Traditional Himalayan village">
+            <div class="destination-overlay"></div>
+            <div class="destination-content">
+                <span>03 / LOCAL EXPERIENCES</span>
+                <h3>Village Life</h3>
+                <p>People, food & deeper connections ↗</p>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+
+<!-- FINAL CONTACT CTA -->
+<section class="contact-cta">
+    <div class="cta-content">
+        <span class="section-eyebrow">
+            YOUR NEXT CHAPTER STARTS HERE
+        </span>
+        <h2>Have a place<br>in mind?</h2>
+        <p>
+            Let's turn your Himalayan travel ideas
+            into a journey worth remembering.
+        </p>
+        <a href="#travelForm" class="cta-button">
+            LET'S TALK <span>↗</span>
+        </a>
+    </div>
+</section>
+     </main>
+    <!-- FOOTER -->
+    <div id="footer"></div>
+
+
+
+<!-- experience ka content -->
+
+<div id="footer-container"></div>
+
+<script src="js/components.js"></script>
+
+</body>
+
+</html>

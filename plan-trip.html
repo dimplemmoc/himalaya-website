@@ -1,0 +1,451 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Plan Your Himalayan Trip | Live Local HIMALAYA</title>
+    <meta name="description" content="Plan your dream Himalayan trip with Live Local HIMALAYA. Choose your destination, travel dates, budget and travel style to start your journey.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#193d32">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Plan Your Himalayan Trip | Live Local HIMALAYA">
+    <meta property="og:description" content="Your next Himalayan adventure starts here. Plan a personalized mountain getaway with Live Local HIMALAYA.">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="plan.css">
+</head>
+
+<body>
+
+    <!-- EXISTING NAVBAR -->
+    <div id="navbar-container"></div>
+
+    <main>
+        <!-- HERO -->
+        <section class="planner-hero">
+            <div class="planner-hero-shade"></div>
+            <div class="planner-hero-content">
+                <span class="planner-kicker">
+                    <span class="kicker-line"></span>
+                    YOUR MOUNTAIN STORY STARTS HERE
+                </span>
+
+                <h1>Some journeys<br>stay with you <em>forever.</em></h1>
+
+                <p>
+                    From quiet valleys to unforgettable adventures,
+                    let's shape a Himalayan journey around the way you love to travel.
+                </p>
+
+                <a href="#trip-planner" class="planner-hero-btn">
+                    Design Your Trip <span aria-hidden="true">↘</span>
+                </a>
+
+                <div class="hero-caption">
+                    <span class="caption-dot"></span>
+                    MADE FOR YOUR KIND OF ADVENTURE
+                </div>
+            </div>
+
+            <div class="hero-side-note" aria-hidden="true">
+                EXPLORE • EXPERIENCE • LIVE LOCAL
+            </div>
+        </section>
+
+        <!-- INTRO STRIP -->
+        <section class="planner-intro">
+            <div class="intro-label">THE ART OF TRAVEL</div>
+            <div class="intro-copy">
+                <h2>Not just a trip.<br><span>Your own mountain story.</span></h2>
+                <p>
+                    Every traveler is different. Tell us what inspires you,
+                    where you want to go and what your ideal escape looks like.
+                    Start with a few details and take the first step toward
+                    your next Himalayan experience.
+                </p>
+            </div>
+        </section>
+
+        <!-- TRIP PLANNER -->
+        <section class="planner-section" id="trip-planner">
+            <div class="planner-heading">
+                <div>
+                    <span class="planner-section-tag">LET'S MAKE IT HAPPEN</span>
+                    <h2>Build your journey</h2>
+                    <p>A few details are all we need to get started.</p>
+                </div>
+                <div class="planner-step-mark" aria-hidden="true">
+                    <span>01</span>
+                    <small>YOUR TRIP</small>
+                </div>
+            </div>
+
+            <form class="journey-form" id="tripForm">
+                <div class="form-block">
+                    <div class="form-block-title">
+                        <span class="form-index">01</span>
+                        <div>
+                            <h3>What are you dreaming of?</h3>
+                            <p>Tell us what kind of experience you have in mind.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-field full-field">
+                            <label for="tripType">Your trip style <b>*</b></label>
+                            <select id="tripType" name="tripType" required>
+                                <option value="" selected disabled>Select your trip style</option>
+                                <option value="Adventure Trip">Adventure Trip</option>
+                                <option value="Family Holiday">Family Holiday</option>
+                                <option value="Honeymoon Trip">Honeymoon Trip</option>
+                                <option value="Weekend Getaway">Weekend Getaway</option>
+                                <option value="Nature & Relaxation">Nature & Relaxation</option>
+                                <option value="Cultural Experience">Cultural Experience</option>
+                                <option value="Road Trip">Road Trip</option>
+                                <option value="Custom Trip">Custom Trip</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field full-field">
+                            <label for="destination">Where do you want to go? <b>*</b></label>
+                            <select id="destination" name="destination" required>
+                                <option value="" selected disabled>Choose a destination</option>
+                                <option value="Manali">Manali</option>
+                                <option value="Shimla">Shimla</option>
+                                <option value="Spiti Valley">Spiti Valley</option>
+                                <option value="Dharamshala">Dharamshala</option>
+                                <option value="Kasol">Kasol</option>
+                                <option value="Rishikesh">Rishikesh</option>
+                                <option value="Bir Billing">Bir Billing</option>
+                                <option value="Other">Other destination</option>
+                                <option value="Not decided yet">Not decided yet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="travelers">Who's coming along? <b>*</b></label>
+                            <select id="travelers" name="travelers" required>
+                                <option value="" selected disabled>Number of travelers</option>
+                                <option value="1">1 traveler</option>
+                                <option value="2">2 travelers</option>
+                                <option value="3">3 travelers</option>
+                                <option value="4">4 travelers</option>
+                                <option value="5">5 travelers</option>
+                                <option value="6">6 travelers</option>
+                                <option value="7–10">7–10 travelers</option>
+                                <option value="More than 10">More than 10</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="budget">Your budget per person <b>*</b></label>
+                            <select id="budget" name="budget" required>
+                                <option value="" selected disabled>Select your budget</option>
+                                <option value="Under ₹5,000">Under ₹5,000</option>
+                                <option value="₹5,000–₹10,000">₹5,000–₹10,000</option>
+                                <option value="₹10,000–₹20,000">₹10,000–₹20,000</option>
+                                <option value="₹20,000–₹40,000">₹20,000–₹40,000</option>
+                                <option value="₹40,000+">₹40,000+</option>
+                                <option value="Flexible">Flexible / Not decided</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <div class="form-block">
+                    <div class="form-block-title">
+                        <span class="form-index">02</span>
+                        <div>
+                            <h3>When would you like to go?</h3>
+                            <p>Choose your preferred travel dates.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="startDate">Starting date <b>*</b></label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="endDate">Returning date <b>*</b></label>
+                            <input type="date" id="endDate" name="endDate" required>
+                        </div>
+
+                        <div class="form-field full-field">
+                            <label for="style">How do you like to travel? <b>*</b></label>
+                            <select id="style" name="style" required>
+                                <option value="" selected disabled>Choose your travel style</option>
+                                <option value="Budget-friendly">Budget-friendly</option>
+                                <option value="Comfortable">Comfortable</option>
+                                <option value="Luxury">Luxury</option>
+                                <option value="Backpacking">Backpacking</option>
+                                <option value="Flexible / Open to suggestions">Open to suggestions</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <div class="form-block">
+                    <div class="form-block-title">
+                        <span class="form-index">03</span>
+                        <div>
+                            <h3>Let's get to know you</h3>
+                            <p>So we can follow up about your travel plans.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="name">Your name <b>*</b></label>
+                            <input type="text" id="name" name="name"
+                                   placeholder="Full name" autocomplete="name"
+                                   maxlength="80" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="phone">WhatsApp number <b>*</b></label>
+                            <input type="tel" id="phone" name="phone"
+                                   placeholder="Your contact number" autocomplete="tel"
+                                   maxlength="20" required>
+                        </div>
+
+                        <div class="form-field full-field">
+                            <label for="message">Anything else on your mind?</label>
+                            <textarea id="message" name="message" rows="4"
+                                      maxlength="1000"
+                                      placeholder="Special requests, places you want to visit, activities or anything else..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-submit-row">
+                    <div class="submit-copy">
+                        <span class="submit-sparkle" aria-hidden="true">✦</span>
+                        <span>Your next adventure is one message away.</span>
+                    </div>
+                    <button type="submit" class="journey-submit">
+                        Send My Inquiry <span aria-hidden="true">↗</span>
+                    </button>
+                </div>
+
+                <p class="form-privacy">
+                    WhatsApp will open with your trip details ready to review and send.
+                </p>
+            </form>
+        </section>
+
+        <!-- DESTINATION INSPIRATION -->
+        <section class="destination-section">
+            <div class="destination-heading">
+                <span class="planner-section-tag">FIND YOUR ESCAPE</span>
+                <h2>Where will the mountains take you?</h2>
+                <p>
+                    Every corner of the Himalayas has its own rhythm.
+                    Find a place that speaks to you.
+                </p>
+            </div>
+
+            <div class="destination-grid">
+                <article class="destination-card destination-manali">
+                    <div class="destination-card-content">
+                        <span>THE CLASSIC MOUNTAIN ESCAPE</span>
+                        <h3>Manali</h3>
+                        <p>Mountain views, pine forests and scenic adventures.</p>
+                    </div>
+                </article>
+
+                <article class="destination-card destination-spiti">
+                    <div class="destination-card-content">
+                        <span>FOR THE WANDERER</span>
+                        <h3>Spiti Valley</h3>
+                        <p>High-altitude landscapes and unforgettable road journeys.</p>
+                    </div>
+                </article>
+
+                <article class="destination-card destination-kasol">
+                    <div class="destination-card-content">
+                        <span>SLOW DOWN & EXPLORE</span>
+                        <h3>Kasol</h3>
+                        <p>Riverside moments, mountain trails and relaxed days.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- WHY PLAN WITH US -->
+        <section class="travel-values">
+            <div class="values-intro">
+                <span class="planner-section-tag">TRAVEL YOUR WAY</span>
+                <h2>Made for the way <em>you</em> explore.</h2>
+                <p>
+                    Your interests, pace and travel preferences make
+                    your journey yours. Start by telling us what matters
+                    most to you.
+                </p>
+            </div>
+
+            <div class="values-list">
+                <article class="value-item">
+                    <span class="value-icon" aria-hidden="true">✳</span>
+                    <div>
+                        <h3>Experiences that feel personal</h3>
+                        <p>Share what you love, from peaceful nature escapes to outdoor adventures.</p>
+                    </div>
+                </article>
+
+                <article class="value-item">
+                    <span class="value-icon" aria-hidden="true">⌁</span>
+                    <div>
+                        <h3>Room for your own pace</h3>
+                        <p>Tell us your dates, budget and travel style to start a conversation around your plans.</p>
+                    </div>
+                </article>
+
+                <article class="value-item">
+                    <span class="value-icon" aria-hidden="true">✦</span>
+                    <div>
+                        <h3>Inspired by local places</h3>
+                        <p>Explore Himalayan destinations and discover the culture, landscapes and experiences around them.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="planner-faq">
+            <div class="destination-heading">
+                <span class="planner-section-tag">GOOD TO KNOW</span>
+                <h2>Questions before you go?</h2>
+                <p>Here are a few helpful details about starting your trip inquiry.</p>
+            </div>
+
+            <div class="faq-list">
+                <details>
+                    <summary>How do I start planning my Himalayan trip?</summary>
+                    <p>
+                        Fill in the trip planner with your preferred destination,
+                        dates, group size, budget and travel style. Submit the form
+                        to open a WhatsApp message with your details.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Can I submit the form if I haven't chosen a destination?</summary>
+                    <p>
+                        Yes. Choose "Not decided yet" in the destination list.
+                        You can also describe the kind of experience you want
+                        in the additional details box.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Can I plan a family trip or a group getaway?</summary>
+                    <p>
+                        Yes. Select the number of travelers in the form and
+                        share any group-specific preferences in the message box.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>Does submitting the form confirm my booking?</summary>
+                    <p>
+                        No. Submitting the form opens WhatsApp with a prepared
+                        inquiry. Your trip is not booked or confirmed by
+                        submitting this form.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="planner-final-cta">
+            <span>THE MOUNTAINS ARE WAITING</span>
+            <h2>Ready to make a memory?</h2>
+            <p>Start with your idea. Let the journey unfold.</p>
+            <a href="#trip-planner">Plan Your Trip <span aria-hidden="true">↑</span></a>
+        </section>
+    </main>
+
+    <!-- EXISTING FOOTER -->
+    <div id="footer-container"></div>
+
+    <script src="js/components.js"></script>
+
+    <script>
+        const tripForm = document.getElementById("tripForm");
+        const startDate = document.getElementById("startDate");
+        const endDate = document.getElementById("endDate");
+
+        const today = new Date();
+        const localToday = [
+            today.getFullYear(),
+            String(today.getMonth() + 1).padStart(2, "0"),
+            String(today.getDate()).padStart(2, "0")
+        ].join("-");
+
+        startDate.min = localToday;
+        endDate.min = localToday;
+
+        startDate.addEventListener("change", () => {
+            endDate.min = startDate.value || localToday;
+
+            if (endDate.value && endDate.value < startDate.value) {
+                endDate.value = "";
+            }
+        });
+
+        tripForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (!tripForm.reportValidity()) return;
+
+            if (endDate.value < startDate.value) {
+                alert("Returning date cannot be before the starting date.");
+                endDate.focus();
+                return;
+            }
+
+            // Replace with your WhatsApp number:
+            // country code + number, without + or spaces.
+            const whatsappNumber = "91XXXXXXXXXX";
+
+            if (whatsappNumber.includes("X")) {
+                alert("Please add your WhatsApp number in the page code first.");
+                return;
+            }
+
+            const getValue = (id) =>
+                document.getElementById(id).value.trim();
+
+            const message = `🌄 New Trip Inquiry - Live Local HIMALAYA
+
+Trip Type: ${getValue("tripType")}
+Name: ${getValue("name")}
+WhatsApp Number: ${getValue("phone")}
+Destination: ${getValue("destination")}
+Travelers: ${getValue("travelers")}
+Start Date: ${getValue("startDate")}
+End Date: ${getValue("endDate")}
+Budget per Person: ${getValue("budget")}
+Travel Style: ${getValue("style")}
+Additional Details: ${getValue("message") || "Not provided"}`;
+
+            const whatsappURL =
+                "https://wa.me/" + whatsappNumber +
+                "?text=" + encodeURIComponent(message);
+
+            window.open(whatsappURL, "_blank", "noopener");
+        });
+    </script>
+</body>
+</html>
+```
+.

@@ -1,0 +1,1 @@
+console.log("Himalayan website loaded successfully!");

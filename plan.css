@@ -1,0 +1,810 @@
+
+/* =====================================
+   LIVE LOCAL HIMALAYA - PLAN YOUR TRIP
+===================================== */
+
+:root {
+    --plan-green: #193d32;
+    --plan-green-light: #315b49;
+    --plan-cream: #f7f6f0;
+    --plan-paper: #fffefa;
+    --plan-text: #25372e;
+    --plan-muted: #738077;
+    --plan-border: #dfe5dc;
+    --plan-gold: #d8b27e;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--plan-cream);
+    color: var(--plan-text);
+}
+
+main {
+    overflow: hidden;
+}
+
+.planner-hero {
+    min-height: 570px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 80px max(6%, calc((100% - 1180px) / 2));
+    color: white;
+    background:
+        linear-gradient(90deg, rgba(15, 43, 33, .94), rgba(20, 55, 41, .67)),
+        url("images/pexels-minal-munakarmi-1236892-39748092.jpg") center/cover no-repeat,
+        #244b3c;
+}
+
+.planner-hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(14, 39, 30, .22), transparent 55%);
+    pointer-events: none;
+}
+
+.planner-hero-content {
+    position: relative;
+    z-index: 1;
+    width: min(720px, 100%);
+}
+
+.planner-kicker,
+.planner-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #b9874f;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .19em;
+}
+
+.planner-kicker {
+    color: #e8c99e;
+}
+
+.kicker-line {
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+}
+
+.planner-hero h1 {
+    margin: 23px 0 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 6.5vw, 78px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -.04em;
+}
+
+.planner-hero h1 em {
+    color: #e8c99e;
+    font-weight: 400;
+}
+
+.planner-hero-content > p {
+    max-width: 550px;
+    margin: 0;
+    color: rgba(255,255,255,.82);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.planner-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 30px;
+    padding: 15px 21px;
+    color: var(--plan-green);
+    background: #f4ead9;
+    border: 1px solid #f4ead9;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    transition: .2s ease;
+}
+
+.planner-hero-btn:hover {
+    color: white;
+    background: transparent;
+}
+
+.hero-caption {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 48px;
+    color: rgba(255,255,255,.7);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+}
+
+.caption-dot {
+    width: 6px;
+    height: 6px;
+    background: #e8c99e;
+    border-radius: 50%;
+}
+
+.hero-side-note {
+    position: absolute;
+    right: 25px;
+    bottom: 35px;
+    color: rgba(255,255,255,.55);
+    font-size: 9px;
+    letter-spacing: .2em;
+    writing-mode: vertical-rl;
+}
+
+/* Intro */
+
+.planner-intro {
+    width: min(1120px, 88%);
+    margin: auto;
+    padding: 90px 0 80px;
+    display: grid;
+    grid-template-columns: .65fr 1.35fr;
+    gap: 35px;
+    border-bottom: 1px solid #dfe4dc;
+}
+
+.intro-label {
+    color: #9a754a;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .2em;
+}
+
+.intro-copy h2,
+.destination-heading h2,
+.values-intro h2,
+.planner-heading h2,
+.planner-final-cta h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    letter-spacing: -.025em;
+}
+
+.intro-copy h2 {
+    font-size: clamp(31px, 4vw, 47px);
+    line-height: 1.15;
+}
+
+.intro-copy h2 span {
+    color: #8c9c8b;
+}
+
+.intro-copy p {
+    max-width: 660px;
+    margin: 18px 0 0;
+    color: #68766c;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Form section */
+
+.planner-section {
+    width: min(1000px, 90%);
+    margin: 90px auto 100px;
+    padding: clamp(24px, 5vw, 58px);
+    background: var(--plan-paper);
+    border: 1px solid #e6e9e1;
+    box-shadow: 0 22px 70px rgba(31, 58, 43, .07);
+}
+
+.planner-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--plan-border);
+}
+
+.planner-heading h2 {
+    margin-top: 10px;
+    color: var(--plan-green);
+    font-size: clamp(30px, 4vw, 43px);
+}
+
+.planner-heading p,
+.form-block-title p {
+    margin: 9px 0 0;
+    color: var(--plan-muted);
+    font-size: 13px;
+}
+
+.planner-step-mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #a17a4c;
+}
+
+.planner-step-mark span {
+    font-family: Georgia, serif;
+    font-size: 32px;
+}
+
+.planner-step-mark small {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .14em;
+}
+
+.form-block {
+    padding: 31px 0;
+}
+
+.form-block-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.form-index {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: var(--plan-green);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.form-block-title h3 {
+    margin: 2px 0 0;
+    color: var(--plan-green);
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-field {
+    min-width: 0;
+}
+
+.full-field {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34473b;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.form-field label b {
+    color: #b36e4f;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    min-height: 49px;
+    padding: 12px 14px;
+    color: #283a30;
+    background: #fff;
+    border: 1px solid #dce3db;
+    border-radius: 5px;
+    outline: none;
+    font: inherit;
+    font-size: 13px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #9aa59d;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: var(--plan-green-light);
+    box-shadow: 0 0 0 3px rgba(49, 91, 73, .1);
+}
+
+.form-field select {
+    cursor: pointer;
+}
+
+.form-divider {
+    height: 1px;
+    background: var(--plan-border);
+}
+
+.form-submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 25px;
+    border-top: 1px solid var(--plan-border);
+}
+
+.submit-copy {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #748077;
+    font-size: 11px;
+}
+
+.submit-sparkle {
+    color: #ba8a52;
+    font-size: 18px;
+}
+
+.journey-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 51px;
+    padding: 13px 22px;
+    color: white;
+    background: var(--plan-green);
+    border: 1px solid var(--plan-green);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.journey-submit:hover {
+    color: var(--plan-green);
+    background: transparent;
+}
+
+.form-privacy {
+    margin: 12px 0 0;
+    color: #8a958c;
+    font-size: 10px;
+    text-align: right;
+}
+
+/* Destination inspiration */
+
+.destination-section {
+    padding: 10px 6% 100px;
+    background: #edf0e9;
+}
+
+.destination-heading {
+    max-width: 720px;
+    margin: 0 auto 38px;
+    text-align: center;
+}
+
+.destination-heading h2 {
+    margin-top: 12px;
+    color: var(--plan-green);
+    font-size: clamp(29px, 4vw, 43px);
+    line-height: 1.2;
+}
+
+.destination-heading p {
+    margin: 12px 0 0;
+    color: #758078;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.destination-grid {
+    width: min(1120px, 100%);
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.destination-card {
+    min-height: 340px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 25px;
+    color: white;
+    background-color: #526d5c;
+    background-position: center;
+    background-size: cover;
+    isolation: isolate;
+}
+
+.destination-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(15, 34, 26, .88), rgba(15, 34, 26, .02) 80%);
+    transition: .3s ease;
+}
+
+.destination-card:hover::before {
+    background: linear-gradient(0deg, rgba(15, 34, 26, .95), rgba(15, 34, 26, .15));
+}
+
+.destination-manali {
+    background-image: url("images/pexels-prajwalmalvephotography-28206557.jpg");
+}
+
+.destination-spiti {
+    background-image: url("images/pexels-animesh-paul-150064-38056506.jpg");
+}
+
+.destination-kasol {
+    background-image: url("images/pexels-atiq-ahmed-khudavand-541512748-16657999.jpg");
+}
+
+.destination-card-content {
+    position: relative;
+}
+
+.destination-card-content span {
+    color: #e9c99e;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .15em;
+}
+
+.destination-card-content h3 {
+    margin: 8px 0 5px;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.destination-card-content p {
+    margin: 0;
+    color: rgba(255,255,255,.8);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Values */
+
+.travel-values {
+    width: min(1120px, 88%);
+    margin: auto;
+    padding: 100px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+}
+
+.values-intro h2 {
+    margin-top: 13px;
+    color: var(--plan-green);
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.16;
+}
+
+.values-intro h2 em {
+    color: #9a754a;
+}
+
+.values-intro > p {
+    max-width: 440px;
+    margin-top: 18px;
+    color: #6d796f;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.values-list {
+    display: grid;
+    gap: 25px;
+}
+
+.value-item {
+    display: flex;
+    gap: 17px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid var(--plan-border);
+}
+
+.value-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    color: #9b7548;
+    background: #ebe9dd;
+    border-radius: 50%;
+    font-size: 20px;
+}
+
+.value-item h3 {
+    margin: 2px 0 6px;
+    color: var(--plan-green);
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.value-item p {
+    margin: 0;
+    color: #78837a;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* FAQ */
+
+.planner-faq {
+    padding: 85px 20px 95px;
+    background: #f0f1eb;
+}
+
+.faq-list {
+    width: min(790px, 100%);
+    margin: auto;
+    border-top: 1px solid #d9dfd6;
+}
+
+.faq-list details {
+    border-bottom: 1px solid #d9dfd6;
+}
+
+.faq-list summary {
+    position: relative;
+    padding: 21px 35px 21px 2px;
+    color: var(--plan-green);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-list summary::after {
+    content: "+";
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    color: #9b7548;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.faq-list details[open] summary::after {
+    content: "−";
+}
+
+.faq-list details p {
+    max-width: 680px;
+    margin: -3px 0 22px;
+    color: #6e7a71;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* Final call to action */
+
+.planner-final-cta {
+    padding: 85px 20px;
+    color: white;
+    background:
+        linear-gradient(rgba(22, 57, 43, .94), rgba(22, 57, 43, .94)),
+        url("images/himalaya-mountains.jpg") center/cover;
+    text-align: center;
+}
+
+.planner-final-cta > span {
+    color: #e8c99e;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .2em;
+}
+
+.planner-final-cta h2 {
+    margin-top: 15px;
+    font-size: clamp(32px, 5vw, 52px);
+}
+
+.planner-final-cta p {
+    margin: 12px 0 25px;
+    color: rgba(255,255,255,.75);
+    font-size: 14px;
+}
+
+.planner-final-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    padding: 14px 21px;
+    color: var(--plan-green);
+    background: #f1e6d4;
+    border: 1px solid #f1e6d4;
+    font-size: 12px;
+    font-weight: 800;
+    transition: .2s ease;
+}
+
+.planner-final-cta a:hover {
+    color: white;
+    background: transparent;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+    .planner-hero {
+        min-height: 510px;
+    }
+
+    .planner-intro {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 65px 0;
+    }
+
+    .destination-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .destination-card:last-child {
+        grid-column: 1 / -1;
+        min-height: 270px;
+    }
+
+    .travel-values {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 75px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .planner-hero {
+        min-height: 500px;
+        padding: 65px 22px;
+        background-position: 58% center;
+    }
+
+    .planner-hero h1 {
+        font-size: clamp(40px, 12vw, 58px);
+    }
+
+    .planner-hero-content > p {
+        font-size: 14px;
+    }
+
+    .hero-caption {
+        margin-top: 35px;
+        font-size: 8px;
+    }
+
+    .hero-side-note {
+        display: none;
+    }
+
+    .planner-intro {
+        width: 88%;
+        padding: 55px 0;
+    }
+
+    .planner-section {
+        width: 92%;
+        margin: 55px auto 65px;
+        padding: 23px 17px;
+    }
+
+    .planner-heading {
+        gap: 10px;
+    }
+
+    .planner-heading h2 {
+        font-size: 31px;
+    }
+
+    .planner-step-mark span {
+        font-size: 25px;
+    }
+
+    .form-block {
+        padding: 25px 0;
+    }
+
+    .form-block-title h3 {
+        font-size: 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .full-field {
+        grid-column: auto;
+    }
+
+    .form-submit-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .journey-submit {
+        width: 100%;
+    }
+
+    .form-privacy {
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    .destination-section {
+        padding: 60px 5% 65px;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .destination-card,
+    .destination-card:last-child {
+        grid-column: auto;
+        min-height: 280px;
+    }
+
+    .travel-values {
+        width: 88%;
+        padding: 65px 0;
+    }
+
+    .planner-faq {
+        padding: 60px 20px 70px;
+    }
+
+    .planner-final-cta {
+        padding: 65px 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+    }
+}
