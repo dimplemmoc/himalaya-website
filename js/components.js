@@ -78,7 +78,7 @@
             }
         });
 
-        var currentPage = window.location.pathname.split("/").pop() || "home.html";
+        var currentPage = window.location.pathname.split("/").pop() || "index.html";
         if (currentPage === "blog-details.html") currentPage = "blog.html";
         var links = container.querySelectorAll(".navbar a, .logo");
         Array.prototype.forEach.call(links, function (link) {
