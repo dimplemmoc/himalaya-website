@@ -8,6 +8,98 @@
     box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 1rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+img,
+video,
+svg {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+body {
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+section[id] {
+    scroll-margin-top: 1.5rem;
+}
+
+:focus-visible {
+    outline: 3px solid #b97842;
+    outline-offset: 3px;
+}
+
+.navbar a[aria-current="page"] {
+    color: #155b47;
+}
+
+.navbar a[aria-current="page"]::after {
+    width: 100%;
+}
+
+.detail-link-card {
+    cursor: pointer;
+}
+
+.detail-link-card:focus-visible {
+    outline: 3px solid #b97842;
+    outline-offset: 4px;
+}
+
+.scroll-reveal {
+    transition: opacity 650ms ease var(--reveal-delay, 0ms),
+        transform 650ms ease var(--reveal-delay, 0ms);
+}
+
+.motion-ready .scroll-reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(22px);
+}
+
+.motion-ready .scroll-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .motion-ready .scroll-reveal:not(.is-visible) {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 body {
     background: #eef2ef;
     font-family: "DM Sans", sans-serif;
@@ -321,7 +413,7 @@ body {
    MOBILE
 ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
     .header {
         height: 85px;
@@ -421,7 +513,7 @@ body {
     height: calc(100vh - 105px);
     min-height: 620px;
 
-    background-image: url("images/pexels-urtimud-89-76108288-32261668.jpg");
+    background-image: url("../images/pexels-urtimud-89-76108288-32261668.jpg");
     background-size: cover;
     background-position: center center;
 
@@ -2171,7 +2263,7 @@ body {
             rgba(16, 52, 45, 0.72),
             rgba(16, 52, 45, 0.78)
         ),
-        url("images/pexels-harsh-kukadiya-244412142-31756509.jpg");
+        url("../images/pexels-harsh-kukadiya-244412142-31756509.jpg");
 
     background-size: cover;
     background-position: center;
@@ -2828,7 +2920,7 @@ body {
             rgba(5, 42, 34, 0.90),
             rgba(5, 42, 34, 0.92)
         ),
-        url("images/pexels-ex-route-adventures-656223369-20282345.jpg");
+        url("../images/pexels-ex-route-adventures-656223369-20282345.jpg");
 
     background-size: cover;
     background-position: center;
@@ -3583,7 +3675,7 @@ body {
 MOBILE NAVBAR - FINAL FIX
 ========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 .header {
 position: relative;
 width: 100%;
@@ -3770,7 +3862,6 @@ padding: 0 12px;
 padding: 0 8px;
 }
 
-
 .logo-circle {
     width: 32px;
     height: 32px;
@@ -3796,4 +3887,29 @@ padding: 0 8px;
     font-size: 8px;
 }
 
+}
+
+/* Keep the desktop navigation clear of the logo and trip button. */
+@media (min-width: 1001px) and (max-width: 1350px) {
+    .header {
+        padding: 0 30px;
+    }
+
+    .navbar {
+        gap: clamp(12px, 1.45vw, 20px);
+        margin-right: 22px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+        letter-spacing: 0.8px;
+        white-space: nowrap;
+    }
+
+    .trip-btn {
+        min-width: 220px;
+        padding: 0 20px;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
 }

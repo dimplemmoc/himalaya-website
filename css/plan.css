@@ -36,7 +36,7 @@ main {
     color: white;
     background:
         linear-gradient(90deg, rgba(15, 43, 33, .94), rgba(20, 55, 41, .67)),
-        url("images/pexels-minal-munakarmi-1236892-39748092.jpg") center/cover no-repeat,
+        url("../images/pexels-minal-munakarmi-1236892-39748092.jpg") center/cover no-repeat,
         #244b3c;
 }
 
@@ -457,15 +457,15 @@ main {
 }
 
 .destination-manali {
-    background-image: url("images/pexels-prajwalmalvephotography-28206557.jpg");
+    background-image: url("../images/pexels-prajwalmalvephotography-28206557.jpg");
 }
 
 .destination-spiti {
-    background-image: url("images/pexels-animesh-paul-150064-38056506.jpg");
+    background-image: url("../images/pexels-animesh-paul-150064-38056506.jpg");
 }
 
 .destination-kasol {
-    background-image: url("images/pexels-atiq-ahmed-khudavand-541512748-16657999.jpg");
+    background-image: url("../images/pexels-atiq-ahmed-khudavand-541512748-16657999.jpg");
 }
 
 .destination-card-content {
@@ -622,7 +622,7 @@ main {
     color: white;
     background:
         linear-gradient(rgba(22, 57, 43, .94), rgba(22, 57, 43, .94)),
-        url("images/himalaya-mountains.jpg") center/cover;
+        url("../images/pexels-urtimud-89-76108288-32261668.jpg") center/cover;
     text-align: center;
 }
 

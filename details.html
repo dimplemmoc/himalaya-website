@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#17372c">
+    <meta name="description" content="Explore a thoughtful Himalayan journey with Live Local Himalaya.">
+    <title>Journey Details | Live Local Himalaya</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/details.css">
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <main class="journey-detail" id="journey-detail">
+        <section class="journey-detail-hero" aria-labelledby="journey-title">
+            <img class="journey-detail-hero-image" id="journey-hero-image" alt="">
+            <div class="journey-detail-shade"></div>
+            <div class="journey-detail-hero-copy">
+                <a class="journey-back-link" id="journey-back-link" href="home.html">← Back to journeys</a>
+                <span class="journey-brand-kicker">LIVE LOCAL HIMALAYA</span>
+                <h1 id="journey-title">Loading journey…</h1>
+                <p id="journey-meta"></p>
+            </div>
+        </section>
+
+        <section class="journey-detail-layout" aria-labelledby="journey-intro-title">
+            <article class="journey-detail-story">
+                <span class="journey-category" id="journey-category"></span>
+                <h2 id="journey-intro-title"></h2>
+                <p class="journey-description" id="journey-description"></p>
+
+                <div class="journey-detail-gallery" id="journey-gallery"></div>
+
+                <h3>What you’ll experience</h3>
+                <ul class="journey-highlights" id="journey-highlights"></ul>
+            </article>
+
+            <aside class="journey-plan-card" aria-labelledby="journey-plan-title">
+                <span class="journey-plan-kicker">PLAN THIS JOURNEY</span>
+                <h2 id="journey-plan-title"></h2>
+                <p class="journey-plan-note">A local, personal and considered journey, planned around you.</p>
+                <dl class="journey-facts">
+                    <div><dt>Place</dt><dd id="journey-place"></dd></div>
+                    <div><dt>Length</dt><dd id="journey-length"></dd></div>
+                    <div><dt>Style</dt><dd id="journey-style"></dd></div>
+                </dl>
+                <a class="journey-enquiry-button" id="journey-enquiry" href="plan-trip.html">MAKE AN ENQUIRY <span aria-hidden="true">↗</span></a>
+            </aside>
+        </section>
+
+        <section class="journey-detail-error" id="journey-error" hidden>
+            <h1>Journey not found</h1>
+            <p>Choose a journey from our experiences, stays or packages.</p>
+            <a href="experience.html">Explore journeys</a>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+    <script src="js/components.js"></script>
+    <script src="js/site.js" defer></script>
+    <script src="js/details.js"></script>
+</body>
+</html>

@@ -41,7 +41,7 @@ body {
             rgba(10, 35, 28, .8),
             transparent 75%
         ),
-        url("images/pexels-priya-1722550-13548311.jpg") center 48% / cover no-repeat;
+        url("../images/pexels-priya-1722550-13548311.jpg") center 48% / cover no-repeat;
 }
 
 .hero-content {

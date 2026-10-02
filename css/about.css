@@ -15,7 +15,7 @@
 .about-hero-image {
     position: absolute;
     inset: 0;
-    background-image: url("images/pexels-muhammad-hary-2158336590-36427311.jpg");
+    background-image: url("../images/pexels-muhammad-hary-2158336590-36427311.jpg");
     background-size: cover;
     background-position: center;
     transform: scale(1.02);
@@ -659,7 +659,7 @@
 
     text-align: center;
 
-    background-image: url("images/about-cta.jpg");
+    background-image: url("../images/pexels-yogendras31-10782850.jpg");
     background-size: cover;
     background-position: center;
 

@@ -262,7 +262,7 @@ padding: 35px 14px;
     height: 88vh;
     min-height: 600px;
 
-    background-image: url("./images/pexels-achyutha-b-s-2567973-34265169.jpg");
+    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -576,7 +576,7 @@ padding: 35px 14px;
 
     min-height: 550px;
 
-    background-image: url("../images/himalayan-village.jpg");
+    background-image: url("../images/pexels-dxaxoxfz-16153351.jpg");
 
     background-size: cover;
 
@@ -762,7 +762,7 @@ padding: 35px 14px;
     height: 88vh;
     min-height: 600px;
 
-    background-image: url("../images/himalayan-experience.jpg");
+    background-image: url("../images/pexels-ex-route-adventures-656223369-20282345.jpg");
     background-size: cover;
     background-position: center;
 
@@ -1075,7 +1075,7 @@ padding: 35px 14px;
 
     min-height: 550px;
 
-    background-image: url("../images/himalayan-village.jpg");
+    background-image: url("../images/pexels-dxaxoxfz-16153351.jpg");
 
     background-size: cover;
 
@@ -1254,7 +1254,7 @@ padding: 35px 14px;
     min-height: 680px;
     height: calc(100vh - 105px);
 
-    background-image: url("images/experience-hero.jpg");
+    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.jpg");
     background-size: cover;
     background-position: center;
 
@@ -1771,7 +1771,7 @@ padding: 35px 14px;
 
     text-align: center;
 
-    background-image: url("images/experience-cta.jpg");
+    background-image: url("../images/pexels-sagargnawali-33575347.jpg");
 
     background-size: cover;
 

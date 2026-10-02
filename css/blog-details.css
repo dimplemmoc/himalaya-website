@@ -132,3 +132,25 @@
         font-size: 25px;
     }
 }
+.article-content {
+    width: min(760px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: clamp(48px, 8vw, 96px) 0;
+}
+
+.article-content .article-lead {
+    margin: 28px 0 0;
+    color: #425c54;
+    font-size: clamp(19px, 2.4vw, 24px);
+    line-height: 1.8;
+}
+
+.blog-detail-hero img[hidden] {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .article-content {
+        width: min(100% - 32px, 760px);
+    }
+}

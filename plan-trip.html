@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +14,8 @@
     <meta property="og:title" content="Plan Your Himalayan Trip | Live Local HIMALAYA">
     <meta property="og:description" content="Your next Himalayan adventure starts here. Plan a personalized mountain getaway with Live Local HIMALAYA.">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="plan.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/plan.css">
 </head>
 
 <body>
@@ -237,7 +237,7 @@
                 </div>
 
                 <p class="form-privacy">
-                    WhatsApp will open with your trip details ready to review and send.
+                    Your email app will open with your trip details ready to review and send.
                 </p>
             </form>
         </section>
@@ -378,11 +378,42 @@
     <div id="footer-container"></div>
 
     <script src="js/components.js"></script>
+<script src="js/site.js" defer></script>
 
     <script>
         const tripForm = document.getElementById("tripForm");
         const startDate = document.getElementById("startDate");
         const endDate = document.getElementById("endDate");
+
+        function queryValue(name) {
+            const pairs = window.location.search.replace(/^\?/, "").split("&");
+            for (let index = 0; index < pairs.length; index += 1) {
+                const parts = pairs[index].split("=");
+                if (decodeURIComponent(parts[0].replace(/\+/g, " ")) === name) {
+                    return decodeURIComponent((parts[1] || "").replace(/\+/g, " "));
+                }
+            }
+            return "";
+        }
+
+        const selectedJourney = queryValue("journey");
+        const selectedDestination = queryValue("destination");
+        if (selectedJourney) {
+            const messageField = document.getElementById("message");
+            messageField.value = "I’m interested in " + selectedJourney +
+                (selectedDestination ? " in " + selectedDestination : "") + ".";
+
+            const destinationField = document.getElementById("destination");
+            let matchingOption = null;
+            for (let optionIndex = 0; optionIndex < destinationField.options.length; optionIndex += 1) {
+                const option = destinationField.options[optionIndex];
+                if (option.value.toLowerCase() === selectedDestination.toLowerCase()) {
+                    matchingOption = option;
+                    break;
+                }
+            }
+            destinationField.value = matchingOption ? matchingOption.value : "Other";
+        }
 
         const today = new Date();
         const localToday = [
@@ -413,14 +444,7 @@
                 return;
             }
 
-            // Replace with your WhatsApp number:
-            // country code + number, without + or spaces.
             const whatsappNumber = "91XXXXXXXXXX";
-
-            if (whatsappNumber.includes("X")) {
-                alert("Please add your WhatsApp number in the page code first.");
-                return;
-            }
 
             const getValue = (id) =>
                 document.getElementById(id).value.trim();
@@ -438,14 +462,14 @@ Budget per Person: ${getValue("budget")}
 Travel Style: ${getValue("style")}
 Additional Details: ${getValue("message") || "Not provided"}`;
 
-            const whatsappURL =
-                "https://wa.me/" + whatsappNumber +
-                "?text=" + encodeURIComponent(message);
+            if (whatsappNumber.includes("X")) {
+                window.location.href = "mailto:hello@livelocalhimalaya.com?subject=" +
+                    encodeURIComponent("Himalayan trip enquiry") + "&body=" + encodeURIComponent(message);
+                return;
+            }
 
-            window.open(whatsappURL, "_blank", "noopener");
+            window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message), "_blank", "noopener");
         });
     </script>
 </body>
 </html>
-```
-.
