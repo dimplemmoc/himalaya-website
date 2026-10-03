@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#17372c">
+    <title>Blog Admin | Live Local Himalaya</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="cms-body">
+<main class="cms-shell">
+    <header class="cms-topbar">
+        <a class="cms-brand" href="blog.html"><span class="cms-mark">H</span><span>LIVE LOCAL HIMALAYA<small>JOURNAL ADMIN</small></span></a>
+        <div class="cms-top-actions"><a href="blog.html">View website ↗</a><button id="signout-button" class="button-quiet" hidden>Sign out</button></div>
+    </header>
+    <section id="connection-notice" class="cms-notice" hidden></section>
+    <section id="login-view" class="cms-login" hidden>
+        <p class="cms-eyebrow">EDITOR ACCESS</p><h1>Welcome back.</h1><p>Sign in to manage the Himalayan Journal.</p>
+        <form id="login-form"><label>Email address<input id="login-email" type="email" autocomplete="username" required></label><label>Password<input id="login-password" type="password" autocomplete="current-password" required></label><button class="button-primary" type="submit">Sign in</button><p class="cms-form-message" id="login-message" role="status"></p></form>
+    </section>
+    <section id="app-view" hidden>
+        <section class="cms-dashboard-stats" aria-label="Blog overview">
+            <article><span>Total blogs</span><strong id="stat-total">0</strong></article>
+            <article><span>Published</span><strong id="stat-published">0</strong></article>
+            <article><span>Drafts</span><strong id="stat-drafts">0</strong></article>
+            <article><span>In trash</span><strong id="stat-trash">0</strong></article>
+        </section>
+        <nav class="cms-tabs" aria-label="Blog management"><button class="is-active" data-view="posts">All blogs</button><button data-view="trash">Trash &amp; restore</button><button data-view="categories">Categories</button><button data-view="activity">Blog history</button></nav>
+        <section id="posts-panel" class="cms-panel"><div class="cms-list-tools"><label class="search-field"><span>⌕</span><input id="post-search" type="search" placeholder="Search by H1 or SEO title" aria-label="Search by H1 or SEO title"></label><select id="status-filter" aria-label="Filter by status"><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="unpublished">Unpublished</option></select></div><div id="posts-list" class="cms-post-list"></div></section>
+        <section id="trash-panel" class="cms-panel" hidden><h2>Recently deleted</h2><p>Deleted stories can be restored.</p><div id="trash-list" class="cms-post-list"></div></section>
+        <section id="categories-panel" class="cms-panel" hidden><h2>Categories</h2><form id="category-form" class="cms-inline-form"><input id="category-name" type="text" placeholder="New category name" required><button class="button-primary" type="submit">Add category</button></form><div id="category-list" class="cms-category-list"></div></section>
+        <section id="activity-panel" class="cms-panel" hidden><h2>Blog activity</h2><div id="activity-list" class="cms-activity-list"></div></section>
+    </section>
+</main>
+
+<section id="editor-panel" class="cms-page-editor" hidden><form id="post-form" class="cms-editor-form">
+    <div class="editor-scroll"><input id="post-id" type="hidden">
+        <div class="editor-sitebar"><span><strong>LIVE LOCAL HIMALAYA</strong><small>Blog publishing workspace</small></span><span class="editor-status-badge" id="editor-status-summary">Draft</span></div>
+        <div class="editor-overview" aria-label="Post details">
+            <article><span>POST STATUS</span><strong id="overview-status">Draft</strong></article>
+            <article><span>PUBLIC URL</span><strong id="overview-slug">/blog/your-blog-slug</strong></article>
+            <article><span>SEARCH VISIBILITY</span><strong id="overview-indexable">Indexable</strong></article>
+            <article><span>LINK TYPE</span><strong id="overview-link-type">DoFollow</strong></article>
+            <article><span>SPONSORED TAG</span><strong id="overview-sponsored">No</strong></article>
+            <article><span>SPECIAL REQUIREMENTS</span><strong id="overview-requirements">None added</strong></article>
+        </div>
+        <div class="content-banner"><strong id="editor-heading">● Add new blog</strong><span>NEW BLOG POST</span></div>
+        <div class="form-card">
+        <section class="form-section"><h3>Blog details</h3><div class="editor-grid"><label class="span-two">H1 / Blog heading<input id="post-h1" required maxlength="180" placeholder="Write the main blog heading"><small>This is the main heading visitors see on the blog.</small></label><label class="span-two">SEO title<input id="post-seo-title" required maxlength="180" placeholder="Title shown in Google search results"></label></div></section>
+        <fieldset class="cms-fieldset"><legend>Featured image</legend><p class="section-hint">Choose one option: upload an image from your device or paste an image URL.</p><div class="image-source-grid">
+            <label class="image-source-card"><span><input type="radio" name="image-source" value="upload" checked> Upload image directly</span><input id="image-file" type="file" accept="image/*"><small>Select an image file from your computer.</small></label>
+            <label class="image-source-card"><span><input type="radio" name="image-source" value="url"> Use image URL</span><input id="image-url" type="url" placeholder="https://example.com/image.jpg"><small>Paste a public image address.</small></label>
+        </div><div class="editor-grid image-alt-row"><label class="span-two">Image alt text<input id="image-alt" maxlength="240" placeholder="Describe what is shown in the image"><small>This description is saved with the image for accessibility.</small></label></div><div id="image-preview" class="cms-image-preview" hidden></div></fieldset>
+        <section class="category-picker-row"><label for="post-category">Choose a blog category</label><select id="post-category" required><option value="">Select a category</option></select><button type="button" id="add-category-inline" class="button-green-outline">＋ Add category</button></section>
+        <div class="content-banner"><strong>● Blog content</strong><span>PASTE OR UPLOAD</span></div>
+        <fieldset class="cms-fieldset"><legend>Blog content</legend><p class="section-hint">Upload a document on the left, or paste/type your content in the editor on the right. Imported text appears in the editor so you can edit it before publishing.</p><div class="content-source-grid">
+            <section class="document-card"><h4>Upload a document</h4><p>Choose a DOCX or PDF. Its text will be extracted into the editor.</p><label class="upload-document"><span>Drop a DOCX or PDF here, or click to upload</span><input id="document-file" type="file" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"></label><p id="document-status" class="document-status" role="status">No document selected.</p><small>Legacy .doc files need to be saved as .docx first.</small></section>
+            <section class="content-entry"><h4>Paste or write blog content</h4><div class="editor-toolbar" role="toolbar" aria-label="Text formatting"><button type="button" data-command="formatBlock" data-value="H2">H2</button><button type="button" data-command="formatBlock" data-value="H3">H3</button><button type="button" data-command="bold"><b>B</b></button><button type="button" data-command="italic"><i>I</i></button><button type="button" data-command="insertUnorderedList">• List</button><button type="button" data-command="insertOrderedList">1. List</button><button type="button" data-command="formatBlock" data-value="BLOCKQUOTE">Quote</button><button type="button" id="add-link">Link</button><button type="button" id="add-table">Table</button><label class="toolbar-image">Image<input id="inline-image-file" type="file" accept="image/*"></label></div>
+            <div id="content-editor" class="cms-content-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Blog content" data-placeholder="Click here and paste your blog, or start writing…"></div><p class="editor-help">Select link text and use Link to choose Follow or No-follow. You can format headings, lists, quotes, links, tables and images.</p></section>
+        </div></fieldset>
+        <section class="form-section"><h3>Target link and post details</h3><div class="editor-grid"><label>Target URL<input id="post-target-url" type="url" placeholder="https://your-website.com/page"></label><label>Anchor text<input id="post-anchor-text" maxlength="180" placeholder="Words that link to the target URL"></label><label>Link type<select id="post-link-type"><option value="dofollow">DoFollow</option><option value="nofollow">NoFollow</option></select></label><label>Post type<select id="post-sponsored"><option value="false">Normal</option><option value="true">Sponsored</option></select></label><label class="span-two">Special requirements<textarea id="post-special-requirements" rows="3" maxlength="1200" placeholder="Any special requirements for this blog post"></textarea></label><label class="checkbox-field"><input id="post-indexable" type="checkbox" checked> Allow search engines to index this blog</label><div><button type="button" id="insert-target-link" class="button-green-outline">Insert target link into content</button><small class="field-note">Adds the target URL using the anchor text and selected DoFollow/NoFollow type.</small></div></div></section>
+        <section class="form-section"><h3>Blog URL and preview</h3><div class="editor-grid"><label>Blog URL slug<div class="slug-field"><span>/blog/</span><input id="post-slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="auto-created-from-heading"></div><small>Created from H1; you can edit it.</small></label><label class="span-two">Short introduction<textarea id="post-excerpt" rows="3" maxlength="400" placeholder="Short preview shown on the blog listing"></textarea></label></div></section>
+        <fieldset class="cms-fieldset"><legend>SEO description</legend><div class="editor-grid"><label class="span-two">Meta description<textarea id="post-description" rows="3" maxlength="320" placeholder="A concise description for search engines"></textarea></label></div></fieldset>
+        <section id="version-section" class="version-section" hidden><h3>Previous versions</h3><div id="version-list"></div></section>
+        <p id="save-message" class="cms-form-message" role="status"></p>
+        </div>
+    </div>
+    <footer class="editor-footer"><span class="publish-hint">Review your blog before publishing it on the website.</span><span class="footer-spacer"></span><button type="button" id="save-draft" class="button-secondary">Save as draft</button><button type="button" id="publish-post" class="button-primary">Publish blog</button></footer>
+</form></section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/admin.js"></script>
+</body>
+</html>
