@@ -3366,7 +3366,7 @@ body {
 
     gap: 70px;
 
-    padding-bottom: 100px;
+    padding-bottom: 32px;
 }
 
 
@@ -3678,7 +3678,7 @@ body {
 .footer-bottom {
     width: 100%;
 
-    padding-top: 35px;
+    padding-top: 16px;
 
     border-top: 1px solid rgba(255,255,255,0.25);
 
@@ -3717,7 +3717,7 @@ body {
 
         gap: 60px;
 
-        padding-bottom: 70px;
+        padding-bottom: 24px;
     }
 
 
@@ -3988,7 +3988,7 @@ padding: 0 8px;
 
     .footer-main {
         gap: 32px;
-        padding-bottom: 42px;
+        padding-bottom: 18px;
     }
 
     .footer-tagline {
@@ -4027,8 +4027,16 @@ padding: 0 8px;
     .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
-        padding-top: 20px;
+        gap: 4px;
+        padding-top: 12px;
+    }
+
+    .footer-bottom p:first-child {
+        order: 2;
+    }
+
+    .footer-bottom p:last-child {
+        order: 1;
     }
 
     .footer-bottom p {
