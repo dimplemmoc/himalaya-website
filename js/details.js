@@ -190,6 +190,11 @@
         if (element) element.textContent = value;
     }
 
+    function setMeta(selector, attribute, value) {
+        var element = document.head.querySelector(selector);
+        if (element) element.setAttribute(attribute, value);
+    }
+
     function start() {
         var item = journeys[getParameter("slug")];
         var type = getParameter("type");
@@ -202,7 +207,23 @@
             return;
         }
 
-        document.title = item.title + " | Live Local Himalaya";
+        var title = item.title + " | Live Local Himalaya";
+        var description = item.description.replace(/\s+/g, " ").trim();
+        if (description.length > 160) description = description.slice(0, 157).replace(/\s+\S*$/, "") + "…";
+        var canonical = window.location.origin + window.location.pathname +
+            "?type=" + encodeURIComponent(type) + "&slug=" + encodeURIComponent(getParameter("slug"));
+        var imageUrl = new URL(item.image, window.location.href).href;
+
+        document.title = title;
+        setMeta('meta[name="description"]', "content", description);
+        setMeta('meta[property="og:title"]', "content", title);
+        setMeta('meta[property="og:description"]', "content", description);
+        setMeta('meta[property="og:url"]', "content", canonical);
+        setMeta('meta[property="og:image"]', "content", imageUrl);
+        setMeta('meta[name="twitter:title"]', "content", title);
+        setMeta('meta[name="twitter:description"]', "content", description);
+        setMeta('meta[name="twitter:image"]', "content", imageUrl);
+        setMeta('link[rel="canonical"]', "href", canonical);
         setText("journey-title", item.title);
         setText("journey-meta", item.meta);
         setText("journey-category", item.categoryLine);
