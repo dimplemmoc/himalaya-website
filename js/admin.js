@@ -14,11 +14,11 @@
         if (name === "activity") loadActivity();
     }
     async function init() {
-        if (!window.supabase || !window.HIMALAYA_SUPABASE_URL || !window.HIMALAYA_SUPABASE_ANON_KEY) {
-            showConnectionIssue("Supabase is not connected yet. Add the project URL and public anon key in js/supabase-config.js, then apply the setup steps in README.md.");
+        if (!window.supabase || !window.HIMALAYA_SUPABASE_URL || !window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+            showConnectionIssue("Supabase is not connected yet. Add the project URL and publishable key in js/supabase-config.js, then apply the setup steps in README.md.");
             return;
         }
-        supabase = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_ANON_KEY);
+        supabase = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
         byId("login-form").addEventListener("submit", login);
         byId("signout-button").addEventListener("click", async function () { await supabase.auth.signOut(); location.reload(); });
         byId("post-search").addEventListener("input", renderPosts);

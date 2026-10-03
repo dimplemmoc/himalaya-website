@@ -31,7 +31,7 @@ The website stays a static Vercel site. Blog records and categories live in Supa
    ```
 
    Repeat this for each editor account. The `cms_admins` table is checked by row-level security; a Supabase login alone does not grant CMS access.
-4. In **Project Settings → API**, copy the Project URL and the public `anon` key into `js/supabase-config.js`. These two values are intended for the browser. **Never put a `service_role` key in this file or in website code.**
+4. In **Project Settings → API Keys**, copy the Project URL and the public publishable key into `js/supabase-config.js`. These two values are intended for the browser. **Never put a secret or service-role key in this file or in website code.**
 5. In **Authentication → URL Configuration**, set the production site as the Site URL and add its `/admin` URL to the allowed redirect URLs. Give the client the `/admin` link and their editor credentials; their normal workflow does not require Supabase or Vercel dashboards.
 6. Preview the website and confirm sign-in, draft save, publish, edit, trash/restore, version restore, category management, image upload, and `/blog/{slug}`. Publishing writes to Supabase, so the public journal updates without a Vercel deployment.
 

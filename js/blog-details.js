@@ -24,8 +24,8 @@
     async function start(){
         var slug=param("slug")||decodeURIComponent(window.location.pathname.match(/^\/blog\/([^/]+)\/?$/)?.[1]||"");
         if(!slug){renderLegacy();return;}
-        if(!window.supabase||!window.HIMALAYA_SUPABASE_URL||!window.HIMALAYA_SUPABASE_ANON_KEY){setText("article-title","Journal is being connected");document.getElementById("article-body").textContent="Please check back soon.";return;}
-        var client=window.supabase.createClient(window.HIMALAYA_SUPABASE_URL,window.HIMALAYA_SUPABASE_ANON_KEY);
+        if(!window.supabase||!window.HIMALAYA_SUPABASE_URL||!window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY){setText("article-title","Journal is being connected");document.getElementById("article-body").textContent="Please check back soon.";return;}
+        var client=window.supabase.createClient(window.HIMALAYA_SUPABASE_URL,window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
         var result=await client.from("blog_posts").select("h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,seo_description,published_at").eq("slug",slug).eq("status","published").is("deleted_at",null).maybeSingle();
         if(result.error||!result.data){setText("article-title","Story not found");document.getElementById("article-body").textContent="This story may have moved. Visit the journal to explore other stories.";return;}
         renderPost(result.data);
