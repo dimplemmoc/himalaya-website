@@ -102,6 +102,7 @@
 
             var buttons = group.querySelectorAll("[data-category]");
             var emptyState = document.querySelector("[data-category-empty='" + target + "']");
+            var results = document.querySelector("[data-filter-items='" + target + "']");
 
             function showCategory(category) {
                 var visibleCount = 0;
@@ -121,11 +122,16 @@
                 if (emptyState) emptyState.hidden = visibleCount !== 0;
             }
 
-            group.addEventListener("click", function (event) {
-                var button = closestElement(event.target, "[data-category]");
-                if (!button || !group.contains(button)) return;
-                event.preventDefault();
-                showCategory(button.getAttribute("data-category"));
+            Array.prototype.forEach.call(buttons, function (button) {
+                button.addEventListener("click", function () {
+                    var category = button.getAttribute("data-category");
+                    showCategory(category);
+
+                    if (category !== "all") {
+                        var scrollTarget = emptyState && !emptyState.hidden ? emptyState : results;
+                        if (scrollTarget) scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
             });
 
             showCategory("all");

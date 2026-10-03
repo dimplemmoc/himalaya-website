@@ -262,7 +262,7 @@ padding: 35px 14px;
     height: 88vh;
     min-height: 600px;
 
-    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.jpg");
+    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.webp");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -576,7 +576,7 @@ padding: 35px 14px;
 
     min-height: 550px;
 
-    background-image: url("../images/pexels-dxaxoxfz-16153351.jpg");
+    background-image: url("../images/pexels-dxaxoxfz-16153351.webp");
 
     background-size: cover;
 
@@ -762,7 +762,7 @@ padding: 35px 14px;
     height: 88vh;
     min-height: 600px;
 
-    background-image: url("../images/pexels-ex-route-adventures-656223369-20282345.jpg");
+    background-image: url("../images/pexels-ex-route-adventures-656223369-20282345.webp");
     background-size: cover;
     background-position: center;
 
@@ -1075,7 +1075,7 @@ padding: 35px 14px;
 
     min-height: 550px;
 
-    background-image: url("../images/pexels-dxaxoxfz-16153351.jpg");
+    background-image: url("../images/pexels-dxaxoxfz-16153351.webp");
 
     background-size: cover;
 
@@ -1254,7 +1254,7 @@ padding: 35px 14px;
     min-height: 680px;
     height: calc(100vh - 105px);
 
-    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.jpg");
+    background-image: url("../images/pexels-achyutha-b-s-2567973-34265169.webp");
     background-size: cover;
     background-position: center;
 
@@ -1771,7 +1771,7 @@ padding: 35px 14px;
 
     text-align: center;
 
-    background-image: url("../images/pexels-sagargnawali-33575347.jpg");
+    background-image: url("../images/pexels-sagargnawali-33575347.webp");
 
     background-size: cover;
 
@@ -2252,7 +2252,7 @@ padding: 35px 14px;
 }
 /* Category filters inspired by the Live Local reference */
 .experience-categories { padding: 54px 5% 28px; background: #fbfaf6; }
-.experience-categories .category-list { max-width: 1200px; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 10px; margin: 0 auto; padding: 0; overflow: visible; }
+.experience-categories .category-list { max-width: 1200px; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 10px; margin: 0 auto; padding: 0; overflow: visible; }
 .experience-categories .category-item { width: auto; min-width: 0; min-height: 38px; padding: 11px 18px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: #edf1eb; color: #335449; font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.1px; line-height: 1; text-transform: uppercase; white-space: nowrap; cursor: pointer; box-shadow: none; transition: background .2s ease, color .2s ease, transform .2s ease; }
 .experience-categories .category-item:hover { background: #dfe9e1; transform: translateY(-1px); }
 .experience-categories .category-item.active { background: #185b48; color: #fff; transform: none; }
