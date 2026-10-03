@@ -18,6 +18,7 @@
         if(post.excerpt){var lead=document.createElement("p");lead.className="article-lead";lead.textContent=post.excerpt;body.appendChild(lead);}
         var content=document.createElement("div");content.className="cms-article-body";content.innerHTML=window.DOMPurify?DOMPurify.sanitize(post.content_html||"",{USE_PROFILES:{html:true}}):"";body.appendChild(content);
         var canonical=window.location.origin+"/blog/"+encodeURIComponent(post.slug);setMeta('link[rel="canonical"]',"href",canonical);setMeta('meta[property="og:url"]',"content",canonical);setMeta('meta[property="og:title"]',"content",title);setMeta('meta[name="twitter:title"]',"content",title);
+        var robots=document.querySelector('meta[name="robots"]');if(robots)robots.setAttribute("content",post.is_indexable===false?"noindex,follow":"index,follow");
         if(post.seo_description){setMeta('meta[name="description"]',"content",post.seo_description);setMeta('meta[property="og:description"]',"content",post.seo_description);setMeta('meta[name="twitter:description"]',"content",post.seo_description);}
         if(post.featured_image_url){setMeta('meta[property="og:image"]',"content",post.featured_image_url);setMeta('meta[name="twitter:image"]',"content",post.featured_image_url);}
     }
@@ -26,7 +27,7 @@
         if(!slug){renderLegacy();return;}
         if(!window.supabase||!window.HIMALAYA_SUPABASE_URL||!window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY){setText("article-title","Journal is being connected");document.getElementById("article-body").textContent="Please check back soon.";return;}
         var client=window.supabase.createClient(window.HIMALAYA_SUPABASE_URL,window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
-        var result=await client.from("blog_posts").select("h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,seo_description,published_at").eq("slug",slug).eq("status","published").is("deleted_at",null).maybeSingle();
+        var result=await client.from("blog_posts").select("h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,seo_description,is_indexable,published_at").eq("slug",slug).eq("status","published").is("deleted_at",null).maybeSingle();
         if(result.error||!result.data){setText("article-title","Story not found");document.getElementById("article-body").textContent="This story may have moved. Visit the journal to explore other stories.";return;}
         renderPost(result.data);
     }

@@ -48,7 +48,7 @@
 .editor-sitebar>span:first-child{display:flex;flex-direction:column;gap:4px;font-size:12px}
 .editor-sitebar small{font-size:10px;color:#d4e2d9}
 .editor-status-badge{padding:6px 12px;border-radius:16px;background:#ffffff20;font-size:11px;text-transform:capitalize}
-.editor-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:14px 0}
+.editor-overview{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;padding:14px 0}
 .editor-overview article{min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:11px 14px;background:#fff;border:1px solid #e6eae6;border-radius:7px}
 .editor-overview article span{font-size:9px;letter-spacing:.1em;color:var(--cms-muted);font-weight:700}
 .editor-overview article strong{font-size:12px;color:var(--cms-forest);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

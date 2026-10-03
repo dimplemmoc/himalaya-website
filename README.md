@@ -21,6 +21,7 @@ The website stays a static Vercel site. Blog records and categories live in Supa
 ### One-time Supabase setup
 
 1. Create a Supabase project and open **SQL Editor**. Run `supabase/migrations/202610030001_blog_cms.sql`.
+   If the base CMS schema was already installed, also run `supabase/migrations/202610030002_blog_editor_details.sql` to add Target URL, Anchor Text, DoFollow/NoFollow, indexable/sponsored tags, and special requirements to the editor.
 2. In Supabase **Authentication → Users**, create the first editor account with the email and password the client will use to sign in. Keep public sign-ups disabled.
 3. Add that account to the CMS allow-list from SQL Editor, replacing the email below:
 
