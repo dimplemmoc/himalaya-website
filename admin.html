@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#17372c">
+    <title>Blog Admin | Live Local Himalaya</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="cms-body">
+<main class="cms-shell">
+    <header class="cms-topbar">
+        <a class="cms-brand" href="blog.html"><span class="cms-mark">H</span><span>LIVE LOCAL HIMALAYA<small>JOURNAL ADMIN</small></span></a>
+        <div class="cms-top-actions"><a href="blog.html">View website ↗</a><button id="signout-button" class="button-quiet" hidden>Sign out</button></div>
+    </header>
+    <section id="connection-notice" class="cms-notice" hidden></section>
+    <section id="login-view" class="cms-login" hidden>
+        <p class="cms-eyebrow">EDITOR ACCESS</p><h1>Welcome back.</h1><p>Sign in to manage the Himalayan Journal.</p>
+        <form id="login-form"><label>Email address<input id="login-email" type="email" autocomplete="username" required></label><label>Password<input id="login-password" type="password" autocomplete="current-password" required></label><button class="button-primary" type="submit">Sign in</button><p class="cms-form-message" id="login-message" role="status"></p></form>
+    </section>
+    <section id="app-view" hidden>
+        <div class="cms-heading"><div><p class="cms-eyebrow">HIMALAYAN JOURNAL</p><h1>Your stories, in one place.</h1><p>Create and manage posts without visiting the hosting dashboard.</p></div><button id="new-post" class="button-primary">＋ New story</button></div>
+        <nav class="cms-tabs" aria-label="Blog management"><button class="is-active" data-view="posts">All stories</button><button data-view="trash">Trash</button><button data-view="categories">Categories</button><button data-view="activity">Activity</button></nav>
+        <section id="posts-panel" class="cms-panel"><div class="cms-list-tools"><label class="search-field"><span>⌕</span><input id="post-search" type="search" placeholder="Search by H1 or SEO title" aria-label="Search by H1 or SEO title"></label><select id="status-filter" aria-label="Filter by status"><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Draft</option><option value="unpublished">Unpublished</option></select></div><div id="posts-list" class="cms-post-list"></div></section>
+        <section id="trash-panel" class="cms-panel" hidden><h2>Recently deleted</h2><p>Deleted stories can be restored.</p><div id="trash-list" class="cms-post-list"></div></section>
+        <section id="categories-panel" class="cms-panel" hidden><h2>Categories</h2><form id="category-form" class="cms-inline-form"><input id="category-name" type="text" placeholder="New category name" required><button class="button-primary" type="submit">Add category</button></form><div id="category-list" class="cms-category-list"></div></section>
+        <section id="activity-panel" class="cms-panel" hidden><h2>Blog activity</h2><div id="activity-list" class="cms-activity-list"></div></section>
+    </section>
+</main>
+
+<dialog id="editor-dialog" class="cms-dialog"><form id="post-form" method="dialog" class="cms-editor-form">
+    <header class="editor-header"><div><p class="cms-eyebrow">STORY EDITOR</p><h2 id="editor-heading">New story</h2></div><button type="button" id="close-editor" class="icon-button" aria-label="Close editor">×</button></header>
+    <div class="editor-scroll"><input id="post-id" type="hidden">
+        <div class="editor-grid"><label class="span-two">H1 / Blog heading<input id="post-h1" required maxlength="180" placeholder="The story headline"><small>This appears as the main heading on your article.</small></label><label>SEO title<input id="post-seo-title" required maxlength="180" placeholder="Search result title"></label><label>URL slug<div class="slug-field"><span>/blog/</span><input id="post-slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="story-slug"></div><small>Created from the heading; you can change it.</small></label><label>Category<select id="post-category"><option value="">Choose category</option></select></label><label>Short introduction<textarea id="post-excerpt" rows="3" maxlength="400" placeholder="A short preview for the journal listing"></textarea></label></div>
+        <fieldset class="cms-fieldset"><legend>Featured image</legend><div class="editor-grid"><label>Upload image<input id="image-file" type="file" accept="image/*"></label><label>Or paste image URL<input id="image-url" type="url" placeholder="https://..."></label><label class="span-two">Image alt text<input id="image-alt" maxlength="240" placeholder="Describe the image for accessibility"></label></div><div id="image-preview" class="cms-image-preview" hidden></div></fieldset>
+        <fieldset class="cms-fieldset"><legend>Story content</legend><div class="document-row"><label class="upload-document">Import DOCX or PDF<input id="document-file" type="file" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"></label><span id="document-status" role="status">Imported text opens here for editing before you publish.</span></div>
+            <div class="editor-toolbar" role="toolbar" aria-label="Text formatting"><button type="button" data-command="formatBlock" data-value="H2">H2</button><button type="button" data-command="formatBlock" data-value="H3">H3</button><button type="button" data-command="bold"><b>B</b></button><button type="button" data-command="italic"><i>I</i></button><button type="button" data-command="insertUnorderedList">• List</button><button type="button" data-command="insertOrderedList">1. List</button><button type="button" data-command="formatBlock" data-value="BLOCKQUOTE">Quote</button><button type="button" id="add-link">Link</button><button type="button" id="add-table">Table</button><label class="toolbar-image">Image<input id="inline-image-file" type="file" accept="image/*"></label></div>
+            <div id="content-editor" class="cms-content-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Story content" data-placeholder="Paste your story here, or start writing…"></div><p class="editor-help">Select link text and choose Link to set Follow or No-follow. Imported documents are converted to editable text; the source file is kept privately.</p>
+        </fieldset>
+        <fieldset class="cms-fieldset"><legend>Search appearance</legend><div class="editor-grid"><label class="span-two">Meta description<textarea id="post-description" rows="3" maxlength="320" placeholder="A concise description for search engines"></textarea></label></div></fieldset>
+        <section id="version-section" class="version-section" hidden><h3>Previous versions</h3><div id="version-list"></div></section>
+        <p id="save-message" class="cms-form-message" role="status"></p>
+    </div>
+    <footer class="editor-footer"><button type="button" id="cancel-editor" class="button-quiet">Cancel</button><span class="footer-spacer"></span><button type="button" id="save-draft" class="button-secondary">Save draft</button><button type="button" id="publish-post" class="button-primary">Publish story</button></footer>
+</form></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/admin.js"></script>
+</body>
+</html>

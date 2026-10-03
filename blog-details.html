@@ -19,8 +19,9 @@
     <meta name="twitter:description" content="Read a story from the Live Local Himalaya journal about the people, places and everyday moments of the Himalayas.">
     <meta name="twitter:image" content="https://himalayawebsite.vercel.app/images/pexels-urtimud-89-76108288-32261668.jpg">
 
-    <link rel="stylesheet" href="css/style.css?v=responsive-seo-1">
-    <link rel="stylesheet" href="css/blog-details.css">
+    <link rel="stylesheet" href="/css/style.css?v=responsive-seo-1">
+    <link rel="stylesheet" href="/css/blog-details.css">
+    <link rel="stylesheet" href="/css/cms-article.css">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -40,15 +41,18 @@
         </div>
 
         <article class="article-content">
-            <a href="blog.html" class="back-link">← Back to Blogs</a>
+            <a href="/blog.html" class="back-link">← Back to Blogs</a>
             <div id="article-body"></div>
         </article>
     </main>
 
     <div id="footer-container"></div>
 
-    <script src="js/components.js"></script>
-<script src="js/site.js" defer></script>
-    <script src="js/blog-details.js"></script>
+<script src="/js/components.js"></script>
+<script src="/js/site.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+<script src="/js/supabase-config.js"></script>
+<script src="/js/blog-details.js"></script>
 </body>
 </html>
