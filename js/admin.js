@@ -27,17 +27,22 @@
         byId("close-editor").addEventListener("click", closeEditor); byId("cancel-editor").addEventListener("click", closeEditor);
         byId("save-draft").addEventListener("click", function () { savePost("draft"); });
         byId("publish-post").addEventListener("click", function () { savePost("published"); });
-        byId("post-h1").addEventListener("input", function () { if (!byId("post-id").value || !byId("post-slug").dataset.edited) byId("post-slug").value = slugify(this.value); if (!byId("post-seo-title").dataset.edited) byId("post-seo-title").value = this.value; });
+        byId("post-h1").addEventListener("input", function () { if (!byId("post-id").value || !byId("post-slug").dataset.edited) byId("post-slug").value = slugify(this.value); if (!byId("post-seo-title").dataset.edited) byId("post-seo-title").value = this.value; renderSlugPreview(); });
         byId("post-seo-title").addEventListener("input", function () { this.dataset.edited = "true"; });
-        byId("post-slug").addEventListener("input", function () { this.dataset.edited = "true"; this.value = slugify(this.value); });
+        byId("post-slug").addEventListener("input", function () { this.dataset.edited = "true"; this.value = slugify(this.value); renderSlugPreview(); });
         byId("image-file").addEventListener("change", function () { document.querySelector('input[name="image-source"][value="upload"]').checked = true; imagePreview(); });
         byId("image-url").addEventListener("input", function () { document.querySelector('input[name="image-source"][value="url"]').checked = true; imagePreview(); });
         document.querySelectorAll('input[name="image-source"]').forEach(function (input) { input.addEventListener("change", imagePreview); });
         byId("document-file").addEventListener("change", importDocument);
+        var documentDrop=byId("document-file").closest(".upload-document");
+        documentDrop.addEventListener("dragover",function(event){event.preventDefault();documentDrop.classList.add("is-dragging");});
+        documentDrop.addEventListener("dragleave",function(){documentDrop.classList.remove("is-dragging");});
+        documentDrop.addEventListener("drop",function(event){event.preventDefault();documentDrop.classList.remove("is-dragging");var file=event.dataTransfer.files[0];if(!file)return;var transfer=new DataTransfer();transfer.items.add(file);byId("document-file").files=transfer.files;importDocument({target:byId("document-file")});});
         document.querySelectorAll(".editor-toolbar [data-command]").forEach(function (button) { button.addEventListener("click", function () { byId("content-editor").focus(); document.execCommand(button.dataset.command,false,button.dataset.value || null); }); });
         byId("add-link").addEventListener("click", addLink); byId("add-table").addEventListener("click", addTable);
         byId("inline-image-file").addEventListener("change", uploadInlineImage);
         byId("category-form").addEventListener("submit", createCategory);
+        byId("add-category-inline").addEventListener("click", quickCreateCategory);
         document.querySelectorAll(".cms-tabs button").forEach(function (button) { button.addEventListener("click", function () { currentView(button.dataset.view); }); });
         document.addEventListener("click", onActionClick);
         var result = await supabase.auth.getSession();
@@ -68,6 +73,10 @@
         byId("stat-drafts").textContent=String(active.filter(function(p){return p.status==="draft";}).length);
         byId("stat-trash").textContent=String(posts.filter(function(p){return !!p.deleted_at;}).length);
     }
+    function renderSlugPreview() {
+        var slug=slugify(byId("post-slug").value||byId("post-h1").value)||"your-blog-slug";
+        byId("overview-slug").textContent="/blog/"+slug;
+    }
     async function loadCategories() {
         var result = await supabase.from("blog_categories").select("*").order("name");
         if (result.error) return;
@@ -92,6 +101,7 @@
         document.querySelector('input[name="image-source"][value="upload"]').checked=!(post&&post.featured_image_url);
         byId("document-status").textContent="No document selected.";
         byId("post-description").value=post?post.seo_description:""; byId("content-editor").innerHTML=post?editorContent(post.content_html):""; imagePreview(); message("save-message","");
+        var status=post?post.status:"draft";byId("overview-status").textContent=status.charAt(0).toUpperCase()+status.slice(1);byId("editor-status-summary").textContent=status.charAt(0).toUpperCase()+status.slice(1);renderSlugPreview();
         byId("version-section").hidden=!post; if(post) loadVersions(post.id);
         byId("post-form").onsubmit=function(event){event.preventDefault();};
         byId("editor-dialog").showModal();
@@ -124,6 +134,7 @@
         } catch(error){message("save-message",error.message||"Could not save this story.",true);}
     }
     async function createCategory(event){event.preventDefault();var name=byId("category-name").value.trim();if(!name)return;var slug=slugify(name);var result=await supabase.from("blog_categories").insert({name:name,slug:slug});if(result.error)return alert(result.error.message);byId("category-name").value="";await loadCategories();}
+    async function quickCreateCategory(){var name=prompt("Enter the new blog category name:");if(!name||!name.trim())return;var clean=name.trim(),result=await supabase.from("blog_categories").insert({name:clean,slug:slugify(clean)}).select().single();if(result.error)return alert(result.error.message);await loadCategories();byId("post-category").value=result.data.id;}
     async function loadActivity(){var result=await supabase.from("blog_activity").select("*").order("created_at",{ascending:false}).limit(100);if(result.error){byId("activity-list").textContent=result.error.message;return;}byId("activity-list").innerHTML=result.data.length?result.data.map(function(a){return '<div class="activity-row"><span>'+esc(a.action)+'</span><b>'+esc(a.post_title)+'</b><time>'+formatDate(a.created_at)+'</time></div>';}).join(""):'<p class="cms-empty">No activity yet.</p>';}
     async function loadVersions(id){var result=await supabase.from("blog_post_versions").select("id,snapshot,changed_at").eq("post_id",id).order("changed_at",{ascending:false}).limit(20);if(result.error)return;var section=byId("version-section");section.hidden=!result.data.length;byId("version-list").innerHTML=result.data.map(function(v){return '<div class="version-row"><span>'+formatDate(v.changed_at)+'</span><button data-action="version" data-id="'+v.id+'">Restore this version</button></div>';}).join("");}
     async function onActionClick(event){var button=event.target.closest("[data-action]");if(!button)return;var action=button.dataset.action,id=button.dataset.id,post=posts.find(function(p){return p.id===id;});
