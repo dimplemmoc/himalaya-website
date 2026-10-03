@@ -3988,7 +3988,7 @@ padding: 0 8px;
 
     .footer-main {
         gap: 32px;
-        padding-bottom: 18px;
+        padding-bottom: 8px;
     }
 
     .footer-tagline {
@@ -4028,7 +4028,7 @@ padding: 0 8px;
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
-        padding-top: 12px;
+        padding-top: 8px;
     }
 
     .footer-bottom p:first-child {
