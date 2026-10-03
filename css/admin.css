@@ -74,3 +74,14 @@
 .publish-hint{font-size:11px;color:var(--cms-muted)}
 .editor-footer .button-primary,.editor-footer .button-secondary{border-radius:6px}
 @media(max-width:720px){.editor-topnav{height:52px;padding:0 12px;gap:9px}.editor-brand{font-size:9px}.editor-brand .cms-mark{width:27px;height:27px}.editor-overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.editor-overview article{min-height:58px;padding:9px}.category-picker-row{grid-template-columns:1fr 1fr;gap:8px;padding:11px}.category-picker-row>label{grid-column:1/-1}.category-picker-row select{grid-column:1/-1}.category-picker-row .button-green-outline{grid-column:1/-1}.content-banner{height:44px;padding:0 12px}.form-card{padding:14px 11px}.editor-footer{gap:7px}.publish-hint{display:none}.editor-footer .button-secondary,.editor-footer .button-primary{padding:11px 10px}.footer-spacer{flex:1}}
+
+/* The editor is the landing panel after sign-in, not a separate modal flow. */
+.cms-page-editor{margin:4px 0 26px}
+.cms-page-editor .cms-editor-form{display:block;height:auto;max-height:none;overflow:visible}
+.cms-page-editor .editor-scroll{flex:none;max-height:none;overflow:visible;padding:0 0 18px}
+.cms-page-editor .editor-sitebar{margin-bottom:0}
+.cms-page-editor .editor-footer{position:sticky;bottom:0;z-index:3;border:1px solid var(--cms-line);border-radius:8px;box-shadow:0 -3px 12px #18241c12}
+.cms-page-editor .content-banner{margin-bottom:13px}
+.cms-page-editor .form-card{padding:20px}
+.cms-page-editor[hidden]{display:none}
+@media(max-width:720px){.cms-page-editor .form-card{padding:14px 11px}.cms-page-editor .editor-footer{bottom:0}}

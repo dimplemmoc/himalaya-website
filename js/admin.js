@@ -14,6 +14,8 @@
         if (name === "activity") loadActivity();
     }
     async function init() {
+        var appView=byId("app-view"),editorPanel=byId("editor-panel");
+        appView.insertBefore(editorPanel,appView.querySelector(".cms-dashboard-stats"));
         if (!window.supabase || !window.HIMALAYA_SUPABASE_URL || !window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
             showConnectionIssue("Supabase is not connected yet. Add the project URL and publishable key in js/supabase-config.js, then apply the setup steps in README.md.");
             return;
@@ -23,8 +25,6 @@
         byId("signout-button").addEventListener("click", async function () { await supabase.auth.signOut(); location.reload(); });
         byId("post-search").addEventListener("input", renderPosts);
         byId("status-filter").addEventListener("change", renderPosts);
-        byId("new-post").addEventListener("click", function () { openEditor(null); });
-        byId("close-editor").addEventListener("click", closeEditor); byId("cancel-editor").addEventListener("click", closeEditor);
         byId("save-draft").addEventListener("click", function () { savePost("draft"); });
         byId("publish-post").addEventListener("click", function () { savePost("published"); });
         byId("post-h1").addEventListener("input", function () { if (!byId("post-id").value || !byId("post-slug").dataset.edited) byId("post-slug").value = slugify(this.value); if (!byId("post-seo-title").dataset.edited) byId("post-seo-title").value = this.value; renderSlugPreview(); });
@@ -60,9 +60,10 @@
     }
     async function signedIn() {
         byId("login-view").hidden = true; byId("app-view").hidden = false; byId("signout-button").hidden = false;
+        byId("editor-panel").hidden = false;
         var adminCheck = await supabase.from("cms_admins").select("user_id").eq("user_id",user.id).maybeSingle();
         if (adminCheck.error || !adminCheck.data) { await supabase.auth.signOut(); byId("login-view").hidden=false; byId("app-view").hidden=true; return message("login-message","This account is not on the CMS admin list. Ask the site owner to add your email in Supabase setup.",true); }
-        await Promise.all([loadPosts(),loadCategories()]);
+        await Promise.all([loadPosts(),loadCategories()]); openEditor(null);
     }
     async function loadPosts() {
         var result = await supabase.from("blog_posts").select("*").order("updated_at",{ascending:false});
@@ -120,9 +121,10 @@
         var status=post?post.status:"draft";byId("overview-status").textContent=status.charAt(0).toUpperCase()+status.slice(1);byId("editor-status-summary").textContent=status.charAt(0).toUpperCase()+status.slice(1);renderSlugPreview();
         byId("version-section").hidden=!post; if(post) loadVersions(post.id);
         byId("post-form").onsubmit=function(event){event.preventDefault();};
-        byId("editor-dialog").showModal();
+        byId("editor-panel").hidden=false;
+        if(post)byId("editor-panel").scrollIntoView({behavior:"smooth",block:"start"});
     }
-    function closeEditor(){byId("editor-dialog").close();editingPost=null;}
+    function closeEditor(){editingPost=null;openEditor(null);message("save-message","");}
     function imagePreview(){var source=document.querySelector('input[name="image-source"]:checked').value, file=byId("image-file").files[0],url=source==="upload"&&file?URL.createObjectURL(file):source==="url"?byId("image-url").value.trim():"",box=byId("image-preview");box.hidden=!url;box.innerHTML=url?'<img src="'+esc(url)+'" alt="Preview">':'';}
     async function upload(file,bucket) {
         var safe=file.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-"); var path=user.id+"/"+Date.now()+"-"+safe;
@@ -150,7 +152,7 @@
             var result=editingPost?await supabase.from("blog_posts").update(payload).eq("id",editingPost.id).select().single():await supabase.from("blog_posts").insert(Object.assign(payload,{created_by:user.id})).select().single();
             if(result.error)throw result.error;
             var doc=byId("document-file").files[0]; if(doc) await upload(doc,"blog-documents");
-            closeEditor(); await loadPosts(); message("save-message","");
+            closeEditor(); await loadPosts(); message("save-message",status==="published"?"Blog published successfully.":"Draft saved successfully.");
         } catch(error){message("save-message",error.message||"Could not save this story.",true);}
     }
     async function createCategory(event){event.preventDefault();var name=byId("category-name").value.trim();if(!name)return;var slug=slugify(name);var result=await supabase.from("blog_categories").insert({name:name,slug:slug});if(result.error)return alert(result.error.message);byId("category-name").value="";await loadCategories();}
