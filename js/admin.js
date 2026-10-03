@@ -30,7 +30,9 @@
         byId("post-h1").addEventListener("input", function () { if (!byId("post-id").value || !byId("post-slug").dataset.edited) byId("post-slug").value = slugify(this.value); if (!byId("post-seo-title").dataset.edited) byId("post-seo-title").value = this.value; });
         byId("post-seo-title").addEventListener("input", function () { this.dataset.edited = "true"; });
         byId("post-slug").addEventListener("input", function () { this.dataset.edited = "true"; this.value = slugify(this.value); });
-        byId("image-file").addEventListener("change", imagePreview); byId("image-url").addEventListener("input", imagePreview);
+        byId("image-file").addEventListener("change", function () { document.querySelector('input[name="image-source"][value="upload"]').checked = true; imagePreview(); });
+        byId("image-url").addEventListener("input", function () { document.querySelector('input[name="image-source"][value="url"]').checked = true; imagePreview(); });
+        document.querySelectorAll('input[name="image-source"]').forEach(function (input) { input.addEventListener("change", imagePreview); });
         byId("document-file").addEventListener("change", importDocument);
         document.querySelectorAll(".editor-toolbar [data-command]").forEach(function (button) { button.addEventListener("click", function () { byId("content-editor").focus(); document.execCommand(button.dataset.command,false,button.dataset.value || null); }); });
         byId("add-link").addEventListener("click", addLink); byId("add-table").addEventListener("click", addTable);
@@ -57,7 +59,14 @@
     async function loadPosts() {
         var result = await supabase.from("blog_posts").select("*").order("updated_at",{ascending:false});
         if (result.error) { showConnectionIssue("Could not load blog posts: " + result.error.message); return; }
-        posts = result.data || []; renderPosts(); renderTrash();
+        posts = result.data || []; renderPosts(); renderTrash(); renderStats();
+    }
+    function renderStats() {
+        var active=posts.filter(function(p){return !p.deleted_at;});
+        byId("stat-total").textContent=String(active.length);
+        byId("stat-published").textContent=String(active.filter(function(p){return p.status==="published";}).length);
+        byId("stat-drafts").textContent=String(active.filter(function(p){return p.status==="draft";}).length);
+        byId("stat-trash").textContent=String(posts.filter(function(p){return !!p.deleted_at;}).length);
     }
     async function loadCategories() {
         var result = await supabase.from("blog_categories").select("*").order("name");
@@ -79,13 +88,16 @@
         byId("post-h1").value=post?post.h1:""; byId("post-seo-title").value=post?post.seo_title:""; byId("post-seo-title").dataset.edited=post?"true":"";
         byId("post-slug").value=post?post.slug:""; byId("post-slug").dataset.edited=post?"true":""; byId("post-category").value=post?post.category_id||"":"";
         byId("post-excerpt").value=post?post.excerpt:""; byId("image-url").value=post?post.featured_image_url:""; byId("image-alt").value=post?post.featured_image_alt:"";
+        document.querySelector('input[name="image-source"][value="url"]').checked=!!(post&&post.featured_image_url);
+        document.querySelector('input[name="image-source"][value="upload"]').checked=!(post&&post.featured_image_url);
+        byId("document-status").textContent="No document selected.";
         byId("post-description").value=post?post.seo_description:""; byId("content-editor").innerHTML=post?editorContent(post.content_html):""; imagePreview(); message("save-message","");
         byId("version-section").hidden=!post; if(post) loadVersions(post.id);
         byId("post-form").onsubmit=function(event){event.preventDefault();};
         byId("editor-dialog").showModal();
     }
     function closeEditor(){byId("editor-dialog").close();editingPost=null;}
-    function imagePreview(){var url=byId("image-url").value.trim(), file=byId("image-file").files[0], box=byId("image-preview");if(file)url=URL.createObjectURL(file);box.hidden=!url;box.innerHTML=url?'<img src="'+esc(url)+'" alt="Preview">':'';}
+    function imagePreview(){var source=document.querySelector('input[name="image-source"]:checked').value, file=byId("image-file").files[0],url=source==="upload"&&file?URL.createObjectURL(file):source==="url"?byId("image-url").value.trim():"",box=byId("image-preview");box.hidden=!url;box.innerHTML=url?'<img src="'+esc(url)+'" alt="Preview">':'';}
     async function upload(file,bucket) {
         var safe=file.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-"); var path=user.id+"/"+Date.now()+"-"+safe;
         var result=await supabase.storage.from(bucket).upload(path,file,{upsert:false,contentType:file.type}); if(result.error)throw result.error;
@@ -94,9 +106,14 @@
     async function savePost(status) {
         var h1=byId("post-h1").value.trim(), slug=slugify(byId("post-slug").value||h1);
         if(!h1||!slug){return message("save-message","Add a heading and a valid URL slug.",true);}
+        if(status==="published"&&!byId("post-category").value){return message("save-message","Choose a category before publishing.",true);}
+        if(status==="published"&&!byId("content-editor").innerText.trim()){return message("save-message","Add blog content or import a document before publishing.",true);}
+        if(status==="published"&&!byId("image-file").files[0]&&document.querySelector('input[name="image-source"]:checked').value==="upload"){return message("save-message","Upload a featured image or choose the image URL option.",true);}
+        if(status==="published"&&document.querySelector('input[name="image-source"]:checked').value==="url"&&!byId("image-url").value.trim()){return message("save-message","Paste the featured image URL, or choose direct upload.",true);}
         message("save-message","Saving…");
         try {
-            var imageUrl=byId("image-url").value.trim(), imageFile=byId("image-file").files[0];
+            var imageSource=document.querySelector('input[name="image-source"]:checked').value;
+            var imageUrl=imageSource==="url"?byId("image-url").value.trim():(editingPost&&editingPost.featured_image_url&&!byId("image-file").files[0]?editingPost.featured_image_url:""), imageFile=imageSource==="upload"?byId("image-file").files[0]:null;
             if(imageFile) imageUrl=await upload(imageFile,"blog-media");
             var category=categories.find(function(c){return c.id===byId("post-category").value;});
             var payload={h1:h1,seo_title:byId("post-seo-title").value.trim()||h1,slug:slug,category_id:category?category.id:null,category_label:category?category.name:"",excerpt:byId("post-excerpt").value.trim(),content_html:editorContent(byId("content-editor").innerHTML),featured_image_url:imageUrl,featured_image_alt:byId("image-alt").value.trim(),seo_description:byId("post-description").value.trim(),status:status,published_at:status==="published"?(editingPost&&editingPost.published_at||new Date().toISOString()):null,updated_by:user.id,updated_at:new Date().toISOString(),deleted_at:null};
