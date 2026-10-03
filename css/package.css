@@ -1194,3 +1194,12 @@
     }
 
 }
+/* Reference-style category pills */
+.package-categories { padding: 70px 7% 34px; background: #fbfaf6; }
+.package-category-heading { margin-bottom: 22px; }
+.package-category-heading .package-label { color: #658076; }
+.package-category-heading h2 { color: #123f34; font-size: clamp(36px, 4.2vw, 58px); line-height: 1.02; letter-spacing: -2px; }
+.package-category-grid { display: flex; flex-wrap: wrap; gap: 10px; border: 0; }
+.package-category-card, .package-category-card:hover, .package-category-card.active { min-height: 38px; padding: 11px 18px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: #edf1eb; color: #335449; font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; line-height: 1; text-decoration: none; text-transform: uppercase; cursor: pointer; transform: none; transition: background .2s ease, color .2s ease, transform .2s ease; }
+.package-category-card:hover { background: #dfe9e1; }
+.package-category-card.active { background: #185b48; color: #fff; }

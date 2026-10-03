@@ -87,7 +87,7 @@
              STAY CATEGORIES
         ========================================== -->
 
-        <section class="stays-categories">
+        <section class="stays-categories" data-category-filters="stays" aria-label="Filter stays by category">
 
             <div class="stays-categories-heading">
 
@@ -103,108 +103,12 @@
 
 
             <div class="stays-category-list">
-
-                <a href="#stays" class="stays-category active">
-
-                    <span class="stays-category-number">
-                        01
-                    </span>
-
-                    <span class="stays-category-name">
-                        All Stays
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <a href="#stays" class="stays-category">
-
-                    <span class="stays-category-number">
-                        02
-                    </span>
-
-                    <span class="stays-category-name">
-                        Homestays
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <a href="#stays" class="stays-category">
-
-                    <span class="stays-category-number">
-                        03
-                    </span>
-
-                    <span class="stays-category-name">
-                        Mountain Cabins
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <a href="#stays" class="stays-category">
-
-                    <span class="stays-category-number">
-                        04
-                    </span>
-
-                    <span class="stays-category-name">
-                        Boutique Stays
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <a href="#stays" class="stays-category">
-
-                    <span class="stays-category-number">
-                        05
-                    </span>
-
-                    <span class="stays-category-name">
-                        Camps & Retreats
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <a href="#stays" class="stays-category">
-
-                    <span class="stays-category-number">
-                        06
-                    </span>
-
-                    <span class="stays-category-name">
-                        Village Stays
-                    </span>
-
-                    <span class="stays-category-arrow">
-                        →
-                    </span>
-
-                </a>
-
+                <button type="button" class="stays-category active" data-category="all" aria-pressed="true">All Stays</button>
+                <button type="button" class="stays-category" data-category="homestays" aria-pressed="false">Homestays</button>
+                <button type="button" class="stays-category" data-category="mountain-cabins" aria-pressed="false">Mountain Cabins</button>
+                <button type="button" class="stays-category" data-category="boutique-stays" aria-pressed="false">Boutique Stays</button>
+                <button type="button" class="stays-category" data-category="camps-retreats" aria-pressed="false">Camps &amp; Retreats</button>
+                <button type="button" class="stays-category" data-category="village-stays" aria-pressed="false">Village Stays</button>
             </div>
 
         </section>
@@ -240,14 +144,14 @@
             </div>
 
 
-            <div class="stays-grid">
+            <div class="stays-grid" data-filter-items="stays">
 
 
                 <!-- =====================================
                      STAY 01
                 ====================================== -->
 
-                <article class="stay-blog-card detail-link-card" data-detail-route="details.html?type=stay&amp;slug=mountain-family-homestay">
+                <article class="stay-blog-card detail-link-card" data-categories="homestays,village-stays" data-detail-route="details.html?type=stay&amp;slug=mountain-family-homestay">
 
                     <a
                         href="details.html?type=stay&amp;slug=mountain-family-homestay"
@@ -322,7 +226,7 @@
                      STAY 02
                 ====================================== -->
 
-                <article class="stay-blog-card detail-link-card" data-detail-route="details.html?type=stay&amp;slug=spiti-valley-cabin">
+                <article class="stay-blog-card detail-link-card" data-categories="mountain-cabins" data-detail-route="details.html?type=stay&amp;slug=spiti-valley-cabin">
 
                     <a
                         href="details.html?type=stay&amp;slug=spiti-valley-cabin"
@@ -397,7 +301,7 @@
                      STAY 03
                 ====================================== -->
 
-                <article class="stay-blog-card detail-link-card" data-detail-route="details.html?type=stay&amp;slug=kinnaur-orchard-stay">
+                <article class="stay-blog-card detail-link-card" data-categories="homestays,village-stays" data-detail-route="details.html?type=stay&amp;slug=kinnaur-orchard-stay">
 
                     <a
                         href="details.html?type=stay&amp;slug=kinnaur-orchard-stay"
@@ -472,7 +376,7 @@
                      STAY 04
                 ====================================== -->
 
-                <article class="stay-blog-card detail-link-card" data-detail-route="details.html?type=stay&amp;slug=uttarakhand-forest-retreat">
+                <article class="stay-blog-card detail-link-card" data-categories="boutique-stays,camps-retreats" data-detail-route="details.html?type=stay&amp;slug=uttarakhand-forest-retreat">
 
                     <a
                         href="details.html?type=stay&amp;slug=uttarakhand-forest-retreat"
@@ -543,6 +447,8 @@
                 </article>
 
             </div>
+
+            <p class="category-empty-state" data-category-empty="stays" role="status" hidden>No stays in this category yet. Please check back soon.</p>
 
         </section>
 

@@ -124,148 +124,15 @@
             </div>
 
 
-            <div class="package-category-grid">
-
-
-                <a href="#packages" class="package-category-card active">
-
-                    <span class="category-big-number">
-                        01
-                    </span>
-
-                    <div>
-                        <h3>
-                            Weekend Escapes
-                        </h3>
-
-                        <p>
-                            Short journeys, big mountain moments.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <a href="#packages" class="package-category-card">
-
-                    <span class="category-big-number">
-                        02
-                    </span>
-
-                    <div>
-                        <h3>
-                            Adventure
-                        </h3>
-
-                        <p>
-                            Trek, explore and go beyond the ordinary.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <a href="#packages" class="package-category-card">
-
-                    <span class="category-big-number">
-                        03
-                    </span>
-
-                    <div>
-                        <h3>
-                            Culture & Local Life
-                        </h3>
-
-                        <p>
-                            Meet communities and discover local traditions.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <a href="#packages" class="package-category-card">
-
-                    <span class="category-big-number">
-                        04
-                    </span>
-
-                    <div>
-                        <h3>
-                            Couple Getaways
-                        </h3>
-
-                        <p>
-                            Slow days and unforgettable mountain moments.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <a href="#packages" class="package-category-card">
-
-                    <span class="category-big-number">
-                        05
-                    </span>
-
-                    <div>
-                        <h3>
-                            Family Journeys
-                        </h3>
-
-                        <p>
-                            Himalayan adventures for everyone.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <a href="#packages" class="package-category-card">
-
-                    <span class="category-big-number">
-                        06
-                    </span>
-
-                    <div>
-                        <h3>
-                            Long Himalayan Journeys
-                        </h3>
-
-                        <p>
-                            Take your time. Go deeper into the mountains.
-                        </p>
-                    </div>
-
-                    <span class="category-card-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
+            <div class="package-category-grid" data-category-filters="packages" aria-label="Filter journeys by category">
+                <button type="button" class="package-category-card active" data-category="all" aria-pressed="true">All journeys</button>
+                <button type="button" class="package-category-card" data-category="weekend-escapes" aria-pressed="false">Weekend Escapes</button>
+                <button type="button" class="package-category-card" data-category="adventure" aria-pressed="false">Adventure</button>
+                <button type="button" class="package-category-card" data-category="culture-local-life" aria-pressed="false">Culture &amp; Local Life</button>
+                <button type="button" class="package-category-card" data-category="couple-getaways" aria-pressed="false">Couple Getaways</button>
+                <button type="button" class="package-category-card" data-category="family-journeys" aria-pressed="false">Family Journeys</button>
+                <button type="button" class="package-category-card" data-category="long-journeys" aria-pressed="false">Long Himalayan Journeys</button>
             </div>
-
         </section>
 
 
@@ -273,7 +140,7 @@
              FEATURED PACKAGES
         ========================================== -->
 
-        <section class="package-list" id="packages">
+        <section class="package-list" id="packages" data-filter-items="packages">
 
             <div class="package-list-top">
 
@@ -300,7 +167,7 @@
 
             <!-- PACKAGE 01 -->
 
-            <article class="package-card package-card-large detail-link-card" data-detail-route="details.html?type=package&amp;slug=tirthan-slow-escape">
+            <article class="package-card package-card-large detail-link-card" data-categories="weekend-escapes,culture-local-life" data-detail-route="details.html?type=package&amp;slug=tirthan-slow-escape">
 
                 <div class="package-card-image">
 
@@ -373,7 +240,7 @@
 
             <!-- PACKAGE 02 -->
 
-            <article class="package-card package-card-reverse detail-link-card" data-detail-route="details.html?type=package&amp;slug=spiti-land-of-spiti">
+            <article class="package-card package-card-reverse detail-link-card" data-categories="adventure,culture-local-life,long-journeys" data-detail-route="details.html?type=package&amp;slug=spiti-land-of-spiti">
 
                 <div class="package-card-image">
 
@@ -442,6 +309,8 @@
                 </div>
 
             </article>
+
+            <p class="category-empty-state" data-category-empty="packages" role="status" hidden>No journeys in this category yet. Please check back soon.</p>
 
         </section>
 

@@ -91,42 +91,42 @@
 
         
 <!-- EXPERIENCE CATEGORY FILTERS -->
-<section class="experience-categories">
+<section class="experience-categories" data-category-filters="experiences" aria-label="Filter experiences by category">
     <div class="category-list">
 
-        <button class="category-item active" data-category="all">
+        <button type="button" class="category-item active" data-category="all" aria-pressed="true">
             ALL
         </button>
 
-        <button class="category-item" data-category="village-life">
+        <button type="button" class="category-item" data-category="village-life" aria-pressed="false">
             VILLAGE LIFE
         </button>
 
-        <button class="category-item" data-category="nature">
+        <button type="button" class="category-item" data-category="nature" aria-pressed="false">
             NATURE
         </button>
 
-        <button class="category-item" data-category="food">
+        <button type="button" class="category-item" data-category="food" aria-pressed="false">
             FOOD
         </button>
 
-        <button class="category-item" data-category="culture">
+        <button type="button" class="category-item" data-category="culture" aria-pressed="false">
             CULTURE
         </button>
 
-        <button class="category-item" data-category="adventure">
+        <button type="button" class="category-item" data-category="adventure" aria-pressed="false">
             ADVENTURE
         </button>
 
-        <button class="category-item" data-category="wellness">
+        <button type="button" class="category-item" data-category="wellness" aria-pressed="false">
             WELLNESS
         </button>
 
-        <button class="category-item" data-category="remote-work">
+        <button type="button" class="category-item" data-category="remote-work" aria-pressed="false">
             REMOTE WORK
         </button>
 
-        <button class="category-item" data-category="stargazing">
+        <button type="button" class="category-item" data-category="stargazing" aria-pressed="false">
             STARGAZING
         </button>
 
@@ -165,12 +165,12 @@
             </div>
 
 
-            <div class="experience-grid">
+            <div class="experience-grid" data-filter-items="experiences">
 
 
                 <!-- EXPERIENCE 01 -->
 
-                <article class="experience-blog-card detail-link-card" data-detail-route="details.html?type=experience&amp;slug=tirthan-local-life">
+                <article class="experience-blog-card detail-link-card" data-categories="village-life,nature" data-detail-route="details.html?type=experience&amp;slug=tirthan-local-life">
 
                     <a href="details.html?type=experience&amp;slug=tirthan-local-life" class="experience-image-link">
 
@@ -218,7 +218,7 @@
 
                 <!-- EXPERIENCE 02 -->
 
-                <article class="experience-blog-card detail-link-card" data-detail-route="details.html?type=experience&amp;slug=spiti-high-himalayas">
+                <article class="experience-blog-card detail-link-card" data-categories="adventure,culture,stargazing" data-detail-route="details.html?type=experience&amp;slug=spiti-high-himalayas">
 
                     <a href="details.html?type=experience&amp;slug=spiti-high-himalayas" class="experience-image-link">
 
@@ -266,7 +266,7 @@
 
                 <!-- EXPERIENCE 03 -->
 
-                <article class="experience-blog-card detail-link-card" data-detail-route="details.html?type=experience&amp;slug=kinnaur-food-culture">
+                <article class="experience-blog-card detail-link-card" data-categories="food,culture" data-detail-route="details.html?type=experience&amp;slug=kinnaur-food-culture">
 
                     <a href="details.html?type=experience&amp;slug=kinnaur-food-culture" class="experience-image-link">
 
@@ -314,7 +314,7 @@
 
                 <!-- EXPERIENCE 04 -->
 
-                <article class="experience-blog-card detail-link-card" data-detail-route="details.html?type=experience&amp;slug=uttarakhand-village-day">
+                <article class="experience-blog-card detail-link-card" data-categories="village-life,nature,wellness" data-detail-route="details.html?type=experience&amp;slug=uttarakhand-village-day">
 
                     <a href="details.html?type=experience&amp;slug=uttarakhand-village-day" class="experience-image-link">
 
@@ -360,6 +360,8 @@
                 </article>
 
             </div>
+
+            <p class="category-empty-state" data-category-empty="experiences" role="status" hidden>No experiences in this category yet. Please check back soon.</p>
 
         </section>
 

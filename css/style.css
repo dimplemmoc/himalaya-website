@@ -3913,3 +3913,8 @@ padding: 0 8px;
         letter-spacing: 1px;
     }
 }
+
+/* Category filtering states */
+[data-categories][hidden] { display: none !important; }
+.category-empty-state { margin: 24px 0 0; padding: 18px 20px; border: 1px solid #d9dfda; border-radius: 14px; background: #f5f7f2; color: #456158; font-size: 15px; line-height: 1.6; }
+.category-empty-state[hidden] { display: none !important; }

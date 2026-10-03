@@ -93,11 +93,51 @@
         });
     }
 
+    function setupCategoryFilters() {
+        var filterGroups = document.querySelectorAll("[data-category-filters]");
+        Array.prototype.forEach.call(filterGroups, function (group) {
+            var target = group.getAttribute("data-category-filters");
+            var cards = document.querySelectorAll("[data-filter-items='" + target + "'] [data-categories]");
+            if (!cards.length) return;
+
+            var buttons = group.querySelectorAll("[data-category]");
+            var emptyState = document.querySelector("[data-category-empty='" + target + "']");
+
+            function showCategory(category) {
+                var visibleCount = 0;
+                Array.prototype.forEach.call(cards, function (card) {
+                    var categories = (card.getAttribute("data-categories") || "").split(",");
+                    var visible = category === "all" || categories.indexOf(category) !== -1;
+                    card.hidden = !visible;
+                    if (visible) visibleCount += 1;
+                });
+
+                Array.prototype.forEach.call(buttons, function (button) {
+                    var active = button.getAttribute("data-category") === category;
+                    button.classList.toggle("active", active);
+                    button.setAttribute("aria-pressed", active ? "true" : "false");
+                });
+
+                if (emptyState) emptyState.hidden = visibleCount !== 0;
+            }
+
+            group.addEventListener("click", function (event) {
+                var button = closestElement(event.target, "[data-category]");
+                if (!button || !group.contains(button)) return;
+                event.preventDefault();
+                showCategory(button.getAttribute("data-category"));
+            });
+
+            showCategory("all");
+        });
+    }
+
     function start() {
         document.documentElement.classList.add("motion-ready");
         revealContent();
         handleEmailForms();
         setupDetailCards();
+        setupCategoryFilters();
     }
 
     if (document.readyState === "loading") {
