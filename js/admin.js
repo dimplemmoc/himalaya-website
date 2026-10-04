@@ -366,13 +366,13 @@
         : '<span class="badge badge-draft">Draft</span>';
 
       return '<tr>' +
-        '<td class="table-title"><a class="table-title-link" data-edit="' + escapeHtml(b.id) + '">' + escapeHtml(b.title) + '</a></td>' +
-        '<td class="table-site">' + escapeHtml(b.site || "Main site") + '</td>' +
-        '<td><span class="badge badge-category">' + escapeHtml(b.category || "General") + '</span></td>' +
-        '<td>' + statusBadge + '</td>' +
-        '<td style="color:var(--text-muted);font-size:12px;">' + formatDate(b.published_at) + '</td>' +
-        '<td style="text-align: right;">' +
-          '<div class="table-actions" style="justify-content: flex-end;">' +
+        '<td class="table-title table-col-title"><a class="table-title-link" data-edit="' + escapeHtml(b.id) + '">' + escapeHtml(b.title) + '</a></td>' +
+        '<td class="table-site table-col-site">' + escapeHtml(b.site || "Main site") + '</td>' +
+        '<td class="table-col-category"><span class="badge badge-category">' + escapeHtml(b.category || "General") + '</span></td>' +
+        '<td class="table-col-status">' + statusBadge + '</td>' +
+        '<td class="table-col-date" style="color:var(--text-muted);font-size:12px;">' + formatDate(b.published_at) + '</td>' +
+        '<td class="table-col-actions" style="text-align: right;">' +
+          '<div class="table-actions">' +
             '<button type="button" class="btn-action" data-edit="' + escapeHtml(b.id) + '">Edit</button>' +
             '<button type="button" class="btn-action delete" data-delete="' + escapeHtml(b.id) + '">Delete</button>' +
           '</div>' +

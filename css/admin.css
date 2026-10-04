@@ -1,6 +1,6 @@
 /* ==========================================================================
    LIVE LOCAL HIMALAYA - BLOG ADMIN PANEL STYLES
-   Matching Reference UI Design
+   Matching Reference UI Design + Full Mobile Responsiveness
    ========================================================================== */
 
 :root {
@@ -41,6 +41,11 @@
   padding: 0;
 }
 
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
 body.journal-admin {
   background-color: var(--bg-dark);
   color: var(--text-main);
@@ -50,6 +55,8 @@ body.journal-admin {
   flex-direction: column;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* ==========================================================================
@@ -62,7 +69,7 @@ body.journal-admin {
   width: 100%;
 }
 
-/* SIDEBAR */
+/* SIDEBAR (Desktop Default) */
 .admin-sidebar {
   width: 240px;
   min-width: 240px;
@@ -169,6 +176,7 @@ body.journal-admin {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
+  gap: 12px;
 }
 
 .topbar-left {
@@ -189,12 +197,13 @@ body.journal-admin {
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .topbar-btn {
@@ -209,6 +218,7 @@ body.journal-admin {
   align-items: center;
   gap: 6px;
   text-decoration: none;
+  white-space: nowrap;
   transition: all 0.2s;
 }
 
@@ -253,6 +263,7 @@ body.journal-admin {
   padding: 32px;
   max-width: 1180px;
   width: 100%;
+  margin: 0 auto;
 }
 
 /* ==========================================================================
@@ -280,10 +291,12 @@ body.journal-admin {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .search-input-wrap {
   position: relative;
+  min-width: 200px;
 }
 
 .search-input {
@@ -291,8 +304,8 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  padding: 8px 14px 8px 32px;
-  font-size: 13px;
+  padding: 9px 14px 9px 34px;
+  font-size: 14px;
   width: 220px;
   outline: none;
   transition: border-color 0.2s;
@@ -304,11 +317,12 @@ body.journal-admin {
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 11px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-dim);
   font-size: 12px;
+  pointer-events: none;
 }
 
 .filter-select {
@@ -316,8 +330,8 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  padding: 8px 14px;
-  font-size: 13px;
+  padding: 9px 14px;
+  font-size: 14px;
   outline: none;
   cursor: pointer;
 }
@@ -331,13 +345,15 @@ body.journal-admin {
   color: #0b1f14;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 9px 16px;
+  padding: 10px 18px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  white-space: nowrap;
   transition: background 0.2s;
 }
 
@@ -350,16 +366,20 @@ body.journal-admin {
   display: flex;
   gap: 16px;
   margin-bottom: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
 }
 
 .status-tab {
   background: none;
   border: none;
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  padding: 4px 0;
+  padding: 6px 0;
+  white-space: nowrap;
   position: relative;
   transition: color 0.2s;
 }
@@ -396,7 +416,7 @@ body.journal-admin {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .blogs-table th {
@@ -406,6 +426,8 @@ body.journal-admin {
   font-size: 12px;
   border-bottom: 1px solid var(--border-color);
   background-color: #141f18;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .blogs-table td {
@@ -433,6 +455,8 @@ body.journal-admin {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
+  display: block;
+  font-size: 15px;
 }
 
 .table-title-link:hover {
@@ -441,7 +465,7 @@ body.journal-admin {
 
 .table-site {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .badge {
@@ -473,16 +497,17 @@ body.journal-admin {
 
 .table-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-action {
-  background: none;
+  background: #17241c;
   border: 1px solid var(--border-color);
-  border-radius: 3px;
+  border-radius: 4px;
   color: var(--text-muted);
-  padding: 4px 8px;
-  font-size: 11px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -490,6 +515,7 @@ body.journal-admin {
 .btn-action:hover {
   color: #fff;
   border-color: var(--border-focus);
+  background: #203127;
 }
 
 .btn-action.delete:hover {
@@ -569,8 +595,8 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  padding: 11px 14px;
-  font-size: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
   outline: none;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -639,7 +665,7 @@ body.journal-admin {
 
 .file-upload-wrap input[type="file"] {
   width: 100%;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   background: transparent;
   border: none;
@@ -651,7 +677,7 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   color: var(--text-main);
   border-radius: 3px;
-  padding: 6px 12px;
+  padding: 8px 14px;
   margin-right: 12px;
   font-size: 12px;
   cursor: pointer;
@@ -680,10 +706,11 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   color: var(--text-main);
   border-radius: 3px;
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 6px 12px;
+  font-size: 13px;
   cursor: pointer;
   font-weight: 500;
+  min-height: 34px;
   transition: all 0.15s;
 }
 
@@ -707,6 +734,7 @@ body.journal-admin {
   justify-content: space-between;
   margin-top: 30px;
   padding-bottom: 40px;
+  gap: 16px;
 }
 
 .action-buttons-right {
@@ -719,7 +747,7 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   color: var(--text-main);
   border-radius: var(--radius-sm);
-  padding: 11px 22px;
+  padding: 12px 24px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -735,12 +763,13 @@ body.journal-admin {
   color: #0b1f14;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 11px 24px;
+  padding: 12px 26px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   transition: background 0.2s;
 }
@@ -750,9 +779,10 @@ body.journal-admin {
 }
 
 .form-feedback {
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 12px;
-  min-height: 20px;
+  min-height: 22px;
+  font-weight: 500;
 }
 
 .form-feedback.error {
@@ -764,8 +794,8 @@ body.journal-admin {
 }
 
 /* ==========================================================================
-   LOGIN SCREEN
-   ========================================================================== */
+   LOGIN SCREEN (Professional Floating Labels)
+   ========================================================================= */
 
 .login-wrapper {
   display: flex;
@@ -827,7 +857,7 @@ body.journal-admin {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 15px;
   font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
@@ -871,7 +901,7 @@ body.journal-admin {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 6px;
   border-radius: 4px;
   transition: color 0.2s;
 }
@@ -887,7 +917,7 @@ body.journal-admin {
   border: none;
   border-radius: var(--radius-sm);
   padding: 14px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
@@ -917,63 +947,306 @@ body.journal-admin {
   display: none !important;
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 900px) {
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE SYSTEM
+   ========================================================================== */
+
+/* Tablets & Small Laptops (<= 992px) */
+@media (max-width: 992px) {
   .admin-layout {
     flex-direction: column;
   }
+
+  /* Compact Sleek Top Mobile App Header for Sidebar */
   .admin-sidebar {
     width: 100%;
+    min-width: 100%;
     height: auto;
-    position: relative;
-    padding: 16px 20px;
+    position: sticky;
+    top: 0;
+    padding: 14px 18px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
   }
+
   .sidebar-brand {
-    padding: 0 0 12px 0;
+    padding: 0;
   }
+
+  .sidebar-brand h2 {
+    font-size: 20px;
+  }
+
   .sidebar-nav {
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+    flex: initial;
   }
+
   .nav-link {
     width: auto;
-    padding: 8px 14px;
-    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 13px;
+    border-radius: 999px;
   }
+
+  .nav-link.active {
+    background-color: #0b1f14;
+    color: #ffffff;
+  }
+
   .sidebar-footer {
     display: none;
   }
-  .admin-container {
-    padding: 20px 16px;
+
+  .admin-topbar {
+    padding: 0 18px;
   }
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 14px;
+
+  .admin-container {
+    padding: 24px 18px;
   }
 }
 
-@media (max-width: 600px) {
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  /* Topbar Simplification */
+  .admin-topbar {
+    height: 50px;
+    padding: 0 16px;
+  }
+
+  .topbar-left {
+    font-size: 12px;
+  }
+
+  .topbar-icon-btn, 
+  .topbar-btn:not(#logout-button) {
+    display: none !important;
+  }
+
+  .admin-container {
+    padding: 18px 14px 60px 14px;
+  }
+
   .view-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    gap: 14px;
+    margin-bottom: 20px;
   }
+
+  .view-title {
+    font-size: 26px;
+  }
+
   .header-controls {
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    flex-wrap: wrap;
+    gap: 10px;
   }
+
+  .search-input-wrap {
+    width: 100%;
+  }
+
   .search-input {
     width: 100%;
   }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .btn-add-blog {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* Convert Table to Clean Mobile Card List */
+  .table-card {
+    background: transparent;
+    border: none;
+  }
+
+  .blogs-table, 
+  .blogs-table tbody, 
+  .blogs-table tr, 
+  .blogs-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .blogs-table thead {
+    display: none; /* Hide default table headers on mobile */
+  }
+
+  .blogs-table tr {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  }
+
+  .blogs-table td {
+    padding: 4px 0;
+    border: none;
+  }
+
+  .table-title {
+    max-width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .table-title-link {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #ffffff;
+  }
+
+  .table-site {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 10px;
+  }
+
+  .blogs-table td:has(.badge) {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .blogs-table td:nth-child(5) {
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+
+  .table-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 8px;
+  }
+
+  .btn-action {
+    width: 100%;
+    padding: 9px 0;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  /* Form & Editor Mobile Styling */
+  .form-section-card {
+    padding: 18px 16px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .input-with-button {
+    flex-direction: row;
+  }
+
+  .btn-secondary {
+    padding: 0 14px;
+  }
+
+  .editor-toolbar {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .toolbar-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    min-height: 32px;
+  }
+
+  .editor-textarea {
+    min-height: 200px;
+  }
+
   .form-actions-bar {
     flex-direction: column;
     gap: 12px;
+    margin-top: 20px;
   }
+
+  #btn-clear-form {
+    width: 100%;
+    padding: 12px;
+    order: 3;
+  }
+
   .action-buttons-right {
     width: 100%;
     flex-direction: column;
+    gap: 10px;
+    order: 1;
   }
-  .action-buttons-right button {
+
+  .btn-draft, .btn-publish {
     width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .btn-back {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+/* Extra Small Phones (<= 420px) */
+@media (max-width: 420px) {
+  .admin-sidebar {
+    padding: 12px 14px;
+  }
+
+  .sidebar-brand h2 {
+    font-size: 18px;
+  }
+
+  .nav-link {
+    padding: 6px 11px;
+    font-size: 12px;
+  }
+
+  .login-box {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+
+  .floating-group input {
+    font-size: 16px; /* Prevents auto zoom on iOS Safari */
+  }
+
+  .form-group input, 
+  .form-group select, 
+  .form-group textarea {
+    font-size: 16px; /* Prevents auto zoom on iOS Safari */
   }
 }
