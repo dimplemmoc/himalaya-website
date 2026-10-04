@@ -472,6 +472,8 @@
     blogStatusInput.value = "published";
     blogDateInput.value = todayISO();
     editorHeading.textContent = "Add new blog";
+    var pubBtn = document.getElementById("btn-publish-submit");
+    if (pubBtn) pubBtn.textContent = "Publish blog ↗";
     imagePreviewBox.classList.add("hidden");
     imagePreview.src = "";
     postMsg.textContent = "";
@@ -516,7 +518,9 @@
     blogLinkTypeInput.value = blog.link_type || "DoFollow";
     blogPostTypeInput.value = blog.post_type || "Normal";
 
-    editorHeading.textContent = "Edit blog";
+    editorHeading.textContent = "Edit: " + (blog.title || "Blog");
+    var pubBtn = document.getElementById("btn-publish-submit");
+    if (pubBtn) pubBtn.textContent = "Update blog ↗";
     showView("add");
   }
 

@@ -28,7 +28,7 @@
     if (/REMOTE|WORK|WORKATION|NOMAD|CREATIVE/.test(s)) return "REMOTE WORK";
     if (/STAR|ASTRO|NIGHT|SKY|MILKY WAY|SPACE/.test(s)) return "STARGAZING";
     if (/HOMESTAY|VILLAGE STAY|FAMILY STAY|ORCHARD STAY/.test(s)) return "HOMESTAYS";
-    if (/TRAVEL|JOURNEY|ROAD|GUIDE|TRIP|SLOW/.test(s)) return "HIMALAYAN TRAVEL";
+    if (/TRAVEL|JOURNEY|ROAD|GUIDE|TRIP|SLOW|HIMALAYA/.test(s)) return "HIMALAYAN TRAVEL";
     return s;
   }
 
@@ -46,145 +46,6 @@
     "HOMESTAYS": "Authentic Village Stays & Local Hospitality"
   };
 
-  // Rich seed stories for all 10 categories
-  var seedStories = [
-    {
-      title: "The rhythm of morning in a Himalayan village",
-      slug: "the-rhythm-of-morning-in-a-himalayan-village",
-      category: "VILLAGE LIFE",
-      published_at: "2025-09-20",
-      image_url: "images/pexels-urtimud-89-76108288-32261668.jpg",
-      image_alt: "Himalayan Village Morning",
-      excerpt: "Before the sun crests the ridge, kitchens are warm, cattle bells echo down the valley, and daily life begins with timeless simplicity."
-    },
-    {
-      title: "The living architecture of Kath-Kuni houses",
-      slug: "living-architecture-kath-kuni-houses",
-      category: "VILLAGE LIFE",
-      published_at: "2025-09-10",
-      image_url: "images/pexels-llizzk-18276996.jpg",
-      image_alt: "Traditional wooden Pahadi house",
-      excerpt: "How indigenous wood-and-stone building techniques have withstood centuries of mountain earthquakes and bitter Himalayan winters."
-    },
-    {
-      title: "Flora and ancient pines of the Great Himalayan National Park",
-      slug: "flora-and-ancient-pines-ghnp",
-      category: "NATURE",
-      published_at: "2025-09-18",
-      image_url: "images/pexels-sagarkumarr-1481581.jpg",
-      image_alt: "Pine forest in Himalayas",
-      excerpt: "Walking through UNESCO World Heritage forests where deodar, fir, and rare medicinal mountain herbs flourish untouched."
-    },
-    {
-      title: "Birdwatching in Tirthan: Feathers of the Western Himalayas",
-      slug: "birdwatching-in-tirthan-western-himalayas",
-      category: "NATURE",
-      published_at: "2025-08-30",
-      image_url: "images/pexels-sagarkumarr-1481581.jpg",
-      image_alt: "Himalayan birds in wild nature",
-      excerpt: "Spotting the Western Tragopan, Himalayan Monal, and cheer pheasants along the mist-laden riverside trails."
-    },
-    {
-      title: "Flavors of the valley: Traditional Siddu, Madra and Pahadi Dhaam",
-      slug: "flavors-of-the-valley-traditional-siddu-dhaam",
-      category: "FOOD",
-      published_at: "2025-09-15",
-      image_url: "images/pexels-marina-zvada-844583049-20315033.jpg",
-      image_alt: "Himalayan traditional cuisine and cooking",
-      excerpt: "Steamed wheat bread stuffed with walnuts and poppy seeds, slow-cooked lentils in yogurt, and meals prepared with seasonal mountain herbs."
-    },
-    {
-      title: "Wood-fired tea & stories: Pahadi chai culture",
-      slug: "wood-fired-tea-stories-pahadi-chai",
-      category: "FOOD",
-      published_at: "2025-08-25",
-      image_url: "images/pexels-yademidov-36285486.jpg",
-      image_alt: "Drinking chai in high mountain village",
-      excerpt: "Why sitting beside a wood-fired tandoor with a warm brass glass of spiced tea creates instant bonds with mountain hosts."
-    },
-    {
-      title: "Folk deities and ancient temple rituals of Kullu Valley",
-      slug: "folk-deities-temple-rituals-kullu-valley",
-      category: "CULTURE",
-      published_at: "2025-09-08",
-      image_url: "images/m.jpg",
-      image_alt: "Himalayan temple architecture and festival",
-      excerpt: "Understanding the unique Devta system where local deities govern village justice, festivals, and community celebrations."
-    },
-    {
-      title: "Weaving warmth: The handloom heritage of Kullu shawls",
-      slug: "weaving-warmth-handloom-kullu-shawls",
-      category: "CULTURE",
-      published_at: "2025-08-12",
-      image_url: "images/pexels-ahmet-ciftci-1413580052-35749293.jpg",
-      image_alt: "Local artisans weaving traditional patterns",
-      excerpt: "Geometric patterns, natural sheep wool, and generational weavers preserving Himachal's finest textile traditions."
-    },
-    {
-      title: "Trekking to Serolsar Lake: An ancient sacred water trail",
-      slug: "trekking-to-serolsar-lake-sacred-trail",
-      category: "ADVENTURE",
-      published_at: "2025-09-05",
-      image_url: "images/pexels-urtimud-89-76108288-32261668.jpg",
-      image_alt: "High mountain lake trek",
-      excerpt: "A 5km trail through dense oak forest from Jalori Pass leading to a crystal-clear lake guarded by the goddess Buddhi Nagin."
-    },
-    {
-      title: "The Jalori Pass crossing: Ridge walks & hidden meadows",
-      slug: "jalori-pass-crossing-ridge-walks",
-      category: "ADVENTURE",
-      published_at: "2025-08-19",
-      image_url: "images/m.jpg",
-      image_alt: "Mountain ridge trekking view",
-      excerpt: "At 10,800 feet, Jalori Pass connects Inner and Outer Seraj with breathtaking 360-degree vistas of the snow-clad Pir Panjal range."
-    },
-    {
-      title: "Silence and stillness: Yoga and meditation in pine valleys",
-      slug: "silence-and-stillness-yoga-meditation",
-      category: "WELLNESS",
-      published_at: "2025-09-02",
-      image_url: "images/pexels-sagarkumarr-1481581.jpg",
-      image_alt: "Meditation in peaceful mountain valley",
-      excerpt: "How the crisp cedar-scented mountain air, pure glacier streams, and absence of city noise restore mental clarity."
-    },
-    {
-      title: "Work from the mountains: Finding deep focus in remote valleys",
-      slug: "work-from-the-mountains-finding-deep-focus",
-      category: "REMOTE WORK",
-      published_at: "2025-08-28",
-      image_url: "images/pexels-yademidov-36285486.jpg",
-      image_alt: "Laptop workspace overlooking mountain valley",
-      excerpt: "High-speed optical fiber now meets panoramic apple orchard views — making productive remote work effortless and rejuvenating."
-    },
-    {
-      title: "Clear Himalayan nights: Stargazing and astrophotography in dark skies",
-      slug: "clear-himalayan-nights-stargazing-astrophotography",
-      category: "STARGAZING",
-      published_at: "2025-08-22",
-      image_url: "images/pexels-urtimud-89-76108288-32261668.jpg",
-      image_alt: "Starry sky and Milky Way over Himalayas",
-      excerpt: "Far away from city light pollution, high-altitude Himalayan valleys offer zero-Bortle skies where the core of the Milky Way shines brightly."
-    },
-    {
-      title: "How to travel the Himalayas slowly and responsibly",
-      slug: "how-to-travel-the-himalayas-slowly",
-      category: "HIMALAYAN TRAVEL",
-      published_at: "2025-09-12",
-      image_url: "images/pexels-ahmet-ciftci-1413580052-35749293.jpg",
-      image_alt: "Slow travel through Himalayan valley",
-      excerpt: "Why staying in one village for a week offers infinitely richer memories than rushing through five tourist hotspots in a weekend."
-    },
-    {
-      title: "Staying with local families: The heart of mountain hospitality",
-      slug: "staying-with-local-families-mountain-hospitality",
-      category: "HOMESTAYS",
-      published_at: "2025-09-01",
-      image_url: "images/pexels-llizzk-18276996.jpg",
-      image_alt: "Traditional wooden homestay balcony",
-      excerpt: "From home-cooked meals by the bukhari to participating in apple harvesting, authentic homestays turn travelers into lifelong family."
-    }
-  ];
-
   var allLoadedStories = [];
   var currentActiveCategory = "ALL";
 
@@ -193,21 +54,26 @@
     var slug = post.slug || post.id || slugify(title);
     var imgUrl = post.featured_image_url || post.image_url || "images/m.jpg";
     var imgAlt = post.featured_image_alt || post.image_alt || title;
-    var rawCategory = post.category_label || post.category || "HIMALAYAN TRAVEL";
+    var rawCategory = post.category_label || post.category || "Himalayan Travel";
     var normCategory = normalizeCategory(rawCategory);
-    var dateVal = post.published_at;
+    var dateVal = post.published_at || post.created_at;
     var dateStr = dateVal ? new Date(dateVal + (dateVal.length === 10 ? "T12:00:00" : "")).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) : "Recent Story";
     var readLink = "blog-details.html?slug=" + encodeURIComponent(slug);
 
+    var excerptText = post.excerpt || "";
+    if (!excerptText && post.content_html) {
+      excerptText = post.content_html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 150) + "...";
+    }
+
     return '<article class="blog-card" data-category="' + esc(normCategory) + '" data-raw-category="' + esc(rawCategory) + '">' +
       '<div class="blog-card-image">' +
-        '<a href="' + readLink + '"><img loading="lazy" src="' + esc(imgUrl) + '" alt="' + esc(imgAlt) + '"></a>' +
+        '<a href="' + readLink + '"><img loading="lazy" src="' + esc(imgUrl) + '" alt="' + esc(imgAlt) + '" onerror="this.src=\'images/m.jpg\'"></a>' +
         '<span>' + esc(rawCategory) + '</span>' +
       '</div>' +
       '<div class="blog-card-content">' +
         '<small>' + esc(dateStr) + '</small>' +
         '<h3><a href="' + readLink + '" style="color:inherit;text-decoration:none;">' + esc(title) + '</a></h3>' +
-        '<p>' + esc(post.excerpt || "") + '</p>' +
+        (excerptText ? '<p>' + esc(excerptText) + '</p>' : '') +
         '<a href="' + readLink + '" class="blog-read-button">READ STORY <span>↗</span></a>' +
       '</div>' +
     '</article>';
@@ -295,7 +161,7 @@
     var sbUrl = window.HIMALAYA_SUPABASE_URL;
     var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
-    // 1. Try Direct REST Fetch (Fast & guaranteed cross-device sync)
+    // 1. Fetch Real Stories from Supabase via REST
     if (sbUrl && sbKey) {
       try {
         var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc";
@@ -313,7 +179,7 @@
       }
     }
 
-    // 2. Supabase-js Fallback
+    // 2. Supabase-js Fallback if REST was empty
     if (!dynamicPosts.length && window.supabase && sbUrl && sbKey) {
       try {
         var client = window.supabase.createClient(sbUrl, sbKey);
@@ -328,48 +194,24 @@
           dynamicPosts = result.data;
         }
       } catch (err) {
-        console.warn("Supabase fetch failed:", err);
+        console.warn("Supabase-js fetch failed:", err);
       }
     }
 
-    // 2. Also merge localStorage posts
-    try {
-      var saved = localStorage.getItem("llh-blogs-store");
-      if (saved) {
-        var parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length) {
-          var publishedLocals = parsed.filter(function (p) { return p.status === "published"; });
-          publishedLocals.forEach(function (loc) {
-            var exists = dynamicPosts.some(function (d) { return (d.slug && d.slug === loc.slug) || (d.id && String(d.id) === String(loc.id)); });
-            if (!exists) {
-              dynamicPosts.unshift(loc);
-            }
-          });
+    // 3. Fallback to localStorage if any
+    if (!dynamicPosts.length) {
+      try {
+        var saved = localStorage.getItem("llh-blogs-store");
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length) {
+            dynamicPosts = parsed.filter(function (p) { return p.status === "published"; });
+          }
         }
-      }
-    } catch (e) {}
+      } catch (e) {}
+    }
 
-    // Combine dynamic posts (newest first) with seed stories
-    var uniqueSlugs = new Set();
-    var merged = [];
-
-    dynamicPosts.forEach(function (p) {
-      var s = p.slug || p.id || slugify(p.h1 || p.title);
-      if (!uniqueSlugs.has(s)) {
-        uniqueSlugs.add(s);
-        merged.push(p);
-      }
-    });
-
-    seedStories.forEach(function (p) {
-      var s = p.slug;
-      if (!uniqueSlugs.has(s)) {
-        uniqueSlugs.add(s);
-        merged.push(p);
-      }
-    });
-
-    allLoadedStories = merged;
+    allLoadedStories = dynamicPosts;
 
     // Check URL hash for initial category
     var hash = (window.location.hash || "").replace("#stories-", "").toUpperCase();
