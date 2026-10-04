@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog Admin Panel | Live Local Himalaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="journal-admin">
+
+  <!-- =========================================================================
+       1. LOGIN VIEW (Shown when unauthenticated)
+       ========================================================================= -->
+  <div id="login-view" class="login-wrapper">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="login-kicker">LIVE LOCAL HIMALAYA</span>
+        <h1 class="login-title">Blog Admin</h1>
+        <p class="login-subtitle">Sign in to manage and publish journal blogs</p>
+      </div>
+
+      <div class="credentials-hint">
+        <div><strong>Email / User:</strong> <code>admin@himalaya.com</code> (or <code>admin</code>)</div>
+        <div><strong>Password:</strong> <code>admin@123</code></div>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-username">Email or Username</label>
+          <input id="login-username" name="username" type="text" value="admin@himalaya.com" autocomplete="username" required placeholder="admin@himalaya.com">
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" value="admin@123" autocomplete="current-password" required placeholder="••••••••">
+        </div>
+
+        <button class="btn-login" type="submit">Sign in to Admin →</button>
+        <p id="login-message" class="form-feedback" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. DASHBOARD VIEW (Shown when authenticated)
+       ========================================================================= -->
+  <div id="dashboard-view" class="admin-layout hidden">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <h2>Blog Admin</h2>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button id="nav-all-blogs" class="nav-link active" type="button">
+          All blogs
+        </button>
+        <button id="nav-add-blog" class="nav-link" type="button">
+          Add new blog
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="blog.html" target="_blank" rel="noopener">View public site ↗</a>
+        <button id="sidebar-logout" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <main class="admin-main">
+      
+      <!-- TOP NAVIGATION BAR -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="topbar-dropdown" type="button">
+            Blog Admin Panel <span style="font-size:10px;">⌄</span>
+          </button>
+        </div>
+
+        <div class="topbar-right">
+          <button class="topbar-btn" type="button" onclick="window.open('contact.html','_blank')">↗ Chat</button>
+          <button class="topbar-icon-btn" type="button" title="Mobile view">📱</button>
+          <button class="topbar-icon-btn" type="button" title="Status">○</button>
+          <button class="topbar-btn" id="btn-export-json" type="button" title="Export blogs as JSON">↓ Export</button>
+          <a href="blog.html" class="topbar-btn" target="_blank" rel="noopener">Public Journal ↗</a>
+          <button id="logout-button" class="topbar-btn" type="button">Sign out</button>
+        </div>
+      </header>
+
+      <!-- CONTENT CONTAINER -->
+      <div class="admin-container">
+        
+        <!-- -------------------------------------------------------------------
+             SCREEN A: ALL BLOGS VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-all-blogs">
+          
+          <div class="view-header">
+            <h1 class="view-title">All blogs</h1>
+            
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-blogs" class="search-input" type="text" placeholder="Search blogs">
+              </div>
+
+              <select id="filter-site" class="filter-select">
+                <option value="">All sites</option>
+                <option value="Main site">Main site</option>
+                <option value="Himalaya Journal">Himalaya Journal</option>
+              </select>
+
+              <button id="btn-create-new" class="btn-add-blog" type="button">
+                + Add new blog
+              </button>
+            </div>
+          </div>
+
+          <!-- STATUS TABS -->
+          <div class="status-tabs">
+            <button class="status-tab active" data-status="all" type="button">All (<span id="count-all">0</span>)</button>
+            <button class="status-tab" data-status="published" type="button">Published (<span id="count-published">0</span>)</button>
+            <button class="status-tab" data-status="draft" type="button">Drafts (<span id="count-drafts">0</span>)</button>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-card">
+            <table class="blogs-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Site</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="blogs-table-body">
+                <tr>
+                  <td colspan="6" class="empty-state">
+                    No blogs yet. Click "Add new blog" to write your first one.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+        <!-- -------------------------------------------------------------------
+             SCREEN B: ADD / EDIT BLOG VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-add-blog" class="hidden">
+          
+          <div class="view-header">
+            <h1 id="editor-heading" class="view-title">Add new blog</h1>
+            <button id="btn-back-to-all" class="btn-back" type="button">
+              Back to all blogs
+            </button>
+          </div>
+
+          <form id="blog-form">
+            <input id="blog-id" type="hidden">
+            <input id="blog-status" type="hidden" value="published">
+
+            <!-- SECTION 1: BLOG DETAILS -->
+            <div class="form-section-card">
+              <h3 class="section-title">Blog details</h3>
+
+              <div class="form-group">
+                <label for="blog-title">Blog heading (H1)</label>
+                <input id="blog-title" type="text" placeholder="Write the main blog heading" required maxlength="300">
+              </div>
+
+              <div class="form-group">
+                <label for="blog-seo-title">SEO title</label>
+                <input id="blog-seo-title" type="text" placeholder="Title shown in Google search results" maxlength="300">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-site">Publish on site</label>
+                  <select id="blog-site">
+                    <option value="Main site">Main site</option>
+                    <option value="Himalaya Journal">Himalaya Journal</option>
+                    <option value="All sites">All sites</option>
+                  </select>
+                  <span class="sub-note">Add or remove sites in the code (SITES list).</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-category">Blog category</label>
+                  <div class="input-with-button">
+                    <select id="blog-category">
+                      <option value="General">General</option>
+                      <option value="Himalayan Travel">Himalayan Travel</option>
+                      <option value="Local Life">Local Life</option>
+                      <option value="Food & Culture">Food & Culture</option>
+                      <option value="Travel Guide">Travel Guide</option>
+                      <option value="Nature">Nature</option>
+                    </select>
+                    <button id="btn-add-category" class="btn-secondary" type="button">Add category</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 14px;">
+                <label for="blog-date">Publish date</label>
+                <input id="blog-date" type="date" required style="max-width: 260px;">
+              </div>
+            </div>
+
+            <!-- SECTION 2: FEATURED IMAGE -->
+            <div class="form-section-card">
+              <h3 class="section-title">Featured image</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-image-file">Upload from your device</label>
+                  <div class="file-upload-wrap">
+                    <input id="blog-image-file" type="file" accept="image/*">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-image-url">Or use image URL</label>
+                  <input id="blog-image-url" type="url" placeholder="https://example.com/image.jpg">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="blog-image-alt">Image alt text</label>
+                <input id="blog-image-alt" type="text" placeholder="Describe what is shown in the image">
+              </div>
+
+              <div id="image-preview-box" class="hidden" style="margin-top: 14px;">
+                <img id="image-preview" src="" alt="Preview" style="max-height: 160px; border-radius: 4px; border: 1px solid var(--border-color); object-fit: cover;">
+              </div>
+            </div>
+
+            <!-- SECTION 3: BLOG CONTENT -->
+            <div class="form-section-card">
+              <h3 class="section-title">Blog content</h3>
+
+              <div class="form-group">
+                <label for="blog-excerpt">Short introduction / Excerpt</label>
+                <textarea id="blog-excerpt" rows="2" placeholder="Brief summary of the story (shown on blog cards)" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Main blog content</label>
+                
+                <!-- TOOLBAR -->
+                <div class="editor-toolbar">
+                  <button type="button" class="toolbar-btn" data-tag="h2">H2</button>
+                  <button type="button" class="toolbar-btn" data-tag="h3">H3</button>
+                  <button type="button" class="toolbar-btn" data-tag="b"><strong>B</strong></button>
+                  <button type="button" class="toolbar-btn" data-tag="i"><em>I</em></button>
+                  <button type="button" class="toolbar-btn" data-tag="ul">• List</button>
+                  <button type="button" class="toolbar-btn" data-tag="ol">1. List</button>
+                  <button type="button" class="toolbar-btn" data-tag="quote">Quote</button>
+                  <button type="button" class="toolbar-btn" data-tag="link">Link</button>
+                  <button type="button" class="toolbar-btn" data-tag="image">Image</button>
+                </div>
+
+                <textarea id="blog-content" class="editor-textarea" rows="12" placeholder="Click here and paste your blog, or start writing..." required></textarea>
+              </div>
+            </div>
+
+            <!-- SECTION 4: TARGET LINK AND POST DETAILS -->
+            <div class="form-section-card">
+              <h3 class="section-title">Target link and post details</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-target-url">Target URL</label>
+                  <input id="blog-target-url" type="url" placeholder="https://your-website.com/page">
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-anchor-text">Anchor text</label>
+                  <input id="blog-anchor-text" type="text" placeholder="Words that link to the target URL">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-link-type">Link type</label>
+                  <select id="blog-link-type">
+                    <option value="DoFollow">DoFollow</option>
+                    <option value="NoFollow">NoFollow</option>
+                    <option value="Sponsored">Sponsored</option>
+                    <option value="UGC">UGC</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-post-type">Post type</label>
+                  <select id="blog-post-type">
+                    <option value="Normal">Normal</option>
+                    <option value="Featured">Featured</option>
+                    <option value="Sponsored">Sponsored</option>
+                    <option value="Announcement">Announcement</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM ACTIONS BAR -->
+            <div class="form-actions-bar">
+              <button id="btn-clear-form" class="btn-secondary" type="button">Clear form</button>
+              
+              <div class="action-buttons-right">
+                <button id="btn-save-draft" class="btn-draft" type="button">Save as Draft</button>
+                <button id="btn-publish-submit" class="btn-publish" type="submit">Publish blog ↗</button>
+              </div>
+            </div>
+
+            <p id="post-message" class="form-feedback" aria-live="polite"></p>
+          </form>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ADMIN JS LOGIC -->
+  <script src="js/admin.js" defer></script>
+</body>
+</html>

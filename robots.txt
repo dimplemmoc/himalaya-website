@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-demo.html
+Disallow: /setup-admin.php
+Disallow: /api/
+Sitemap: https://himalayawebsite.vercel.app/sitemap.xml

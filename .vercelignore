@@ -1,0 +1,10 @@
+# Vercel currently serves the public static site only. Keep PHP admin files and
+# local/database setup material out of that deployment until a PHP host is set up.
+admin.html
+admin-demo.html
+setup-admin.php
+config.php
+api/
+database/
+PHP-BLOG-SETUP.md
+reference/

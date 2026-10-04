@@ -1,0 +1,9 @@
+Options -Indexes
+
+<FilesMatch "^(config\.php|README\.md|PHP-BLOG-SETUP\.md|admin-demo\.html|\.env.*)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>

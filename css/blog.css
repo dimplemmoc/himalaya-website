@@ -950,3 +950,32 @@
     }
 
 }
+
+/* Dynamically published journal stories */
+.published-journal{padding:100px 8%;background:#f7f5ee;color:#263b32}
+.published-journal-head{display:flex;justify-content:space-between;align-items:end;gap:35px;max-width:1250px;margin:0 auto 30px}
+.published-journal-head h2{max-width:650px;margin:13px 0 0;font-family:"Playfair Display",Georgia,serif;font-size:clamp(34px,5vw,58px);font-weight:400;line-height:1.08}
+.published-journal-head p{max-width:360px;margin:0;color:#718078;font-size:14px;line-height:1.8}
+.published-kicker{color:#a77948;font-size:10px;letter-spacing:2px}
+.journal-filters{max-width:1250px;margin:0 auto 25px;padding:17px;display:flex;align-items:end;gap:14px;border:1px solid #dedfd5;background:#fff}
+.journal-filters label{display:grid;gap:7px;color:#738177;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.journal-filters input{min-width:200px;padding:10px;border:1px solid #dfe5dd;background:#fff;color:#263b32;font-family:inherit;font-size:13px}
+.journal-filters button{padding:11px 14px;border:1px solid #48664f;background:#fff;color:#48664f;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.journal-status,.published-post-grid{max-width:1250px;margin-left:auto;margin-right:auto}
+.journal-status{min-height:18px;color:#748178;font-size:12px}
+.published-post-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.published-post{min-width:0;border:1px solid #e1e3dc;background:#fff}
+.published-post-image{height:220px;position:relative;display:block;overflow:hidden;background:linear-gradient(135deg,#b4c4b7,#5d796b)}
+.published-post-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+.published-post-image:hover img{transform:scale(1.035)}
+.journal-image-placeholder{width:100%;height:100%;display:grid;place-items:center;color:#fff9;font:22px Georgia,serif;letter-spacing:5px}
+.published-post-image>span:last-child{position:absolute;left:15px;bottom:13px;color:white;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+.published-post-copy{padding:22px}
+.published-post-copy time{color:#a77948;font-size:10px;letter-spacing:1.2px;text-transform:uppercase}
+.published-post-copy h3{margin:12px 0;font:400 25px/1.2 "Playfair Display",Georgia,serif}
+.published-post-copy h3 a{color:#263b32;text-decoration:none}
+.published-post-copy p{min-height:58px;color:#738177;font-size:13px;line-height:1.75}
+.published-read{display:inline-block;margin-top:7px;color:#48664f;text-decoration:none;font-size:10px;letter-spacing:1.3px}
+.journal-empty{grid-column:1/-1;padding:35px 20px;border:1px dashed #cdd5cc;color:#738177;text-align:center;font-size:13px}
+@media(max-width:900px){.published-post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.published-journal-head{display:block}.published-journal-head p{margin-top:18px}}
+@media(max-width:650px){.published-journal{padding:75px 6%}.published-post-grid{grid-template-columns:1fr}.journal-filters{display:grid;grid-template-columns:1fr}.journal-filters input{width:100%;min-width:0}.published-post-image{height:250px}}
