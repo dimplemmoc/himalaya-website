@@ -299,7 +299,7 @@
         var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
         var result = await client
           .from("blog_posts")
-          .select("id,h1,title,seo_title,slug,category_label,category,excerpt,featured_image_url,image_url,featured_image_alt,image_alt,published_at,created_at")
+          .select("id,h1,title,seo_title,slug,category_label,category,excerpt,featured_image_url,image_url,featured_image_alt,image_alt,published_at,created_at,status")
           .eq("status", "published")
           .is("deleted_at", null)
           .order("published_at", { ascending: false });
@@ -312,31 +312,22 @@
       }
     }
 
-    // 2. Try localStorage fallback if no Supabase posts
-    if (!dynamicPosts.length) {
-      try {
-        var saved = localStorage.getItem("llh-blogs-store");
-        if (saved) {
-          var parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length) {
-            dynamicPosts = parsed.filter(function (p) { return p.status === "published"; });
-          }
+    // 2. Also merge localStorage posts
+    try {
+      var saved = localStorage.getItem("llh-blogs-store");
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length) {
+          var publishedLocals = parsed.filter(function (p) { return p.status === "published"; });
+          publishedLocals.forEach(function (loc) {
+            var exists = dynamicPosts.some(function (d) { return (d.slug && d.slug === loc.slug) || (d.id && String(d.id) === String(loc.id)); });
+            if (!exists) {
+              dynamicPosts.unshift(loc);
+            }
+          });
         }
-      } catch (e) {}
-    }
-
-    // 3. Try PHP API fallback if still empty
-    if (!dynamicPosts.length) {
-      try {
-        var res = await fetch("api/blogs.php", { headers: { Accept: "application/json" } });
-        if (res.ok) {
-          var data = await res.json();
-          if (data && data.posts && data.posts.length) {
-            dynamicPosts = data.posts;
-          }
-        }
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
 
     // Combine dynamic posts (newest first) with seed stories
     var uniqueSlugs = new Set();

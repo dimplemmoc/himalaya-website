@@ -285,19 +285,12 @@
     loginMsg.textContent = "Signing in...";
     loginMsg.className = "form-feedback";
 
-    var isMaster = enteredUser === fixedEmail && enteredPass === fixedPassword;
-    if (!isMaster) {
-      loginMsg.textContent = "Invalid credentials. Use admin@himalaya.com / admin@123";
-      loginMsg.className = "form-feedback error";
-      return;
-    }
-
-    // 1. Try Supabase Auth with the fixed production admin account.
+    // 1. Try Supabase Auth with the entered credentials (allows ANY user created in Supabase Auth)
     if (supabase) {
       try {
         var authRes = await supabase.auth.signInWithPassword({
-          email: fixedEmail,
-          password: fixedPassword
+          email: enteredUser,
+          password: enteredPass
         });
 
         if (authRes.data && authRes.data.user) {
@@ -312,17 +305,17 @@
       }
     }
 
-    // 2. Local fallback only when Supabase is not configured.
-    if (isMaster && !supabase) {
+    // 2. Master fallback (admin@himalaya.com / admin@123 or username: admin)
+    var isMaster = (enteredUser === fixedEmail || enteredUser === "admin") && enteredPass === fixedPassword;
+    if (isMaster) {
       loginMsg.textContent = "";
       localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
       setAuthenticated(true);
-    } else {
-      loginMsg.textContent = supabase
-        ? "Supabase login failed. Create the admin@himalaya.com user in Supabase Auth with password admin@123."
-        : "Invalid credentials. Use admin@himalaya.com / admin@123";
-      loginMsg.className = "form-feedback error";
+      return;
     }
+
+    loginMsg.textContent = "Invalid email or password. Please verify your credentials.";
+    loginMsg.className = "form-feedback error";
   });
 
   // Password toggle
