@@ -299,7 +299,7 @@
         var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
         var result = await client
           .from("blog_posts")
-          .select("id,h1,title,seo_title,slug,category_label,category,excerpt,featured_image_url,image_url,featured_image_alt,image_alt,published_at,created_at,status")
+          .select("id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status")
           .eq("status", "published")
           .is("deleted_at", null)
           .order("published_at", { ascending: false });

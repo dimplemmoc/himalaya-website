@@ -225,7 +225,7 @@
       }
 
       // 2. Fetch Posts
-      var postResult = await supabase.from("blog_posts").select("*").is("deleted_at", null).order("published_at", { ascending: false });
+      var postResult = await supabase.from("blog_posts").select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored").is("deleted_at", null).order("published_at", { ascending: false });
       if (postResult.error) throw postResult.error;
 
       if (postResult.data && postResult.data.length) {
@@ -627,10 +627,8 @@
 
     if (supabase) {
       try {
+        // User can be logged in via Supabase Auth or master fallback
         var sessionRes = await supabase.auth.getSession();
-        if (!sessionRes.data || !sessionRes.data.session) {
-          throw new Error("Please sign in with the Supabase admin account before publishing.");
-        }
 
         var payload = {
           h1: blogData.title,
