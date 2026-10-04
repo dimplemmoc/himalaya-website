@@ -10,21 +10,21 @@
     <meta name="description" content="Read stories about Himalayan villages, local people, food, culture, journeys, stays and the experiences that make travelling here meaningful.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#17372c">
-    <link rel="canonical" href="https://himalayawebsite.vercel.app/blog.html">
+    <link rel="canonical" href="/blog.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Live Local Himalaya">
     <meta property="og:title" content="Himalayan Journal | Stories from the Mountains">
     <meta property="og:description" content="Read stories about Himalayan villages, local people, food, culture, journeys, stays and the experiences that make travelling here meaningful.">
-    <meta property="og:url" content="https://himalayawebsite.vercel.app/blog.html">
-    <meta property="og:image" content="https://himalayawebsite.vercel.app/images/pexels-urtimud-89-76108288-32261668.jpg">
+    <meta property="og:url" content="/blog.html">
+    <meta property="og:image" content="/images/pexels-urtimud-89-76108288-32261668.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Himalayan Journal | Stories from the Mountains">
     <meta name="twitter:description" content="Read stories about Himalayan villages, local people, food, culture, journeys, stays and the experiences that make travelling here meaningful.">
-    <meta name="twitter:image" content="https://himalayawebsite.vercel.app/images/pexels-urtimud-89-76108288-32261668.jpg">
+    <meta name="twitter:image" content="/images/pexels-urtimud-89-76108288-32261668.jpg">
 
     <link rel="stylesheet" href="css/style.css?v=responsive-seo-1">
     <link rel="stylesheet" href="css/blog.css">
-   
+
 
 </head>
 
@@ -35,9 +35,9 @@
 
 <div id="navbar-container"></div>
     <!-- NAVBAR -->
-    
 
-   
+
+
      <main id="main-content">
 
         <!-- =====================================================
@@ -131,10 +131,10 @@
 
 
         <!-- =====================================================
-             CATEGORY NAVIGATION
+             CATEGORY NAVIGATION & INTERACTIVE STORIES GRID
         ====================================================== -->
 
-        <section class="blog-categories" id="stories">
+        <section class="blog-categories" id="stories" aria-labelledby="blog-category-title">
 
             <div class="blog-category-heading">
 
@@ -142,7 +142,7 @@
                     EXPLORE BY TOPIC
                 </span>
 
-                <h2>
+                <h2 id="blog-category-title">
                     Find a story<br>
                     that interests you.
                 </h2>
@@ -150,75 +150,46 @@
             </div>
 
 
-            <div class="blog-category-list">
-
-                <a href="#travel-stories">
-                    <span>01</span>
-                    Himalayan Travel
-                    <b>↗</b>
-                </a>
-
-                <a href="#local-life">
-                    <span>02</span>
-                    Local Life
-                    <b>↗</b>
-                </a>
-
-                <a href="#food">
-                    <span>03</span>
-                    Food & Culture
-                    <b>↗</b>
-                </a>
-
-                <a href="#villages">
-                    <span>04</span>
-                    Villages
-                    <b>↗</b>
-                </a>
-
-                <a href="#stays">
-                    <span>05</span>
-                    Stays & Homestays
-                    <b>↗</b>
-                </a>
-
-                <a href="#responsible">
-                    <span>06</span>
-                    Responsible Travel
-                    <b>↗</b>
-                </a>
-
-                <a href="#adventure">
-                    <span>07</span>
-                    Adventure
-                    <b>↗</b>
-                </a>
-
-                <a href="#guides">
-                    <span>08</span>
-                    Travel Guides
-                    <b>↗</b>
-                </a>
-
+            <!-- Pill Buttons (Exact Match of Reference Image) -->
+            <div class="category-pills-row" id="category-pills-row" role="tablist" aria-label="Filter stories by category">
+                <button class="category-pill active" type="button" data-category="ALL" role="tab" aria-selected="true">ALL</button>
+                <button class="category-pill" type="button" data-category="VILLAGE LIFE" role="tab" aria-selected="false">VILLAGE LIFE</button>
+                <button class="category-pill" type="button" data-category="NATURE" role="tab" aria-selected="false">NATURE</button>
+                <button class="category-pill" type="button" data-category="FOOD" role="tab" aria-selected="false">FOOD</button>
+                <button class="category-pill" type="button" data-category="CULTURE" role="tab" aria-selected="false">CULTURE</button>
+                <button class="category-pill" type="button" data-category="ADVENTURE" role="tab" aria-selected="false">ADVENTURE</button>
+                <button class="category-pill" type="button" data-category="WELLNESS" role="tab" aria-selected="false">WELLNESS</button>
+                <button class="category-pill" type="button" data-category="REMOTE WORK" role="tab" aria-selected="false">REMOTE WORK</button>
+                <button class="category-pill" type="button" data-category="STARGAZING" role="tab" aria-selected="false">STARGAZING</button>
+                <button class="category-pill" type="button" data-category="HIMALAYAN TRAVEL" role="tab" aria-selected="false">HIMALAYAN TRAVEL</button>
+                <button class="category-pill" type="button" data-category="HOMESTAYS" role="tab" aria-selected="false">HOMESTAYS</button>
             </div>
 
-        </section>
-
-
-        <section class="blog-section cms-stories-section" id="cms-stories-section" hidden>
-            <div class="blog-section-heading">
-                <span class="blog-section-number">FRESH FROM THE JOURNAL</span>
-                <h2>Stories from <em>our editors</em></h2>
-                <p>New perspectives and local stories from across the Himalayas.</p>
+            <!-- Stories Grid Header -->
+            <div class="stories-grid-header">
+                <div>
+                    <span class="stories-eyebrow">LOCAL STORIES</span>
+                    <h3 class="stories-grid-title" id="active-category-heading">All Himalayan Stories</h3>
+                </div>
+                <span class="stories-counter" id="stories-counter">Loading stories...</span>
             </div>
-            <div id="cms-stories" class="blog-grid blog-grid-three"></div>
+
+            <!-- Dynamic Stories Grid -->
+            <div class="blog-grid blog-grid-three" id="category-blogs-grid"></div>
+
+            <!-- Empty State -->
+            <div class="category-empty-state hidden" id="category-empty-state">
+                <p>No stories found in this category yet.</p>
+                <button type="button" class="btn-reset-filter" id="btn-reset-filter">View All Stories →</button>
+            </div>
+
         </section>
 
         <!-- =====================================================
              FEATURED STORY
         ====================================================== -->
 
-        <section class="featured-blog">
+        <section class="featured-blog" data-blog-section="village-life,culture,travel">
 
             <div class="featured-blog-image">
 
@@ -266,7 +237,7 @@
              HIMALAYAN TRAVEL
         ====================================================== -->
 
-        <section class="blog-section" id="travel-stories">
+        <section class="blog-section" id="travel-stories" data-blog-section="travel">
 
             <div class="blog-section-heading">
 
@@ -418,7 +389,7 @@
              LOCAL LIFE
         ====================================================== -->
 
-        <section class="blog-section blog-section-dark" id="local-life">
+        <section class="blog-section blog-section-dark" id="local-life" data-blog-section="village-life,culture">
 
             <div class="blog-section-heading">
 
@@ -533,7 +504,7 @@
              FOOD & CULTURE
         ====================================================== -->
 
-        <section class="blog-section" id="food">
+        <section class="blog-section" id="food" data-blog-section="food,culture">
 
             <div class="blog-section-heading">
 
@@ -649,7 +620,7 @@
              VILLAGES
         ====================================================== -->
 
-        <section class="blog-section blog-section-cream" id="villages">
+        <section class="blog-section blog-section-cream" id="villages" data-blog-section="village-life">
 
             <div class="blog-section-heading">
 
@@ -758,7 +729,7 @@
              STAYS
         ====================================================== -->
 
-        <section class="blog-section" id="stays">
+        <section class="blog-section" id="stays" data-blog-section="wellness,nature,village-life">
 
             <div class="blog-section-heading">
 
@@ -911,7 +882,7 @@
              RESPONSIBLE TRAVEL
         ====================================================== -->
 
-        <section class="blog-section blog-section-dark" id="responsible">
+        <section class="blog-section blog-section-dark" id="responsible" data-blog-section="travel,nature,culture">
 
             <div class="blog-section-heading">
 
@@ -1010,7 +981,7 @@
              ADVENTURE
         ====================================================== -->
 
-        <section class="blog-section" id="adventure">
+        <section class="blog-section" id="adventure" data-blog-section="adventure,nature">
 
             <div class="blog-section-heading">
 
@@ -1089,7 +1060,7 @@
              TRAVEL GUIDES
         ====================================================== -->
 
-        <section class="blog-section blog-section-cream" id="guides">
+        <section class="blog-section blog-section-cream" id="guides" data-blog-section="travel">
 
             <div class="blog-section-heading">
 

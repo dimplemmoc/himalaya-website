@@ -25,6 +25,25 @@
         });
     }
 
+    function updateShareUrls() {
+        var canonical = document.querySelector('link[rel="canonical"]');
+        var pageUrl = window.location.origin + window.location.pathname + window.location.search;
+        var origin = window.location.origin;
+
+        if (canonical) canonical.setAttribute("href", pageUrl);
+
+        Array.prototype.forEach.call(document.querySelectorAll('meta[property="og:url"]'), function (meta) {
+            meta.setAttribute("content", pageUrl);
+        });
+
+        Array.prototype.forEach.call(document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]'), function (meta) {
+            var value = meta.getAttribute("content") || "";
+            if (value.charAt(0) === "/") {
+                meta.setAttribute("content", origin + value);
+            }
+        });
+    }
+
     function formValues(form) {
         var values = [];
         Array.prototype.forEach.call(form.elements, function (field) {
@@ -140,6 +159,7 @@
 
     function start() {
         document.documentElement.classList.add("motion-ready");
+        updateShareUrls();
         revealContent();
         handleEmailForms();
         setupDetailCards();

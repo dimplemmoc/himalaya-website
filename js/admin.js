@@ -28,7 +28,7 @@
       image_alt: "Mountain sunrise in Himalaya",
       excerpt: "Before the day begins, the village wakes gently: a kettle on the stove, distant footsteps, and the first light over the ridge.",
       content: "<h2>The Mountain Dawn</h2>\n<p>Before the day begins, the village wakes gently: a kettle on the stove, distant footsteps, and the first light over the ridge.</p>\n<p>A good mountain journey leaves space for the unexpected. Stop when a view asks you to. Share tea. Let the local road and local voices guide the day.</p>",
-      target_url: "https://himalayawebsite.vercel.app/stays.html",
+      target_url: "/stays.html",
       anchor_text: "village homestays",
       link_type: "DoFollow",
       post_type: "Normal",
@@ -45,7 +45,7 @@
       image_alt: "Trekking route in high mountains",
       excerpt: "Take the smaller road, leave room in the day, and let local stories shape the journey as much as the destination.",
       content: "<h2>Traveling Slow</h2>\n<p>Take the smaller road, leave room in the day, and let local stories shape the journey as much as the destination.</p>\n<p>When you walk through the valleys, time takes on a different meaning. Listen to the mountain streams and connect with the locals.</p>",
-      target_url: "https://himalayawebsite.vercel.app/package.html",
+      target_url: "/package.html",
       anchor_text: "explore tour packages",
       link_type: "DoFollow",
       post_type: "Featured",
@@ -241,7 +241,7 @@
 
   function populateCategoryDropdown(categories) {
     var currentVal = blogCategoryInput.value;
-    var defaultCats = ["General", "Himalayan Travel", "Local Life", "Food & Culture", "Travel Guide", "Nature"];
+    var defaultCats = ["Village Life", "Nature", "Food", "Culture", "Adventure", "Wellness", "Remote Work", "Stargazing", "Himalayan Travel", "Homestays", "General"];
     var catNames = categories.map(function (c) { return c.name; });
     var merged = Array.from(new Set(defaultCats.concat(catNames)));
 
@@ -279,18 +279,25 @@
     e.preventDefault();
     var enteredUser = loginForm.username.value.trim().toLowerCase();
     var enteredPass = loginForm.password.value;
+    var fixedEmail = "admin@himalaya.com";
+    var fixedPassword = "admin@123";
 
     loginMsg.textContent = "Signing in...";
     loginMsg.className = "form-feedback";
 
-    var isMaster = (enteredUser === "admin@himalaya.com" || enteredUser === "admin") && (enteredPass === "admin@123" || enteredPass === "admin123");
+    var isMaster = enteredUser === fixedEmail && enteredPass === fixedPassword;
+    if (!isMaster) {
+      loginMsg.textContent = "Invalid credentials. Use admin@himalaya.com / admin@123";
+      loginMsg.className = "form-feedback error";
+      return;
+    }
 
-    // 1. Try Supabase Auth
+    // 1. Try Supabase Auth with the fixed production admin account.
     if (supabase) {
       try {
         var authRes = await supabase.auth.signInWithPassword({
-          email: enteredUser.includes("@") ? enteredUser : "admin@himalaya.com",
-          password: enteredPass
+          email: fixedEmail,
+          password: fixedPassword
         });
 
         if (authRes.data && authRes.data.user) {
@@ -312,7 +319,7 @@
       setAuthenticated(true);
     } else {
       loginMsg.textContent = supabase
-        ? "Supabase login failed. Please use the admin email/password created in Supabase."
+        ? "Supabase login failed. Create the admin@himalaya.com user in Supabase Auth with password admin@123."
         : "Invalid credentials. Use admin@himalaya.com / admin@123";
       loginMsg.className = "form-feedback error";
     }
