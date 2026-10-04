@@ -814,18 +814,69 @@ body.journal-admin {
   color: var(--text-muted);
 }
 
-.credentials-hint {
-  background-color: #121a15;
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
+.floating-group {
+  position: relative;
   margin-bottom: 20px;
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.5;
 }
 
-.credentials-hint strong {
+.floating-group input {
+  width: 100%;
+  height: 56px;
+  padding: 20px 16px 6px 16px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.floating-group input:focus {
+  border-color: var(--border-focus);
+  background-color: #141f18;
+  box-shadow: 0 0 0 3px rgba(126, 204, 159, 0.15);
+}
+
+.floating-group label {
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 400;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left top;
+}
+
+/* Floating animation when input is focused or has text */
+.floating-group input:focus ~ label,
+.floating-group input:not(:placeholder-shown) ~ label {
+  transform: translateY(-9px) scale(0.78);
+  color: var(--mint);
+  font-weight: 500;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.toggle-password-btn:hover {
   color: var(--mint);
 }
 
@@ -835,16 +886,30 @@ body.journal-admin {
   color: #0b1f14;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 13px;
+  padding: 14px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
 }
 
 .btn-login:hover {
   background-color: var(--mint-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(126, 204, 159, 0.25);
+}
+
+.btn-login span {
+  transition: transform 0.2s;
+}
+
+.btn-login:hover span {
+  transform: translateX(3px);
 }
 
 /* UTILITY CLASSES */
