@@ -778,6 +778,28 @@ body.journal-admin {
   background-color: var(--mint-hover);
 }
 
+.btn-update {
+  background-color: #23523f;
+  color: #e5f7ed;
+  border: 1px solid #3c7d62;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-update:hover {
+  background-color: #2c664e;
+  border-color: #55a885;
+  color: #ffffff;
+}
+
 .form-feedback {
   font-size: 14px;
   margin-top: 12px;

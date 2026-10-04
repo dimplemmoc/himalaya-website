@@ -208,7 +208,7 @@
       } catch (e) {}
 
       // 2. Fetch Posts via REST
-      var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored&deleted_at=is.null&order=created_at.desc";
+      var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored&deleted_at=is.null&order=created_at.desc&_t=" + Date.now();
       
       var postsRes = await fetch(queryUrl, {
         headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
@@ -370,7 +370,7 @@
         (b.category && b.category.toLowerCase().indexOf(searchVal) !== -1) ||
         (b.excerpt && b.excerpt.toLowerCase().indexOf(searchVal) !== -1);
       
-      var matchSite = !siteVal || (b.site === siteVal);
+      var matchSite = !siteVal || !b.site || (b.site === siteVal) || (b.site === "All sites");
       var matchStatus = currentStatusFilter === "all" || (b.status === currentStatusFilter);
 
       return matchSearch && matchSite && matchStatus;
@@ -749,6 +749,13 @@
     e.preventDefault();
     savePost("published");
   });
+
+  var btnUpdateBlog = document.getElementById("btn-update-blog");
+  if (btnUpdateBlog) {
+    btnUpdateBlog.addEventListener("click", function () {
+      savePost("published");
+    });
+  }
 
   btnSaveDraft.addEventListener("click", function () {
     savePost("draft");

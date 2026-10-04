@@ -111,6 +111,19 @@
         filterCmsStories("ALL");
       });
     }
+
+    // Top Category list link clicks
+    var topicLinks = document.querySelectorAll(".blog-category-list a[data-filter-category]");
+    Array.prototype.forEach.call(topicLinks, function (link) {
+      link.addEventListener("click", function (e) {
+        var cat = link.getAttribute("data-filter-category") || "ALL";
+        filterCmsStories(cat);
+        var sec = document.getElementById("cms-stories-section");
+        if (sec) {
+          sec.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
   }
 
   async function start() {
@@ -124,7 +137,7 @@
     // 1. Direct REST fetch from Supabase
     if (sbUrl && sbKey) {
       try {
-        var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc";
+        var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc&_t=" + Date.now();
         var res = await fetch(queryUrl, {
           headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
         });
