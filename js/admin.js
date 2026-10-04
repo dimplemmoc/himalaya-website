@@ -144,12 +144,43 @@
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
+  function toPublishIso(dateValue) {
+    var value = dateValue || todayISO();
+    return value + "T12:00:00.000Z";
+  }
+
+  function isSupabaseId(value) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ""));
+  }
+
   function makeSlug(title) {
     return String(title || "himalaya-story")
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
+  }
+
+  function mapSupabasePost(p) {
+    return {
+      id: p.id,
+      slug: p.slug,
+      title: p.h1 || p.title || "Untitled story",
+      seo_title: p.seo_title || p.h1 || p.title || "",
+      site: p.site || "Main site",
+      category: p.category_label || (p.category_id ? "General" : "General"),
+      category_id: p.category_id,
+      published_at: p.published_at ? p.published_at.slice(0, 10) : todayISO(),
+      image_url: p.featured_image_url || p.image_url || "",
+      image_alt: p.featured_image_alt || p.image_alt || "",
+      excerpt: p.excerpt || "",
+      content: p.content_html || p.content || "",
+      target_url: p.target_url || "",
+      anchor_text: p.anchor_text || "",
+      link_type: p.link_type === "nofollow" ? "NoFollow" : "DoFollow",
+      post_type: p.is_sponsored ? "Sponsored" : "Normal",
+      status: p.status || "published"
+    };
   }
 
   // --- UI Switching ---
@@ -195,28 +226,10 @@
 
       // 2. Fetch Posts
       var postResult = await supabase.from("blog_posts").select("*").is("deleted_at", null).order("published_at", { ascending: false });
+      if (postResult.error) throw postResult.error;
+
       if (postResult.data && postResult.data.length) {
-        var supabasePosts = postResult.data.map(function (p) {
-          return {
-            id: p.id,
-            slug: p.slug,
-            title: p.h1 || p.title,
-            seo_title: p.seo_title || p.h1,
-            site: p.site || "Main site",
-            category: p.category_label || (p.category_id ? "General" : "General"),
-            category_id: p.category_id,
-            published_at: p.published_at ? p.published_at.slice(0, 10) : todayISO(),
-            image_url: p.featured_image_url || p.image_url || "",
-            image_alt: p.featured_image_alt || p.image_alt || "",
-            excerpt: p.excerpt || "",
-            content: p.content_html || p.content || "",
-            target_url: p.target_url || "",
-            anchor_text: p.anchor_text || "",
-            link_type: p.link_type || "DoFollow",
-            post_type: p.is_sponsored ? "Sponsored" : "Normal",
-            status: p.status || "published"
-          };
-        });
+        var supabasePosts = postResult.data.map(mapSupabasePost);
 
         saveLocalBlogs(supabasePosts);
         renderBlogsTable();
@@ -242,7 +255,7 @@
   // --- Auth Check ---
   async function checkAuth() {
     var localSession = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (localSession === "authenticated") {
+    if (localSession === "authenticated" && !supabase) {
       setAuthenticated(true);
       return;
     }
@@ -255,6 +268,7 @@
         setAuthenticated(true);
         return;
       }
+      localStorage.removeItem(AUTH_STORAGE_KEY);
     }
 
     setAuthenticated(false);
@@ -291,13 +305,15 @@
       }
     }
 
-    // 2. Fixed Master Credentials Check
-    if (isMaster) {
+    // 2. Local fallback only when Supabase is not configured.
+    if (isMaster && !supabase) {
       loginMsg.textContent = "";
       localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
       setAuthenticated(true);
     } else {
-      loginMsg.textContent = "Invalid credentials. Use admin@himalaya.com / admin@123";
+      loginMsg.textContent = supabase
+        ? "Supabase login failed. Please use the admin email/password created in Supabase."
+        : "Invalid credentials. Use admin@himalaya.com / admin@123";
       loginMsg.className = "form-feedback error";
     }
   });
@@ -586,7 +602,9 @@
     }
 
     var id = blogIdInput.value || "story-" + Date.now();
-    var slug = makeSlug(title) + "-" + String(id).replace(/\D/g, "").slice(-4);
+    var existingBlog = getLocalBlogs().find(function (b) { return String(b.id) === String(id); });
+    var suffix = isSupabaseId(id) ? String(Date.now()).slice(-4) : String(id).replace(/\D/g, "").slice(-4);
+    var slug = existingBlog && existingBlog.slug ? existingBlog.slug : makeSlug(title) + "-" + suffix;
 
     var blogData = {
       id: id,
@@ -607,19 +625,13 @@
       status: status || "published"
     };
 
-    var blogs = getLocalBlogs();
-    var existingIdx = blogs.findIndex(function (b) { return String(b.id) === String(id); });
-
-    if (existingIdx !== -1) {
-      blogs[existingIdx] = blogData;
-    } else {
-      blogs.unshift(blogData);
-    }
-    saveLocalBlogs(blogs);
-
-    // Save to Supabase if connected
     if (supabase) {
       try {
+        var sessionRes = await supabase.auth.getSession();
+        if (!sessionRes.data || !sessionRes.data.session) {
+          throw new Error("Please sign in with the Supabase admin account before publishing.");
+        }
+
         var payload = {
           h1: blogData.title,
           seo_title: blogData.seo_title,
@@ -634,19 +646,37 @@
           link_type: blogData.link_type.toLowerCase() === "nofollow" ? "nofollow" : "dofollow",
           is_sponsored: blogData.post_type === "Sponsored",
           status: status || "published",
-          published_at: status === "published" ? new Date().toISOString() : null,
+          published_at: status === "published" ? toPublishIso(blogData.published_at) : null,
           updated_at: new Date().toISOString()
         };
 
-        if (blogIdInput.value && blogIdInput.value.includes("-") && blogIdInput.value.length > 20) {
-          await supabase.from("blog_posts").update(payload).eq("id", blogIdInput.value);
+        var saveResult;
+        if (isSupabaseId(blogIdInput.value)) {
+          saveResult = await supabase.from("blog_posts").update(payload).eq("id", blogIdInput.value).select("*").single();
         } else {
-          await supabase.from("blog_posts").insert(payload);
+          saveResult = await supabase.from("blog_posts").insert(payload).select("*").single();
         }
+
+        if (saveResult.error) throw saveResult.error;
+        if (saveResult.data) blogData = mapSupabasePost(saveResult.data);
       } catch (err) {
         console.warn("Supabase post save warning:", err);
+        postMsg.textContent = err && err.message ? err.message : "Could not publish this blog to Supabase.";
+        postMsg.className = "form-feedback error";
+        return;
       }
     }
+
+    var blogs = getLocalBlogs();
+    var existingIdx = blogs.findIndex(function (b) { return String(b.id) === String(id) || String(b.id) === String(blogData.id); });
+
+    if (existingIdx !== -1) {
+      blogs[existingIdx] = blogData;
+    } else {
+      blogs.unshift(blogData);
+    }
+    saveLocalBlogs(blogs);
+    blogIdInput.value = blogData.id;
 
     postMsg.textContent = status === "draft" ? "Saved as draft successfully!" : "Blog published successfully!";
     postMsg.className = "form-feedback success";

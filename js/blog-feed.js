@@ -33,8 +33,23 @@
     return [];
   }
 
+  function normalizePost(post) {
+    return {
+      id: post.id,
+      slug: post.slug,
+      title: post.h1 || post.title || "Story",
+      category: post.category_label || post.category || "Journal",
+      excerpt: post.excerpt || "",
+      content: post.content_html || post.content || "",
+      image_url: post.featured_image_url || post.image_url || "",
+      image_alt: post.featured_image_alt || post.image_alt || post.h1 || post.title || "",
+      published_at: post.published_at ? String(post.published_at).slice(0, 10) : "",
+      status: post.status || "published"
+    };
+  }
+
   function renderList(posts) {
-    var filtered = posts.slice();
+    var filtered = posts.map(normalizePost);
     if (date.value) {
       filtered = filtered.filter(function (p) { return p.published_at === date.value; });
     } else if (month.value) {
@@ -77,6 +92,41 @@
 
     status.textContent = "Loading stories…";
 
+    if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+      var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+      var request = client
+        .from("blog_posts")
+        .select("id,slug,h1,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,status")
+        .eq("status", "published")
+        .is("deleted_at", null)
+        .order("published_at", { ascending: false });
+
+      if (date.value) {
+        request = request.gte("published_at", date.value + "T00:00:00.000Z").lt("published_at", date.value + "T23:59:59.999Z");
+      } else if (month.value) {
+        var parts = month.value.split("-");
+        var nextMonth = new Date(Number(parts[0]), Number(parts[1]), 1);
+        var nextMonthValue = nextMonth.getFullYear() + "-" + String(nextMonth.getMonth() + 1).padStart(2, "0") + "-01";
+        request = request.gte("published_at", month.value + "-01T00:00:00.000Z").lt("published_at", nextMonthValue + "T00:00:00.000Z");
+      }
+
+      request.then(function (result) {
+        if (result.error) throw result.error;
+        if (result.data && result.data.length) {
+          renderList(result.data);
+          return;
+        }
+        loadApiOrLocal(query);
+      }).catch(function () {
+        loadApiOrLocal(query);
+      });
+      return;
+    }
+
+    loadApiOrLocal(query);
+  }
+
+  function loadApiOrLocal(query) {
     fetch("api/blogs.php" + (query.toString() ? "?" + query.toString() : ""), {
       headers: { Accept: "application/json" },
       cache: "no-store"

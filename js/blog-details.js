@@ -30,6 +30,34 @@
     return null;
   }
 
+  async function getSupabasePost(slug) {
+    if (!window.supabase || !window.HIMALAYA_SUPABASE_URL || !window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+      return null;
+    }
+
+    var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+    var result = await client
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("status", "published")
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (result.error) throw result.error;
+    return result.data || null;
+  }
+
+  async function getApiPost(slug) {
+    var res = await fetch("api/blogs.php?slug=" + encodeURIComponent(slug), {
+      headers: { Accept: "application/json" },
+      cache: "no-store"
+    });
+    if (!res.ok) return null;
+    var data = await res.json();
+    return data && data.post ? data.post : null;
+  }
+
   function renderPost(post) {
     var title = post.seo_title || post.h1 || post.title || "Himalayan Journal";
     document.title = title + " | Live Local Himalaya";
@@ -147,43 +175,36 @@
   }
 
   async function start() {
-    var slug = param("slug") || decodeURIComponent(window.location.pathname.match(/^\/blog\/([^/]+)\/?$/)?.[1] || "");
+    var pathMatch = window.location.pathname.match(/^\/blog\/([^/]+)\/?$/);
+    var slug = param("slug") || (pathMatch ? decodeURIComponent(pathMatch[1]) : "");
     
     if (!slug) {
       renderLegacy();
       return;
     }
 
-    // 1. Try local storage first
+    // Supabase is the production CMS source on Vercel.
+    try {
+      var supabasePost = await getSupabasePost(slug);
+      if (supabasePost) {
+        renderPost(supabasePost);
+        return;
+      }
+    } catch (e) {}
+
     var localPost = getLocalPost(slug);
-    if (localPost) {
+    if (localPost && (!localPost.status || localPost.status === "published")) {
       renderPost(localPost);
       return;
     }
 
-    // 2. Try PHP API
     try {
-      var res = await fetch("api/blogs.php?slug=" + encodeURIComponent(slug), { headers: { Accept: "application/json" } });
-      if (res.ok) {
-        var data = await res.json();
-        if (data && data.post) {
-          renderPost(data.post);
-          return;
-        }
+      var apiPost = await getApiPost(slug);
+      if (apiPost) {
+        renderPost(apiPost);
+        return;
       }
     } catch (e) {}
-
-    // 3. Try Supabase if configured
-    if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
-      try {
-        var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
-        var result = await client.from("blog_posts").select("*").eq("slug", slug).eq("status", "published").is("deleted_at", null).maybeSingle();
-        if (result.data) {
-          renderPost(result.data);
-          return;
-        }
-      } catch (err) {}
-    }
 
     setText("article-title", "Story not found");
     var body = document.getElementById("article-body");
