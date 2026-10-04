@@ -211,7 +211,6 @@
         }
       })
       .catch(function () {
-        // Fallback for static servers
         if (localStorage.getItem(AUTH_STORAGE_KEY) === "authenticated") {
           setAuthenticated(true);
         } else {
@@ -250,7 +249,6 @@
         setAuthenticated(true);
       })
       .catch(function (err) {
-        // If master credentials match, allow login even if PHP/MySQL is not running
         if (isMaster) {
           loginMsg.textContent = "";
           localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");

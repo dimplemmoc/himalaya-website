@@ -130,19 +130,6 @@
         </section>
 
 
-        <section class="published-journal" id="published-stories">
-            <div class="published-journal-head">
-                <div><span class="published-kicker">LATEST FROM THE JOURNAL</span><h2>New stories, from the mountains.</h2></div>
-                <p>Read the newest posts first, or find a story from a particular date or month.</p>
-            </div>
-            <div class="journal-filters">
-                <label>Browse by month <input id="journal-month" type="month"></label>
-                <label>Browse by date <input id="journal-date" type="date"></label>
-                <button id="journal-clear" type="button">Clear filters</button>
-            </div>
-            <p id="journal-status" class="journal-status" aria-live="polite">Loading stories…</p>
-            <div id="published-posts" class="published-post-grid"></div>
-        </section>
         <!-- =====================================================
              CATEGORY NAVIGATION
         ====================================================== -->
@@ -218,6 +205,15 @@
         </section>
 
 
+        <section class="blog-section cms-stories-section" id="cms-stories-section" hidden>
+            <div class="blog-section-heading">
+                <span class="blog-section-number">FRESH FROM THE JOURNAL</span>
+                <h2>Stories from <em>our editors</em></h2>
+                <p>New perspectives and local stories from across the Himalayas.</p>
+            </div>
+            <div id="cms-stories" class="blog-grid blog-grid-three"></div>
+        </section>
+
         <!-- =====================================================
              FEATURED STORY
         ====================================================== -->
@@ -229,7 +225,7 @@
                 <img
                     src="images/pexels-marina-zvada-844583049-20315033.jpg"
                     alt="Himalayan village in Tirthan Valley"
-                 width="3024" height="4032" loading="lazy" decoding="async">
+                >
 
             </div>
 
@@ -304,7 +300,7 @@
                         <img
                             src="images/m.jpg"
                             alt="Himalayan mountain road"
-                         width="612" height="408" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             TRAVEL
@@ -342,7 +338,7 @@
                         <img
                             src="images/pexels-ahmet-ciftci-1413580052-35749293.jpg"
                             alt="Mountain travel route"
-                         width="3512" height="6240" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             TRAVEL
@@ -381,7 +377,7 @@
                         <img
                             src="images/pexels-yademidov-36285486.jpg"
                             alt="Traveller in the Himalayas"
-                         width="3246" height="5774" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             TRAVEL
@@ -456,7 +452,7 @@
                         <img
                             src="images/pexels-llizzk-18276996.jpg"
                             alt="Himalayan local family"
-                         width="3900" height="2945" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             LOCAL LIFE
@@ -496,7 +492,7 @@
                         <img
                             src="images/pexels-apertureofindia-27895570.jpg"
                             alt="Himalayan village life"
-                         width="4000" height="5057" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             LOCAL LIFE
@@ -571,7 +567,7 @@
                         <img
                             src="images/pexels-kolkatarchobiwala-37151443.jpg"
                             alt="Traditional Himalayan food"
-                         width="2900" height="3866" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             FOOD
@@ -612,7 +608,7 @@
                         <img
                             src="images/pexels-rajan-pun-368299593-20808430.jpg"
                             alt="Himalayan culture"
-                         width="2896" height="1944" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             CULTURE
@@ -685,7 +681,7 @@
                     <img
                         src="images/pexels-sajhad-1379162301-36686610.jpg"
                         alt="Himalayan village"
-                     width="3024" height="4032" loading="lazy" decoding="async">
+                    >
 
                     <div>
 
@@ -722,7 +718,7 @@
                     <img
                         src="images/pexels-darryl-jaison-809425996-19211468.jpg"
                         alt="Remote Himalayan village"
-                     width="3445" height="4306" loading="lazy" decoding="async">
+                    >
 
                     <div>
 
@@ -796,7 +792,7 @@
                         <img
                             src="images/pexels-minal-munakarmi-1236892-39748092.jpg"
                             alt="Himalayan homestay"
-                         width="3024" height="3024" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             STAYS
@@ -836,7 +832,7 @@
                         <img
                             src="images/pexels-hamza-gulzar-54058-17101164.jpg"
                             alt="Mountain cabin"
-                         width="3022" height="4032" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             STAYS
@@ -875,7 +871,7 @@
                         <img
                             src="images/w.jpg"
                             alt="Mountain stay view"
-                         width="612" height="408" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             STAYS
@@ -1048,7 +1044,7 @@
                         <img
                             src="images/pexels-lexi-orizio-2147739941-29753864.jpg"
                             alt="Himalayan trek"
-                         width="4000" height="6000" loading="lazy" decoding="async">
+                        >
 
                         <span>
                             ADVENTURE
@@ -1082,7 +1078,7 @@
                 </article>
 
 
-                <article class="blog-card"> <div class="blog-card-image"> <img src="images/f.jpg" alt="Himalayan Forest Walk"  width="612" height="408" loading="lazy" decoding="async"> <span>ADVENTURE</span> </div> <div class="blog-card-content"> <small>12 APRIL 2025</small> <h3> The Quiet Adventure of a Himalayan Forest Walk </h3> <p> Sometimes the most memorable adventure is simply walking without rushing. </p> <a href="blog-details.html">READ MORE ↗</a> </div> </article>
+                <article class="blog-card"> <div class="blog-card-image"> <img src="images/f.jpg" alt="Himalayan Forest Walk" > <span>ADVENTURE</span> </div> <div class="blog-card-content"> <small>12 APRIL 2025</small> <h3> The Quiet Adventure of a Himalayan Forest Walk </h3> <p> Sometimes the most memorable adventure is simply walking without rushing. </p> <a href="blog-details.html">READ MORE ↗</a> </div> </article>
 
             </div>
 
@@ -1248,8 +1244,10 @@
 
 <script src="js/components.js"></script>
 <script src="js/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/blog-cms.js"></script>
 <script src="js/blog.js"></script>
-<script src="js/blog-feed.js" defer></script>
 
 </body>
 
