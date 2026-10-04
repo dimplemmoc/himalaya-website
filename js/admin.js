@@ -6,6 +6,14 @@
   var supabase = null;
   var user = null;
 
+  // Purge legacy sample blogs from localStorage if found
+  try {
+    var rawSaved = localStorage.getItem(STORAGE_KEY);
+    if (rawSaved && (rawSaved.indexOf("story-1") !== -1 || rawSaved.indexOf("story-2") !== -1)) {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  } catch (e) {}
+
   // Initialize Supabase if available
   if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
     try {
@@ -177,10 +185,12 @@
     }
   }
 
-  // --- Sync with Supabase ---
+    // --- Sync with Supabase ---
   async function syncFromSupabase() {
     if (!supabase) return;
     try {
+      blogsTableBody.innerHTML = '<tr><td colspan="6" class="empty-state" style="text-align:center;padding:30px;color:var(--text-muted);">Loading blogs from Supabase database...</td></tr>';
+
       // 1. Fetch Categories
       var catResult = await supabase.from("blog_categories").select("*").order("name");
       if (catResult.data && catResult.data.length) {
@@ -188,9 +198,17 @@
         populateCategoryDropdown(allCategories);
       }
 
-      // 2. Fetch Posts
-      var postResult = await supabase.from("blog_posts").select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored").is("deleted_at", null).order("created_at", { ascending: false });
-      if (postResult.error) throw postResult.error;
+      // 2. Fetch Posts (All active posts, newest first)
+      var postResult = await supabase
+        .from("blog_posts")
+        .select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored")
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false });
+
+      if (postResult.error) {
+        console.error("Supabase postResult error:", postResult.error);
+        throw postResult.error;
+      }
 
       if (postResult.data) {
         var supabasePosts = postResult.data.map(mapSupabasePost);
@@ -199,6 +217,7 @@
       }
     } catch (err) {
       console.warn("Supabase sync warning:", err);
+      renderBlogsTable();
     }
   }
 
@@ -218,20 +237,17 @@
   // --- Auth Check ---
   async function checkAuth() {
     var localSession = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (localSession === "authenticated" && !supabase) {
+    if (localSession === "authenticated") {
+      if (supabase) {
+        try {
+          var sessionRes = await supabase.auth.getSession();
+          if (sessionRes.data && sessionRes.data.session) {
+            user = sessionRes.data.session.user;
+          }
+        } catch (e) {}
+      }
       setAuthenticated(true);
       return;
-    }
-
-    if (supabase) {
-      var sessionRes = await supabase.auth.getSession();
-      if (sessionRes.data && sessionRes.data.session) {
-        user = sessionRes.data.session.user;
-        localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
-        setAuthenticated(true);
-        return;
-      }
-      localStorage.removeItem(AUTH_STORAGE_KEY);
     }
 
     setAuthenticated(false);
@@ -644,6 +660,7 @@
 
     setTimeout(function () {
       showView("all");
+      syncFromSupabase();
     }, 600);
   }
 
@@ -670,6 +687,16 @@
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
+
+  var btnRefresh = document.getElementById("btn-refresh-blogs");
+  if (btnRefresh) {
+    btnRefresh.addEventListener("click", function () {
+      btnRefresh.textContent = "Syncing...";
+      syncFromSupabase().then(function () {
+        btnRefresh.textContent = "↻ Refresh Live Data";
+      });
+    });
+  }
 
   checkAuth();
 })();
