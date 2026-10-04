@@ -15,43 +15,8 @@
     }
   }
 
-  // Initial sample blogs
-  var sampleBlogs = [
-    {
-      id: "story-1",
-      title: "The rhythm of morning in a Himalayan village",
-      seo_title: "Himalayan Village Morning Rhythm | Live Local",
-      site: "Main site",
-      category: "Local Life",
-      published_at: "2026-10-03",
-      image_url: "images/pexels-urtimud-89-76108288-32261668.jpg",
-      image_alt: "Mountain sunrise in Himalaya",
-      excerpt: "Before the day begins, the village wakes gently: a kettle on the stove, distant footsteps, and the first light over the ridge.",
-      content: "<h2>The Mountain Dawn</h2>\n<p>Before the day begins, the village wakes gently: a kettle on the stove, distant footsteps, and the first light over the ridge.</p>\n<p>A good mountain journey leaves space for the unexpected. Stop when a view asks you to. Share tea. Let the local road and local voices guide the day.</p>",
-      target_url: "/stays.html",
-      anchor_text: "village homestays",
-      link_type: "DoFollow",
-      post_type: "Normal",
-      status: "published"
-    },
-    {
-      id: "story-2",
-      title: "A slower way to travel through the mountains",
-      seo_title: "Slow Travel in the Himalaya Guide",
-      site: "Main site",
-      category: "Himalayan Travel",
-      published_at: "2026-10-01",
-      image_url: "images/stays/stay-5.jpg",
-      image_alt: "Trekking route in high mountains",
-      excerpt: "Take the smaller road, leave room in the day, and let local stories shape the journey as much as the destination.",
-      content: "<h2>Traveling Slow</h2>\n<p>Take the smaller road, leave room in the day, and let local stories shape the journey as much as the destination.</p>\n<p>When you walk through the valleys, time takes on a different meaning. Listen to the mountain streams and connect with the locals.</p>",
-      target_url: "/package.html",
-      anchor_text: "explore tour packages",
-      link_type: "DoFollow",
-      post_type: "Featured",
-      status: "published"
-    }
-  ];
+  // Start with clean state from Supabase
+  var sampleBlogs = [];
 
   // DOM Elements
   var loginView = document.getElementById("login-view");
@@ -114,11 +79,10 @@
       var saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         var parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length) return parsed;
+        if (Array.isArray(parsed)) return parsed;
       }
     } catch (e) {}
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleBlogs));
-    return sampleBlogs.slice();
+    return [];
   }
 
   function saveLocalBlogs(list) {
@@ -225,12 +189,11 @@
       }
 
       // 2. Fetch Posts
-      var postResult = await supabase.from("blog_posts").select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored").is("deleted_at", null).order("published_at", { ascending: false });
+      var postResult = await supabase.from("blog_posts").select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored").is("deleted_at", null).order("created_at", { ascending: false });
       if (postResult.error) throw postResult.error;
 
-      if (postResult.data && postResult.data.length) {
+      if (postResult.data) {
         var supabasePosts = postResult.data.map(mapSupabasePost);
-
         saveLocalBlogs(supabasePosts);
         renderBlogsTable();
       }
