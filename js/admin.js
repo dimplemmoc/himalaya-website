@@ -1,13 +1,21 @@
 (function () {
   "use strict";
 
-  var API_AUTH = "api/admin-auth.php";
-  var API_BLOGS = "api/blogs.php";
   var STORAGE_KEY = "llh-blogs-store";
   var AUTH_STORAGE_KEY = "llh-admin-auth-session";
-  var csrfToken = "";
+  var supabase = null;
+  var user = null;
 
-  // Initial demo / seed stories if storage is empty
+  // Initialize Supabase if available
+  if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+    try {
+      supabase = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+    } catch (e) {
+      console.warn("Supabase init error:", e);
+    }
+  }
+
+  // Initial sample blogs
   var sampleBlogs = [
     {
       id: "story-1",
@@ -42,23 +50,6 @@
       link_type: "DoFollow",
       post_type: "Featured",
       status: "published"
-    },
-    {
-      id: "story-3",
-      title: "What grows in a village kitchen garden",
-      seo_title: "Himalayan Food & Kitchen Herbs",
-      site: "Main site",
-      category: "Food & Culture",
-      published_at: "2026-09-27",
-      image_url: "images/experiences/exp-6.jpg",
-      image_alt: "Organic Himalayan herbs and vegetables",
-      excerpt: "A look at the herbs, greens and seasonal ingredients that bring everyday Himalayan meals to life.",
-      content: "<h2>Traditional Kitchen Herbs</h2>\n<p>Every season brings a different colour to the kitchen garden. Fresh greens, wild mountain herbs and local grains become simple meals shared around the hearth.</p>",
-      target_url: "",
-      anchor_text: "",
-      link_type: "DoFollow",
-      post_type: "Normal",
-      status: "draft"
     }
   ];
 
@@ -115,6 +106,7 @@
   var blogPostTypeInput = document.getElementById("blog-post-type");
 
   var currentStatusFilter = "all";
+  var allCategories = [];
 
   // --- Local Data Helpers ---
   function getLocalBlogs() {
@@ -143,7 +135,7 @@
 
   function formatDate(isoStr) {
     if (!isoStr) return "";
-    var d = new Date(isoStr + "T12:00:00");
+    var d = new Date(isoStr + (isoStr.length === 10 ? "T12:00:00" : ""));
     return isNaN(d.getTime()) ? isoStr : d.toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
   }
 
@@ -182,6 +174,7 @@
       loginView.classList.add("hidden");
       dashboardView.classList.remove("hidden");
       showView("all");
+      syncFromSupabase();
     } else {
       dashboardView.classList.add("hidden");
       loginView.classList.remove("hidden");
@@ -189,83 +182,130 @@
     }
   }
 
+  // --- Sync with Supabase ---
+  async function syncFromSupabase() {
+    if (!supabase) return;
+    try {
+      // 1. Fetch Categories
+      var catResult = await supabase.from("blog_categories").select("*").order("name");
+      if (catResult.data && catResult.data.length) {
+        allCategories = catResult.data;
+        populateCategoryDropdown(allCategories);
+      }
+
+      // 2. Fetch Posts
+      var postResult = await supabase.from("blog_posts").select("*").is("deleted_at", null).order("published_at", { ascending: false });
+      if (postResult.data && postResult.data.length) {
+        var supabasePosts = postResult.data.map(function (p) {
+          return {
+            id: p.id,
+            slug: p.slug,
+            title: p.h1 || p.title,
+            seo_title: p.seo_title || p.h1,
+            site: p.site || "Main site",
+            category: p.category_label || (p.category_id ? "General" : "General"),
+            category_id: p.category_id,
+            published_at: p.published_at ? p.published_at.slice(0, 10) : todayISO(),
+            image_url: p.featured_image_url || p.image_url || "",
+            image_alt: p.featured_image_alt || p.image_alt || "",
+            excerpt: p.excerpt || "",
+            content: p.content_html || p.content || "",
+            target_url: p.target_url || "",
+            anchor_text: p.anchor_text || "",
+            link_type: p.link_type || "DoFollow",
+            post_type: p.is_sponsored ? "Sponsored" : "Normal",
+            status: p.status || "published"
+          };
+        });
+
+        saveLocalBlogs(supabasePosts);
+        renderBlogsTable();
+      }
+    } catch (err) {
+      console.warn("Supabase sync warning:", err);
+    }
+  }
+
+  function populateCategoryDropdown(categories) {
+    var currentVal = blogCategoryInput.value;
+    var defaultCats = ["General", "Himalayan Travel", "Local Life", "Food & Culture", "Travel Guide", "Nature"];
+    var catNames = categories.map(function (c) { return c.name; });
+    var merged = Array.from(new Set(defaultCats.concat(catNames)));
+
+    blogCategoryInput.innerHTML = merged.map(function (name) {
+      return '<option value="' + escapeHtml(name) + '">' + escapeHtml(name) + '</option>';
+    }).join("");
+
+    if (currentVal) blogCategoryInput.value = currentVal;
+  }
+
   // --- Auth Check ---
-  function checkAuth() {
+  async function checkAuth() {
     var localSession = localStorage.getItem(AUTH_STORAGE_KEY);
     if (localSession === "authenticated") {
       setAuthenticated(true);
       return;
     }
 
-    fetch(API_AUTH, { method: "GET", headers: { Accept: "application/json" } })
-      .then(function (res) {
-        return res.json().catch(function () { return { authenticated: false }; });
-      })
-      .then(function (data) {
-        csrfToken = data.csrf_token || "";
-        if (data.authenticated) {
-          localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
-          setAuthenticated(true);
-        } else {
-          setAuthenticated(false);
-        }
-      })
-      .catch(function () {
-        if (localStorage.getItem(AUTH_STORAGE_KEY) === "authenticated") {
-          setAuthenticated(true);
-        } else {
-          setAuthenticated(false);
-        }
-      });
+    if (supabase) {
+      var sessionRes = await supabase.auth.getSession();
+      if (sessionRes.data && sessionRes.data.session) {
+        user = sessionRes.data.session.user;
+        localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
+        setAuthenticated(true);
+        return;
+      }
+    }
+
+    setAuthenticated(false);
   }
 
   // --- Login Handler ---
-  loginForm.addEventListener("submit", function (e) {
+  loginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    var user = loginForm.username.value.trim().toLowerCase();
-    var pass = loginForm.password.value;
+    var enteredUser = loginForm.username.value.trim().toLowerCase();
+    var enteredPass = loginForm.password.value;
 
-    loginMsg.textContent = "Authenticating...";
+    loginMsg.textContent = "Signing in...";
     loginMsg.className = "form-feedback";
 
-    // Fixed credentials check
-    var isMaster = (user === "admin@himalaya.com" || user === "admin" || user === "dimple") && (pass === "admin@123" || pass === "admin123");
+    var isMaster = (enteredUser === "admin@himalaya.com" || enteredUser === "admin") && (enteredPass === "admin@123" || enteredPass === "admin123");
 
-    // Attempt backend login first
-    fetch(API_AUTH, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "login", username: user, password: pass, csrf_token: csrfToken })
-    })
-      .then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok) throw new Error(data.error || "Login failed");
-          return data;
+    // 1. Try Supabase Auth
+    if (supabase) {
+      try {
+        var authRes = await supabase.auth.signInWithPassword({
+          email: enteredUser.includes("@") ? enteredUser : "admin@himalaya.com",
+          password: enteredPass
         });
-      })
-      .then(function () {
-        loginMsg.textContent = "";
-        localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
-        setAuthenticated(true);
-      })
-      .catch(function (err) {
-        if (isMaster) {
+
+        if (authRes.data && authRes.data.user) {
+          user = authRes.data.user;
           loginMsg.textContent = "";
           localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
           setAuthenticated(true);
-        } else {
-          loginMsg.textContent = err.message || "Invalid credentials. Use admin@himalaya.com / admin@123";
-          loginMsg.className = "form-feedback error";
+          return;
         }
-      });
+      } catch (err) {
+        console.warn("Supabase auth attempted:", err);
+      }
+    }
+
+    // 2. Fixed Master Credentials Check
+    if (isMaster) {
+      loginMsg.textContent = "";
+      localStorage.setItem(AUTH_STORAGE_KEY, "authenticated");
+      setAuthenticated(true);
+    } else {
+      loginMsg.textContent = "Invalid credentials. Use admin@himalaya.com / admin@123";
+      loginMsg.className = "form-feedback error";
+    }
   });
 
-  function handleLogout() {
-    fetch(API_AUTH, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "logout", csrf_token: csrfToken })
-    }).catch(function () {});
+  async function handleLogout() {
+    if (supabase) {
+      try { await supabase.auth.signOut(); } catch (e) {}
+    }
     setAuthenticated(false);
   }
 
@@ -284,7 +324,6 @@
     var searchVal = (searchBlogsInput.value || "").toLowerCase().trim();
     var siteVal = filterSiteSelect.value;
 
-    // Filter by site and search
     var filtered = blogs.filter(function (b) {
       var matchSearch = !searchVal ||
         (b.title && b.title.toLowerCase().indexOf(searchVal) !== -1) ||
@@ -297,14 +336,9 @@
       return matchSearch && matchSite && matchStatus;
     });
 
-    // Counts update
-    var totalAll = blogs.length;
-    var totalPublished = blogs.filter(function (b) { return b.status === "published"; }).length;
-    var totalDrafts = blogs.filter(function (b) { return b.status === "draft"; }).length;
-
-    countAll.textContent = totalAll;
-    countPublished.textContent = totalPublished;
-    countDrafts.textContent = totalDrafts;
+    countAll.textContent = blogs.length;
+    countPublished.textContent = blogs.filter(function (b) { return b.status === "published"; }).length;
+    countDrafts.textContent = blogs.filter(function (b) { return b.status === "draft"; }).length;
 
     if (!filtered.length) {
       blogsTableBody.innerHTML = '<tr><td colspan="6" class="empty-state">No blogs match your filter. Click "Add new blog" to write your first one.</td></tr>';
@@ -344,7 +378,6 @@
     });
   });
 
-  // Table click events (Edit / Delete)
   blogsTableBody.addEventListener("click", function (e) {
     var editId = e.target.getAttribute("data-edit");
     if (editId) {
@@ -360,21 +393,19 @@
     }
   });
 
-  function deleteBlog(id) {
+  async function deleteBlog(id) {
     var blogs = getLocalBlogs();
     var updated = blogs.filter(function (b) { return String(b.id) !== String(id); });
     saveLocalBlogs(updated);
     renderBlogsTable();
 
-    // Sync with backend API if available
-    fetch(API_BLOGS, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "delete", id: id, csrf_token: csrfToken })
-    }).catch(function () {});
+    if (supabase) {
+      try {
+        await supabase.from("blog_posts").update({ deleted_at: new Date().toISOString(), status: "unpublished" }).eq("id", id);
+      } catch (e) {}
+    }
   }
 
-  // --- Form Helpers ---
   function resetForm() {
     blogForm.reset();
     blogIdInput.value = "";
@@ -398,7 +429,6 @@
     blogSeoTitleInput.value = blog.seo_title || blog.title || "";
     blogSiteInput.value = blog.site || "Main site";
     
-    // Set or add category if not present
     var hasCat = Array.from(blogCategoryInput.options).some(function (opt) { return opt.value === blog.category; });
     if (!hasCat && blog.category) {
       var opt = document.createElement("option");
@@ -430,8 +460,23 @@
     showView("add");
   }
 
-  // --- Image Upload Preview ---
-  blogImageFileInput.addEventListener("change", function (e) {
+  // --- Upload to Supabase Storage Helper ---
+  async function uploadImageToSupabase(file) {
+    if (!supabase || !file) return null;
+    try {
+      var safe = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+      var path = "public/" + Date.now() + "-" + safe;
+      var uploadRes = await supabase.storage.from("blog-media").upload(path, file, { upsert: false, contentType: file.type });
+      if (uploadRes.error) throw uploadRes.error;
+      var pubUrl = supabase.storage.from("blog-media").getPublicUrl(path).data.publicUrl;
+      return pubUrl;
+    } catch (e) {
+      console.warn("Supabase storage upload error:", e);
+      return null;
+    }
+  }
+
+  blogImageFileInput.addEventListener("change", async function (e) {
     var file = e.target.files && e.target.files[0];
     if (file) {
       var reader = new FileReader();
@@ -442,6 +487,13 @@
         imagePreviewBox.classList.remove("hidden");
       };
       reader.readAsDataURL(file);
+
+      // Attempt background Supabase upload
+      var remoteUrl = await uploadImageToSupabase(file);
+      if (remoteUrl) {
+        blogImageUrlInput.value = remoteUrl;
+        imagePreview.src = remoteUrl;
+      }
     }
   });
 
@@ -455,7 +507,7 @@
     }
   });
 
-  // --- Rich Editor Toolbar Actions ---
+  // --- Toolbar Actions ---
   document.querySelectorAll(".editor-toolbar .toolbar-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var tag = btn.getAttribute("data-tag");
@@ -465,42 +517,22 @@
       var replacement = "";
 
       switch (tag) {
-        case "h2":
-          replacement = "<h2>" + (selected || "Heading 2") + "</h2>";
-          break;
-        case "h3":
-          replacement = "<h3>" + (selected || "Heading 3") + "</h3>";
-          break;
-        case "b":
-          replacement = "<strong>" + (selected || "bold text") + "</strong>";
-          break;
-        case "i":
-          replacement = "<em>" + (selected || "italic text") + "</em>";
-          break;
-        case "ul":
-          replacement = "<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>";
-          break;
-        case "ol":
-          replacement = "<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>";
-          break;
-        case "quote":
-          replacement = "<blockquote>" + (selected || "Quote text here...") + "</blockquote>";
-          break;
+        case "h2": replacement = "<h2>" + (selected || "Heading 2") + "</h2>"; break;
+        case "h3": replacement = "<h3>" + (selected || "Heading 3") + "</h3>"; break;
+        case "b": replacement = "<strong>" + (selected || "bold text") + "</strong>"; break;
+        case "i": replacement = "<em>" + (selected || "italic text") + "</em>"; break;
+        case "ul": replacement = "<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>"; break;
+        case "ol": replacement = "<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>"; break;
+        case "quote": replacement = "<blockquote>" + (selected || "Quote text here...") + "</blockquote>"; break;
         case "link":
           var url = prompt("Enter link URL:", "https://");
-          if (url) {
-            replacement = '<a href="' + url + '">' + (selected || "Link text") + '</a>';
-          } else {
-            return;
-          }
+          if (url) replacement = '<a href="' + url + '">' + (selected || "Link text") + '</a>';
+          else return;
           break;
         case "image":
           var imgUrl = prompt("Enter image URL:", "https://");
-          if (imgUrl) {
-            replacement = '<img src="' + imgUrl + '" alt="' + (selected || "Blog image") + '">';
-          } else {
-            return;
-          }
+          if (imgUrl) replacement = '<img src="' + imgUrl + '" alt="' + (selected || "Blog image") + '">';
+          else return;
           break;
       }
 
@@ -509,8 +541,8 @@
     });
   });
 
-  // --- Add Category Dynamically ---
-  btnAddCategory.addEventListener("click", function () {
+  // --- Add Category ---
+  btnAddCategory.addEventListener("click", async function () {
     var newCat = prompt("Enter new category name:");
     if (newCat && newCat.trim()) {
       var catName = newCat.trim();
@@ -519,11 +551,17 @@
       opt.textContent = catName;
       blogCategoryInput.appendChild(opt);
       blogCategoryInput.value = catName;
+
+      if (supabase) {
+        try {
+          await supabase.from("blog_categories").insert({ name: catName, slug: makeSlug(catName) });
+        } catch (e) {}
+      }
     }
   });
 
-  // --- Form Submission (Publish & Draft) ---
-  function savePost(status) {
+  // --- Save Post ---
+  async function savePost(status) {
     var title = blogTitleInput.value.trim();
     if (!title) {
       postMsg.textContent = "Please enter the blog heading (H1).";
@@ -562,25 +600,38 @@
     } else {
       blogs.unshift(blogData);
     }
-
     saveLocalBlogs(blogs);
 
-    // Sync with PHP backend if running
-    fetch(API_BLOGS, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "save",
-        id: blogIdInput.value ? blogData.id : null,
-        title: blogData.title,
-        category: blogData.category,
-        published_at: blogData.published_at,
-        excerpt: blogData.excerpt,
-        content: blogData.content,
-        image_url: blogData.image_url,
-        csrf_token: csrfToken
-      })
-    }).catch(function () {});
+    // Save to Supabase if connected
+    if (supabase) {
+      try {
+        var payload = {
+          h1: blogData.title,
+          seo_title: blogData.seo_title,
+          slug: blogData.slug,
+          category_label: blogData.category,
+          excerpt: blogData.excerpt,
+          content_html: blogData.content,
+          featured_image_url: blogData.image_url,
+          featured_image_alt: blogData.image_alt,
+          target_url: blogData.target_url,
+          anchor_text: blogData.anchor_text,
+          link_type: blogData.link_type.toLowerCase() === "nofollow" ? "nofollow" : "dofollow",
+          is_sponsored: blogData.post_type === "Sponsored",
+          status: status || "published",
+          published_at: status === "published" ? new Date().toISOString() : null,
+          updated_at: new Date().toISOString()
+        };
+
+        if (blogIdInput.value && blogIdInput.value.includes("-") && blogIdInput.value.length > 20) {
+          await supabase.from("blog_posts").update(payload).eq("id", blogIdInput.value);
+        } else {
+          await supabase.from("blog_posts").insert(payload);
+        }
+      } catch (err) {
+        console.warn("Supabase post save warning:", err);
+      }
+    }
 
     postMsg.textContent = status === "draft" ? "Saved as draft successfully!" : "Blog published successfully!";
     postMsg.className = "form-feedback success";
@@ -601,7 +652,6 @@
 
   btnClearForm.addEventListener("click", resetForm);
 
-  // --- Export JSON ---
   btnExportJson.addEventListener("click", function () {
     var blogs = getLocalBlogs();
     var blob = new Blob([JSON.stringify(blogs, null, 2)], { type: "application/json" });
@@ -615,6 +665,5 @@
     URL.revokeObjectURL(url);
   });
 
-  // Initialize
   checkAuth();
 })();
