@@ -292,17 +292,37 @@
 
   async function loadAllStories() {
     var dynamicPosts = [];
+    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
-    // 1. Try Supabase
-    if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+    // 1. Try Direct REST Fetch (Fast & guaranteed cross-device sync)
+    if (sbUrl && sbKey) {
       try {
-        var client = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+        var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc";
+        var res = await fetch(queryUrl, {
+          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
+        });
+        if (res.ok) {
+          var data = await res.json();
+          if (Array.isArray(data) && data.length) {
+            dynamicPosts = data;
+          }
+        }
+      } catch (e) {
+        console.warn("Direct REST fetch failed:", e);
+      }
+    }
+
+    // 2. Supabase-js Fallback
+    if (!dynamicPosts.length && window.supabase && sbUrl && sbKey) {
+      try {
+        var client = window.supabase.createClient(sbUrl, sbKey);
         var result = await client
           .from("blog_posts")
           .select("id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status")
           .eq("status", "published")
           .is("deleted_at", null)
-          .order("published_at", { ascending: false });
+          .order("created_at", { ascending: false });
 
         if (!result.error && result.data && result.data.length) {
           dynamicPosts = result.data;

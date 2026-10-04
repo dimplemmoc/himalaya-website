@@ -6,7 +6,7 @@
   var supabase = null;
   var user = null;
 
-  // Purge legacy sample blogs from localStorage if found
+  // Purge legacy sample blogs from localStorage
   try {
     var rawSaved = localStorage.getItem(STORAGE_KEY);
     if (rawSaved && (rawSaved.indexOf("story-1") !== -1 || rawSaved.indexOf("story-2") !== -1)) {
@@ -22,9 +22,6 @@
       console.warn("Supabase init error:", e);
     }
   }
-
-  // Start with clean state from Supabase
-  var sampleBlogs = [];
 
   // DOM Elements
   var loginView = document.getElementById("login-view");
@@ -185,40 +182,73 @@
     }
   }
 
-    // --- Sync with Supabase ---
+  // --- Direct REST / Supabase Sync ---
   async function syncFromSupabase() {
-    if (!supabase) return;
+    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+
+    if (!sbUrl || !sbKey) {
+      renderBlogsTable();
+      return;
+    }
+
     try {
-      blogsTableBody.innerHTML = '<tr><td colspan="6" class="empty-state" style="text-align:center;padding:30px;color:var(--text-muted);">Loading blogs from Supabase database...</td></tr>';
+      // 1. Fetch Categories via REST
+      try {
+        var catRes = await fetch(sbUrl + "/rest/v1/blog_categories?select=*&order=name.asc", {
+          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
+        });
+        if (catRes.ok) {
+          var catData = await catRes.json();
+          if (Array.isArray(catData) && catData.length) {
+            allCategories = catData;
+            populateCategoryDropdown(allCategories);
+          }
+        }
+      } catch (e) {}
 
-      // 1. Fetch Categories
-      var catResult = await supabase.from("blog_categories").select("*").order("name");
-      if (catResult.data && catResult.data.length) {
-        allCategories = catResult.data;
-        populateCategoryDropdown(allCategories);
+      // 2. Fetch Posts via REST
+      var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored&deleted_at=is.null&order=created_at.desc";
+      
+      var postsRes = await fetch(queryUrl, {
+        headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
+      });
+
+      if (!postsRes.ok) {
+        throw new Error("HTTP error " + postsRes.status);
       }
 
-      // 2. Fetch Posts (All active posts, newest first)
-      var postResult = await supabase
-        .from("blog_posts")
-        .select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored")
-        .is("deleted_at", null)
-        .order("created_at", { ascending: false });
-
-      if (postResult.error) {
-        console.error("Supabase postResult error:", postResult.error);
-        throw postResult.error;
-      }
-
-      if (postResult.data) {
-        var supabasePosts = postResult.data.map(mapSupabasePost);
+      var postsData = await postsRes.json();
+      if (Array.isArray(postsData)) {
+        var supabasePosts = postsData.map(mapSupabasePost);
         saveLocalBlogs(supabasePosts);
         renderBlogsTable();
+        return;
       }
     } catch (err) {
-      console.warn("Supabase sync warning:", err);
-      renderBlogsTable();
+      console.warn("REST sync failed, trying Supabase-js:", err);
     }
+
+    // Fallback: Supabase JS client
+    if (supabase) {
+      try {
+        var postResult = await supabase
+          .from("blog_posts")
+          .select("id,h1,seo_title,slug,category_id,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status,target_url,anchor_text,link_type,is_sponsored")
+          .is("deleted_at", null)
+          .order("created_at", { ascending: false });
+
+        if (postResult.data && Array.isArray(postResult.data)) {
+          var mapped = postResult.data.map(mapSupabasePost);
+          saveLocalBlogs(mapped);
+          renderBlogsTable();
+        }
+      } catch (e) {
+        console.warn("Supabase JS sync error:", e);
+      }
+    }
+
+    renderBlogsTable();
   }
 
   function populateCategoryDropdown(categories) {
@@ -264,7 +294,7 @@
     loginMsg.textContent = "Signing in...";
     loginMsg.className = "form-feedback";
 
-    // 1. Try Supabase Auth with the entered credentials (allows ANY user created in Supabase Auth)
+    // 1. Try Supabase Auth with entered credentials
     if (supabase) {
       try {
         var authRes = await supabase.auth.signInWithPassword({
@@ -284,7 +314,7 @@
       }
     }
 
-    // 2. Master fallback (admin@himalaya.com / admin@123 or username: admin)
+    // 2. Master fallback
     var isMaster = (enteredUser === fixedEmail || enteredUser === "admin") && enteredPass === fixedPassword;
     if (isMaster) {
       loginMsg.textContent = "";
@@ -409,11 +439,31 @@
     saveLocalBlogs(updated);
     renderBlogsTable();
 
-    if (supabase) {
+    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+
+    // Delete in Supabase via REST
+    if (sbUrl && sbKey) {
       try {
-        await supabase.from("blog_posts").update({ deleted_at: new Date().toISOString(), status: "unpublished" }).eq("id", id);
-      } catch (e) {}
+        await fetch(sbUrl + "/rest/v1/blog_posts?id=eq." + encodeURIComponent(id), {
+          method: "PATCH",
+          headers: {
+            "apikey": sbKey,
+            "Authorization": "Bearer " + sbKey,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            deleted_at: new Date().toISOString(),
+            status: "unpublished"
+          })
+        });
+      } catch (e) {
+        console.warn("Delete error:", e);
+      }
     }
+
+    // Re-sync
+    syncFromSupabase();
   }
 
   function resetForm() {
@@ -562,9 +612,19 @@
       blogCategoryInput.appendChild(opt);
       blogCategoryInput.value = catName;
 
-      if (supabase) {
+      var sbUrl = window.HIMALAYA_SUPABASE_URL;
+      var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+      if (sbUrl && sbKey) {
         try {
-          await supabase.from("blog_categories").insert({ name: catName, slug: makeSlug(catName) });
+          await fetch(sbUrl + "/rest/v1/blog_categories", {
+            method: "POST",
+            headers: {
+              "apikey": sbKey,
+              "Authorization": "Bearer " + sbKey,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name: catName, slug: makeSlug(catName) })
+          });
         } catch (e) {}
       }
     }
@@ -604,11 +664,11 @@
       status: status || "published"
     };
 
-    if (supabase) {
-      try {
-        // User can be logged in via Supabase Auth or master fallback
-        var sessionRes = await supabase.auth.getSession();
+    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
+    if (sbUrl && sbKey) {
+      try {
         var payload = {
           h1: blogData.title,
           seo_title: blogData.seo_title,
@@ -627,15 +687,32 @@
           updated_at: new Date().toISOString()
         };
 
-        var saveResult;
-        if (isSupabaseId(blogIdInput.value)) {
-          saveResult = await supabase.from("blog_posts").update(payload).eq("id", blogIdInput.value).select("*").single();
-        } else {
-          saveResult = await supabase.from("blog_posts").insert(payload).select("*").single();
+        var isEdit = isSupabaseId(blogIdInput.value);
+        var endpoint = isEdit
+          ? sbUrl + "/rest/v1/blog_posts?id=eq." + encodeURIComponent(blogIdInput.value)
+          : sbUrl + "/rest/v1/blog_posts";
+        var method = isEdit ? "PATCH" : "POST";
+
+        var saveRes = await fetch(endpoint, {
+          method: method,
+          headers: {
+            "apikey": sbKey,
+            "Authorization": "Bearer " + sbKey,
+            "Content-Type": "application/json",
+            "Prefer": "return=representation"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!saveRes.ok) {
+          var errText = await saveRes.text();
+          throw new Error("Supabase error: " + errText);
         }
 
-        if (saveResult.error) throw saveResult.error;
-        if (saveResult.data) blogData = mapSupabasePost(saveResult.data);
+        var savedData = await saveRes.json();
+        if (Array.isArray(savedData) && savedData[0]) {
+          blogData = mapSupabasePost(savedData[0]);
+        }
       } catch (err) {
         console.warn("Supabase post save warning:", err);
         postMsg.textContent = err && err.message ? err.message : "Could not publish this blog to Supabase.";
