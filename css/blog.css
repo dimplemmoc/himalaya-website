@@ -979,3 +979,49 @@
 .journal-empty{grid-column:1/-1;padding:35px 20px;border:1px dashed #cdd5cc;color:#738177;text-align:center;font-size:13px}
 @media(max-width:900px){.published-post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.published-journal-head{display:block}.published-journal-head p{margin-top:18px}}
 @media(max-width:650px){.published-journal{padding:75px 6%}.published-post-grid{grid-template-columns:1fr}.journal-filters{display:grid;grid-template-columns:1fr}.journal-filters input{width:100%;min-width:0}.published-post-image{height:250px}}
+
+/* =========================================================
+   CATEGORY PILL FILTERS (Published Stories)
+========================================================= */
+.category-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin: 25px 0 35px;
+}
+
+.category-pill {
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid #d4dfd6;
+    background: #eaf0eb;
+    color: #173b2d;
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    user-select: none;
+    outline: none;
+}
+
+.category-pill:hover,
+.category-pill:focus-visible {
+    background: #dce7dd;
+    color: #0d281e;
+    border-color: #b7cbbe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 59, 45, 0.08);
+}
+
+.category-pill.active {
+    background: #174233;
+    color: #ffffff;
+    border-color: #174233;
+    box-shadow: 0 6px 18px rgba(23, 66, 51, 0.22);
+    transform: translateY(-1px);
+}

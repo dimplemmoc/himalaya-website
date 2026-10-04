@@ -209,9 +209,29 @@
             <div class="blog-section-heading">
                 <span class="blog-section-number">FRESH FROM THE JOURNAL</span>
                 <h2>Stories from <em>our editors</em></h2>
-                <p>New perspectives and local stories from across the Himalayas.</p>
+                <p>New perspectives, local stories and latest updates across categories.</p>
             </div>
+
+            <!-- Categories Filter Row -->
+            <div class="category-pills-row" id="cms-category-pills" role="tablist" aria-label="Filter published stories by category">
+                <button class="category-pill active" type="button" data-category="ALL" role="tab" aria-selected="true">ALL</button>
+                <button class="category-pill" type="button" data-category="VILLAGE LIFE" role="tab" aria-selected="false">VILLAGE LIFE</button>
+                <button class="category-pill" type="button" data-category="NATURE" role="tab" aria-selected="false">NATURE</button>
+                <button class="category-pill" type="button" data-category="FOOD" role="tab" aria-selected="false">FOOD</button>
+                <button class="category-pill" type="button" data-category="CULTURE" role="tab" aria-selected="false">CULTURE</button>
+                <button class="category-pill" type="button" data-category="ADVENTURE" role="tab" aria-selected="false">ADVENTURE</button>
+                <button class="category-pill" type="button" data-category="WELLNESS" role="tab" aria-selected="false">WELLNESS</button>
+                <button class="category-pill" type="button" data-category="REMOTE WORK" role="tab" aria-selected="false">REMOTE WORK</button>
+                <button class="category-pill" type="button" data-category="STARGAZING" role="tab" aria-selected="false">STARGAZING</button>
+                <button class="category-pill" type="button" data-category="HIMALAYAN TRAVEL" role="tab" aria-selected="false">HIMALAYAN TRAVEL</button>
+                <button class="category-pill" type="button" data-category="HOMESTAYS" role="tab" aria-selected="false">HOMESTAYS</button>
+            </div>
+
             <div id="cms-stories" class="blog-grid blog-grid-three"></div>
+            <div id="cms-empty-state" class="category-empty-state hidden" style="text-align:center;padding:40px 20px;color:#738177;background:#fff;border:1px dashed #cad6cd;border-radius:8px;margin-top:20px;">
+                <p style="margin:0 0 12px;font-size:14px;">No published stories found in this category yet.</p>
+                <button type="button" class="btn-reset-filter" style="padding:8px 18px;border-radius:999px;background:#174233;color:#fff;border:none;cursor:pointer;font-size:11px;letter-spacing:1px;text-transform:uppercase;">View All Stories →</button>
+            </div>
         </section>
 
         <!-- =====================================================
