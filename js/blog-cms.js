@@ -79,8 +79,10 @@
     // Filter posts
     var filtered = allLoadedPosts.filter(function (post) {
       if (currentActiveCategory === "ALL") return true;
-      var postCat = normalizeCategory(post.category_label || post.category || "");
-      return postCat.toUpperCase() === currentActiveCategory.toUpperCase();
+      var raw = String(post.category_label || post.category || "").trim().toUpperCase();
+      var postCat = normalizeCategory(raw);
+      var targetCat = normalizeCategory(currentActiveCategory);
+      return postCat === targetCat || raw === targetCat || raw === currentActiveCategory.toUpperCase();
     });
 
     if (filtered.length > 0) {
@@ -131,23 +133,27 @@
     var section = document.getElementById("cms-stories-section");
     if (!host || !section) return;
 
+    // Always ensure section is visible
+    section.hidden = false;
+    section.removeAttribute("hidden");
+    setupFilterEvents();
+
     var sbUrl = window.HIMALAYA_SUPABASE_URL;
     var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
-    // 1. Direct REST fetch from Supabase
+    // 1. Direct REST fetch from Supabase (works in all browsers & incognito)
     if (sbUrl && sbKey) {
       try {
         var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc&_t=" + Date.now();
         var res = await fetch(queryUrl, {
-          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
+          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey },
+          cache: "no-store"
         });
         if (res.ok) {
           var data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             allLoadedPosts = data;
-            section.hidden = false;
             filterCmsStories("ALL");
-            setupFilterEvents();
             return;
           }
         }
@@ -156,7 +162,25 @@
       }
     }
 
-    // 2. Fallback to localStorage
+    // 2. Supabase client fallback
+    if (window.supabase && sbUrl && sbKey) {
+      try {
+        var client = window.supabase.createClient(sbUrl, sbKey);
+        var resClient = await client
+          .from("blog_posts")
+          .select("id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status")
+          .eq("status", "published")
+          .is("deleted_at", null)
+          .order("created_at", { ascending: false });
+        if (resClient.data && Array.isArray(resClient.data) && resClient.data.length > 0) {
+          allLoadedPosts = resClient.data;
+          filterCmsStories("ALL");
+          return;
+        }
+      } catch (e) {}
+    }
+
+    // 3. Fallback to localStorage
     try {
       var saved = localStorage.getItem("llh-blogs-store");
       if (saved) {
@@ -165,17 +189,14 @@
           var published = parsed.filter(function (p) { return p.status === "published"; });
           if (published.length) {
             allLoadedPosts = published;
-            section.hidden = false;
             filterCmsStories("ALL");
-            setupFilterEvents();
             return;
           }
         }
       }
     } catch (e) {}
 
-    // If no published blogs, keep section hidden
-    section.hidden = true;
+    filterCmsStories("ALL");
   }
 
   if (document.readyState === "loading") {
