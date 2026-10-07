@@ -216,6 +216,21 @@ body {
     flex-shrink: 0;
 }
 
+.site-logo-img {
+    height: 64px;
+    width: auto;
+    max-width: 74px;
+    object-fit: contain;
+    display: block;
+    margin-right: 14px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .site-logo-img {
+    transform: scale(1.04);
+}
+
 .logo-circle {
     width: 55px;
     height: 55px;
@@ -496,6 +511,12 @@ body {
         padding: 0 25px;
     }
 
+    .site-logo-img {
+        height: 52px;
+        max-width: 60px;
+        margin-right: 10px;
+    }
+
     .logo-circle {
         width: 48px;
         height: 48px;
@@ -556,6 +577,12 @@ body {
 
     .header {
         padding: 0 18px;
+    }
+
+    .site-logo-img {
+        height: 44px;
+        max-width: 52px;
+        margin-right: 8px;
     }
 
     .logo-circle {
@@ -3440,6 +3467,19 @@ body {
     gap: 18px;
 }
 
+
+.footer-logo-img {
+    height: 58px;
+    width: auto;
+    max-width: 66px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
 
 .footer-logo-icon {
     width: 60px;
