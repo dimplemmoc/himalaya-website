@@ -19,40 +19,88 @@
     <meta name="twitter:description" content="Read a story from the Live Local Himalaya journal about the people, places and everyday moments of the Himalayas.">
     <meta name="twitter:image" content="https://himalayawebsite.vercel.app/images/pexels-urtimud-89-76108288-32261668.jpg">
 
-    <link rel="stylesheet" href="css/style.css?v=responsive-seo-1">
-    <link rel="stylesheet" href="css/blog-details.css">
-    <link rel="stylesheet" href="css/cms-article.css">
+    <link rel="stylesheet" href="css/style.css?v=site-theme-v2">
+    <link rel="stylesheet" href="css/details.css">
+    <link rel="stylesheet" href="css/blog-details.css?v=updated-detail-no-nav">
 </head>
-<body>
+<body class="blog-detail-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <div id="navbar-container"></div>
+<!-- NOTE: Per client requirement, NO NAVBAR is rendered in blog read more page -->
 
-    <main class="blog-detail" id="main-content">
-        <div class="blog-detail-hero">
-            <img id="article-image" alt="" hidden>
-            <div class="hero-overlay"></div>
-
-            <div class="hero-content">
-                <span id="article-category"></span>
-                <h1 id="article-title">Loading article...</h1>
-                <p id="article-meta"></p>
-            </div>
+<main class="journey-detail" id="main-content">
+    <!-- HERO SECTION: H1 First -->
+    <section class="journey-detail-hero" aria-labelledby="article-h1">
+        <img class="journey-detail-hero-image" id="article-hero-image" src="images/pexels-deekshyant-134459764-10778690.jpg" alt="Himalayan Story">
+        <div class="journey-detail-shade"></div>
+        <div class="journey-detail-hero-copy">
+            <a class="journey-back-link" id="article-back-link" href="blog.html">← Back to Stories</a>
+            <span class="journey-brand-kicker" id="article-kicker">LIVE LOCAL HIMALAYA</span>
+            <h1 id="article-h1">Stay in Local Villages</h1>
+            <p id="article-meta">Kumaon, Uttarakhand · 2 nights</p>
         </div>
+    </section>
 
-        <article class="article-content">
-            <a href="blog.html" class="back-link">← Back to Blogs</a>
-            <div id="article-body"></div>
+    <!-- CONTENT SECTION: Title (H2) then Description then Images (not full length) -->
+    <section class="journey-detail-layout" aria-labelledby="article-headline">
+        <article class="journey-detail-story">
+            <span class="journey-category" id="article-category">CULTURAL EXPERIENCES</span>
+            <h2 id="article-headline">Come for the views. Stay for the feeling.</h2>
+            <p class="journey-description" id="article-description">
+                Wake up to mountain views, local food and warm smiles. Stay with local families, walk through the village at an unhurried pace, and discover the small everyday moments that make a place feel like home. Your days can be full of walks, or wonderfully slow.
+            </p>
+
+            <!-- 2 SIDE-BY-SIDE IMAGES (Not full length) -->
+            <div class="journey-detail-gallery" id="article-gallery">
+                <figure><img id="article-gallery-1" src="images/pexels-dxaxoxfz-16153351.jpg" alt="Village morning"></figure>
+                <figure><img id="article-gallery-2" src="images/pexels-llizzk-18276996.jpg" alt="Village elder"></figure>
+            </div>
+
+            <!-- WHAT YOU'LL EXPERIENCE HIGHLIGHTS -->
+            <div id="article-highlights-section">
+                <h3>What you’ll experience</h3>
+                <ul class="journey-highlights" id="article-highlights">
+                    <li>A warm welcome from people who know the place by heart</li>
+                    <li>Slow village walks and time to explore at your own pace</li>
+                    <li>Home-cooked local food and stories shared over tea</li>
+                </ul>
+            </div>
+
+            <!-- FULL STORY CONTENT -->
+            <div class="article-body-content" id="article-body"></div>
+
+            <div class="story-back-wrapper" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid #dbe3dd;">
+                <a href="blog.html" class="journey-back-button" style="display:inline-flex; align-items:center; gap:8px; padding: 12px 24px; background: #17372c; color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; border-radius: 999px; letter-spacing: 1px;">
+                    ← Back to All Stories
+                </a>
+            </div>
         </article>
-    </main>
 
-    <div id="footer-container"></div>
+        <!-- STICKY ENQUIRY CARD -->
+        <aside class="journey-plan-card" aria-labelledby="article-plan-title">
+            <span class="journey-plan-kicker">PLAN THIS JOURNEY</span>
+            <h2 id="article-plan-title">Ask for a quote</h2>
+            <p class="journey-plan-note">A local, personal and considered journey, planned around you.</p>
+            <dl class="journey-facts">
+                <div><dt>Place</dt><dd id="article-place">Kumaon, Uttarakhand</dd></div>
+                <div><dt>Length</dt><dd id="article-length">2 nights</dd></div>
+                <div><dt>Style</dt><dd id="article-style">Village homestay</dd></div>
+            </dl>
+            <a class="journey-enquiry-button" id="article-enquiry" href="plan-trip.html">
+                MAKE AN ENQUIRY <span aria-hidden="true">↗</span>
+            </a>
+        </aside>
+    </section>
+</main>
 
-<script src="js/components.js?v=2.2"></script>
-<script src="js/site.js?v=2.2" defer></script>
+<div id="footer-container"></div>
+
+<script src="js/components.js?v=2.3"></script>
+<script src="js/site.js?v=2.3" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-<script src="js/supabase-config.js?v=2.2"></script>
-<script src="js/blog-details.js?v=2.2"></script>
+<script src="js/supabase-config.js?v=2.3"></script>
+<script src="js/blog-data.js?v=2.3"></script>
+<script src="js/blog-details.js?v=2.3"></script>
 </body>
 </html>

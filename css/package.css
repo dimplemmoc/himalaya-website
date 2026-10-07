@@ -431,22 +431,28 @@
 ========================================================= */
 
 .package-card {
-    margin-bottom: 80px;
+    max-width: 1180px;
+
+    margin: 0 auto 65px;
 
     display: grid;
 
-    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-columns: 1fr 1fr;
 
-    min-height: 570px;
+    min-height: 470px;
+
+    height: 470px;
 
     background: #f5f4ed;
 
     overflow: hidden;
+
+    border-radius: 14px;
 }
 
 
 .package-card-reverse {
-    grid-template-columns: 0.75fr 1.25fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 
@@ -462,9 +468,8 @@
 
 .package-card-image {
     position: relative;
-
-    min-height: 570px;
-
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -476,6 +481,8 @@
     display: block;
 
     object-fit: cover;
+
+    object-position: center 25%;
 
     transition: transform 0.7s ease;
 }
@@ -539,7 +546,7 @@
 ========================================================= */
 
 .package-card-info {
-    padding: 60px 50px;
+    padding: 44px 44px;
 
     display: flex;
 
@@ -550,7 +557,7 @@
 
 
 .package-card-location {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 
     color: #63837a;
 
@@ -571,28 +578,28 @@
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(45px, 4vw, 64px);
+    font-size: clamp(40px, 3.6vw, 58px);
 
     font-weight: 500;
 
-    line-height: 0.98;
+    line-height: 1.02;
 
-    letter-spacing: -3px;
+    letter-spacing: -2.5px;
 }
 
 
 .package-card-info > p {
     max-width: 440px;
 
-    margin: 30px 0;
+    margin: 22px 0 28px;
 
     color: #60756f;
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 16px;
+    font-size: 15.5px;
 
-    line-height: 1.8;
+    line-height: 1.75;
 }
 
 
@@ -939,17 +946,19 @@
     .package-card,
     .package-card-reverse {
         grid-template-columns: 1fr;
+        min-height: auto;
+        height: auto;
     }
-
 
     .package-card-reverse .package-card-image,
     .package-card-reverse .package-card-info {
         order: initial;
     }
 
-
     .package-card-image {
-        min-height: 450px;
+        width: 100%;
+        height: 380px;
+        min-height: 360px;
     }
 
 
@@ -1098,7 +1107,8 @@
 
 
     .package-card-image {
-        min-height: 350px;
+        height: 310px;
+        min-height: 290px;
     }
 
 
@@ -1190,7 +1200,8 @@
 
 
     .package-card-image {
-        min-height: 300px;
+        height: 270px;
+        min-height: 250px;
     }
 
 }

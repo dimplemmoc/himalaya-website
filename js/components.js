@@ -78,15 +78,42 @@
             }
         });
 
-        var currentPage = window.location.pathname.split("/").pop() || "index.html";
-        if (currentPage === "blog-details.html") currentPage = "blog.html";
-        var links = container.querySelectorAll(".navbar a, .logo");
+        var rawPath = (window.location.pathname || "").toLowerCase();
+        var currentPage = rawPath.split("/").pop().split("?")[0].split("#")[0] || "index.html";
+        if (!currentPage || currentPage === "" || currentPage === "/" || currentPage === "index") {
+            currentPage = "index.html";
+        }
+        if (currentPage.indexOf(".") === -1) {
+            currentPage = currentPage + ".html";
+        }
+        if (currentPage === "blog-details.html") {
+            currentPage = "blog.html";
+        }
+        if (currentPage === "details.html") {
+            currentPage = "experience.html";
+        }
+
+        var links = container.querySelectorAll(".navbar a");
         Array.prototype.forEach.call(links, function (link) {
-            var target = link.getAttribute("href");
-            if (target && target.split("#")[0] === currentPage) {
+            var target = (link.getAttribute("href") || "").toLowerCase().split("#")[0].split("?")[0];
+            var isMatch = (target === currentPage);
+            if (isMatch) {
+                link.classList.add("active");
                 link.setAttribute("aria-current", "page");
+            } else {
+                link.classList.remove("active");
+                link.removeAttribute("aria-current");
             }
         });
+
+        var tripBtn = container.querySelector(".trip-btn");
+        if (tripBtn) {
+            if (currentPage === "plan-trip.html") {
+                tripBtn.classList.add("active");
+            } else {
+                tripBtn.classList.remove("active");
+            }
+        }
     }
 
     function start() {

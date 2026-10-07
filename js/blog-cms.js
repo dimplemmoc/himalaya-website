@@ -35,29 +35,24 @@
   var currentActiveCategory = "ALL";
 
   function renderCard(post) {
-    var title = post.h1 || post.title || "Story";
+    var title = post.h1 || post.title || "Himalayan Story";
     var slug = post.slug || post.id || slugify(title);
-    var imgUrl = post.featured_image_url || post.image_url;
+    var imgUrl = post.featured_image_url || post.image_url || "images/pexels-deekshyant-134459764-10778690.jpg";
     var imgAlt = post.featured_image_alt || post.image_alt || title;
-    var rawCategory = post.category_label || post.category || "HIMALAYAN JOURNAL";
+    var rawCategory = post.category_label || post.category || "VILLAGE LIFE";
     var normCategory = normalizeCategory(rawCategory);
-    var dateVal = post.published_at || post.created_at;
-    var dateStr = dateVal ? new Date(dateVal + (dateVal.length === 10 ? "T12:00:00" : "")).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) : "";
+    var excerpt = post.excerpt || (post.description ? post.description.slice(0, 95) + "…" : "Wake up to mountain views, local food and warm smiles.");
     var readLink = "blog-details.html?slug=" + encodeURIComponent(slug);
 
-    var imgHtml = imgUrl
-      ? '<img loading="lazy" src="' + esc(imgUrl) + '" alt="' + esc(imgAlt) + '" onerror="this.src=\'images/m.jpg\'">'
-      : '<div class="cms-card-placeholder" style="width:100%;height:100%;display:grid;place-items:center;background:#17483d;color:#e8d9a5;font-size:12px;letter-spacing:2px;">HIMALAYAN JOURNAL</div>';
+    var imgHtml = '<img loading="lazy" src="' + esc(imgUrl) + '" alt="' + esc(imgAlt) + '" onerror="this.src=\'images/pexels-deekshyant-134459764-10778690.jpg\'">';
 
-    return '<article class="blog-card" data-category="' + esc(normCategory) + '">' +
-      '<div class="blog-card-image">' + imgHtml + '<span>' + esc(rawCategory) + '</span></div>' +
-      '<div class="blog-card-content">' +
-        '<small>' + esc(dateStr) + '</small>' +
-        '<h3><a href="' + readLink + '" style="color:inherit;text-decoration:none;">' + esc(title) + '</a></h3>' +
-        '<p>' + esc(post.excerpt || "") + '</p>' +
-        '<a href="' + readLink + '" class="blog-read-button">READ STORY <span>↗</span></a>' +
-      '</div>' +
-    '</article>';
+    return '<a href="' + readLink + '" class="blog-card-compact" data-category="' + esc(normCategory) + '" aria-label="Read story: ' + esc(title) + '">' +
+      '<div class="blog-card-compact-image">' + imgHtml + '</div>' +
+      '<span class="blog-card-compact-category">' + esc(rawCategory) + '</span>' +
+      '<h2 class="blog-card-compact-title">' + esc(title) + '</h2>' +
+      '<p class="blog-card-compact-excerpt">' + esc(excerpt) + '</p>' +
+      '<span class="blog-card-compact-action" aria-hidden="true">→</span>' +
+    '</a>';
   }
 
   function filterCmsStories(category) {
@@ -113,19 +108,21 @@
         filterCmsStories("ALL");
       });
     }
+  }
 
-    // Top Category list link clicks
-    var topicLinks = document.querySelectorAll(".blog-category-list a[data-filter-category]");
-    Array.prototype.forEach.call(topicLinks, function (link) {
-      link.addEventListener("click", function (e) {
-        var cat = link.getAttribute("data-filter-category") || "ALL";
-        filterCmsStories(cat);
-        var sec = document.getElementById("cms-stories-section");
-        if (sec) {
-          sec.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
+  function mergePosts(baseList, incomingList) {
+    var map = new Map();
+    // Incoming (e.g. Supabase newly published) first
+    (incomingList || []).forEach(function (p) {
+      if (p && p.slug) map.set(p.slug, p);
+      else if (p && p.id) map.set(String(p.id), p);
     });
+    // Then base curated list
+    (baseList || []).forEach(function (p) {
+      if (p && p.slug && !map.has(p.slug)) map.set(p.slug, p);
+      else if (p && p.id && !map.has(String(p.id))) map.set(String(p.id), p);
+    });
+    return Array.from(map.values());
   }
 
   async function start() {
@@ -133,15 +130,20 @@
     var section = document.getElementById("cms-stories-section");
     if (!host || !section) return;
 
-    // Always ensure section is visible
     section.hidden = false;
     section.removeAttribute("hidden");
     setupFilterEvents();
 
+    var defaultList = (window.LLH_DEFAULT_BLOGS && Array.isArray(window.LLH_DEFAULT_BLOGS))
+      ? window.LLH_DEFAULT_BLOGS.slice()
+      : [];
+
+    var fetchedPosts = [];
+
     var sbUrl = window.HIMALAYA_SUPABASE_URL;
     var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
-    // 1. Direct REST fetch from Supabase (works in all browsers & incognito)
+    // 1. Fetch from Supabase
     if (sbUrl && sbKey) {
       try {
         var queryUrl = sbUrl + "/rest/v1/blog_posts?select=id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status&status=eq.published&deleted_at=is.null&order=created_at.desc&_t=" + Date.now();
@@ -152,50 +154,27 @@
         if (res.ok) {
           var data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
-            allLoadedPosts = data;
-            filterCmsStories("ALL");
-            return;
+            fetchedPosts = data;
           }
         }
       } catch (e) {
-        console.warn("REST load error:", e);
+        console.warn("Supabase fetch warning:", e);
       }
     }
 
-    // 2. Supabase client fallback
-    if (window.supabase && sbUrl && sbKey) {
-      try {
-        var client = window.supabase.createClient(sbUrl, sbKey);
-        var resClient = await client
-          .from("blog_posts")
-          .select("id,h1,seo_title,slug,category_label,excerpt,content_html,featured_image_url,featured_image_alt,published_at,created_at,status")
-          .eq("status", "published")
-          .is("deleted_at", null)
-          .order("created_at", { ascending: false });
-        if (resClient.data && Array.isArray(resClient.data) && resClient.data.length > 0) {
-          allLoadedPosts = resClient.data;
-          filterCmsStories("ALL");
-          return;
-        }
-      } catch (e) {}
-    }
-
-    // 3. Fallback to localStorage
+    // 2. Local storage overrides
     try {
       var saved = localStorage.getItem("llh-blogs-store");
       if (saved) {
         var parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length) {
           var published = parsed.filter(function (p) { return p.status === "published"; });
-          if (published.length) {
-            allLoadedPosts = published;
-            filterCmsStories("ALL");
-            return;
-          }
+          fetchedPosts = mergePosts(fetchedPosts, published);
         }
       }
     } catch (e) {}
 
+    allLoadedPosts = mergePosts(defaultList, fetchedPosts);
     filterCmsStories("ALL");
   }
 

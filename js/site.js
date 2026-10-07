@@ -157,6 +157,20 @@
         });
     }
 
+    function setupFaqAccordions() {
+        document.addEventListener("click", function (event) {
+            var btn = closestElement(event.target, ".faq-question");
+            if (!btn) return;
+            var item = closestElement(btn, ".faq-item");
+            if (!item) return;
+            var isExpanded = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", String(!isExpanded));
+            item.classList.toggle("open", !isExpanded);
+            var icon = btn.querySelector(".faq-icon");
+            if (icon) icon.textContent = isExpanded ? "+" : "−";
+        });
+    }
+
     function start() {
         document.documentElement.classList.add("motion-ready");
         updateShareUrls();
@@ -164,6 +178,7 @@
         handleEmailForms();
         setupDetailCards();
         setupCategoryFilters();
+        setupFaqAccordions();
     }
 
     if (document.readyState === "loading") {

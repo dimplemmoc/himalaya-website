@@ -21,6 +21,16 @@ html {
     text-size-adjust: 100%;
 }
 
+::selection {
+    background: #155b47;
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background: #155b47;
+    color: #ffffff;
+}
+
 img,
 video,
 svg {
@@ -101,16 +111,24 @@ section[id] {
 }
 
 :focus-visible {
-    outline: 3px solid #b97842;
+    outline: 3px solid #155b47;
     outline-offset: 3px;
 }
 
+.navbar a.active,
 .navbar a[aria-current="page"] {
-    color: #155b47;
+    color: #155b47 !important;
+    font-weight: 800 !important;
+    position: relative;
 }
 
+.navbar a.active::after,
 .navbar a[aria-current="page"]::after {
-    width: 100%;
+    width: 100% !important;
+    height: 3px !important;
+    background: #155b47 !important;
+    bottom: -7px !important;
+    border-radius: 2px !important;
 }
 
 .detail-link-card {
@@ -118,7 +136,7 @@ section[id] {
 }
 
 .detail-link-card:focus-visible {
-    outline: 3px solid #b97842;
+    outline: 3px solid #155b47;
     outline-offset: 4px;
 }
 
@@ -1118,11 +1136,17 @@ body {
 
     width: 100%;
 
-    min-height: 760px;
+    min-height: auto;
 
-    padding: 75px 42px 100px;
+    padding: 80px 5% 100px;
 
     display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 45px;
 
     background: #f5f4ed;
 
@@ -1136,7 +1160,11 @@ body {
 
 .journey-left {
 
-    width: 68%;
+    flex: 1 1 0%;
+
+    min-width: 0;
+
+    max-width: 760px;
 
     position: relative;
 
@@ -1308,9 +1336,19 @@ body {
 
     position: relative;
 
-    width: 32%;
+    width: 380px;
 
-    min-height: 650px;
+    max-width: 36%;
+
+    flex-shrink: 0;
+
+    min-height: 580px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
 }
 
 
@@ -1320,21 +1358,19 @@ body {
 
 .stay-heading {
 
-    position: absolute;
+    position: relative;
 
     z-index: 3;
 
-    top: -25px;
-
-    left: 15px;
+    margin-bottom: -18px;
 
     color: #347365;
 
     font-family: "Playfair Display", serif;
 
-    font-size: 37px;
+    font-size: 36px;
 
-    line-height: 0.9;
+    line-height: 0.95;
 
     text-align: center;
 
@@ -1354,15 +1390,17 @@ body {
 
 .polaroid {
 
-    position: absolute;
+    position: relative;
 
-    top: 25px;
+    top: 0;
 
-    right: 10px;
+    right: auto;
 
-    width: 455px;
+    width: 100%;
 
-    padding: 16px 16px 32px;
+    max-width: 375px;
+
+    padding: 14px 14px 28px;
 
     background: #ffffff;
 
@@ -1385,7 +1423,7 @@ body {
 
     width: 100%;
 
-    height: 520px;
+    height: 460px;
 
     object-fit: cover;
 
@@ -1423,21 +1461,25 @@ body {
 
     .journey-section {
 
-        padding-left: 30px;
+        padding: 70px 4% 90px;
 
-        padding-right: 30px;
+        gap: 32px;
     }
 
 
     .journey-left {
 
-        width: 67%;
+        max-width: 660px;
     }
 
 
     .journey-right {
 
-        width: 33%;
+        width: 320px;
+
+        max-width: 33%;
+
+        min-height: 520px;
     }
 
 
@@ -1461,23 +1503,23 @@ body {
 
     .polaroid {
 
-        width: 350px;
+        max-width: 320px;
 
-        right: -15px;
+        padding: 12px 12px 24px;
     }
 
 
     .polaroid img {
 
-        height: 430px;
+        height: 390px;
     }
 
 
     .stay-heading {
 
-        font-size: 29px;
+        font-size: 28px;
 
-        left: -5px;
+        margin-bottom: -14px;
     }
 }
 
@@ -1492,13 +1534,19 @@ body {
 
         flex-direction: column;
 
+        align-items: center;
+
         padding: 70px 25px 80px;
+
+        gap: 0;
     }
 
 
     .journey-left {
 
         width: 100%;
+
+        max-width: 100%;
     }
 
 
@@ -1506,9 +1554,11 @@ body {
 
         width: 100%;
 
-        height: 600px;
+        max-width: 400px;
 
-        margin-top: 80px;
+        min-height: auto;
+
+        margin-top: 60px;
     }
 
 
@@ -1520,11 +1570,11 @@ body {
 
     .polaroid {
 
-        right: 50%;
+        width: 100%;
 
-        transform: translateX(50%) rotate(3deg);
+        max-width: 380px;
 
-        width: 430px;
+        margin: 0 auto;
     }
 
 
@@ -3778,6 +3828,16 @@ justify-content: space-between;
     font-size: 13px;
 }
 
+.navbar.active a.active,
+.navbar.active a[aria-current="page"] {
+    color: #155b47 !important;
+    font-weight: 800 !important;
+    background: rgba(21, 91, 71, 0.1) !important;
+    border-left: 4px solid #155b47 !important;
+    padding-left: 14px !important;
+    border-radius: 4px !important;
+}
+
 /* Right side buttons */
 .header-right {
     display: flex;
@@ -4044,3 +4104,512 @@ padding: 0 8px;
         line-height: 1.5;
     }
 }
+
+/* =========================================================
+   UNIVERSAL FAQ ACCORDION SECTION (For all pages)
+========================================================= */
+.site-faq-section {
+    background: #f7f6f0;
+    padding: 95px 6%;
+    border-top: 1px solid #e1e7e2;
+}
+
+.site-faq-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.site-faq-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.site-faq-header .faq-kicker {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #155b47;
+    margin-bottom: 12px;
+}
+
+.site-faq-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(34px, 4.5vw, 52px);
+    font-weight: 500;
+    color: #153e32;
+    margin: 0 0 14px;
+    line-height: 1.1;
+}
+
+.site-faq-header h2 em {
+    font-style: italic;
+    color: #698377;
+}
+
+.site-faq-header p {
+    font-size: 16px;
+    color: #5c7269;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq-item {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #dee6e0;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item:hover {
+    border-color: #cad8ce;
+    box-shadow: 0 4px 14px rgba(23, 62, 50, 0.05);
+}
+
+.faq-item.open {
+    border-color: #153e32;
+    box-shadow: 0 6px 20px rgba(23, 62, 50, 0.08);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 26px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-family: "DM Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #17372c;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+    color: #0c2b21;
+}
+
+.faq-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eef3f0;
+    color: #17372c;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+
+.faq-item.open .faq-icon {
+    background: #153e32;
+    color: #ffffff;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 26px;
+    color: #556c63;
+    font-size: 15.5px;
+    line-height: 1.75;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 380px;
+    padding: 0 26px 22px 26px;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+
+/* =========================================================
+   CONTACT PAGE: TRAVELLER RATINGS & REVIEWS SECTION
+========================================================= */
+.traveller-rating-section {
+    background: #fbfbf7;
+    padding: 95px 6%;
+    border-top: 1px solid #e5ece6;
+}
+
+.rating-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rating-header {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.rating-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #155b47;
+    margin-bottom: 12px;
+}
+
+.rating-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(34px, 4.5vw, 54px);
+    font-weight: 500;
+    color: #153e32;
+    margin: 0 0 14px;
+    line-height: 1.1;
+}
+
+.rating-header h2 em {
+    font-style: italic;
+    color: #698377;
+}
+
+.rating-header p {
+    font-size: 16px;
+    color: #5c7269;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.rating-summary-card {
+    background: #153e32;
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 38px 45px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 50px;
+    box-shadow: 0 16px 36px rgba(21, 62, 50, 0.12);
+}
+
+.rating-score-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.big-score {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    color: #e8d9a5;
+}
+
+.score-details-stars {
+    color: #f5b942;
+    font-size: 22px;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+}
+
+.score-details-label {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
+}
+
+.rating-badges {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.rating-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.rating-badge-item span.icon {
+    color: #e8d9a5;
+    font-size: 16px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.review-card {
+    background: #ffffff;
+    border: 1px solid #dce5df;
+    border-radius: 14px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 24px rgba(23, 62, 50, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(23, 62, 50, 0.08);
+}
+
+.review-stars {
+    color: #e6a728;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+}
+
+.review-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a5f56;
+    margin: 0 0 24px;
+    flex-grow: 1;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-top: 1px solid #f0f4f1;
+    padding-top: 18px;
+}
+
+.reviewer-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #174233;
+    color: #e8d9a5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.reviewer-meta h4 {
+    margin: 0 0 2px;
+    font-size: 15px;
+    color: #17372c;
+    font-weight: 700;
+}
+
+.reviewer-meta p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #7b8e86;
+}
+
+@media (max-width: 950px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .rating-summary-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 25px;
+    }
+}
+
+/* =========================================================
+   HOME PAGE: LIVE LOCAL PILLARS (The 3 Pillars)
+========================================================= */
+.live-local-pillars {
+    background: #ffffff;
+    padding: 105px 6%;
+    border-top: 1px solid #e7eee9;
+}
+
+.pillars-container {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.pillars-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 65px;
+}
+
+.pillars-kicker {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #155b47;
+    margin-bottom: 14px;
+}
+
+.pillars-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(36px, 4.8vw, 56px);
+    font-weight: 500;
+    color: #123f34;
+    line-height: 1.05;
+    margin: 0 0 16px;
+    letter-spacing: -1.5px;
+}
+
+.pillars-header p {
+    font-size: 16.5px;
+    color: #556c63;
+    line-height: 1.75;
+    margin: 0;
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.pillar-card {
+    background: #f7f6f0;
+    border: 1px solid #e1e7e2;
+    border-radius: 16px;
+    padding: 42px 34px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 34px rgba(23, 62, 50, 0.08);
+    border-color: #cbd8cf;
+}
+
+.pillar-step {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #155b47;
+    margin-bottom: 24px;
+}
+
+.pillar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(21, 91, 71, 0.09);
+    color: #155b47;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+}
+
+.pillar-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.pillar-card h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #17372c;
+    margin: 0 0 12px;
+    line-height: 1.2;
+}
+
+.pillar-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #5d7168;
+    margin: 0;
+}
+
+@media (max-width: 950px) {
+    .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+    .live-local-pillars {
+        padding: 75px 6%;
+    }
+}
+
+/* =========================================================
+   HOME PAGE: HIMALAYAN IMPACT & NUMBERS
+========================================================= */
+.himalayan-impact-section {
+    background: #153e32;
+    color: #ffffff;
+    padding: 70px 6%;
+}
+
+.impact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    text-align: center;
+}
+
+.impact-stat strong {
+    display: block;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(38px, 4.5vw, 54px);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.impact-stat span {
+    font-size: 13.5px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .impact-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .impact-container {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+}
+
