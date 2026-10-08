@@ -1,7 +1,6 @@
 # Local database setup material out of deployment
 setup-admin.php
 config.php
-api/
 database/
 PHP-BLOG-SETUP.md
 reference/
