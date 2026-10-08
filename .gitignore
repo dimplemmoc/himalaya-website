@@ -3,3 +3,4 @@
 !.env.example
 config.local.php
 uploads/
+node_modules/
