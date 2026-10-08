@@ -1272,3 +1272,40 @@ body.journal-admin {
     font-size: 16px; /* Prevents auto zoom on iOS Safari */
   }
 }
+
+/* Sidebar badge & Inquiry Table Styles */
+.sidebar-badge {
+  margin-left: auto;
+  background: rgba(0, 0, 0, 0.14);
+  color: #07160d;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.inquiry-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.inquiry-status.new {
+  background: rgba(224, 108, 117, 0.15);
+  color: #ff8b92;
+  border: 1px solid rgba(224, 108, 117, 0.3);
+}
+.inquiry-status.contacted {
+  background: rgba(212, 163, 115, 0.15);
+  color: #e5b385;
+  border: 1px solid rgba(212, 163, 115, 0.3);
+}
+.inquiry-status.resolved {
+  background: rgba(126, 204, 159, 0.15);
+  color: #7ecc9f;
+  border: 1px solid rgba(126, 204, 159, 0.3);
+}
+

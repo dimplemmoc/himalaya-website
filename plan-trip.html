@@ -451,6 +451,7 @@
     <!-- EXISTING FOOTER -->
     <div id="footer-container"></div>
 
+    <script src="js/supabase-config.js"></script>
     <script src="js/components.js"></script>
 <script src="js/site.js" defer></script>
 
@@ -507,7 +508,7 @@
             }
         });
 
-        tripForm.addEventListener("submit", (event) => {
+        tripForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
             if (!tripForm.reportValidity()) return;
@@ -518,31 +519,96 @@
                 return;
             }
 
-            const whatsappNumber = "91XXXXXXXXXX";
-
             const getValue = (id) =>
-                document.getElementById(id).value.trim();
+                (document.getElementById(id) ? document.getElementById(id).value.trim() : "");
 
-            const message = `🌄 New Trip Inquiry - Live Local HIMALAYA
+            const payload = {
+                tripType: getValue("tripType"),
+                destination: getValue("destination"),
+                travelers: getValue("travelers"),
+                budget: getValue("budget"),
+                startDate: getValue("startDate"),
+                endDate: getValue("endDate"),
+                style: getValue("style"),
+                name: getValue("name"),
+                phone: getValue("phone"),
+                message: getValue("message")
+            };
 
-Trip Type: ${getValue("tripType")}
-Name: ${getValue("name")}
-WhatsApp Number: ${getValue("phone")}
-Destination: ${getValue("destination")}
-Travelers: ${getValue("travelers")}
-Start Date: ${getValue("startDate")}
-End Date: ${getValue("endDate")}
-Budget per Person: ${getValue("budget")}
-Travel Style: ${getValue("style")}
-Additional Details: ${getValue("message") || "Not provided"}`;
-
-            if (whatsappNumber.includes("X")) {
-                window.location.href = "mailto:hello@livelocalhimalaya.com?subject=" +
-                    encodeURIComponent("Himalayan trip enquiry") + "&body=" + encodeURIComponent(message);
-                return;
+            const submitBtn = tripForm.querySelector(".journey-submit");
+            const origText = submitBtn ? submitBtn.innerHTML : "Send My Inquiry ↗";
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Saving your inquiry...";
             }
 
-            window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+            let saved = false;
+
+            try {
+                // 1. Submit to Node.js backend
+                const res = await fetch("/api/plan-trip", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json().catch(() => ({}));
+                if (res.ok && data.success) {
+                    saved = true;
+                } else {
+                    // 2. Direct Supabase REST Fallback
+                    const sbUrl = window.HIMALAYA_SUPABASE_URL || "https://cwhqpfdncpnakztxkoxk.supabase.co";
+                    const sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_wUuJt7BUd_LpMTxoDnIikA_ze_mT7xI";
+                    const sbRes = await fetch(sbUrl + "/rest/v1/trip_inquiries", {
+                        method: "POST",
+                        headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey, "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name: payload.name,
+                            phone: payload.phone,
+                            destination: payload.destination,
+                            trip_type: payload.tripType,
+                            travelers: payload.travelers,
+                            start_date: payload.startDate,
+                            end_date: payload.endDate,
+                            budget: payload.budget,
+                            style: payload.style,
+                            message: payload.message,
+                            status: "new"
+                        })
+                    });
+                    if (sbRes.ok) saved = true;
+                }
+            } catch (err) {
+                console.warn("Trip submission API error:", err);
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = origText;
+            }
+
+            // Remove existing alert if any
+            const oldAlert = document.getElementById("tripSuccessAlert");
+            if (oldAlert) oldAlert.remove();
+
+            const alertBox = document.createElement("div");
+            alertBox.id = "tripSuccessAlert";
+            alertBox.style.cssText = "margin-top:24px;padding:26px 20px;background:rgba(126,204,159,0.18);border:2px solid #7ecc9f;border-radius:12px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.06);";
+
+            alertBox.innerHTML = `
+                <div style="font-size:36px;margin-bottom:8px;">🏔️</div>
+                <h3 style="color:#123f34;font-size:22px;margin-bottom:8px;font-family:'Playfair Display',serif;">Inquiry Saved Successfully!</h3>
+                <p style="color:#20392f;font-size:15px;max-width:540px;margin:0 auto 14px auto;line-height:1.5;">
+                    Thank you <strong>${payload.name}</strong>! We have received your trip request for <strong>${payload.destination || "the Himalayas"}</strong>. 
+                    Our travel experts will contact you on <strong>${payload.phone}</strong> with a personalized itinerary.
+                </p>
+                <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px;">
+                    <a href="contact.html" style="display:inline-block;padding:9px 18px;background:#123f34;color:#fff;border-radius:6px;font-size:13px;text-decoration:none;font-weight:600;">Contact Details ↗</a>
+                </div>
+            `;
+
+            tripForm.parentNode.insertBefore(alertBox, tripForm.nextSibling);
+            tripForm.reset();
+            alertBox.scrollIntoView({ behavior: "smooth", block: "center" });
         });
     </script>
 </body>

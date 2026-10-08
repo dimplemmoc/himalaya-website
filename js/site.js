@@ -55,7 +55,7 @@
     }
 
     function handleEmailForms() {
-        document.addEventListener("submit", function (event) {
+        document.addEventListener("submit", async function (event) {
             var form = event.target;
             if (!form) return;
             var matches = form.matches || form.msMatchesSelector || form.webkitMatchesSelector;
@@ -66,13 +66,122 @@
             if (!isContactForm && !isNewsletterForm) return;
 
             event.preventDefault();
-            var subject = isContactForm ? "Himalayan trip enquiry" : "Himalayan stories newsletter sign-up";
-            var body = isContactForm ? formValues(form) : "Please add this email address to the Himalayan stories newsletter: " + form.querySelector("input[type=email]").value;
-            var status = isContactForm ? document.getElementById("formStatus") : form.nextElementSibling;
 
-            if (status) status.textContent = "Your email app will open with this message ready to send.";
-            window.location.href = "mailto:hello@livelocalhimalaya.com?subject=" +
-                encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+            if (isContactForm) {
+                var submitBtn = form.querySelector("button[type=submit]");
+                var status = document.getElementById("formStatus");
+                var origBtnText = submitBtn ? submitBtn.innerHTML : "SEND ENQUIRY";
+
+                var payload = {
+                    fullName: (form.querySelector("#fullName") ? form.querySelector("#fullName").value : "").trim(),
+                    email: (form.querySelector("#email") ? form.querySelector("#email").value : "").trim(),
+                    phone: (form.querySelector("#phone") ? form.querySelector("#phone").value : "").trim(),
+                    travelDate: form.querySelector("#travelDate") ? form.querySelector("#travelDate").value : "",
+                    travellers: form.querySelector("#travellers") ? form.querySelector("#travellers").value : "",
+                    interested: (form.querySelector("#interested") ? form.querySelector("#interested").value : "").trim(),
+                    budget: (form.querySelector("#budget") ? form.querySelector("#budget").value : "").trim(),
+                    message: (form.querySelector("#message") ? form.querySelector("#message").value : "").trim()
+                };
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = "Sending enquiry...";
+                }
+
+                try {
+                    var res = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    var data = await res.json().catch(function () { return {}; });
+
+                    if (res.ok && data.success) {
+                        form.reset();
+                        if (status) {
+                            status.innerHTML = '<div style="margin-top:14px;padding:12px 16px;background:rgba(126,204,159,0.18);border:1px solid #7ecc9f;color:#123f34;border-radius:8px;font-size:14px;font-weight:600;">✓ Thank you! Your enquiry has been received and saved. Our team will contact you shortly.</div>';
+                        }
+                    } else {
+                        // Fallback to Supabase direct REST if /api/contact is unavailable
+                        var sbUrl = window.HIMALAYA_SUPABASE_URL;
+                        var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+                        if (sbUrl && sbKey) {
+                            await fetch(sbUrl + "/rest/v1/contact_inquiries", {
+                                method: "POST",
+                                headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey, "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    full_name: payload.fullName,
+                                    email: payload.email,
+                                    phone: payload.phone || null,
+                                    travel_date: payload.travelDate || null,
+                                    travellers: payload.travellers ? parseInt(payload.travellers, 10) : null,
+                                    interested: payload.interested || null,
+                                    budget: payload.budget || null,
+                                    message: payload.message,
+                                    status: "new"
+                                })
+                            });
+                            form.reset();
+                            if (status) {
+                                status.innerHTML = '<div style="margin-top:14px;padding:12px 16px;background:rgba(126,204,159,0.18);border:1px solid #7ecc9f;color:#123f34;border-radius:8px;font-size:14px;font-weight:600;">✓ Thank you! Your enquiry has been saved. We will contact you soon.</div>';
+                            }
+                        } else {
+                            throw new Error(data.error || "Unable to save inquiry");
+                        }
+                    }
+                } catch (err) {
+                    if (status) {
+                        status.innerHTML = '<div style="margin-top:14px;padding:12px 16px;background:rgba(224,108,117,0.15);border:1px solid #e06c75;color:#851a22;border-radius:8px;font-size:14px;">Could not connect to server. Opening your email app instead...</div>';
+                    }
+                    setTimeout(function () {
+                        window.location.href = "mailto:hello@livelocalhimalaya.com?subject=Himalayan trip enquiry&body=" + encodeURIComponent(formValues(form));
+                    }, 1200);
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = origBtnText;
+                    }
+                }
+            }
+
+            if (isNewsletterForm) {
+                var emailInput = form.querySelector("input[type=email]");
+                var emailVal = emailInput ? emailInput.value.trim() : "";
+                var statusBox = form.nextElementSibling;
+
+                try {
+                    var nRes = await fetch("/api/newsletter", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email: emailVal })
+                    });
+                    var nData = await nRes.json().catch(function () { return {}; });
+
+                    if (emailInput) emailInput.value = "";
+                    if (statusBox) {
+                        statusBox.textContent = nData.message || "✓ Thank you for subscribing to Himalayan stories!";
+                        statusBox.style.color = "#7ecc9f";
+                    } else {
+                        alert(nData.message || "✓ Thank you for subscribing!");
+                    }
+                } catch (e) {
+                    // Supabase direct fallback
+                    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+                    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+                    if (sbUrl && sbKey && emailVal) {
+                        fetch(sbUrl + "/rest/v1/newsletter_subscribers", {
+                            method: "POST",
+                            headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey, "Content-Type": "application/json" },
+                            body: JSON.stringify({ email: emailVal })
+                        }).catch(function () {});
+                    }
+                    if (emailInput) emailInput.value = "";
+                    if (statusBox) {
+                        statusBox.textContent = "✓ Thank you for subscribing!";
+                        statusBox.style.color = "#7ecc9f";
+                    }
+                }
+            }
         }, true);
     }
 

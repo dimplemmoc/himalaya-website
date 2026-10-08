@@ -31,8 +31,39 @@
 
   var navAllBlogs = document.getElementById("nav-all-blogs");
   var navAddBlog = document.getElementById("nav-add-blog");
+  var navTripInquiries = document.getElementById("nav-trip-inquiries");
+  var navContactMessages = document.getElementById("nav-contact-messages");
+  var navNewsletter = document.getElementById("nav-newsletter");
+
   var viewAllBlogs = document.getElementById("view-all-blogs");
   var viewAddBlog = document.getElementById("view-add-blog");
+  var viewTripInquiries = document.getElementById("view-trip-inquiries");
+  var viewContactMessages = document.getElementById("view-contact-messages");
+  var viewNewsletter = document.getElementById("view-newsletter");
+
+  var tripsTableBody = document.getElementById("trips-table-body");
+  var contactsTableBody = document.getElementById("contacts-table-body");
+  var newsletterTableBody = document.getElementById("newsletter-table-body");
+
+  var badgeTrips = document.getElementById("badge-trips");
+  var badgeContacts = document.getElementById("badge-contacts");
+  var badgeNewsletter = document.getElementById("badge-newsletter");
+
+  var searchTrips = document.getElementById("search-trips");
+  var searchContacts = document.getElementById("search-contacts");
+  var searchNewsletters = document.getElementById("search-newsletters");
+
+  var btnRefreshTrips = document.getElementById("btn-refresh-trips");
+  var btnExportTrips = document.getElementById("btn-export-trips");
+  var btnRefreshContacts = document.getElementById("btn-refresh-contacts");
+  var btnExportContacts = document.getElementById("btn-export-contacts");
+  var btnRefreshNewsletter = document.getElementById("btn-refresh-newsletter");
+  var btnExportNewsletters = document.getElementById("btn-export-newsletters");
+
+  var allTripInquiries = [];
+  var allContactInquiries = [];
+  var allNewsletterSubscribers = [];
+
   var btnBackToAll = document.getElementById("btn-back-to-all");
   var btnCreateNew = document.getElementById("btn-create-new");
   var btnLogout = document.getElementById("logout-button");
@@ -154,16 +185,41 @@
 
   // --- UI Switching ---
   function showView(view) {
+    // Hide all views first
+    viewAllBlogs.classList.add("hidden");
+    viewAddBlog.classList.add("hidden");
+    if (viewTripInquiries) viewTripInquiries.classList.add("hidden");
+    if (viewContactMessages) viewContactMessages.classList.add("hidden");
+    if (viewNewsletter) viewNewsletter.classList.add("hidden");
+
+    // Remove active from all nav links
+    navAllBlogs.classList.remove("active");
+    navAddBlog.classList.remove("active");
+    if (navTripInquiries) navTripInquiries.classList.remove("active");
+    if (navContactMessages) navContactMessages.classList.remove("active");
+    if (navNewsletter) navNewsletter.classList.remove("active");
+
     if (view === "add") {
-      viewAllBlogs.classList.add("hidden");
       viewAddBlog.classList.remove("hidden");
-      navAllBlogs.classList.remove("active");
       navAddBlog.classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (view === "trips") {
+      if (viewTripInquiries) viewTripInquiries.classList.remove("hidden");
+      if (navTripInquiries) navTripInquiries.classList.add("active");
+      renderTripInquiriesTable();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (view === "contacts") {
+      if (viewContactMessages) viewContactMessages.classList.remove("hidden");
+      if (navContactMessages) navContactMessages.classList.add("active");
+      renderContactInquiriesTable();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (view === "newsletter") {
+      if (viewNewsletter) viewNewsletter.classList.remove("hidden");
+      if (navNewsletter) navNewsletter.classList.add("active");
+      renderNewsletterTable();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      viewAddBlog.classList.add("hidden");
       viewAllBlogs.classList.remove("hidden");
-      navAddBlog.classList.remove("active");
       navAllBlogs.classList.add("active");
       renderBlogsTable();
     }
@@ -175,6 +231,7 @@
       dashboardView.classList.remove("hidden");
       showView("all");
       syncFromSupabase();
+      syncInquiries();
     } else {
       dashboardView.classList.add("hidden");
       loginView.classList.remove("hidden");
@@ -357,6 +414,9 @@
   navAddBlog.addEventListener("click", function () { resetForm(); showView("add"); });
   btnCreateNew.addEventListener("click", function () { resetForm(); showView("add"); });
   btnBackToAll.addEventListener("click", function () { showView("all"); });
+  if (navTripInquiries) navTripInquiries.addEventListener("click", function () { showView("trips"); });
+  if (navContactMessages) navContactMessages.addEventListener("click", function () { showView("contacts"); });
+  if (navNewsletter) navNewsletter.addEventListener("click", function () { showView("newsletter"); });
 
   // --- Table Rendering & Filtering ---
   function renderBlogsTable() {
@@ -783,6 +843,319 @@
       syncFromSupabase().then(function () {
         btnRefresh.textContent = "↻ Refresh Live Data";
       });
+    });
+  }
+
+  // =========================================================================
+  // INQUIRIES & LEADS SYSTEM (Trips, Contacts, Newsletters)
+  // =========================================================================
+
+  function exportToCsv(filename, rows) {
+    if (!rows || !rows.length) {
+      alert("No data available to export.");
+      return;
+    }
+    var keys = Object.keys(rows[0]);
+    var csvContent = [
+      keys.join(","),
+      rows.map(function (row) {
+        return keys.map(function (k) {
+          var val = row[k] === null || row[k] === undefined ? "" : String(row[k]);
+          return '"' + val.replace(/"/g, '""') + '"';
+        }).join(",");
+      }).join("\r\n")
+    ].join("\r\n");
+
+    var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  async function syncInquiries() {
+    var sbUrl = window.HIMALAYA_SUPABASE_URL;
+    var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+
+    try {
+      // 1. Try Vercel Serverless API first
+      var apiRes = await fetch("/api/inquiries?type=all");
+      if (apiRes.ok) {
+        var apiData = await apiRes.json();
+        if (apiData.success) {
+          allTripInquiries = apiData.tripInquiries || [];
+          allContactInquiries = apiData.contactInquiries || [];
+          allNewsletterSubscribers = apiData.newsletterSubscribers || [];
+          updateInquiryBadges();
+          renderTripInquiriesTable();
+          renderContactInquiriesTable();
+          renderNewsletterTable();
+          return;
+        }
+      }
+    } catch (e) {
+      // API endpoint fallback
+    }
+
+    // 2. Direct Supabase REST fallback
+    if (sbUrl && sbKey) {
+      try {
+        var h = { "apikey": sbKey, "Authorization": "Bearer " + sbKey };
+        var [tripRes, contactRes, newsRes] = await Promise.allSettled([
+          fetch(sbUrl + "/rest/v1/trip_inquiries?select=*&order=created_at.desc", { headers: h }).then(function (r) { return r.ok ? r.json() : []; }),
+          fetch(sbUrl + "/rest/v1/contact_inquiries?select=*&order=created_at.desc", { headers: h }).then(function (r) { return r.ok ? r.json() : []; }),
+          fetch(sbUrl + "/rest/v1/newsletter_subscribers?select=*&order=created_at.desc", { headers: h }).then(function (r) { return r.ok ? r.json() : []; })
+        ]);
+
+        if (tripRes.status === "fulfilled" && Array.isArray(tripRes.value)) allTripInquiries = tripRes.value;
+        if (contactRes.status === "fulfilled" && Array.isArray(contactRes.value)) allContactInquiries = contactRes.value;
+        if (newsRes.status === "fulfilled" && Array.isArray(newsRes.value)) allNewsletterSubscribers = newsRes.value;
+      } catch (err) {
+        console.warn("Direct Supabase inquiry fetch error:", err);
+      }
+    }
+
+    updateInquiryBadges();
+    renderTripInquiriesTable();
+    renderContactInquiriesTable();
+    renderNewsletterTable();
+  }
+
+  function updateInquiryBadges() {
+    if (badgeTrips) badgeTrips.textContent = allTripInquiries.length;
+    if (badgeContacts) badgeContacts.textContent = allContactInquiries.length;
+    if (badgeNewsletter) badgeNewsletter.textContent = allNewsletterSubscribers.length;
+  }
+
+  // --- Render Trip Inquiries ---
+  function renderTripInquiriesTable() {
+    if (!tripsTableBody) return;
+    var searchVal = (searchTrips ? searchTrips.value : "").toLowerCase().trim();
+
+    var filtered = allTripInquiries.filter(function (t) {
+      if (!searchVal) return true;
+      var str = [(t.name || ""), (t.phone || ""), (t.destination || ""), (t.trip_type || "")].join(" ").toLowerCase();
+      return str.indexOf(searchVal) !== -1;
+    });
+
+    if (!filtered.length) {
+      tripsTableBody.innerHTML = '<tr><td colspan="11" class="empty-state">No trip inquiries found yet.</td></tr>';
+      return;
+    }
+
+    tripsTableBody.innerHTML = filtered.map(function (t) {
+      var dateStr = formatDate(t.created_at ? t.created_at.slice(0, 10) : "");
+      var status = (t.status || "new").toLowerCase();
+      var travelDates = (t.start_date || "") + (t.end_date ? " → " + t.end_date : "");
+      var cleanPhone = (t.phone || "").replace(/[^0-9]/g, "");
+
+      return '<tr>' +
+        '<td><div style="font-size:12px;color:var(--text-muted);">' + escapeHtml(dateStr) + '</div></td>' +
+        '<td><div style="font-weight:600;color:var(--text-main);">' + escapeHtml(t.name || "Anonymous") + '</div>' + (t.email ? '<div style="font-size:11px;color:var(--text-dim);">' + escapeHtml(t.email) + '</div>' : '') + '</td>' +
+        '<td><a href="tel:' + escapeHtml(cleanPhone) + '" style="color:var(--mint);text-decoration:none;font-weight:500;">' + escapeHtml(t.phone || "-") + '</a>' + (cleanPhone ? ' <a href="https://wa.me/' + escapeHtml(cleanPhone) + '" target="_blank" title="Open WhatsApp" style="text-decoration:none;font-size:13px;margin-left:4px;">💬</a>' : '') + '</td>' +
+        '<td><span style="font-weight:600;color:var(--mint);">' + escapeHtml(t.destination || "Himalayas") + '</span></td>' +
+        '<td>' + escapeHtml(t.trip_type || "-") + '</td>' +
+        '<td>' + escapeHtml(t.travelers || "1") + '</td>' +
+        '<td style="font-size:12px;">' + escapeHtml(travelDates || "-") + '</td>' +
+        '<td>' + escapeHtml(t.budget || "-") + '</td>' +
+        '<td style="max-width:220px;font-size:12px;color:var(--text-muted);"><div style="white-space:normal;line-height:1.4;">' + escapeHtml(t.message || "-") + '</div></td>' +
+        '<td><button type="button" class="inquiry-status ' + status + '" data-toggle-trip-status="' + escapeHtml(t.id) + '" title="Click to toggle status: New / Contacted / Resolved">' + escapeHtml(status) + '</button></td>' +
+        '<td style="text-align:right;"><button type="button" class="btn-action delete" data-delete-trip="' + escapeHtml(t.id) + '">Delete</button></td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  // --- Render Contact Inquiries ---
+  function renderContactInquiriesTable() {
+    if (!contactsTableBody) return;
+    var searchVal = (searchContacts ? searchContacts.value : "").toLowerCase().trim();
+
+    var filtered = allContactInquiries.filter(function (c) {
+      if (!searchVal) return true;
+      var str = [(c.full_name || ""), (c.email || ""), (c.phone || ""), (c.message || "")].join(" ").toLowerCase();
+      return str.indexOf(searchVal) !== -1;
+    });
+
+    if (!filtered.length) {
+      contactsTableBody.innerHTML = '<tr><td colspan="11" class="empty-state">No contact messages found yet.</td></tr>';
+      return;
+    }
+
+    contactsTableBody.innerHTML = filtered.map(function (c) {
+      var dateStr = formatDate(c.created_at ? c.created_at.slice(0, 10) : "");
+      var status = (c.status || "new").toLowerCase();
+      var cleanPhone = (c.phone || "").replace(/[^0-9]/g, "");
+
+      return '<tr>' +
+        '<td><div style="font-size:12px;color:var(--text-muted);">' + escapeHtml(dateStr) + '</div></td>' +
+        '<td><strong style="color:var(--text-main);">' + escapeHtml(c.full_name || "Guest") + '</strong></td>' +
+        '<td><a href="mailto:' + escapeHtml(c.email || "") + '" style="color:var(--mint);text-decoration:none;">' + escapeHtml(c.email || "-") + '</a></td>' +
+        '<td>' + (c.phone ? '<a href="tel:' + escapeHtml(cleanPhone) + '" style="color:var(--mint);text-decoration:none;">' + escapeHtml(c.phone) + '</a>' : '-') + '</td>' +
+        '<td style="font-size:12px;">' + escapeHtml(c.travel_date || "-") + '</td>' +
+        '<td>' + escapeHtml(c.travellers || "1") + '</td>' +
+        '<td>' + escapeHtml(c.interested || "-") + '</td>' +
+        '<td>' + escapeHtml(c.budget || "-") + '</td>' +
+        '<td style="max-width:240px;font-size:12px;color:var(--text-muted);"><div style="white-space:normal;line-height:1.4;">' + escapeHtml(c.message || "-") + '</div></td>' +
+        '<td><button type="button" class="inquiry-status ' + status + '" data-toggle-contact-status="' + escapeHtml(c.id) + '" title="Click to toggle status: New / Contacted / Resolved">' + escapeHtml(status) + '</button></td>' +
+        '<td style="text-align:right;"><button type="button" class="btn-action delete" data-delete-contact="' + escapeHtml(c.id) + '">Delete</button></td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  // --- Render Newsletter Subscribers ---
+  function renderNewsletterTable() {
+    if (!newsletterTableBody) return;
+    var searchVal = (searchNewsletters ? searchNewsletters.value : "").toLowerCase().trim();
+
+    var filtered = allNewsletterSubscribers.filter(function (n) {
+      if (!searchVal) return true;
+      return (n.email || "").toLowerCase().indexOf(searchVal) !== -1;
+    });
+
+    if (!filtered.length) {
+      newsletterTableBody.innerHTML = '<tr><td colspan="5" class="empty-state">No newsletter subscribers yet.</td></tr>';
+      return;
+    }
+
+    newsletterTableBody.innerHTML = filtered.map(function (n, idx) {
+      var dateStr = formatDate(n.created_at ? n.created_at.slice(0, 10) : "");
+
+      return '<tr>' +
+        '<td>' + (idx + 1) + '</td>' +
+        '<td><strong style="color:var(--mint);">' + escapeHtml(n.email) + '</strong></td>' +
+        '<td>' + escapeHtml(n.source || "footer") + '</td>' +
+        '<td><div style="font-size:12px;color:var(--text-muted);">' + escapeHtml(dateStr) + '</div></td>' +
+        '<td style="text-align:right;"><button type="button" class="btn-action delete" data-delete-newsletter="' + escapeHtml(n.id) + '">Remove</button></td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  // Status toggle handler & item actions
+  async function toggleStatus(type, id, currentStatus) {
+    var nextStatus = currentStatus === "new" ? "contacted" : currentStatus === "contacted" ? "resolved" : "new";
+    var table = type === "contact" ? "contact_inquiries" : "trip_inquiries";
+
+    if (type === "contact") {
+      var item = allContactInquiries.find(function (c) { return String(c.id) === String(id); });
+      if (item) item.status = nextStatus;
+      renderContactInquiriesTable();
+    } else {
+      var trip = allTripInquiries.find(function (t) { return String(t.id) === String(id); });
+      if (trip) trip.status = nextStatus;
+      renderTripInquiriesTable();
+    }
+
+    try {
+      await fetch("/api/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: type, id: id, status: nextStatus })
+      });
+    } catch (e) {
+      var sbUrl = window.HIMALAYA_SUPABASE_URL;
+      var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+      if (sbUrl && sbKey) {
+        fetch(sbUrl + "/rest/v1/" + table + "?id=eq." + encodeURIComponent(id), {
+          method: "PATCH",
+          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey, "Content-Type": "application/json" },
+          body: JSON.stringify({ status: nextStatus })
+        }).catch(function () {});
+      }
+    }
+  }
+
+  async function deleteInquiryItem(type, id) {
+    if (!window.confirm("Are you sure you want to delete this record?")) return;
+    var table = type === "contact" ? "contact_inquiries" : type === "newsletter" ? "newsletter_subscribers" : "trip_inquiries";
+
+    if (type === "contact") {
+      allContactInquiries = allContactInquiries.filter(function (c) { return String(c.id) !== String(id); });
+      renderContactInquiriesTable();
+    } else if (type === "newsletter") {
+      allNewsletterSubscribers = allNewsletterSubscribers.filter(function (n) { return String(n.id) !== String(id); });
+      renderNewsletterTable();
+    } else {
+      allTripInquiries = allTripInquiries.filter(function (t) { return String(t.id) !== String(id); });
+      renderTripInquiriesTable();
+    }
+    updateInquiryBadges();
+
+    try {
+      await fetch("/api/inquiries?type=" + encodeURIComponent(type) + "&id=" + encodeURIComponent(id), { method: "DELETE" });
+    } catch (e) {
+      var sbUrl = window.HIMALAYA_SUPABASE_URL;
+      var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
+      if (sbUrl && sbKey) {
+        fetch(sbUrl + "/rest/v1/" + table + "?id=eq." + encodeURIComponent(id), {
+          method: "DELETE",
+          headers: { "apikey": sbKey, "Authorization": "Bearer " + sbKey }
+        }).catch(function () {});
+      }
+    }
+  }
+
+  // Delegated event listeners for inquiry tables
+  if (tripsTableBody) {
+    tripsTableBody.addEventListener("click", function (e) {
+      var toggleId = e.target.getAttribute("data-toggle-trip-status");
+      if (toggleId) {
+        var trip = allTripInquiries.find(function (t) { return String(t.id) === String(toggleId); });
+        toggleStatus("trip", toggleId, trip ? trip.status : "new");
+        return;
+      }
+      var delId = e.target.getAttribute("data-delete-trip");
+      if (delId) deleteInquiryItem("trip", delId);
+    });
+  }
+
+  if (contactsTableBody) {
+    contactsTableBody.addEventListener("click", function (e) {
+      var toggleId = e.target.getAttribute("data-toggle-contact-status");
+      if (toggleId) {
+        var item = allContactInquiries.find(function (c) { return String(c.id) === String(toggleId); });
+        toggleStatus("contact", toggleId, item ? item.status : "new");
+        return;
+      }
+      var delId = e.target.getAttribute("data-delete-contact");
+      if (delId) deleteInquiryItem("contact", delId);
+    });
+  }
+
+  if (newsletterTableBody) {
+    newsletterTableBody.addEventListener("click", function (e) {
+      var delId = e.target.getAttribute("data-delete-newsletter");
+      if (delId) deleteInquiryItem("newsletter", delId);
+    });
+  }
+
+  // Filter input listeners
+  if (searchTrips) searchTrips.addEventListener("input", renderTripInquiriesTable);
+  if (searchContacts) searchContacts.addEventListener("input", renderContactInquiriesTable);
+  if (searchNewsletters) searchNewsletters.addEventListener("input", renderNewsletterTable);
+
+  // Refresh buttons
+  if (btnRefreshTrips) btnRefreshTrips.addEventListener("click", syncInquiries);
+  if (btnRefreshContacts) btnRefreshContacts.addEventListener("click", syncInquiries);
+  if (btnRefreshNewsletter) btnRefreshNewsletter.addEventListener("click", syncInquiries);
+
+  // Export buttons
+  if (btnExportTrips) {
+    btnExportTrips.addEventListener("click", function () {
+      exportToCsv("himalaya-trip-inquiries-" + todayISO() + ".csv", allTripInquiries);
+    });
+  }
+  if (btnExportContacts) {
+    btnExportContacts.addEventListener("click", function () {
+      exportToCsv("himalaya-contact-inquiries-" + todayISO() + ".csv", allContactInquiries);
+    });
+  }
+  if (btnExportNewsletters) {
+    btnExportNewsletters.addEventListener("click", function () {
+      exportToCsv("himalaya-newsletter-subscribers-" + todayISO() + ".csv", allNewsletterSubscribers);
     });
   }
 
