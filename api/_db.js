@@ -1,4 +1,5 @@
 // Shared database helper: Supports native Vercel Postgres (Storage) + Supabase
+// Production deployment with connected Vercel Postgres storage
 let tablesInitialized = false;
 
 function isVercelPostgres() {
