@@ -1,5 +1,5 @@
 // Node.js Backend API: Trip Planning Inquiry Handler
-const { isVercelPostgres, getVercelSql, initVercelTables, supabaseQuery } = require("./_db");
+const { getPgPool, queryPg, supabaseQuery } = require("./_db");
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -32,18 +32,19 @@ module.exports = async function handler(req, res) {
     if (!phone) return res.status(400).json({ success: false, error: "WhatsApp or phone number is required." });
 
     // 1. Direct Vercel Postgres Database Check
-    if (isVercelPostgres()) {
-      const sql = await getVercelSql();
-      if (sql) {
-        await initVercelTables();
-        await sql`
-          INSERT INTO trip_inquiries (name, phone, email, destination, trip_type, travelers, start_date, end_date, budget, style, message, status)
-          VALUES (${name}, ${phone}, ${email || null}, ${destination || null}, ${tripType || null}, ${travelers || null}, ${startDate || null}, ${endDate || null}, ${budget || null}, ${style || null}, ${message || null}, 'new');
-        `;
+    if (getPgPool()) {
+      try {
+        await queryPg(
+          `INSERT INTO trip_inquiries (name, phone, email, destination, trip_type, travelers, start_date, end_date, budget, style, message, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'new')`,
+          [name, phone, email || null, destination || null, tripType || null, travelers || null, startDate || null, endDate || null, budget || null, style || null, message || null]
+        );
         return res.status(201).json({
           success: true,
           message: `Thank you ${name}! Your custom Himalayan trip inquiry has been saved in Vercel database.`
         });
+      } catch (dbErr) {
+        console.error("Vercel PG trip insert error:", dbErr);
       }
     }
 
@@ -64,14 +65,10 @@ module.exports = async function handler(req, res) {
       created_at: new Date().toISOString()
     };
 
-    const result = await supabaseQuery("trip_inquiries", {
+    await supabaseQuery("trip_inquiries", {
       method: "POST",
       body: JSON.stringify(payload)
     });
-
-    if (!result.ok) {
-      console.error("Database trip insert note:", result.data);
-    }
 
     return res.status(201).json({
       success: true,

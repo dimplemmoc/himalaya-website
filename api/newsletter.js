@@ -1,5 +1,5 @@
 // Node.js Backend API: Newsletter Subscription Handler
-const { isVercelPostgres, getVercelSql, initVercelTables, supabaseQuery } = require("./_db");
+const { getPgPool, queryPg, supabaseQuery } = require("./_db");
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -24,19 +24,20 @@ module.exports = async function handler(req, res) {
     }
 
     // 1. Direct Vercel Postgres Database Check
-    if (isVercelPostgres()) {
-      const sql = await getVercelSql();
-      if (sql) {
-        await initVercelTables();
-        await sql`
-          INSERT INTO newsletter_subscribers (email, source)
-          VALUES (${email}, ${source})
-          ON CONFLICT (email) DO NOTHING;
-        `;
+    if (getPgPool()) {
+      try {
+        await queryPg(
+          `INSERT INTO newsletter_subscribers (email, source)
+           VALUES ($1, $2)
+           ON CONFLICT (email) DO NOTHING;`,
+          [email, source]
+        );
         return res.status(201).json({
           success: true,
           message: "Thank you for subscribing to Himalayan stories!"
         });
+      } catch (dbErr) {
+        console.error("Vercel PG newsletter insert error:", dbErr);
       }
     }
 

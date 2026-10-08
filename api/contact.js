@@ -1,5 +1,5 @@
 // Node.js Backend API: Contact Form Submission Handler
-const { isVercelPostgres, getVercelSql, initVercelTables, supabaseQuery } = require("./_db");
+const { getPgPool, queryPg, supabaseQuery } = require("./_db");
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -30,22 +30,23 @@ module.exports = async function handler(req, res) {
     if (!message) return res.status(400).json({ success: false, error: "Message is required." });
 
     // 1. Direct Vercel Postgres Database Check
-    if (isVercelPostgres()) {
-      const sql = await getVercelSql();
-      if (sql) {
-        await initVercelTables();
-        await sql`
-          INSERT INTO contact_inquiries (full_name, email, phone, travel_date, travellers, interested, budget, message, status)
-          VALUES (${fullName}, ${email}, ${phone || null}, ${travelDate || null}, ${travellers || null}, ${interested || null}, ${budget || null}, ${message}, 'new');
-        `;
+    if (getPgPool()) {
+      try {
+        await queryPg(
+          `INSERT INTO contact_inquiries (full_name, email, phone, travel_date, travellers, interested, budget, message, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'new')`,
+          [fullName, email, phone || null, travelDate || null, travellers || null, interested || null, budget || null, message]
+        );
         return res.status(201).json({
           success: true,
           message: "Thank you! Your travel enquiry has been saved in Vercel database."
         });
+      } catch (dbErr) {
+        console.error("Vercel PG contact insert error:", dbErr);
       }
     }
 
-    // 2. Fallback
+    // 2. Supabase Fallback
     const payload = {
       full_name: fullName,
       email: email,
@@ -59,14 +60,10 @@ module.exports = async function handler(req, res) {
       created_at: new Date().toISOString()
     };
 
-    const result = await supabaseQuery("contact_inquiries", {
+    await supabaseQuery("contact_inquiries", {
       method: "POST",
       body: JSON.stringify(payload)
     });
-
-    if (!result.ok) {
-      console.error("Database insert note:", result.data);
-    }
 
     return res.status(201).json({
       success: true,

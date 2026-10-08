@@ -1,75 +1,29 @@
-// Shared database helper: Supports native Vercel Postgres (Storage) + Supabase
-// Production deployment with connected Vercel Postgres storage
-let tablesInitialized = false;
+// Shared database helper: Supports native Vercel Postgres / Prisma Postgres + Supabase
+let pgPool = null;
 
-function isVercelPostgres() {
-  return Boolean(process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING);
+function getPgPool() {
+  const connStr = process.env.POSTGRES_URL || process.env.DATABASE_URL || process.env.PRISMA_DATABASE_URL;
+  if (!connStr) return null;
+
+  if (!pgPool) {
+    try {
+      const { Pool } = require("pg");
+      pgPool = new Pool({
+        connectionString: connStr,
+        ssl: { rejectUnauthorized: false }
+      });
+    } catch (e) {
+      console.warn("pg module pool error:", e);
+    }
+  }
+  return pgPool;
 }
 
-async function getVercelSql() {
-  try {
-    const { sql } = require("@vercel/postgres");
-    return sql;
-  } catch (err) {
-    console.warn("@vercel/postgres not loaded yet:", err);
-    return null;
-  }
-}
-
-async function initVercelTables() {
-  if (tablesInitialized) return;
-  const sql = await getVercelSql();
-  if (!sql) return;
-
-  try {
-    await sql`
-      CREATE TABLE IF NOT EXISTS contact_inquiries (
-        id SERIAL PRIMARY KEY,
-        full_name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT,
-        travel_date TEXT,
-        travellers INTEGER,
-        interested TEXT,
-        budget TEXT,
-        message TEXT NOT NULL,
-        status TEXT DEFAULT 'new',
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    await sql`
-      CREATE TABLE IF NOT EXISTS trip_inquiries (
-        id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        phone TEXT NOT NULL,
-        email TEXT,
-        destination TEXT,
-        trip_type TEXT,
-        travelers TEXT,
-        start_date TEXT,
-        end_date TEXT,
-        budget TEXT,
-        style TEXT,
-        message TEXT,
-        status TEXT DEFAULT 'new',
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    await sql`
-      CREATE TABLE IF NOT EXISTS newsletter_subscribers (
-        id SERIAL PRIMARY KEY,
-        email TEXT NOT NULL UNIQUE,
-        source TEXT DEFAULT 'footer',
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    tablesInitialized = true;
-  } catch (e) {
-    console.warn("Table auto-creation note:", e.message || e);
-  }
+async function queryPg(sqlText, params = []) {
+  const pool = getPgPool();
+  if (!pool) return null;
+  const res = await pool.query(sqlText, params);
+  return res.rows;
 }
 
 // Supabase fallback helper
@@ -98,8 +52,7 @@ async function supabaseQuery(endpoint, options = {}) {
 }
 
 module.exports = {
-  isVercelPostgres,
-  getVercelSql,
-  initVercelTables,
+  getPgPool,
+  queryPg,
   supabaseQuery
 };

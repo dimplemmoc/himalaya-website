@@ -1,5 +1,5 @@
 // Node.js Backend API: Admin Inquiries Management Handler
-const { isVercelPostgres, getVercelSql, initVercelTables, supabaseQuery } = require("./_db");
+const { getPgPool, queryPg, supabaseQuery } = require("./_db");
 
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -14,28 +14,21 @@ module.exports = async function handler(req, res) {
   const id = urlObj.searchParams.get("id");
 
   try {
-    // Check if Vercel Postgres is connected
-    if (isVercelPostgres()) {
-      const sql = await getVercelSql();
-      if (sql) {
-        await initVercelTables();
-
+    if (getPgPool()) {
+      try {
         if (method === "GET") {
           let tripInquiries = [];
           let contactInquiries = [];
           let newsletterSubscribers = [];
 
           if (type === "all" || type === "trip") {
-            const r = await sql`SELECT * FROM trip_inquiries ORDER BY created_at DESC;`;
-            tripInquiries = r.rows;
+            tripInquiries = (await queryPg("SELECT * FROM trip_inquiries ORDER BY created_at DESC;")) || [];
           }
           if (type === "all" || type === "contact") {
-            const r = await sql`SELECT * FROM contact_inquiries ORDER BY created_at DESC;`;
-            contactInquiries = r.rows;
+            contactInquiries = (await queryPg("SELECT * FROM contact_inquiries ORDER BY created_at DESC;")) || [];
           }
           if (type === "all" || type === "newsletter") {
-            const r = await sql`SELECT * FROM newsletter_subscribers ORDER BY created_at DESC;`;
-            newsletterSubscribers = r.rows;
+            newsletterSubscribers = (await queryPg("SELECT * FROM newsletter_subscribers ORDER BY created_at DESC;")) || [];
           }
 
           return res.status(200).json({
@@ -54,28 +47,24 @@ module.exports = async function handler(req, res) {
           body = body || {};
           const targetId = body.id || id;
           const status = body.status;
-          if (body.type === "contact") {
-            await sql`UPDATE contact_inquiries SET status = ${status} WHERE id = ${targetId};`;
-          } else {
-            await sql`UPDATE trip_inquiries SET status = ${status} WHERE id = ${targetId};`;
-          }
+          const table = body.type === "contact" ? "contact_inquiries" : "trip_inquiries";
+          await queryPg(`UPDATE ${table} SET status = $1 WHERE id = $2;`, [status, targetId]);
           return res.status(200).json({ success: true, message: "Status updated." });
         }
 
         if (method === "DELETE") {
-          if (type === "contact") {
-            await sql`DELETE FROM contact_inquiries WHERE id = ${id};`;
-          } else if (type === "newsletter") {
-            await sql`DELETE FROM newsletter_subscribers WHERE id = ${id};`;
-          } else {
-            await sql`DELETE FROM trip_inquiries WHERE id = ${id};`;
-          }
+          let table = "trip_inquiries";
+          if (type === "contact") table = "contact_inquiries";
+          if (type === "newsletter") table = "newsletter_subscribers";
+          await queryPg(`DELETE FROM ${table} WHERE id = $1;`, [id]);
           return res.status(200).json({ success: true, message: "Deleted." });
         }
+      } catch (pgErr) {
+        console.error("Vercel PG inquiries error:", pgErr);
       }
     }
 
-    // Supabase Fallback
+    // Fallback Supabase
     if (method === "GET") {
       const results = {};
       if (type === "all" || type === "trip") {
