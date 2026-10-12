@@ -100,6 +100,7 @@
   var imagePreviewBox = document.getElementById("image-preview-box");
   var imagePreview = document.getElementById("image-preview");
   var blogExcerptInput = document.getElementById("blog-excerpt");
+  var blogContentEditor = document.getElementById("blog-content-editor");
   var blogContentInput = document.getElementById("blog-content");
   var blogTargetUrlInput = document.getElementById("blog-target-url");
   var blogAnchorTextInput = document.getElementById("blog-anchor-text");
@@ -536,6 +537,8 @@
     if (pubBtn) pubBtn.textContent = "Publish blog ↗";
     imagePreviewBox.classList.add("hidden");
     imagePreview.src = "";
+    if (blogContentEditor) blogContentEditor.innerHTML = "";
+    if (blogContentInput) blogContentInput.value = "";
     postMsg.textContent = "";
     postMsg.className = "form-feedback";
   }
@@ -573,6 +576,7 @@
 
     blogExcerptInput.value = blog.excerpt || "";
     blogContentInput.value = blog.content || "";
+    if (blogContentEditor) blogContentEditor.innerHTML = blog.content || "";
     blogTargetUrlInput.value = blog.target_url || "";
     blogAnchorTextInput.value = blog.anchor_text || "";
     blogLinkTypeInput.value = blog.link_type || "DoFollow";
@@ -633,9 +637,8 @@
 
   // --- Toolbar Actions ---
   var toolbar = document.querySelector(".editor-toolbar");
-  if (toolbar && blogContentInput) {
+  if (toolbar) {
     toolbar.addEventListener("mousedown", function (e) {
-      // Prevent button click from stealing focus and collapsing textarea selection
       if (e.target.closest(".toolbar-btn")) {
         e.preventDefault();
       }
@@ -645,47 +648,10 @@
       var btn = e.target.closest(".toolbar-btn");
       if (!btn) return;
       e.preventDefault();
-
       var tag = btn.getAttribute("data-tag");
-      var start = blogContentInput.selectionStart;
-      var end = blogContentInput.selectionEnd;
-      if (typeof start !== "number" || typeof end !== "number") {
-        start = blogContentInput.value.length;
-        end = blogContentInput.value.length;
+      if (typeof window.formatBlogTag === "function") {
+        window.formatBlogTag(tag);
       }
-      var selected = blogContentInput.value.substring(start, end);
-      var replacement = "";
-
-      switch (tag) {
-        case "h2": replacement = "<h2>" + (selected || "Heading 2") + "</h2>"; break;
-        case "h3": replacement = "<h3>" + (selected || "Heading 3") + "</h3>"; break;
-        case "b": replacement = "<strong>" + (selected || "bold text") + "</strong>"; break;
-        case "i": replacement = "<em>" + (selected || "italic text") + "</em>"; break;
-        case "ul": replacement = "\n<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>\n"; break;
-        case "ol": replacement = "\n<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>\n"; break;
-        case "quote": replacement = "\n<blockquote>" + (selected || "Quote text here...") + "</blockquote>\n"; break;
-        case "link":
-          var url = prompt("Enter link URL:", "https://");
-          if (url) replacement = '<a href="' + url + '">' + (selected || "Link text") + '</a>';
-          else return;
-          break;
-        case "image":
-          var imgUrl = prompt("Enter image URL:", "https://");
-          if (imgUrl) replacement = '<img src="' + imgUrl + '" alt="' + (selected || "Blog image") + '">';
-          else return;
-          break;
-      }
-
-      blogContentInput.focus();
-      if (typeof blogContentInput.setRangeText === "function") {
-        blogContentInput.setRangeText(replacement, start, end, "select");
-      } else {
-        var val = blogContentInput.value;
-        blogContentInput.value = val.substring(0, start) + replacement + val.substring(end);
-        blogContentInput.selectionStart = start;
-        blogContentInput.selectionEnd = start + replacement.length;
-      }
-      blogContentInput.dispatchEvent(new Event("input", { bubbles: true }));
     });
   }
 
@@ -744,7 +710,7 @@
       image_url: blogImageUrlInput.value.trim(),
       image_alt: blogImageAltInput.value.trim(),
       excerpt: blogExcerptInput.value.trim(),
-      content: blogContentInput.value.trim(),
+      content: (blogContentEditor ? blogContentEditor.innerHTML : blogContentInput.value).trim(),
       target_url: blogTargetUrlInput.value.trim(),
       anchor_text: blogAnchorTextInput.value.trim(),
       link_type: blogLinkTypeInput.value,

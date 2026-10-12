@@ -727,6 +727,90 @@ body.journal-admin {
   resize: vertical;
 }
 
+.editor-visual-box {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  min-height: 240px;
+  max-height: 520px;
+  overflow-y: auto;
+  line-height: 1.7;
+  padding: 16px 18px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  outline: none;
+  font-size: 15px;
+}
+
+.editor-visual-box:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(126, 204, 159, 0.15);
+}
+
+.editor-visual-box:empty:before {
+  content: attr(data-placeholder);
+  color: var(--text-dim);
+  pointer-events: none;
+  display: block;
+}
+
+.editor-visual-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin: 18px 0 10px;
+}
+
+.editor-visual-box h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #d8e6df;
+  margin: 14px 0 8px;
+}
+
+.editor-visual-box p {
+  margin: 0 0 12px;
+}
+
+.editor-visual-box strong, .editor-visual-box b {
+  font-weight: 700;
+  color: #fff;
+}
+
+.editor-visual-box em, .editor-visual-box i {
+  font-style: italic;
+}
+
+.editor-visual-box ul, .editor-visual-box ol {
+  margin: 10px 0 14px 24px;
+  padding-left: 10px;
+}
+
+.editor-visual-box li {
+  margin-bottom: 6px;
+}
+
+.editor-visual-box blockquote {
+  border-left: 3px solid var(--mint);
+  margin: 14px 0;
+  padding: 8px 16px;
+  color: #b5c7bd;
+  background: rgba(126, 204, 159, 0.05);
+  font-style: italic;
+}
+
+.editor-visual-box a {
+  color: var(--mint);
+  text-decoration: underline;
+}
+
+.editor-visual-box img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 12px 0;
+  display: block;
+}
+
 /* FORM ACTIONS BAR */
 .form-actions-bar {
   display: flex;

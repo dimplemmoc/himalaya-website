@@ -288,7 +288,9 @@
                   <button type="button" data-tag="image" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('image')">Image</button>
                 </div>
 
-                <textarea id="blog-content" class="editor-textarea" rows="12" placeholder="Click here and paste your blog, or start writing..." required></textarea>
+                <!-- VISUAL WYSIWYG EDITOR -->
+                <div id="blog-content-editor" class="editor-visual-box" contenteditable="true" data-placeholder="Click here and paste your blog, or start writing..."></div>
+                <textarea id="blog-content" name="content" style="display:none;" required></textarea>
               </div>
             </div>
 
@@ -478,58 +480,73 @@
 
   </div>
 
-  <!-- INLINE GUARANTEED TOOLBAR FORMATTER -->
+  <!-- INLINE GUARANTEED VISUAL WYSIWYG FORMATTER -->
   <script>
-    window.formatBlogTag = function (tag) {
-      var textarea = document.getElementById("blog-content");
-      if (!textarea) return;
+    (function () {
+      var editor = document.getElementById("blog-content-editor");
+      var hiddenTextarea = document.getElementById("blog-content");
 
-      var start = textarea.selectionStart;
-      var end = textarea.selectionEnd;
-      if (typeof start !== "number" || typeof end !== "number") {
-        start = textarea.value.length;
-        end = textarea.value.length;
-      }
-      var selected = textarea.value.substring(start, end);
-      var replacement = "";
-
-      switch (tag) {
-        case "h2": replacement = "<h2>" + (selected || "Heading 2") + "</h2>"; break;
-        case "h3": replacement = "<h3>" + (selected || "Heading 3") + "</h3>"; break;
-        case "b": replacement = "<strong>" + (selected || "bold text") + "</strong>"; break;
-        case "i": replacement = "<em>" + (selected || "italic text") + "</em>"; break;
-        case "ul": replacement = "\n<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>\n"; break;
-        case "ol": replacement = "\n<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>\n"; break;
-        case "quote": replacement = "\n<blockquote>" + (selected || "Quote text here...") + "</blockquote>\n"; break;
-        case "link":
-          var url = prompt("Enter link URL:", "https://");
-          if (url) replacement = '<a href="' + url + '">' + (selected || "Link text") + '</a>';
-          else return;
-          break;
-        case "image":
-          var imgUrl = prompt("Enter image URL:", "https://");
-          if (imgUrl) replacement = '<img src="' + imgUrl + '" alt="' + (selected || "Blog image") + '">';
-          else return;
-          break;
+      function syncToHidden() {
+        if (editor && hiddenTextarea) {
+          hiddenTextarea.value = editor.innerHTML;
+        }
       }
 
-      textarea.focus();
-      if (typeof textarea.setRangeText === "function") {
-        textarea.setRangeText(replacement, start, end, "select");
-      } else {
-        var val = textarea.value;
-        textarea.value = val.substring(0, start) + replacement + val.substring(end);
-        textarea.selectionStart = start;
-        textarea.selectionEnd = start + replacement.length;
+      if (editor) {
+        editor.addEventListener("input", syncToHidden);
+        editor.addEventListener("blur", syncToHidden);
       }
-      textarea.dispatchEvent(new Event("input", { bubbles: true }));
-    };
+
+      window.formatBlogTag = function (tag) {
+        var ed = document.getElementById("blog-content-editor");
+        if (!ed) return;
+        ed.focus();
+
+        switch (tag) {
+          case "b":
+            document.execCommand("bold", false, null);
+            break;
+          case "i":
+            document.execCommand("italic", false, null);
+            break;
+          case "h2":
+            document.execCommand("formatBlock", false, "<h2>");
+            break;
+          case "h3":
+            document.execCommand("formatBlock", false, "<h3>");
+            break;
+          case "ul":
+            document.execCommand("insertUnorderedList", false, null);
+            break;
+          case "ol":
+            document.execCommand("insertOrderedList", false, null);
+            break;
+          case "quote":
+            document.execCommand("formatBlock", false, "<blockquote>");
+            break;
+          case "link":
+            var url = prompt("Enter link URL:", "https://");
+            if (url) {
+              document.execCommand("createLink", false, url);
+            }
+            break;
+          case "image":
+            var imgUrl = prompt("Enter image URL:", "https://");
+            if (imgUrl) {
+              document.execCommand("insertImage", false, imgUrl);
+            }
+            break;
+        }
+
+        syncToHidden();
+      };
+    })();
   </script>
 
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v10"></script>
-  <script src="js/admin.js?v=20261012-v10" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v11"></script>
+  <script src="js/admin.js?v=20261012-v11" defer></script>
 </body>
 </html>
