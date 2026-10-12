@@ -35,18 +35,18 @@
   var currentActiveCategory = "ALL";
 
   function renderCard(post) {
-    var title = post.h1 || post.title || "Himalayan Story";
+    var title = post.h1 || post.title || "Local Story";
     if (typeof title === "string") {
       title = title.replace(/\bHIMALAYA\s+FOOD\b/gi, "LOCAL FOOD")
                    .replace(/\bHIMALAYAN\s+FOOD\b/gi, "LOCAL FOOD")
-                   .replace(/^HIMALAYA$/i, "LOCAL");
+                   .replace(/\bHIMALAYAS?\b/gi, "LOCAL");
     }
     var slug = post.slug || post.id || slugify(title);
     var imgUrl = post.featured_image_url || post.image_url || "images/pexels-deekshyant-134459764-10778690.jpg";
     var imgAlt = post.featured_image_alt || post.image_alt || title;
     var rawCategory = post.category_label || post.category || "VILLAGE LIFE";
-    if (typeof rawCategory === "string" && /^HIMALAYA$/i.test(rawCategory.trim())) {
-      rawCategory = "LOCAL";
+    if (typeof rawCategory === "string") {
+      rawCategory = rawCategory.replace(/\bHIMALAYAS?\b/gi, "LOCAL");
     }
     var normCategory = normalizeCategory(rawCategory);
     var excerpt = post.excerpt || (post.description ? post.description.slice(0, 95) + "…" : "Wake up to mountain views, local food and warm smiles.");
@@ -176,6 +176,16 @@
       if (saved) {
         var parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length) {
+          parsed.forEach(function (p) {
+            if (p.h1) {
+              p.h1 = p.h1.replace(/\bHIMALAYA\s+FOOD\b/gi, "LOCAL FOOD")
+                         .replace(/\bHIMALAYAN\s+FOOD\b/gi, "LOCAL FOOD")
+                         .replace(/\bHIMALAYAS?\b/gi, "LOCAL");
+            }
+            if (p.category_label) {
+              p.category_label = p.category_label.replace(/\bHIMALAYAS?\b/gi, "LOCAL");
+            }
+          });
           var published = parsed.filter(function (p) { return p.status === "published"; });
           fetchedPosts = mergePosts(fetchedPosts, published);
         }

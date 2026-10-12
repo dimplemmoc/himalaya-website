@@ -72,7 +72,12 @@
   }
 
   function renderPost(post) {
-    var mainTitle = post.h1 || post.title || "Himalayan Story";
+    var mainTitle = post.h1 || post.title || "Local Story";
+    if (typeof mainTitle === "string") {
+      mainTitle = mainTitle.replace(/\bHIMALAYA\s+FOOD\b/gi, "LOCAL FOOD")
+                           .replace(/\bHIMALAYAN\s+FOOD\b/gi, "LOCAL FOOD")
+                           .replace(/\bHIMALAYAS?\b/gi, "LOCAL");
+    }
     var seoTitle = post.seo_title || mainTitle;
     document.title = seoTitle + " | Live Local Himalaya";
 
@@ -80,6 +85,7 @@
     setText("article-h1", mainTitle);
 
     var rawCategory = (post.category_label || post.category || "VILLAGE LIFE").toUpperCase();
+    rawCategory = rawCategory.replace(/\bHIMALAYAS?\b/gi, "LOCAL");
     setText("article-kicker", "LIVE LOCAL HIMALAYA");
     setText("article-category", rawCategory);
 

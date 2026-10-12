@@ -34,15 +34,25 @@
   }
 
   function normalizePost(post) {
+    var rawTitle = post.h1 || post.title || "Story";
+    if (typeof rawTitle === "string") {
+      rawTitle = rawTitle.replace(/\bHIMALAYA\s+FOOD\b/gi, "LOCAL FOOD")
+                         .replace(/\bHIMALAYAN\s+FOOD\b/gi, "LOCAL FOOD")
+                         .replace(/\bHIMALAYAS?\b/gi, "LOCAL");
+    }
+    var rawCat = post.category_label || post.category || "Journal";
+    if (typeof rawCat === "string") {
+      rawCat = rawCat.replace(/\bHIMALAYAS?\b/gi, "LOCAL");
+    }
     return {
       id: post.id,
       slug: post.slug,
-      title: post.h1 || post.title || "Story",
-      category: post.category_label || post.category || "Journal",
+      title: rawTitle,
+      category: rawCat,
       excerpt: post.excerpt || "",
       content: post.content_html || post.content || "",
       image_url: post.featured_image_url || post.image_url || "",
-      image_alt: post.featured_image_alt || post.image_alt || post.h1 || post.title || "",
+      image_alt: post.featured_image_alt || post.image_alt || rawTitle,
       published_at: post.published_at ? String(post.published_at).slice(0, 10) : "",
       status: post.status || "published"
     };
