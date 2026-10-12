@@ -514,6 +514,7 @@
     (function () {
       var editor = document.getElementById("blog-content-editor");
       var hiddenTextarea = document.getElementById("blog-content");
+      var savedRange = null;
 
       function syncToHidden() {
         if (editor && hiddenTextarea) {
@@ -521,20 +522,91 @@
         }
       }
 
+      function saveSelection() {
+        var sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && editor && editor.contains(sel.anchorNode)) {
+          savedRange = sel.getRangeAt(0).cloneRange();
+        }
+      }
+
+      function restoreSelection() {
+        if (!editor) return null;
+        editor.focus();
+        var sel = window.getSelection();
+        if (savedRange && sel) {
+          sel.removeAllRanges();
+          sel.addRange(savedRange);
+          return savedRange;
+        }
+        if (sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode)) {
+          return sel.getRangeAt(0);
+        }
+        return null;
+      }
+
       if (editor) {
-        editor.addEventListener("input", syncToHidden);
-        editor.addEventListener("blur", syncToHidden);
+        editor.addEventListener("input", function() {
+          saveSelection();
+          syncToHidden();
+        });
+        editor.addEventListener("keyup", saveSelection);
+        editor.addEventListener("mouseup", saveSelection);
+        editor.addEventListener("blur", function() {
+          saveSelection();
+          syncToHidden();
+        });
+      }
+
+      function wrapSelectionInline(tag) {
+        var range = restoreSelection();
+        var sel = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+
+        // First check if already inside the styled tag -> unwrap toggle
+        var targetTagName = tag === "b" ? ["B", "STRONG"] : ["I", "EM"];
+        var currentNode = sel && sel.anchorNode ? (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement) : null;
+        var existingTag = null;
+        if (currentNode) {
+          existingTag = currentNode.closest(targetTagName.join(","));
+          if (existingTag && !ed.contains(existingTag)) existingTag = null;
+        }
+
+        if (existingTag) {
+          // Unwrap
+          var parent = existingTag.parentNode;
+          while (existingTag.firstChild) {
+            parent.insertBefore(existingTag.firstChild, existingTag);
+          }
+          parent.removeChild(existingTag);
+          return;
+        }
+
+        // Try execCommand first
+        var cmd = tag === "b" ? "bold" : "italic";
+        var ok = false;
+        try {
+          ok = document.execCommand(cmd, false, null);
+        } catch (e) {}
+
+        // Direct DOM fallback if execCommand was ignored
+        if (!ok && range && !range.collapsed) {
+          var el = document.createElement(tag === "b" ? "strong" : "em");
+          try {
+            el.appendChild(range.extractContents());
+            range.insertNode(el);
+            var newRange = document.createRange();
+            newRange.selectNodeContents(el);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+            savedRange = newRange.cloneRange();
+          } catch(e) {}
+        }
       }
 
       function wrapOrInsertBlock(tag) {
-        var selection = window.getSelection();
+        var range = restoreSelection();
+        var sel = window.getSelection();
         var ed = document.getElementById("blog-content-editor");
-        if (!selection || selection.rangeCount === 0 || !ed.contains(selection.anchorNode)) {
-          ed.focus();
-          selection = window.getSelection();
-        }
-
-        var range = (selection && selection.rangeCount > 0) ? selection.getRangeAt(0) : null;
 
         if (tag === "ul" || tag === "ol") {
           var cmd = (tag === "ul") ? "insertUnorderedList" : "insertOrderedList";
@@ -559,40 +631,82 @@
               listEl.appendChild(li);
             }
 
-            if (range) {
+            if (range && !range.collapsed) {
               range.deleteContents();
               range.insertNode(listEl);
-              // Place cursor inside the li
-              var newRange = document.createRange();
-              newRange.selectNodeContents(listEl.firstChild);
-              newRange.collapse(true);
-              selection.removeAllRanges();
-              selection.addRange(newRange);
+              var newR = document.createRange();
+              newR.selectNodeContents(listEl.firstChild);
+              newR.collapse(true);
+              sel.removeAllRanges();
+              sel.addRange(newR);
+              savedRange = newR.cloneRange();
             } else {
               ed.appendChild(listEl);
             }
           }
         } else if (tag === "quote") {
-          var successQ = false;
-          try {
-            successQ = document.execCommand("formatBlock", false, "<blockquote>");
-          } catch (e) {}
-
-          if (!successQ) {
-            var quoteText = range ? range.toString().trim() : "";
-            var bq = document.createElement("blockquote");
-            bq.innerHTML = quoteText ? quoteText : "<br>";
-            if (range) {
-              range.deleteContents();
-              range.insertNode(bq);
-              var newRangeQ = document.createRange();
-              newRangeQ.selectNodeContents(bq);
-              newRangeQ.collapse(false);
-              selection.removeAllRanges();
-              selection.addRange(newRangeQ);
-            } else {
-              ed.appendChild(bq);
+          var parentBq = null;
+          if (sel && sel.anchorNode) {
+            parentBq = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest("blockquote") : sel.anchorNode.parentElement.closest("blockquote");
+          }
+          if (parentBq && ed.contains(parentBq)) {
+            try {
+              document.execCommand("formatBlock", false, "<p>");
+            } catch(e) {
+              var p = document.createElement("p");
+              p.innerHTML = parentBq.innerHTML;
+              parentBq.parentNode.replaceChild(p, parentBq);
             }
+          } else {
+            var okQ = false;
+            try { okQ = document.execCommand("formatBlock", false, "<blockquote>"); } catch(e){}
+            if (!okQ) {
+              var quoteText = range ? range.toString().trim() : "";
+              var bq = document.createElement("blockquote");
+              bq.innerHTML = quoteText ? quoteText : "<br>";
+              if (range && !range.collapsed) {
+                range.deleteContents();
+                range.insertNode(bq);
+                var newRQ = document.createRange();
+                newRQ.selectNodeContents(bq);
+                newRQ.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(newRQ);
+                savedRange = newRQ.cloneRange();
+              } else {
+                ed.appendChild(bq);
+              }
+            }
+          }
+        }
+      }
+
+      function formatHeading(headingTag) {
+        restoreSelection();
+        var sel = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+        if (sel && sel.anchorNode) {
+          var parentH = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest(headingTag) : sel.anchorNode.parentElement.closest(headingTag);
+          if (parentH && ed.contains(parentH)) {
+            try {
+              document.execCommand("formatBlock", false, "<p>");
+            } catch(e) {
+              var p = document.createElement("p");
+              p.innerHTML = parentH.innerHTML;
+              parentH.parentNode.replaceChild(p, parentH);
+            }
+            return;
+          }
+        }
+        try {
+          var hOk = document.execCommand("formatBlock", false, "<" + headingTag + ">");
+          if (!hOk) throw new Error("not supported");
+        } catch(e) {
+          var rangeH = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0) : null;
+          if (rangeH && !rangeH.collapsed) {
+            var hEl = document.createElement(headingTag);
+            hEl.appendChild(rangeH.extractContents());
+            rangeH.insertNode(hEl);
           }
         }
       }
@@ -600,14 +714,13 @@
       window.formatBlogTag = function (tag) {
         var ed = document.getElementById("blog-content-editor");
         if (!ed) return;
-        ed.focus();
 
         switch (tag) {
           case "b":
-            document.execCommand("bold", false, null);
+            wrapSelectionInline("b");
             break;
           case "i":
-            document.execCommand("italic", false, null);
+            wrapSelectionInline("i");
             break;
           case "ul":
             wrapOrInsertBlock("ul");
@@ -616,40 +729,16 @@
             wrapOrInsertBlock("ol");
             break;
           case "quote":
-            var sel = window.getSelection();
-            if (sel && sel.anchorNode) {
-              var parentBq = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest("blockquote") : sel.anchorNode.parentElement.closest("blockquote");
-              if (parentBq && ed.contains(parentBq)) {
-                // Toggle off blockquote to normal paragraph
-                document.execCommand("formatBlock", false, "<p>");
-                break;
-              }
-            }
             wrapOrInsertBlock("quote");
             break;
           case "h2":
-            var sel2 = window.getSelection();
-            if (sel2 && sel2.anchorNode) {
-              var parentH2 = sel2.anchorNode.nodeType === 1 ? sel2.anchorNode.closest("h2") : sel2.anchorNode.parentElement.closest("h2");
-              if (parentH2 && ed.contains(parentH2)) {
-                document.execCommand("formatBlock", false, "<p>");
-                break;
-              }
-            }
-            document.execCommand("formatBlock", false, "<h2>");
+            formatHeading("h2");
             break;
           case "h3":
-            var sel3 = window.getSelection();
-            if (sel3 && sel3.anchorNode) {
-              var parentH3 = sel3.anchorNode.nodeType === 1 ? sel3.anchorNode.closest("h3") : sel3.anchorNode.parentElement.closest("h3");
-              if (parentH3 && ed.contains(parentH3)) {
-                document.execCommand("formatBlock", false, "<p>");
-                break;
-              }
-            }
-            document.execCommand("formatBlock", false, "<h3>");
+            formatHeading("h3");
             break;
           case "link":
+            restoreSelection();
             var url = prompt("Enter link URL:", "https://");
             if (url) {
               document.execCommand("createLink", false, url);
@@ -660,6 +749,7 @@
             break;
         }
 
+        saveSelection();
         syncToHidden();
       };
 
@@ -766,7 +856,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v18"></script>
-  <script src="js/admin.js?v=20261012-v18" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v19"></script>
+  <script src="js/admin.js?v=20261012-v19" defer></script>
 </body>
 </html>
