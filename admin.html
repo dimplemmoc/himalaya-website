@@ -508,39 +508,37 @@
         var range = (selection && selection.rangeCount > 0) ? selection.getRangeAt(0) : null;
 
         if (tag === "ul" || tag === "ol") {
+          var cmd = (tag === "ul") ? "insertUnorderedList" : "insertOrderedList";
           var success = false;
           try {
-            success = document.execCommand(tag === "ul" ? "insertUnorderedList" : "insertOrderedList", false, null);
+            success = document.execCommand(cmd, false, null);
           } catch (e) {}
 
-          if (!success || !ed.querySelector(tag)) {
+          if (!success) {
             var selectedText = range ? range.toString().trim() : "";
             var listEl = document.createElement(tag);
             if (selectedText) {
               var lines = selectedText.split(/\r?\n/).filter(function(l){ return l.trim().length > 0; });
-              if (lines.length > 0) {
-                lines.forEach(function (line) {
-                  var li = document.createElement("li");
-                  li.textContent = line;
-                  listEl.appendChild(li);
-                });
-              } else {
+              lines.forEach(function (line) {
                 var li = document.createElement("li");
-                li.textContent = selectedText;
+                li.textContent = line;
                 listEl.appendChild(li);
-              }
+              });
             } else {
-              var li1 = document.createElement("li");
-              li1.textContent = "List item 1";
-              var li2 = document.createElement("li");
-              li2.textContent = "List item 2";
-              listEl.appendChild(li1);
-              listEl.appendChild(li2);
+              var li = document.createElement("li");
+              li.innerHTML = "<br>";
+              listEl.appendChild(li);
             }
 
             if (range) {
               range.deleteContents();
               range.insertNode(listEl);
+              // Place cursor inside the li
+              var newRange = document.createRange();
+              newRange.selectNodeContents(listEl.firstChild);
+              newRange.collapse(true);
+              selection.removeAllRanges();
+              selection.addRange(newRange);
             } else {
               ed.appendChild(listEl);
             }
@@ -551,13 +549,18 @@
             successQ = document.execCommand("formatBlock", false, "<blockquote>");
           } catch (e) {}
 
-          if (!successQ || !ed.querySelector("blockquote")) {
+          if (!successQ) {
             var quoteText = range ? range.toString().trim() : "";
             var bq = document.createElement("blockquote");
-            bq.textContent = quoteText || "Inspiring quote from the Himalayas...";
+            bq.innerHTML = quoteText ? quoteText : "<br>";
             if (range) {
               range.deleteContents();
               range.insertNode(bq);
+              var newRangeQ = document.createRange();
+              newRangeQ.selectNodeContents(bq);
+              newRangeQ.collapse(false);
+              selection.removeAllRanges();
+              selection.addRange(newRangeQ);
             } else {
               ed.appendChild(bq);
             }
@@ -614,7 +617,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v12"></script>
-  <script src="js/admin.js?v=20261012-v12" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v13"></script>
+  <script src="js/admin.js?v=20261012-v13" defer></script>
 </body>
 </html>
