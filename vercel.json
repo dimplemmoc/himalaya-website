@@ -2,6 +2,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/explore", "destination": "/experience.html" },
+    { "source": "/journeys", "destination": "/package.html" },
+    { "source": "/our-story", "destination": "/about.html" },
+    { "source": "/journal", "destination": "/blog.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/blog/:slug", "destination": "/blog-details.html?slug=:slug" }
   ],

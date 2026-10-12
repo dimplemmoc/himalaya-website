@@ -93,10 +93,34 @@
             currentPage = "experience.html";
         }
 
+        var pageAliases = {
+            "experience.html": "explore",
+            "experience": "explore",
+            "explore": "explore",
+            "package.html": "journeys",
+            "package": "journeys",
+            "journeys": "journeys",
+            "about.html": "our-story",
+            "about": "our-story",
+            "our-story": "our-story",
+            "blog.html": "journal",
+            "blog": "journal",
+            "journal": "journal",
+            "stays.html": "stays",
+            "stays": "stays",
+            "contact.html": "contact",
+            "contact": "contact",
+            "index.html": "index.html",
+            "": "index.html"
+        };
+
+        var currentNormalized = pageAliases[currentPage] || pageAliases[rawPath.split("/").pop()] || currentPage;
+
         var links = container.querySelectorAll(".navbar a");
         Array.prototype.forEach.call(links, function (link) {
-            var target = (link.getAttribute("href") || "").toLowerCase().split("#")[0].split("?")[0];
-            var isMatch = (target === currentPage);
+            var target = (link.getAttribute("href") || "").toLowerCase().split("#")[0].split("?")[0].replace(/^\//, "");
+            var targetNormalized = pageAliases[target] || target;
+            var isMatch = (targetNormalized === currentNormalized) || (target === currentPage);
             if (isMatch) {
                 link.classList.add("active");
                 link.setAttribute("aria-current", "page");
