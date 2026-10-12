@@ -781,22 +781,32 @@ body.journal-admin {
   font-style: italic;
 }
 
-.editor-visual-box ul, .editor-visual-box ol {
-  margin: 10px 0 14px 24px;
-  padding-left: 10px;
+.editor-visual-box ul {
+  list-style-type: disc !important;
+  margin: 12px 0 16px 28px !important;
+  padding-left: 6px !important;
+}
+
+.editor-visual-box ol {
+  list-style-type: decimal !important;
+  margin: 12px 0 16px 28px !important;
+  padding-left: 6px !important;
 }
 
 .editor-visual-box li {
+  display: list-item !important;
   margin-bottom: 6px;
+  color: #e8f0ec;
 }
 
 .editor-visual-box blockquote {
-  border-left: 3px solid var(--mint);
-  margin: 14px 0;
-  padding: 8px 16px;
-  color: #b5c7bd;
-  background: rgba(126, 204, 159, 0.05);
-  font-style: italic;
+  border-left: 4px solid var(--mint) !important;
+  margin: 16px 0 !important;
+  padding: 10px 18px !important;
+  color: #c4d7cd !important;
+  background: rgba(126, 204, 159, 0.08) !important;
+  font-style: italic !important;
+  border-radius: 0 4px 4px 0;
 }
 
 .editor-visual-box a {

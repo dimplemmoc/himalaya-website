@@ -497,6 +497,74 @@
         editor.addEventListener("blur", syncToHidden);
       }
 
+      function wrapOrInsertBlock(tag) {
+        var selection = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+        if (!selection || selection.rangeCount === 0 || !ed.contains(selection.anchorNode)) {
+          ed.focus();
+          selection = window.getSelection();
+        }
+
+        var range = (selection && selection.rangeCount > 0) ? selection.getRangeAt(0) : null;
+
+        if (tag === "ul" || tag === "ol") {
+          var success = false;
+          try {
+            success = document.execCommand(tag === "ul" ? "insertUnorderedList" : "insertOrderedList", false, null);
+          } catch (e) {}
+
+          if (!success || !ed.querySelector(tag)) {
+            var selectedText = range ? range.toString().trim() : "";
+            var listEl = document.createElement(tag);
+            if (selectedText) {
+              var lines = selectedText.split(/\r?\n/).filter(function(l){ return l.trim().length > 0; });
+              if (lines.length > 0) {
+                lines.forEach(function (line) {
+                  var li = document.createElement("li");
+                  li.textContent = line;
+                  listEl.appendChild(li);
+                });
+              } else {
+                var li = document.createElement("li");
+                li.textContent = selectedText;
+                listEl.appendChild(li);
+              }
+            } else {
+              var li1 = document.createElement("li");
+              li1.textContent = "List item 1";
+              var li2 = document.createElement("li");
+              li2.textContent = "List item 2";
+              listEl.appendChild(li1);
+              listEl.appendChild(li2);
+            }
+
+            if (range) {
+              range.deleteContents();
+              range.insertNode(listEl);
+            } else {
+              ed.appendChild(listEl);
+            }
+          }
+        } else if (tag === "quote") {
+          var successQ = false;
+          try {
+            successQ = document.execCommand("formatBlock", false, "<blockquote>");
+          } catch (e) {}
+
+          if (!successQ || !ed.querySelector("blockquote")) {
+            var quoteText = range ? range.toString().trim() : "";
+            var bq = document.createElement("blockquote");
+            bq.textContent = quoteText || "Inspiring quote from the Himalayas...";
+            if (range) {
+              range.deleteContents();
+              range.insertNode(bq);
+            } else {
+              ed.appendChild(bq);
+            }
+          }
+        }
+      }
+
       window.formatBlogTag = function (tag) {
         var ed = document.getElementById("blog-content-editor");
         if (!ed) return;
@@ -516,13 +584,13 @@
             document.execCommand("formatBlock", false, "<h3>");
             break;
           case "ul":
-            document.execCommand("insertUnorderedList", false, null);
+            wrapOrInsertBlock("ul");
             break;
           case "ol":
-            document.execCommand("insertOrderedList", false, null);
+            wrapOrInsertBlock("ol");
             break;
           case "quote":
-            document.execCommand("formatBlock", false, "<blockquote>");
+            wrapOrInsertBlock("quote");
             break;
           case "link":
             var url = prompt("Enter link URL:", "https://");
@@ -546,7 +614,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v11"></script>
-  <script src="js/admin.js?v=20261012-v11" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v12"></script>
+  <script src="js/admin.js?v=20261012-v12" defer></script>
 </body>
 </html>
