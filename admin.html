@@ -274,53 +274,7 @@
 
               <div class="form-group">
                 <label>Main blog content</label>
-                
-                <script>
-                  window.formatBlogTag = function (tag) {
-                    var ed = document.getElementById("blog-content-editor");
-                    if (!ed) return;
-                    ed.focus();
 
-                    switch (tag) {
-                      case "b":
-                        document.execCommand("bold", false, null);
-                        break;
-                      case "i":
-                        document.execCommand("italic", false, null);
-                        break;
-                      case "h2":
-                        document.execCommand("formatBlock", false, "<h2>");
-                        break;
-                      case "h3":
-                        document.execCommand("formatBlock", false, "<h3>");
-                        break;
-                      case "ul":
-                        document.execCommand("insertUnorderedList", false, null);
-                        break;
-                      case "ol":
-                        document.execCommand("insertOrderedList", false, null);
-                        break;
-                      case "quote":
-                        document.execCommand("formatBlock", false, "<blockquote>");
-                        break;
-                      case "link":
-                        var url = prompt("Enter link URL:", "https://");
-                        if (url) document.execCommand("createLink", false, url);
-                        break;
-                      case "image":
-                        if (typeof window.openBlogImageModal === "function") {
-                          window.openBlogImageModal();
-                        } else {
-                          var imgUrl = prompt("Enter image URL:", "https://");
-                          if (imgUrl) document.execCommand("insertImage", false, imgUrl);
-                        }
-                        break;
-                    }
-
-                    var hidden = document.getElementById("blog-content");
-                    if (hidden) hidden.value = ed.innerHTML;
-                  };
-                </script>
 
                 <!-- TOOLBAR -->
                 <div class="editor-toolbar">
@@ -812,7 +766,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v16"></script>
-  <script src="js/admin.js?v=20261012-v16" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v17"></script>
+  <script src="js/admin.js?v=20261012-v17" defer></script>
 </body>
 </html>
