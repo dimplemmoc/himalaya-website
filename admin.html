@@ -608,12 +608,6 @@
           case "i":
             document.execCommand("italic", false, null);
             break;
-          case "h2":
-            document.execCommand("formatBlock", false, "<h2>");
-            break;
-          case "h3":
-            document.execCommand("formatBlock", false, "<h3>");
-            break;
           case "ul":
             wrapOrInsertBlock("ul");
             break;
@@ -621,7 +615,38 @@
             wrapOrInsertBlock("ol");
             break;
           case "quote":
+            var sel = window.getSelection();
+            if (sel && sel.anchorNode) {
+              var parentBq = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest("blockquote") : sel.anchorNode.parentElement.closest("blockquote");
+              if (parentBq && ed.contains(parentBq)) {
+                // Toggle off blockquote to normal paragraph
+                document.execCommand("formatBlock", false, "<p>");
+                break;
+              }
+            }
             wrapOrInsertBlock("quote");
+            break;
+          case "h2":
+            var sel2 = window.getSelection();
+            if (sel2 && sel2.anchorNode) {
+              var parentH2 = sel2.anchorNode.nodeType === 1 ? sel2.anchorNode.closest("h2") : sel2.anchorNode.parentElement.closest("h2");
+              if (parentH2 && ed.contains(parentH2)) {
+                document.execCommand("formatBlock", false, "<p>");
+                break;
+              }
+            }
+            document.execCommand("formatBlock", false, "<h2>");
+            break;
+          case "h3":
+            var sel3 = window.getSelection();
+            if (sel3 && sel3.anchorNode) {
+              var parentH3 = sel3.anchorNode.nodeType === 1 ? sel3.anchorNode.closest("h3") : sel3.anchorNode.parentElement.closest("h3");
+              if (parentH3 && ed.contains(parentH3)) {
+                document.execCommand("formatBlock", false, "<p>");
+                break;
+              }
+            }
+            document.execCommand("formatBlock", false, "<h3>");
             break;
           case "link":
             var url = prompt("Enter link URL:", "https://");
@@ -739,7 +764,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v14"></script>
-  <script src="js/admin.js?v=20261012-v14" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v15"></script>
+  <script src="js/admin.js?v=20261012-v15" defer></script>
 </body>
 </html>
