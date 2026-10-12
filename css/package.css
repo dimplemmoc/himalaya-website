@@ -111,7 +111,7 @@
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(75px, 10vw, 150px);
+    font-size: clamp(48px, 6vw, 82px);
 
     font-weight: 500;
 

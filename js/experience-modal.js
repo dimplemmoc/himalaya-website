@@ -1,6 +1,6 @@
 
 const experienceDetails = {
-  "Stay in Local Villages": {
+  "Trekking in Local Villages": {
     category: "CULTURAL EXPERIENCES",
     heading: "Experience the warmth of Himalayan village life",
     image: "assets/images/village-stay.jpg",

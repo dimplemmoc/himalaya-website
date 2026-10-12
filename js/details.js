@@ -3,7 +3,7 @@
 
     var journeys = {
         "local-village-stays": {
-            type: "experience", title: "Stay in Local Villages", category: "VILLAGE LIFE",
+            type: "experience", title: "Trekking in Local Villages", category: "VILLAGE LIFE",
             image: "images/pexels-deekshyant-134459764-10778690.jpg", imageAlt: "Village life in the Himalayas",
             gallery: ["images/pexels-dxaxoxfz-16153351.jpg", "images/pexels-llizzk-18276996.jpg"],
             meta: "Kumaon, Uttarakhand · 2 nights", place: "Kumaon, Uttarakhand", length: "2 nights", style: "Village homestay",
