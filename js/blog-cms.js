@@ -36,10 +36,18 @@
 
   function renderCard(post) {
     var title = post.h1 || post.title || "Himalayan Story";
+    if (typeof title === "string") {
+      title = title.replace(/\bHIMALAYA\s+FOOD\b/gi, "LOCAL FOOD")
+                   .replace(/\bHIMALAYAN\s+FOOD\b/gi, "LOCAL FOOD")
+                   .replace(/^HIMALAYA$/i, "LOCAL");
+    }
     var slug = post.slug || post.id || slugify(title);
     var imgUrl = post.featured_image_url || post.image_url || "images/pexels-deekshyant-134459764-10778690.jpg";
     var imgAlt = post.featured_image_alt || post.image_alt || title;
     var rawCategory = post.category_label || post.category || "VILLAGE LIFE";
+    if (typeof rawCategory === "string" && /^HIMALAYA$/i.test(rawCategory.trim())) {
+      rawCategory = "LOCAL";
+    }
     var normCategory = normalizeCategory(rawCategory);
     var excerpt = post.excerpt || (post.description ? post.description.slice(0, 95) + "…" : "Wake up to mountain views, local food and warm smiles.");
     var readLink = "blog-details.html?slug=" + encodeURIComponent(slug);
