@@ -643,16 +643,6 @@
         e.preventDefault();
       }
     });
-
-    toolbar.addEventListener("click", function (e) {
-      var btn = e.target.closest(".toolbar-btn");
-      if (!btn) return;
-      e.preventDefault();
-      var tag = btn.getAttribute("data-tag");
-      if (typeof window.formatBlogTag === "function") {
-        window.formatBlogTag(tag);
-      }
-    });
   }
 
   // --- Add Category ---

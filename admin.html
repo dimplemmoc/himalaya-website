@@ -711,46 +711,58 @@
         }
       }
 
+      var isFormatting = false;
       window.formatBlogTag = function (tag) {
-        var ed = document.getElementById("blog-content-editor");
-        if (!ed) return;
+        if (isFormatting) return;
+        isFormatting = true;
 
-        switch (tag) {
-          case "b":
-            wrapSelectionInline("b");
-            break;
-          case "i":
-            wrapSelectionInline("i");
-            break;
-          case "ul":
-            wrapOrInsertBlock("ul");
-            break;
-          case "ol":
-            wrapOrInsertBlock("ol");
-            break;
-          case "quote":
-            wrapOrInsertBlock("quote");
-            break;
-          case "h2":
-            formatHeading("h2");
-            break;
-          case "h3":
-            formatHeading("h3");
-            break;
-          case "link":
-            restoreSelection();
-            var url = prompt("Enter link URL:", "https://");
-            if (url) {
-              document.execCommand("createLink", false, url);
-            }
-            break;
-          case "image":
-            openImageModal();
-            break;
+        try {
+          var ed = document.getElementById("blog-content-editor");
+          if (!ed) return;
+
+          restoreSelection();
+
+          switch (tag) {
+            case "b":
+              wrapSelectionInline("b");
+              break;
+            case "i":
+              wrapSelectionInline("i");
+              break;
+            case "ul":
+              wrapOrInsertBlock("ul");
+              break;
+            case "ol":
+              wrapOrInsertBlock("ol");
+              break;
+            case "quote":
+              wrapOrInsertBlock("quote");
+              break;
+            case "h2":
+              formatHeading("h2");
+              break;
+            case "h3":
+              formatHeading("h3");
+              break;
+            case "link":
+              var url = prompt("Enter link URL:", "https://");
+              if (url && url.trim()) {
+                restoreSelection();
+                document.execCommand("createLink", false, url.trim());
+              }
+              break;
+            case "image":
+              openImageModal();
+              break;
+          }
+
+          saveSelection();
+          syncToHidden();
+        } finally {
+          setTimeout(function () {
+            isFormatting = false;
+          }, 80);
         }
-
-        saveSelection();
-        syncToHidden();
       };
 
       // Modal handling
@@ -856,7 +868,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v19"></script>
-  <script src="js/admin.js?v=20261012-v19" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v20"></script>
+  <script src="js/admin.js?v=20261012-v20" defer></script>
 </body>
 </html>
