@@ -2904,7 +2904,7 @@ body {
     z-index: 2;
     width: 100%;
     min-height: auto;
-    padding: 80px 47px 80px;
+    padding: 48px 47px 40px;
 
     display: grid;
 
@@ -2912,7 +2912,7 @@ body {
 
     align-items: center;
 
-    gap: 70px;
+    gap: 50px;
 }
 
 
@@ -2926,13 +2926,13 @@ body {
 
 
 .cta-small-title {
-    margin-bottom: 34px;
+    margin-bottom: 20px;
 
     color: #e7d9a7;
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
 
     letter-spacing: 3px;
@@ -2946,24 +2946,24 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(55px, 5.3vw, 78px);
+    font-size: clamp(48px, 4.8vw, 70px);
 
     font-weight: 400;
 
-    line-height: 0.98;
+    line-height: 1.02;
 
-    letter-spacing: -2.5px;
+    letter-spacing: -2px;
 }
 
 
 .cta-left p {
-    margin: 30px 0 42px;
+    margin: 18px 0 28px;
 
     color: #f1e7c4;
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 20px;
+    font-size: 18px;
 
     line-height: 1.5;
 }
@@ -3227,7 +3227,7 @@ body {
     width: 100%;
     background: #123f34;
     color: #ffffff;
-    padding: 55px 48px 25px;
+    padding: 38px 48px 20px;
 }
 
 
@@ -3243,8 +3243,8 @@ body {
         0.85fr
         0.85fr
         1.4fr;
-    gap: 48px;
-    padding-bottom: 24px;
+    gap: 36px;
+    padding-bottom: 18px;
 }
 
 
@@ -3318,7 +3318,7 @@ body {
 .footer-logo-text strong {
     font-family: "Playfair Display", serif;
 
-    font-size: 29px;
+    font-size: 24px;
 
     font-weight: 600;
 
@@ -3327,25 +3327,25 @@ body {
 
 
 .footer-logo-text span {
-    margin-top: 4px;
+    margin-top: 3px;
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 700;
 
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 }
 
 
 /* Tagline */
 
 .footer-tagline {
-    margin: 20px 0 0;
+    margin: 14px 0 0;
     color: #c5d7cf;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.5;
 }
@@ -3404,15 +3404,15 @@ body {
 .footer-column {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
 
 .footer-column h3 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: #cbdccf;
     font-family: "DM Sans", sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
 }
@@ -3422,7 +3422,7 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
 
     transition: color 0.3s ease;
 }
@@ -3441,19 +3441,19 @@ body {
     margin: 0;
     color: #ffffff;
     font-family: "Playfair Display", serif;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 1.25;
 
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
 }
 
 
 .footer-newsletter > p {
-    margin: 14px 0 20px;
+    margin: 10px 0 16px;
     color: #c5d7cf;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.4;
 }
