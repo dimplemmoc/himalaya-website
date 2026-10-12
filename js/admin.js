@@ -632,11 +632,27 @@
   });
 
   // --- Toolbar Actions ---
-  document.querySelectorAll(".editor-toolbar .toolbar-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
+  var toolbar = document.querySelector(".editor-toolbar");
+  if (toolbar && blogContentInput) {
+    toolbar.addEventListener("mousedown", function (e) {
+      // Prevent button click from stealing focus and collapsing textarea selection
+      if (e.target.closest(".toolbar-btn")) {
+        e.preventDefault();
+      }
+    });
+
+    toolbar.addEventListener("click", function (e) {
+      var btn = e.target.closest(".toolbar-btn");
+      if (!btn) return;
+      e.preventDefault();
+
       var tag = btn.getAttribute("data-tag");
       var start = blogContentInput.selectionStart;
       var end = blogContentInput.selectionEnd;
+      if (typeof start !== "number" || typeof end !== "number") {
+        start = blogContentInput.value.length;
+        end = blogContentInput.value.length;
+      }
       var selected = blogContentInput.value.substring(start, end);
       var replacement = "";
 
@@ -645,9 +661,9 @@
         case "h3": replacement = "<h3>" + (selected || "Heading 3") + "</h3>"; break;
         case "b": replacement = "<strong>" + (selected || "bold text") + "</strong>"; break;
         case "i": replacement = "<em>" + (selected || "italic text") + "</em>"; break;
-        case "ul": replacement = "<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>"; break;
-        case "ol": replacement = "<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>"; break;
-        case "quote": replacement = "<blockquote>" + (selected || "Quote text here...") + "</blockquote>"; break;
+        case "ul": replacement = "\n<ul>\n  <li>" + (selected || "List item 1") + "</li>\n  <li>List item 2</li>\n</ul>\n"; break;
+        case "ol": replacement = "\n<ol>\n  <li>" + (selected || "First step") + "</li>\n  <li>Second step</li>\n</ol>\n"; break;
+        case "quote": replacement = "\n<blockquote>" + (selected || "Quote text here...") + "</blockquote>\n"; break;
         case "link":
           var url = prompt("Enter link URL:", "https://");
           if (url) replacement = '<a href="' + url + '">' + (selected || "Link text") + '</a>';
@@ -660,10 +676,18 @@
           break;
       }
 
-      blogContentInput.setRangeText(replacement, start, end, "select");
       blogContentInput.focus();
+      if (typeof blogContentInput.setRangeText === "function") {
+        blogContentInput.setRangeText(replacement, start, end, "select");
+      } else {
+        var val = blogContentInput.value;
+        blogContentInput.value = val.substring(0, start) + replacement + val.substring(end);
+        blogContentInput.selectionStart = start;
+        blogContentInput.selectionEnd = start + replacement.length;
+      }
+      blogContentInput.dispatchEvent(new Event("input", { bubbles: true }));
     });
-  });
+  }
 
   // --- Add Category ---
   btnAddCategory.addEventListener("click", async function () {
