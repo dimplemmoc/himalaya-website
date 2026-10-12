@@ -480,6 +480,34 @@
 
   </div>
 
+  <!-- INSERT IMAGE MODAL -->
+  <div id="image-insert-modal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;place-items:center;z-index:99999;padding:16px;">
+    <div style="background:#17221c;border:1px solid #24352b;border-radius:8px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+      <h3 style="color:#7ecc9f;font-size:17px;font-weight:600;margin-bottom:16px;">Insert Image into Blog</h3>
+      
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 1: Upload from device</label>
+        <input type="file" id="modal-image-file" accept="image/*" style="font-size:12px;color:#8b9e93;width:100%;">
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin:12px 0;">
+        <span style="flex:1;height:1px;background:#24352b;"></span>
+        <span style="font-size:11px;color:#60756a;text-transform:uppercase;">or</span>
+        <span style="flex:1;height:1px;background:#24352b;"></span>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 2: Paste Image URL</label>
+        <input type="url" id="modal-image-url" placeholder="https://example.com/mountain.jpg" style="width:100%;background:#111814;border:1px solid #24352b;border-radius:4px;color:#e8f0ec;padding:10px 12px;font-size:13px;outline:none;">
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+        <button type="button" id="modal-image-cancel" style="background:transparent;border:1px solid #24352b;color:#8b9e93;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">Cancel</button>
+        <button type="button" id="modal-image-insert" style="background:#7ecc9f;border:none;color:#0d2217;font-weight:600;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;">Insert Image</button>
+      </div>
+    </div>
+  </div>
+
   <!-- INLINE GUARANTEED VISUAL WYSIWYG FORMATTER -->
   <script>
     (function () {
@@ -602,22 +630,116 @@
             }
             break;
           case "image":
-            var imgUrl = prompt("Enter image URL:", "https://");
-            if (imgUrl) {
-              document.execCommand("insertImage", false, imgUrl);
-            }
+            openImageModal();
             break;
         }
 
         syncToHidden();
       };
+
+      // Modal handling
+      var imageModal = document.getElementById("image-insert-modal");
+      var fileInput = document.getElementById("modal-image-file");
+      var urlInput = document.getElementById("modal-image-url");
+      var btnCancel = document.getElementById("modal-image-cancel");
+      var btnInsert = document.getElementById("modal-image-insert");
+
+      function openImageModal() {
+        if (!imageModal) return;
+        fileInput.value = "";
+        urlInput.value = "";
+        imageModal.style.display = "grid";
+      }
+
+      function closeImageModal() {
+        if (!imageModal) return;
+        imageModal.style.display = "none";
+      }
+
+      if (btnCancel) btnCancel.onclick = closeImageModal;
+      if (imageModal) {
+        imageModal.onclick = function (e) {
+          if (e.target === imageModal) closeImageModal();
+        };
+      }
+
+      if (btnInsert) {
+        btnInsert.onclick = async function () {
+          var ed = document.getElementById("blog-content-editor");
+          if (!ed) return;
+
+          var url = urlInput.value.trim();
+          var file = fileInput.files && fileInput.files[0];
+
+          if (file) {
+            btnInsert.textContent = "Uploading...";
+            btnInsert.disabled = true;
+
+            // 1. Try Supabase upload if available
+            var finalUrl = null;
+            if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+              try {
+                var sb = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+                var safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+                var path = "public/" + Date.now() + "-" + safeName;
+                var res = await sb.storage.from("blog-media").upload(path, file, { upsert: false, contentType: file.type });
+                if (!res.error) {
+                  finalUrl = sb.storage.from("blog-media").getPublicUrl(path).data.publicUrl;
+                }
+              } catch (e) {
+                console.warn(e);
+              }
+            }
+
+            // 2. Fallback to base64
+            if (!finalUrl) {
+              finalUrl = await new Promise(function (resolve) {
+                var reader = new FileReader();
+                reader.onload = function (evt) { resolve(evt.target.result); };
+                reader.readAsDataURL(file);
+              });
+            }
+
+            btnInsert.textContent = "Insert Image";
+            btnInsert.disabled = false;
+
+            if (finalUrl) {
+              insertImageTag(finalUrl);
+              closeImageModal();
+            }
+          } else if (url) {
+            insertImageTag(url);
+            closeImageModal();
+          } else {
+            alert("Please select a file or enter an image URL.");
+          }
+        };
+      }
+
+      function insertImageTag(src) {
+        var ed = document.getElementById("blog-content-editor");
+        if (!ed) return;
+        ed.focus();
+        var img = document.createElement("img");
+        img.src = src;
+        img.alt = "Himalaya Blog Image";
+        img.style.maxWidth = "100%";
+        img.style.borderRadius = "6px";
+        img.style.margin = "14px 0";
+        img.style.display = "block";
+        ed.appendChild(img);
+        var p = document.createElement("p");
+        p.innerHTML = "<br>";
+        ed.appendChild(p);
+        syncToHidden();
+      }
     })();
   </script>
 
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v13"></script>
-  <script src="js/admin.js?v=20261012-v13" defer></script>
+  <script src="js/supabase-config.js?v=20261012-v14"></script>
+  <script src="js/admin.js?v=20261012-v14" defer></script>
 </body>
 </html>
