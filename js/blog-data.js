@@ -155,7 +155,7 @@
       category_label: "Food",
       category: "Food",
       excerpt: "Discover mountain grains, slow wood-fire cooking, and heirloom flavors.",
-      description: "Meet local families, taste traditional Himalayan food, and discover how mountain grains, wild greens and slow firewood cooking shape daily life across the valleys.",
+      description: "Meet local families, taste traditional local food, and discover how mountain grains, wild greens and slow firewood cooking shape daily life across the valleys.",
       image_url: "images/k1.jpg",
       featured_image_url: "images/k1.jpg",
       featured_image_alt: "Pahadi Cuisine",
