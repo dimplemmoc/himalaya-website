@@ -13,8 +13,8 @@
     }
     if (!scriptUrl) scriptUrl = window.location.href.replace(/[^/]*$/, "js/components.js");
     var rootUrl = scriptUrl.replace(/js\/components\.js(?:\?.*)?$/, "");
-    var navbarUrl = rootUrl + "components/navbar.html";
-    var footerUrl = rootUrl + "components/footer.html";
+    var navbarUrl = rootUrl + "components/navbar.html?v=20261012-v4";
+    var footerUrl = rootUrl + "components/footer.html?v=20261012-v4";
 
     function closest(target, selector) {
         if (target && target.nodeType !== 1) target = target.parentElement;
