@@ -4,3 +4,4 @@
 config.local.php
 uploads/
 node_modules/
+local-server.js

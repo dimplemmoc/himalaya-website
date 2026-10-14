@@ -203,143 +203,142 @@ body {
     width: 100%;
     background: #ffffff;
     border-bottom: 1px solid #edf1ee;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+    position: relative;
+    z-index: 100;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
-/* TOP ROW: BRAND */
-.header-top {
+.header-container {
     width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 2.5vw, 40px);
+    height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 14px clamp(20px, 3.5vw, 48px);
-    border-bottom: 1px solid #edf1ee;
+    justify-content: flex-start;
+    gap: clamp(20px, 2.4vw, 36px);
 }
 
+/* BRAND / LOGO (LEFT SIDE) */
 .brand-link {
-    text-decoration: none;
     display: inline-flex;
-    align-items: center;
+    align-items: baseline;
+    gap: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
-.header-top .brand-name {
+.brand-link .brand-name {
     font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 19px;
+    font-size: 20px;
     font-weight: 700;
     color: #1a5646;
-    letter-spacing: -0.2px;
+    letter-spacing: -0.3px;
+    line-height: 1;
 }
 
-.header-top-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.header-top .brand-subtitle {
-    font-family: "DM Sans", sans-serif;
+.brand-link .brand-subtitle {
+    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 2px;
     color: #1a5646;
     text-transform: uppercase;
+    opacity: 0.85;
+    line-height: 1;
 }
 
-/* MIDDLE ROW: NAVBAR LINKS */
+/* NAVBAR (PAGES NAMES WITH EQUAL SPACING, RIGHT NEXT TO LOGO) */
 .navbar {
-    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 18px 24px 14px;
+    gap: clamp(14px, 1.6vw, 24px);
+    margin: 0;
+    padding: 0;
     background: transparent;
 }
 
-.navbar a {
+.navbar a:not(.trip-btn) {
     position: relative;
     text-decoration: none;
     font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     letter-spacing: 0.8px;
     color: #63776e;
     text-transform: uppercase;
     transition: color 0.2s ease;
-    padding-bottom: 4px;
+    padding: 6px 2px;
+    white-space: nowrap;
 }
 
-.navbar a:hover {
+.navbar a:not(.trip-btn):hover {
     color: #1a5646;
 }
 
-.navbar a.active,
-.navbar a[aria-current="page"] {
+.navbar a:not(.trip-btn).active,
+.navbar a:not(.trip-btn)[aria-current="page"] {
     color: #164f3f;
     font-weight: 700;
 }
 
-.navbar a::after {
+.navbar a:not(.trip-btn)::after {
     content: "";
     position: absolute;
     width: 0;
     height: 2.5px;
     background: #164f3f;
     left: 0;
-    bottom: -4px;
+    bottom: -2px;
     transition: width 0.25s ease;
 }
 
-.navbar a:hover::after,
-.navbar a.active::after,
-.navbar a[aria-current="page"]::after {
+.navbar a:not(.trip-btn):hover::after,
+.navbar a:not(.trip-btn).active::after,
+.navbar a:not(.trip-btn)[aria-current="page"]::after {
     width: 100%;
 }
 
-/* BOTTOM ROW: CTA BUTTON */
-.header-cta-row {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 2px 24px 16px;
-}
-
+/* PLAN YOUR TRIP BUTTON (RIGHT NEXT TO CONTACT) */
 .trip-btn {
-    width: 100%;
-    max-width: 920px;
-    height: 48px;
-    padding: 0 24px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    height: 38px;
+    padding: 0 18px;
     text-decoration: none;
     border-radius: 9999px;
     background: #164f3f;
-    color: #ffffff;
+    color: #ffffff !important;
     font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 13.5px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
+    white-space: nowrap;
+    margin-left: 6px;
+    box-shadow: 0 2px 8px rgba(22, 79, 63, 0.18);
     transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trip-btn::after {
+    display: none !important;
 }
 
 .trip-btn:hover {
     background: #103d30;
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(22, 79, 63, 0.25);
+    box-shadow: 0 6px 16px rgba(22, 79, 63, 0.25);
+    color: #ffffff !important;
 }
 
 .trip-btn .arrow {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1;
-    margin-left: 6px;
+    margin-left: 4px;
     transition: transform 0.25s ease;
 }
 
@@ -360,6 +359,7 @@ body {
     align-items: center;
     gap: 5px;
     padding: 0;
+    margin-left: auto;
 }
 
 .menu-btn span {
@@ -371,51 +371,62 @@ body {
     transition: all 0.3s ease;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 991px) {
+    .header-container {
+        height: 64px;
+        justify-content: space-between;
+    }
+
     .menu-btn {
         display: flex;
     }
 
     .navbar {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
         flex-direction: column;
         align-items: stretch;
-        padding: 14px 22px;
+        padding: 14px 20px 20px;
         gap: 0;
         background: #ffffff;
         border-top: 1px solid #edf1ee;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        z-index: 1000;
     }
 
     .navbar.active {
         display: flex;
     }
 
-    .navbar a {
-        padding: 12px 8px;
-        font-size: 13px;
+    .navbar a:not(.trip-btn) {
+        padding: 12px 10px;
+        font-size: 13.5px;
         border-bottom: 1px solid #f2f5f3;
+        width: 100%;
     }
 
-    .navbar a::after {
+    .navbar a:not(.trip-btn)::after {
         display: none;
     }
 
-    .navbar a.active,
-    .navbar a[aria-current="page"] {
-        color: #145341;
-        background: rgba(20, 83, 65, 0.06);
+    .navbar a:not(.trip-btn).active,
+    .navbar a:not(.trip-btn)[aria-current="page"] {
+        color: #145341 !important;
+        background: rgba(20, 83, 65, 0.06) !important;
         border-radius: 6px;
-        padding-left: 12px;
+        padding-left: 14px;
     }
 
-    .header-cta-row {
-        padding: 10px 18px 16px;
-    }
-
-    .trip-btn {
-        max-width: 100%;
+    .navbar .trip-btn {
+        margin-top: 14px;
+        margin-left: 0;
+        width: 100%;
         height: 44px;
-        font-size: 12.5px;
+        font-size: 13px;
     }
 }
 
@@ -427,8 +438,8 @@ body {
     position: relative;
 
     width: 100%;
-    height: calc(100vh - 105px);
-    min-height: 620px;
+    height: calc(100vh - 70px);
+    min-height: 580px;
 
     background-image: url("../images/pexels-urtimud-89-76108288-32261668.jpg");
     background-size: cover;
@@ -973,25 +984,15 @@ body {
 ========================================= */
 
 .journey-section {
-
     position: relative;
-
     width: 100%;
-
     min-height: auto;
-
-    padding: 80px 5% 100px;
-
+    padding: 48px 5%;
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-start;
-
-    gap: 45px;
-
+    gap: 36px;
     background: #f5f4ed;
-
     overflow: hidden;
 }
 
@@ -1001,15 +1002,10 @@ body {
 ========================================= */
 
 .journey-left {
-
     flex: 1 1 0%;
-
     min-width: 0;
-
     max-width: 760px;
-
     position: relative;
-
     z-index: 2;
 }
 
@@ -1019,20 +1015,13 @@ body {
 ========================================= */
 
 .journey-title {
-
-    margin: 45px 0 0;
-
+    margin: 0 0 12px;
     color: #123f34;
-
     font-family: "Playfair Display", serif;
-
-    font-size: clamp(55px, 4.4vw, 82px);
-
+    font-size: clamp(48px, 4.2vw, 76px);
     font-weight: 600;
-
-    line-height: 0.95;
-
-    letter-spacing: -3px;
+    line-height: 0.98;
+    letter-spacing: -2.5px;
 }
 
 
@@ -1041,16 +1030,14 @@ body {
 ========================================= */
 
 .journey-description {
-
-    margin-top: 28px;
-
+    margin-top: 10px;
+    margin-bottom: 24px;
     color: #526c65;
-
     font-family: "DM Sans", sans-serif;
-
-    font-size: 20px;
-
-    line-height: 2;
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 400;
+}
 
     font-weight: 400;
 }
@@ -1303,7 +1290,7 @@ body {
 
     .journey-section {
 
-        padding: 70px 4% 90px;
+        padding: 44px 4%;
 
         gap: 32px;
     }
@@ -1378,7 +1365,7 @@ body {
 
         align-items: center;
 
-        padding: 70px 25px 80px;
+        padding: 38px 24px;
 
         gap: 0;
     }
@@ -1439,7 +1426,7 @@ body {
 
     .journey-section {
 
-        padding: 60px 18px 42px;
+        padding: 32px 18px;
     }
 
 
@@ -1600,13 +1587,9 @@ body {
 ========================================= */
 
 .featured-section {
-
     width: 100%;
-
-    padding: 70px 48px 100px;
-
+    padding: 48px 5%;
     background: #ffffff;
-
     overflow: hidden;
 }
 
@@ -1616,16 +1599,11 @@ body {
 ========================================= */
 
 .featured-header {
-
     width: 100%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
-    margin-bottom: 55px;
+    margin-bottom: 28px;
 }
 
 
@@ -1994,13 +1972,13 @@ body {
 
     .featured-section {
 
-        padding: 60px 25px 80px;
+        padding: 38px 24px;
     }
 
 
     .featured-header {
 
-        margin-bottom: 40px;
+        margin-bottom: 24px;
 
         align-items: flex-end;
     }
@@ -2091,7 +2069,7 @@ body {
 
     .featured-section {
 
-        padding: 55px 18px 70px;
+        padding: 32px 18px;
     }
 
 
@@ -2099,7 +2077,7 @@ body {
 
         display: block;
 
-        margin-bottom: 35px;
+        margin-bottom: 22px;
     }
 
 
@@ -2532,8 +2510,7 @@ body {
 
 .packages-section {
     width: 100%;
-    padding: 75px 44px 100px;
-
+    padding: 48px 5%;
     background: #f6f5ee;
 }
 
@@ -2544,39 +2521,29 @@ body {
 
 .packages-header {
     width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
-    margin-bottom: 65px;
+    margin-bottom: 28px;
 }
 
 
 .packages-header h2 {
     margin: 0;
-
     color: #143f34;
-
     font-family: "Playfair Display", serif;
-
-    font-size: clamp(55px, 5vw, 76px);
+    font-size: clamp(48px, 4.5vw, 72px);
     font-weight: 400;
-
-    line-height: 0.95;
-
+    line-height: 0.98;
     letter-spacing: -2px;
 }
 
 
 .packages-header p {
-    margin: 28px 0 0;
-
+    margin: 12px 0 0;
     color: #426779;
-
     font-family: "DM Sans", sans-serif;
-
-    font-size: 21px;
+    font-size: 18px;
     line-height: 1.5;
 }
 
@@ -2787,11 +2754,11 @@ body {
 @media (max-width: 1100px) {
 
     .packages-section {
-        padding: 65px 30px 80px;
+        padding: 40px 4%;
     }
 
     .packages-header {
-        margin-bottom: 45px;
+        margin-bottom: 24px;
     }
 
     .packages-grid {
@@ -2812,11 +2779,12 @@ body {
 @media (max-width: 700px) {
 
     .packages-section {
-        padding: 55px 20px 70px;
+        padding: 32px 18px;
     }
 
     .packages-header {
         display: block;
+        margin-bottom: 22px;
     }
 
     .packages-header h2 {
@@ -2824,8 +2792,8 @@ body {
     }
 
     .packages-header p {
-        font-size: 18px;
-        margin-top: 20px;
+        font-size: 17px;
+        margin-top: 10px;
     }
 
     .view-packages {
@@ -2908,7 +2876,7 @@ body {
     z-index: 2;
     width: 100%;
     min-height: auto;
-    padding: 48px 47px 40px;
+    padding: 48px 5%;
 
     display: grid;
 
@@ -3111,9 +3079,9 @@ body {
     .final-cta-content {
         grid-template-columns: 1fr;
 
-        padding: 90px 45px;
+        padding: 40px 4%;
 
-        gap: 70px;
+        gap: 36px;
     }
 
 
@@ -3131,7 +3099,7 @@ body {
 
         padding-left: 0;
 
-        padding-top: 45px;
+        padding-top: 30px;
     }
 
 }
@@ -3151,9 +3119,9 @@ body {
     .final-cta-content {
         min-height: auto;
 
-        padding: 75px 25px 70px;
+        padding: 32px 18px;
 
-        gap: 60px;
+        gap: 28px;
     }
 
 
@@ -3594,58 +3562,6 @@ body {
 
 }
 
-/* Responsive adjustments for stacked header */
-@media (max-width: 850px) {
-    .header-top {
-        padding: 14px 18px;
-    }
-
-    .menu-btn {
-        display: flex;
-    }
-
-    .navbar {
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px 18px;
-        gap: 0;
-        background: #ffffff;
-        border-top: 1px solid #edf1ee;
-    }
-
-    .navbar.active {
-        display: flex;
-    }
-
-    .navbar a {
-        padding: 12px 8px;
-        font-size: 13px;
-        border-bottom: 1px solid #f2f5f3;
-    }
-
-    .navbar a::after {
-        display: none;
-    }
-
-    .navbar a.active,
-    .navbar a[aria-current="page"] {
-        color: #145341 !important;
-        background: rgba(20, 83, 65, 0.06) !important;
-        border-radius: 6px;
-        padding-left: 12px;
-    }
-
-    .header-cta-row {
-        padding: 10px 18px 16px;
-    }
-
-    .trip-btn {
-        max-width: 100%;
-        height: 44px;
-        font-size: 12.5px;
-    }
-}
 
 /* Category filtering states */
 [data-categories][hidden] { display: none !important; }
@@ -3722,7 +3638,7 @@ body {
 ========================================================= */
 .site-faq-section {
     background: #f7f6f0;
-    padding: 95px 6%;
+    padding: 48px 5%;
     border-top: 1px solid #e1e7e2;
 }
 
@@ -3733,7 +3649,7 @@ body {
 
 .site-faq-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 28px;
 }
 
 .site-faq-header .faq-kicker {
@@ -4059,7 +3975,7 @@ body {
 ========================================================= */
 .live-local-pillars {
     background: #ffffff;
-    padding: 105px 6%;
+    padding: 48px 5%;
     border-top: 1px solid #e7eee9;
 }
 
@@ -4071,7 +3987,7 @@ body {
 .pillars-header {
     text-align: center;
     max-width: 720px;
-    margin: 0 auto 65px;
+    margin: 0 auto 28px;
 }
 
 .pillars-kicker {
@@ -4171,7 +4087,7 @@ body {
         gap: 22px;
     }
     .live-local-pillars {
-        padding: 75px 6%;
+        padding: 38px 24px;
     }
 }
 
@@ -4181,7 +4097,7 @@ body {
 .himalayan-impact-section {
     background: #153e32;
     color: #ffffff;
-    padding: 70px 6%;
+    padding: 48px 5%;
 }
 
 .impact-container {
@@ -4212,16 +4128,22 @@ body {
 }
 
 @media (max-width: 900px) {
+    .himalayan-impact-section {
+        padding: 38px 24px;
+    }
     .impact-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 35px 20px;
+        gap: 28px 20px;
     }
 }
 
 @media (max-width: 500px) {
+    .himalayan-impact-section {
+        padding: 32px 18px;
+    }
     .impact-container {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 24px;
     }
 }
 
