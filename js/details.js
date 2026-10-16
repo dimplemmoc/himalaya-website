@@ -132,9 +132,19 @@
             description: "Explore Turna, Sonmeri Chowk and nearby hidden gems with time to enjoy the places along the way. This journey pairs local stays and regional food with gentle exploration, so the days feel considered instead of rushed.",
             highlights: ["Four days for village life and scenic local routes", "Thoughtful stays and regional food along the journey", "Time to explore Turna, Sonmeri Chowk and nearby places"]
         },
+        "garhwal-explore": {
+            type: "package", title: "Garhwal Explore", category: "ALPINE TRAILS • VILLAGE STAYS",
+            image: "images/pexels-photo-25490373.jpg", imageAlt: "Himalayan alpine landscape in Garhwal",
+            gallery: ["images/pexels-lexi-orizio-2147739941-29753864.jpg", "images/pexels-ex-route-adventures-656223369-20282345.jpg"],
+            meta: "Garhwal, Uttarakhand · 5 days", place: "Garhwal Himalayas", length: "5 days", style: "Blooming trails and village stays",
+            price: "Ask for a quote", categoryLine: "FIVE DAYS • ALPINE VIEWS",
+            headline: "Make room for the trail and the villages around it.",
+            description: "Blooming trails, alpine views and peaceful village stays shape this five-day Himalayan journey through Garhwal. Build in time to enjoy the landscape and local hospitality between walks, with a pace that lets the route unfold naturally.",
+            highlights: ["Five days around seasonal mountain scenery", "Alpine walks paired with restful village stays", "A thoughtful pace with time to enjoy the route"]
+        },
         "valley-of-flowers": {
             type: "package", title: "Valley of Flowers", category: "ALPINE TRAILS • VILLAGE STAYS",
-            image: "images/pexels-yogendras31-23534124.jpg", imageAlt: "Himalayan alpine landscape near Valley of Flowers",
+            image: "images/pexels-photo-25490373.jpg", imageAlt: "Himalayan alpine landscape near Valley of Flowers",
             gallery: ["images/pexels-lexi-orizio-2147739941-29753864.jpg", "images/pexels-ex-route-adventures-656223369-20282345.jpg"],
             meta: "Uttarakhand · 5 days", place: "Uttarakhand Himalayas", length: "5 days", style: "Blooming trails and village stays",
             price: "Ask for a quote", categoryLine: "FIVE DAYS • ALPINE VIEWS",
