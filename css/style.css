@@ -1205,7 +1205,7 @@ body {
 
     position: relative;
 
-    top: 15px;
+    top: 35px;
 
     right: auto;
 
@@ -1306,6 +1306,8 @@ body {
         max-width: 320px;
 
         padding: 12px 12px 24px;
+
+        top: 30px;
     }
 
 
@@ -1319,7 +1321,7 @@ body {
 
         font-size: 28px;
 
-        margin-bottom: 18px;
+        margin-bottom: 24px;
     }
 }
 
