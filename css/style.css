@@ -2889,13 +2889,13 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(38px, 3.8vw, 48px);
+    font-size: clamp(32px, 3.2vw, 42px);
 
     font-weight: 400;
 
-    line-height: 1.12;
+    line-height: 1.15;
 
-    letter-spacing: -1.2px;
+    letter-spacing: -1px;
 }
 
 
@@ -2906,7 +2906,7 @@ body {
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 16px;
+    font-size: 15.5px;
 
     line-height: 1.5;
 }
@@ -3057,7 +3057,7 @@ body {
 
 
     .cta-left h2 {
-        font-size: 38px;
+        font-size: 34px;
     }
 
 
@@ -3106,7 +3106,7 @@ body {
 
 
     .cta-left h2 {
-        font-size: 28px;
+        font-size: 26px;
 
         line-height: 1.18;
 
@@ -3170,7 +3170,7 @@ body {
     width: 100%;
     background: #123f34;
     color: #ffffff;
-    padding: 52px 48px 24px;
+    padding: 58px 48px 26px;
 }
 
 
@@ -3186,8 +3186,8 @@ body {
         0.85fr
         0.85fr
         1.4fr;
-    gap: 36px;
-    padding-bottom: 22px;
+    gap: 40px;
+    padding-bottom: 24px;
 }
 
 
@@ -3214,9 +3214,9 @@ body {
 }
 
 .footer-brand-logo-img {
-    height: 52px;
+    height: 56px;
     width: auto;
-    max-width: 155px;
+    max-width: 165px;
     object-fit: contain;
     display: block;
     transition: opacity 0.2s ease, transform 0.2s ease;
@@ -3301,10 +3301,10 @@ body {
 /* Tagline */
 
 .footer-tagline {
-    margin: 14px 0 0;
+    margin: 15px 0 0;
     color: #c5d7cf;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.5;
 }
@@ -3317,7 +3317,7 @@ body {
 .footer-socials {
     display: flex;
     gap: 18px;
-    margin-top: 20px;
+    margin-top: 22px;
 }
 
 
@@ -3363,15 +3363,15 @@ body {
 .footer-column {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 11px;
 }
 
 
 .footer-column h3 {
-    margin: 0 0 8px;
+    margin: 0 0 9px;
     color: #cbdccf;
     font-family: "DM Sans", sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
 }
@@ -3381,7 +3381,7 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.5;
 
     transition: color 0.3s ease;
@@ -3401,7 +3401,7 @@ body {
     margin: 0;
     color: #ffffff;
     font-family: "Playfair Display", serif;
-    font-size: 21px;
+    font-size: 22.5px;
     font-weight: 400;
     line-height: 1.25;
 
@@ -3410,10 +3410,10 @@ body {
 
 
 .footer-newsletter > p {
-    margin: 10px 0 16px;
+    margin: 11px 0 16px;
     color: #c5d7cf;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.4;
 }
@@ -3432,7 +3432,7 @@ body {
 
     border-bottom: 1px solid rgba(255,255,255,0.45);
 
-    padding-bottom: 12px;
+    padding-bottom: 13px;
 }
 
 
@@ -3444,7 +3444,7 @@ body {
     background: transparent;
     color: #ffffff;
     font-family: "DM Sans", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 
@@ -3467,7 +3467,7 @@ body {
 
     color: #ffffff;
 
-    font-size: 18px;
+    font-size: 19px;
 
     cursor: pointer;
 
@@ -3501,7 +3501,7 @@ body {
 .footer-bottom {
     width: 100%;
 
-    padding-top: 18px;
+    padding-top: 20px;
 
     border-top: 1px solid rgba(255,255,255,0.25);
 
@@ -3517,7 +3517,7 @@ body {
     margin: 0;
     color: #b9d0c7;
     font-family: "DM Sans", sans-serif;
-    font-size: 13px;
+    font-size: 13.5px;
 }
 
 
