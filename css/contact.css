@@ -697,10 +697,10 @@ body {
 
 .cta-content h2 {
     font-family: "Playfair Display", serif;
-    font-size: clamp(48px, 6vw, 78px);
-    line-height: 1.1;
+    font-size: clamp(30px, 3.8vw, 46px);
+    line-height: 1.15;
     font-weight: 500;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .cta-content p {

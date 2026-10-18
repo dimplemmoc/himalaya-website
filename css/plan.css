@@ -635,7 +635,7 @@ main {
 
 .planner-final-cta h2 {
     margin-top: 15px;
-    font-size: clamp(32px, 5vw, 52px);
+    font-size: clamp(26px, 3.5vw, 38px);
 }
 
 .planner-final-cta p {
