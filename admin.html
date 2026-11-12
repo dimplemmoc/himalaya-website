@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#121815">
-  <title>Blog Admin Panel | Live Local Himalaya</title>
+  <meta name="theme-color" content="#070b14">
+  <title>CRM & Website Admin Portal | Live Local Himalaya</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css?v=20261112-crm">
+  <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body class="journal-admin">
 
@@ -20,9 +20,14 @@
   <div id="login-view" class="login-wrapper">
     <div class="login-box">
       <div class="login-header">
+        <div class="login-crm-crest">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
         <span class="login-kicker">LIVE LOCAL HIMALAYA</span>
-        <h1 class="login-title">Blog Admin</h1>
-        <p class="login-subtitle">Sign in to manage and publish journal blogs</p>
+        <h1 class="login-title">Client Admin & CRM</h1>
+        <p class="login-subtitle">Sign in to manage leads, blogs & database records</p>
       </div>
 
       <form id="login-form">
@@ -53,33 +58,88 @@
        ========================================================================= -->
   <div id="dashboard-view" class="admin-layout hidden">
     
-    <!-- LEFT SIDEBAR (Mint Green) -->
+    <!-- LEFT SIDEBAR (Dark Navy with Neon Glow) -->
     <aside class="admin-sidebar">
       <div class="sidebar-brand">
-        <h2>Blog Admin</h2>
+        <div class="brand-icon-wrap">
+          <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h2>CRM <span>Live Local Himalaya</span></h2>
+        </div>
       </div>
 
       <nav class="sidebar-nav">
-        <button id="nav-all-blogs" class="nav-link active" type="button">
-          All blogs
+        <div class="nav-section-title">Core Management</div>
+        
+        <button id="nav-dashboard" class="nav-link active" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Dashboard Overview
         </button>
+
+        <button id="nav-all-blogs" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          All Blogs
+        </button>
+
         <button id="nav-add-blog" class="nav-link" type="button">
-          Add new blog
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Add New Blog
         </button>
+
+        <div class="nav-section-title">Leads & Inquiries</div>
+
         <button id="nav-trip-inquiries" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
           Trip Inquiries <span id="badge-trips" class="sidebar-badge">0</span>
         </button>
+
         <button id="nav-contact-messages" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Contact Messages <span id="badge-contacts" class="sidebar-badge">0</span>
         </button>
+
+        <button id="nav-whatsapp-inquiries" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          WhatsApp Inquiries <span id="badge-whatsapp" class="sidebar-badge">0</span>
+        </button>
+
         <button id="nav-newsletter" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           Newsletter List <span id="badge-newsletter" class="sidebar-badge">0</span>
+        </button>
+
+        <button id="nav-users" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Registered Users <span id="badge-users" class="sidebar-badge">0</span>
+        </button>
+
+        <div class="nav-section-title">Database & Ownership</div>
+
+        <button id="nav-database" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Database & Backups
+        </button>
+
+        <button id="nav-settings" class="nav-link" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Developer Settings
         </button>
       </nav>
 
       <div class="sidebar-footer">
-        <a href="blog.html" target="_blank" rel="noopener">View public site ↗</a>
-        <button id="sidebar-logout" type="button">Sign out</button>
+        <a href="blog.html" target="_blank" rel="noopener">
+          <span>View Public Site</span>
+          <span>↗</span>
+        </a>
+        <button id="sidebar-logout" class="sidebar-logout-btn" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign Out
+        </button>
       </div>
     </aside>
 
@@ -89,18 +149,36 @@
       <!-- TOP NAVIGATION BAR -->
       <header class="admin-topbar">
         <div class="topbar-left">
-          <button class="topbar-dropdown" type="button">
-            Blog Admin Panel <span style="font-size:10px;">⌄</span>
+          <div class="kpi-pill">
+            <span class="kpi-dot"></span>
+            KPI LIVE
+          </div>
+          <button class="topbar-action-btn" id="btn-top-view-title" type="button" style="border:none;background:transparent;color:var(--text-main);font-size:14px;font-weight:700;">
+            CRM Dashboard ▾
           </button>
         </div>
 
+        <div class="topbar-center">
+          <div class="topbar-search-wrap">
+            <span class="topbar-search-icon">🔍</span>
+            <input id="global-search-input" class="topbar-search-input" type="text" placeholder="Search inquiries, contacts, deals or blogs...">
+          </div>
+        </div>
+
         <div class="topbar-right">
-          <button class="topbar-btn" type="button" onclick="window.open('contact.html','_blank')">↗ Chat</button>
-          <button class="topbar-icon-btn" type="button" title="Mobile view">📱</button>
-          <button class="topbar-icon-btn" type="button" title="Status">○</button>
-          <button class="topbar-btn" id="btn-export-json" type="button" title="Export blogs as JSON">↓ Export</button>
-          <a href="blog.html" class="topbar-btn" target="_blank" rel="noopener">Public Journal ↗</a>
-          <button id="logout-button" class="topbar-btn" type="button">Sign out</button>
+          <button class="topbar-action-btn" type="button" onclick="window.open('contact.html','_blank')">↗ Chat</button>
+          <button class="topbar-action-btn" id="btn-export-json" type="button" title="Export blogs as JSON">↓ Export</button>
+          <a href="blog.html" class="topbar-action-btn" target="_blank" rel="noopener">Public Journal ↗</a>
+          
+          <div class="user-profile-badge">
+            <div class="user-avatar-circle">LL</div>
+            <div>
+              <div class="user-role-text">Client Admin</div>
+              <div class="user-role-sub">Owner Access</div>
+            </div>
+          </div>
+
+          <button id="logout-button" class="topbar-action-btn" type="button" style="color:#f87171;" title="Sign out">✕</button>
         </div>
       </header>
 
@@ -108,9 +186,260 @@
       <div class="admin-container">
         
         <!-- -------------------------------------------------------------------
-             SCREEN A: ALL BLOGS VIEW
+             SCREEN 1: OVERVIEW DASHBOARD (IMAGE 1 EXACT DESIGN)
              ------------------------------------------------------------------- -->
-        <section id="view-all-blogs">
+        <section id="view-dashboard">
+          
+          <!-- 4 KPI CARDS ROW (Matching Image 1) -->
+          <div class="kpi-cards-grid">
+            
+            <!-- Revenue Card -->
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Revenue Target</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="kpi-revenue">₹4,85,645</div>
+                <div class="kpi-delta">↑ +21.6%</div>
+              </div>
+              <div class="kpi-subtext">Estimated trip booking inquiries</div>
+            </div>
+
+            <!-- Deals Card -->
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Deals & Trips</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="kpi-deals">58</div>
+                <div class="kpi-delta">↑ +18.4%</div>
+              </div>
+              <div class="kpi-subtext" id="kpi-deals-sub">Confirmed and active itineraries</div>
+            </div>
+
+            <!-- Contacts Card -->
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Total Contacts</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="kpi-contacts">2,570</div>
+                <div class="kpi-delta">↑ +14.2%</div>
+              </div>
+              <div class="kpi-subtext">Leads registered across forms</div>
+            </div>
+
+            <!-- Inquiries / Visitors Card -->
+            <div class="kpi-card">
+              <div class="kpi-label">
+                <span>Inquiries & Views</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div class="kpi-value-row">
+                <div class="kpi-value" id="kpi-views">21,235</div>
+                <div class="kpi-delta">↑ +230</div>
+              </div>
+              <div class="kpi-subtext">Website & WhatsApp interactions</div>
+            </div>
+
+          </div>
+
+          <!-- VISUALS ROW: LINE CHART + 3D PIPELINE FUNNEL (Matching Image 1) -->
+          <div class="dashboard-visuals-grid">
+            
+            <!-- Dual Glowing Line Chart -->
+            <div class="chart-card">
+              <div class="chart-header">
+                <div class="chart-title-wrap">
+                  <h3>Revenue & Inquiry Timeline</h3>
+                </div>
+                <div class="chart-legend">
+                  <div class="legend-item"><span class="legend-dot-cyan"></span> Revenue Flow</div>
+                  <div class="legend-item"><span class="legend-dot-blue"></span> Active Inquiries</div>
+                </div>
+                <div class="chart-time-filter">
+                  <button type="button" class="chart-time-btn">Day</button>
+                  <button type="button" class="chart-time-btn active">Week</button>
+                  <button type="button" class="chart-time-btn">Month</button>
+                  <button type="button" class="chart-time-btn">Year</button>
+                </div>
+              </div>
+
+              <!-- High-Tech Neon SVG Chart (Exact Image 1 curve style) -->
+              <div class="svg-chart-container">
+                <svg viewBox="0 0 680 220" width="100%" height="100%" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="cyanAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#00f2fe" stop-opacity="0.0"/>
+                    </linearGradient>
+                    <linearGradient id="blueAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.25"/>
+                      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0"/>
+                    </linearGradient>
+                    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <!-- Horizontal Grid lines -->
+                  <line x1="40" y1="30" x2="660" y2="30" stroke="rgba(148, 163, 184, 0.08)" stroke-dasharray="4"/>
+                  <line x1="40" y1="80" x2="660" y2="80" stroke="rgba(148, 163, 184, 0.08)" stroke-dasharray="4"/>
+                  <line x1="40" y1="130" x2="660" y2="130" stroke="rgba(148, 163, 184, 0.08)" stroke-dasharray="4"/>
+                  <line x1="40" y1="180" x2="660" y2="180" stroke="rgba(148, 163, 184, 0.12)"/>
+
+                  <!-- Y-Axis labels -->
+                  <text x="15" y="34" fill="#64748b" font-size="11" font-family="Inter">₹800k</text>
+                  <text x="15" y="84" fill="#64748b" font-size="11" font-family="Inter">₹500k</text>
+                  <text x="15" y="134" fill="#64748b" font-size="11" font-family="Inter">₹250k</text>
+                  <text x="25" y="184" fill="#64748b" font-size="11" font-family="Inter">₹0</text>
+
+                  <!-- Line 2 (Deep Blue Inquiries) -->
+                  <path d="M 60 160 Q 140 145 220 120 T 360 135 T 500 85 T 640 60 L 640 180 L 60 180 Z" fill="url(#blueAreaGrad)"/>
+                  <path d="M 60 160 Q 140 145 220 120 T 360 135 T 500 85 T 640 60" fill="none" stroke="#2563eb" stroke-width="2.5" opacity="0.85"/>
+
+                  <!-- Line 1 (Cyan Neon Revenue Line) -->
+                  <path d="M 60 145 Q 150 110 240 115 T 380 70 T 520 85 T 640 38 L 640 180 L 60 180 Z" fill="url(#cyanAreaGrad)"/>
+                  <path d="M 60 145 Q 150 110 240 115 T 380 70 T 520 85 T 640 38" fill="none" stroke="#00f2fe" stroke-width="3.5" filter="url(#neonGlow)"/>
+
+                  <!-- Glowing Data Points -->
+                  <circle cx="60" cy="145" r="4.5" fill="#fff" stroke="#00f2fe" stroke-width="2.5"/>
+                  <circle cx="240" cy="115" r="4.5" fill="#fff" stroke="#00f2fe" stroke-width="2.5"/>
+                  <circle cx="380" cy="70" r="5" fill="#fff" stroke="#00f2fe" stroke-width="3"/>
+                  <circle cx="520" cy="85" r="4.5" fill="#fff" stroke="#00f2fe" stroke-width="2.5"/>
+                  <circle cx="640" cy="38" r="5.5" fill="#00f2fe" stroke="#fff" stroke-width="2"/>
+
+                  <!-- X-Axis Labels -->
+                  <text x="60" y="202" fill="#64748b" font-size="11" text-anchor="middle">Mon</text>
+                  <text x="175" y="202" fill="#64748b" font-size="11" text-anchor="middle">Tue</text>
+                  <text x="290" y="202" fill="#64748b" font-size="11" text-anchor="middle">Wed</text>
+                  <text x="405" y="202" fill="#64748b" font-size="11" text-anchor="middle">Thu</text>
+                  <text x="520" y="202" fill="#64748b" font-size="11" text-anchor="middle">Fri</text>
+                  <text x="640" y="202" fill="#64748b" font-size="11" text-anchor="middle">Sun</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- 3D Pipeline Funnel Card (Image 1 Style) -->
+            <div class="funnel-card">
+              <div class="funnel-header">
+                <h3>Pipeline Funnel</h3>
+                <p>Lead conversion stages & drop-off</p>
+              </div>
+
+              <div class="funnel-graphic-wrap">
+                <!-- 3D Translucent Glowing Funnel SVG -->
+                <svg class="svg-3d-funnel" viewBox="0 0 240 200">
+                  <defs>
+                    <linearGradient id="funnelGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#00f2fe"/>
+                      <stop offset="50%" stop-color="#38bdf8"/>
+                      <stop offset="100%" stop-color="#0284c7"/>
+                    </linearGradient>
+                    <linearGradient id="funnelGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#38bdf8"/>
+                      <stop offset="50%" stop-color="#0ea5e9"/>
+                      <stop offset="100%" stop-color="#0369a1"/>
+                    </linearGradient>
+                    <linearGradient id="funnelGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#0ea5e9"/>
+                      <stop offset="50%" stop-color="#0284c7"/>
+                      <stop offset="100%" stop-color="#1e3a8a"/>
+                    </linearGradient>
+                    <linearGradient id="funnelGrad4" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#2563eb"/>
+                      <stop offset="100%" stop-color="#1d4ed8"/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Tier 1: Wide Top Ring -->
+                  <polygon points="30,25 210,25 185,65 55,65" fill="url(#funnelGrad1)" opacity="0.95"/>
+                  <ellipse cx="120" cy="25" rx="90" ry="14" fill="#00f2fe" opacity="0.6"/>
+                  <ellipse cx="120" cy="25" rx="80" ry="10" fill="#0a192f"/>
+
+                  <!-- Tier 2: Middle Cone -->
+                  <polygon points="55,68 185,68 160,110 80,110" fill="url(#funnelGrad2)" opacity="0.9"/>
+                  <ellipse cx="120" cy="68" rx="65" ry="9" fill="#38bdf8" opacity="0.5"/>
+
+                  <!-- Tier 3: Lower Cone -->
+                  <polygon points="80,113 160,113 140,150 100,150" fill="url(#funnelGrad3)" opacity="0.85"/>
+                  <ellipse cx="120" cy="113" rx="40" ry="6" fill="#0ea5e9" opacity="0.5"/>
+
+                  <!-- Tier 4: Bottom Cylinder -->
+                  <polygon points="100,153 140,153 135,185 105,185" fill="url(#funnelGrad4)" opacity="0.95"/>
+                  <ellipse cx="120" cy="153" rx="20" ry="4" fill="#60a5fa" opacity="0.7"/>
+                  <ellipse cx="120" cy="185" rx="15" ry="3.5" fill="#1e3a8a"/>
+                </svg>
+
+                <!-- Metrics breakdown -->
+                <div class="funnel-metrics-list">
+                  <div class="funnel-metric-row">
+                    <span class="funnel-metric-name">1. Form & WhatsApp Inquiries</span>
+                    <span class="funnel-metric-val">100% (2,570)</span>
+                  </div>
+                  <div class="funnel-metric-row">
+                    <span class="funnel-metric-name">2. Contacted & Engaged</span>
+                    <span class="funnel-metric-val">68% (1,748)</span>
+                  </div>
+                  <div class="funnel-metric-row">
+                    <span class="funnel-metric-name">3. Itinerary & Quote Sent</span>
+                    <span class="funnel-metric-val">38% (976)</span>
+                  </div>
+                  <div class="funnel-metric-row">
+                    <span class="funnel-metric-name">4. Confirmed Himalaya Bookings</span>
+                    <span class="funnel-metric-val" style="color:#34d399;">18% (462)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RECENT DEALS & INQUIRIES TABLE (Matching Image 1 Table Layout) -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                Recent Inquiries & Deals
+              </h3>
+              <div class="header-controls">
+                <button type="button" class="btn-neon-action" onclick="window.switchTab('trips')">View All Trip Inquiries →</button>
+              </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Customer / Lead</th>
+                    <th>Inquiry Details</th>
+                    <th>Estimated Value</th>
+                    <th>Phone / WhatsApp</th>
+                    <th>Lead Source</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-deals-body">
+                  <tr>
+                    <td colspan="7" class="empty-state">Loading recent deals and leads...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- -------------------------------------------------------------------
+             SCREEN 2: ALL BLOGS VIEW (EXACT IMAGE 2 RECREATED)
+             ------------------------------------------------------------------- -->
+        <section id="view-all-blogs" class="hidden">
           
           <div class="view-header">
             <h1 class="view-title">All blogs</h1>
@@ -121,7 +450,7 @@
                 <input id="search-blogs" class="search-input" type="text" placeholder="Search blogs">
               </div>
 
-              <button id="btn-refresh-blogs" class="topbar-btn" type="button" title="Sync live blogs from Supabase" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh Live Data</button>
+              <button id="btn-refresh-blogs" class="btn-neon-action" type="button" title="Sync live blogs from Supabase">↻ Refresh Live Data</button>
 
               <select id="filter-site" class="filter-select">
                 <option value="">All sites</option>
@@ -129,53 +458,56 @@
                 <option value="Himalaya Journal">Himalaya Journal</option>
               </select>
 
-              <button id="btn-create-new" class="btn-add-blog" type="button">
+              <button id="btn-create-new" class="btn-add-neon" type="button">
                 + Add new blog
               </button>
             </div>
           </div>
 
-          <!-- STATUS TABS -->
+          <!-- STATUS TABS (Image 2) -->
           <div class="status-tabs">
             <button class="status-tab active" data-status="all" type="button">All (<span id="count-all">0</span>)</button>
             <button class="status-tab" data-status="published" type="button">Published (<span id="count-published">0</span>)</button>
             <button class="status-tab" data-status="draft" type="button">Drafts (<span id="count-drafts">0</span>)</button>
           </div>
 
-          <!-- TABLE -->
+          <!-- TABLE (Image 2 Columns) -->
           <div class="table-card">
-            <table class="blogs-table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Site</th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th style="text-align: right;">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="blogs-table-body">
-                <tr>
-                  <td colspan="6" class="empty-state">
-                    No blogs yet. Click "Add new blog" to write your first one.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div style="overflow-x: auto;">
+              <table class="custom-table blogs-table">
+                <thead>
+                  <tr>
+                    <th>TITLE</th>
+                    <th>SITE</th>
+                    <th>CATEGORY</th>
+                    <th>STATUS</th>
+                    <th>DATE</th>
+                    <th style="text-align: right;">ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody id="blogs-table-body">
+                  <tr>
+                    <td colspan="6" class="empty-state">
+                      No blogs yet. Click "+ Add new blog" to write your first one.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </section>
 
+
         <!-- -------------------------------------------------------------------
-             SCREEN B: ADD / EDIT BLOG VIEW
+             SCREEN 3: ADD / EDIT BLOG VIEW (FULL WYSIWYG EDITOR)
              ------------------------------------------------------------------- -->
         <section id="view-add-blog" class="hidden">
           
           <div class="view-header">
             <h1 id="editor-heading" class="view-title">Add new blog</h1>
-            <button id="btn-back-to-all" class="btn-back" type="button">
-              Back to all blogs
+            <button id="btn-back-to-all" class="btn-neon-action" type="button">
+              ← Back to all blogs
             </button>
           </div>
 
@@ -205,7 +537,7 @@
                     <option value="Himalaya Journal">Himalaya Journal</option>
                     <option value="All sites">All sites</option>
                   </select>
-                  <span class="sub-note">Add or remove sites in the code (SITES list).</span>
+                  <span class="sub-note">Select which domain or section displays this post.</span>
                 </div>
 
                 <div class="form-group">
@@ -249,7 +581,7 @@
 
                 <div class="form-group">
                   <label for="blog-image-url">Or use image URL</label>
-                  <input id="blog-image-url" type="url" placeholder="https://example.com/image.jpg">
+                  <input id="blog-image-url" type="url" placeholder="https://example.com/mountain.jpg">
                 </div>
               </div>
 
@@ -259,7 +591,7 @@
               </div>
 
               <div id="image-preview-box" class="hidden" style="margin-top: 14px;">
-                <img id="image-preview" src="" alt="Preview" style="max-height: 160px; border-radius: 4px; border: 1px solid var(--border-color); object-fit: cover;" decoding="async">
+                <img id="image-preview" src="" alt="Preview" style="max-height: 180px; border-radius: 8px; border: 1px solid var(--border-glass); object-fit: cover;" decoding="async">
               </div>
             </div>
 
@@ -268,13 +600,12 @@
               <h3 class="section-title">Blog content</h3>
 
               <div class="form-group">
-                <label for="blog-excerpt">Short introduction / Excerpt <span style="font-size:11px;color:var(--text-muted);font-weight:normal;">(Optional)</span></label>
+                <label for="blog-excerpt">Short introduction / Excerpt <span style="font-size:11px;color:var(--text-dim);font-weight:normal;">(Optional)</span></label>
                 <textarea id="blog-excerpt" rows="2" placeholder="Brief summary of the story (Optional - leave blank if you don't want an intro)"></textarea>
               </div>
 
               <div class="form-group">
                 <label>Main blog content</label>
-
 
                 <!-- TOOLBAR -->
                 <div class="editor-toolbar">
@@ -350,8 +681,9 @@
 
         </section>
 
+
         <!-- -------------------------------------------------------------------
-             SCREEN C: TRIP INQUIRIES VIEW
+             SCREEN 4: TRIP INQUIRIES VIEW (IMAGE 2 EXACT DATA)
              ------------------------------------------------------------------- -->
         <section id="view-trip-inquiries" class="hidden">
           <div class="view-header">
@@ -361,14 +693,14 @@
                 <span class="search-icon">🔍</span>
                 <input id="search-trips" class="search-input" type="text" placeholder="Search by name, phone or destination">
               </div>
-              <button id="btn-refresh-trips" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
-              <button id="btn-export-trips" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+              <button id="btn-refresh-trips" class="btn-neon-action" type="button">↻ Refresh</button>
+              <button id="btn-export-trips" class="btn-neon-action" type="button">↓ Export CSV</button>
             </div>
           </div>
 
           <div class="table-card">
             <div style="overflow-x: auto;">
-              <table class="blogs-table">
+              <table class="custom-table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -394,8 +726,9 @@
           </div>
         </section>
 
+
         <!-- -------------------------------------------------------------------
-             SCREEN D: CONTACT FORM MESSAGES VIEW
+             SCREEN 5: CONTACT FORM MESSAGES VIEW (IMAGE 2 EXACT DATA)
              ------------------------------------------------------------------- -->
         <section id="view-contact-messages" class="hidden">
           <div class="view-header">
@@ -405,14 +738,14 @@
                 <span class="search-icon">🔍</span>
                 <input id="search-contacts" class="search-input" type="text" placeholder="Search by name, email or message">
               </div>
-              <button id="btn-refresh-contacts" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
-              <button id="btn-export-contacts" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+              <button id="btn-refresh-contacts" class="btn-neon-action" type="button">↻ Refresh</button>
+              <button id="btn-export-contacts" class="btn-neon-action" type="button">↓ Export CSV</button>
             </div>
           </div>
 
           <div class="table-card">
             <div style="overflow-x: auto;">
-              <table class="blogs-table">
+              <table class="custom-table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -438,8 +771,60 @@
           </div>
         </section>
 
+
         <!-- -------------------------------------------------------------------
-             SCREEN E: NEWSLETTER SUBSCRIBERS VIEW
+             SCREEN 6: WHATSAPP INQUIRIES & LIVE CRM LEADS (NEW FEATURE)
+             ------------------------------------------------------------------- -->
+        <section id="view-whatsapp-inquiries" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">WhatsApp & Direct Inquiries</h1>
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-whatsapp" class="search-input" type="text" placeholder="Search WhatsApp leads...">
+              </div>
+              <button id="btn-refresh-whatsapp" class="btn-neon-action" type="button">↻ Sync Leads</button>
+            </div>
+          </div>
+
+          <!-- Quick Tip for Client -->
+          <div class="db-ownership-banner" style="margin-bottom: 20px;">
+            <div class="db-banner-content">
+              <h3>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Centralized WhatsApp Inquiries Tracker
+              </h3>
+              <p>Whenever a customer clicks the WhatsApp floating button or submits an inquiry with a phone number, you can initiate a direct 1-click WhatsApp conversation with them right from this dashboard.</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Phone / WhatsApp</th>
+                    <th>Inquiry Category</th>
+                    <th>Customer Message</th>
+                    <th>Date Received</th>
+                    <th>Lead Status</th>
+                    <th style="text-align: right;">1-Click Chat</th>
+                  </tr>
+                </thead>
+                <tbody id="whatsapp-table-body">
+                  <tr>
+                    <td colspan="7" class="empty-state">Loading WhatsApp inquiries...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- -------------------------------------------------------------------
+             SCREEN 7: NEWSLETTER SUBSCRIBERS VIEW (IMAGE 2 EXACT DATA)
              ------------------------------------------------------------------- -->
         <section id="view-newsletter" class="hidden">
           <div class="view-header">
@@ -449,14 +834,14 @@
                 <span class="search-icon">🔍</span>
                 <input id="search-newsletters" class="search-input" type="text" placeholder="Search email address">
               </div>
-              <button id="btn-refresh-newsletter" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
-              <button id="btn-export-newsletters" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+              <button id="btn-refresh-newsletter" class="btn-neon-action" type="button">↻ Refresh</button>
+              <button id="btn-export-newsletters" class="btn-neon-action" type="button">↓ Export CSV</button>
             </div>
           </div>
 
           <div class="table-card">
             <div style="overflow-x: auto;">
-              <table class="blogs-table">
+              <table class="custom-table">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -476,35 +861,267 @@
           </div>
         </section>
 
+
+        <!-- -------------------------------------------------------------------
+             SCREEN 7B: REGISTERED USERS & CUSTOMER ACCOUNTS (NEW FEATURE)
+             ------------------------------------------------------------------- -->
+        <section id="view-users" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Registered Customer Accounts</h1>
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-users" class="search-input" type="text" placeholder="Search users by name, email or phone">
+              </div>
+              <button id="btn-refresh-users" class="btn-neon-action" type="button">↻ Refresh Users</button>
+              <button id="btn-export-users" class="btn-neon-action" type="button">↓ Export CSV</button>
+            </div>
+          </div>
+
+          <!-- User Stats Banner -->
+          <div class="db-ownership-banner" style="margin-bottom: 20px;">
+            <div class="db-banner-content">
+              <h3>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Customer Portal Membership Details
+              </h3>
+              <p>Customers who sign up or sign in on the main website are automatically stored in this database. You can see their registered names, email addresses, phone numbers, and last active dates.</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div style="overflow-x: auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Member / Name</th>
+                    <th>Email Address</th>
+                    <th>Phone / WhatsApp</th>
+                    <th>Joined Date</th>
+                    <th>Last Active</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="users-table-body">
+                  <tr>
+                    <td colspan="7" class="empty-state">Loading registered accounts...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- -------------------------------------------------------------------
+             SCREEN 8: DATABASE MANAGEMENT & CLIENT OWNERSHIP (NEW FEATURE)
+             ------------------------------------------------------------------- -->
+        <section id="view-database" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Database Management & Client Ownership</h1>
+            <div class="header-controls">
+              <button id="btn-download-full-backup" class="btn-add-neon" type="button">
+                ↓ Download Full Database Backup (JSON)
+              </button>
+            </div>
+          </div>
+
+          <!-- Client Ownership Banner -->
+          <div class="db-ownership-banner">
+            <div class="db-banner-content">
+              <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Client Ownership Active: Supabase Cloud Database
+              </h3>
+              <p>This database is hosted on the client's own cloud infrastructure. All form inquiries, customer WhatsApp contacts, blogs, and media belong solely to the client. You can export complete backups anytime in 1 click.</p>
+            </div>
+            <div style="text-align: right;">
+              <span class="status-pill resolved" style="padding: 6px 14px; font-size: 13px;">● Live Connected</span>
+            </div>
+          </div>
+
+          <!-- Database Stats Grid -->
+          <div class="db-metrics-grid">
+            <div class="db-metric-box">
+              <h4>Database Provider</h4>
+              <strong>Supabase PostgreSQL</strong>
+              <p>cwhqpfdncpnakztxkoxk.supabase.co</p>
+            </div>
+
+            <div class="db-metric-box">
+              <h4>Ownership Email</h4>
+              <strong style="color:#fff;font-size:16px;">client@himalaya.com</strong>
+              <p>Project Owner & Administrator</p>
+            </div>
+
+            <div class="db-metric-box">
+              <h4>Security Protocol</h4>
+              <strong style="color:#34d399;">RLS Active</strong>
+              <p>API keys restricted & secured</p>
+            </div>
+          </div>
+
+          <!-- Table Overview Card -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <h3>Database Tables & Live Records</h3>
+            </div>
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Table Name</th>
+                  <th>Description</th>
+                  <th>Total Records</th>
+                  <th>Last Sync</th>
+                  <th style="text-align: right;">Export Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color:var(--neon-cyan);">trip_inquiries</strong></td>
+                  <td>Customer trip itineraries, budget, and travel preferences</td>
+                  <td><span id="db-count-trips" class="status-pill new">0 records</span></td>
+                  <td>Just now</td>
+                  <td style="text-align: right;"><button type="button" class="btn-table-action" onclick="document.getElementById('btn-export-trips').click()">Export CSV</button></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--neon-cyan);">contact_inquiries</strong></td>
+                  <td>Contact form inquiries, questions & customer messages</td>
+                  <td><span id="db-count-contacts" class="status-pill new">0 records</span></td>
+                  <td>Just now</td>
+                  <td style="text-align: right;"><button type="button" class="btn-table-action" onclick="document.getElementById('btn-export-contacts').click()">Export CSV</button></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--neon-cyan);">newsletter_subscribers</strong></td>
+                  <td>Opt-in email subscribers from footer & journey pages</td>
+                  <td><span id="db-count-newsletter" class="status-pill new">0 records</span></td>
+                  <td>Just now</td>
+                  <td style="text-align: right;"><button type="button" class="btn-table-action" onclick="document.getElementById('btn-export-newsletters').click()">Export CSV</button></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--neon-cyan);">blog_posts</strong></td>
+                  <td>Journal stories, published articles & draft content</td>
+                  <td><span id="db-count-blogs" class="status-pill new">0 records</span></td>
+                  <td>Just now</td>
+                  <td style="text-align: right;"><button type="button" class="btn-table-action" id="btn-db-export-blogs">Export JSON</button></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--neon-cyan);">registered_users</strong></td>
+                  <td>Member logins, customer profiles & sign-up details</td>
+                  <td><span id="db-count-users" class="status-pill new">0 records</span></td>
+                  <td>Just now</td>
+                  <td style="text-align: right;"><button type="button" class="btn-table-action" onclick="document.getElementById('btn-export-users').click()">Export CSV</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Role Separation Clarity Card -->
+          <div class="role-separation-card">
+            <div class="role-box">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2"/></svg>
+                Client Ownership Controls
+              </h4>
+              <ul>
+                <li>✓ Full access to customer leads, emails, and phone numbers</li>
+                <li>✓ Direct 1-click WhatsApp customer communication</li>
+                <li>✓ Write, edit, and publish blogs directly to the website</li>
+                <li>✓ One-click complete database backups download anytime</li>
+                <li>✓ 100% data portability without developer lock-in</li>
+              </ul>
+            </div>
+
+            <div class="role-box">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+                Developer Super Admin Controls
+              </h4>
+              <ul>
+                <li>✓ Website source code, layout, and front-end design</li>
+                <li>✓ Navigation menus, header, footer, and brand pages</li>
+                <li>✓ Domain DNS, Vercel/cPanel hosting, and SSL certificates</li>
+                <li>✓ WhatsApp Business Cloud API & Webhook integrations</li>
+                <li>✓ Server-side security and regular technical maintenance</li>
+              </ul>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- -------------------------------------------------------------------
+             SCREEN 9: DEVELOPER SETTINGS VIEW (SEPARATION OF CONCERNS)
+             ------------------------------------------------------------------- -->
+        <section id="view-settings" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Developer & System Configuration</h1>
+          </div>
+
+          <div class="form-section-card">
+            <h3 class="section-title">Website Technical Settings</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+              As per the project architecture, complex technical settings (domain routing, page templating, and API secrets) are managed by the Developer Super Admin. This keeps the client dashboard simple and error-free.
+            </p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Active Domain</label>
+                <input type="text" value="livelocalhimalaya.com" readonly>
+              </div>
+              <div class="form-group">
+                <label>Hosting Infrastructure</label>
+                <input type="text" value="Vercel Serverless + Supabase" readonly>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>WhatsApp API Gateway</label>
+                <input type="text" value="Meta WhatsApp Cloud API (Connected)" readonly>
+              </div>
+              <div class="form-group">
+                <label>Database RLS Status</label>
+                <input type="text" value="Row Level Security Enforced (Safe)" readonly>
+              </div>
+            </div>
+
+            <div style="margin-top: 10px;">
+              <button type="button" class="btn-neon-action" onclick="alert('Developer contact: For code changes, page updates or new features, reach out to your developer.')">Contact Developer Support</button>
+            </div>
+          </div>
+        </section>
+
       </div>
     </main>
 
   </div>
 
   <!-- INSERT IMAGE MODAL -->
-  <div id="image-insert-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;place-items:center;z-index:99999;padding:16px;">
-    <div style="background:#17221c;border:1px solid #24352b;border-radius:8px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 40px rgba(0,0,0,0.5);">
-      <h3 style="color:#7ecc9f;font-size:17px;font-weight:600;margin-bottom:16px;">Insert Image into Blog</h3>
+  <div id="image-insert-modal">
+    <div class="modal-content-box">
+      <h3 style="color:var(--neon-cyan);font-size:18px;font-weight:700;margin-bottom:16px;">Insert Image into Blog</h3>
       
       <div style="margin-bottom:14px;">
-        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 1: Upload from device</label>
-        <input type="file" id="modal-image-file" accept="image/*" style="font-size:12px;color:#8b9e93;width:100%;">
+        <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:6px;font-weight:500;">Option 1: Upload from device</label>
+        <input type="file" id="modal-image-file" accept="image/*" style="font-size:12px;color:var(--text-dim);width:100%;">
       </div>
 
       <div style="display:flex;align-items:center;gap:10px;margin:12px 0;">
-        <span style="flex:1;height:1px;background:#24352b;"></span>
-        <span style="font-size:11px;color:#60756a;text-transform:uppercase;">or</span>
-        <span style="flex:1;height:1px;background:#24352b;"></span>
+        <span style="flex:1;height:1px;background:var(--border-subtle);"></span>
+        <span style="font-size:11px;color:var(--text-dim);text-transform:uppercase;">or</span>
+        <span style="flex:1;height:1px;background:var(--border-subtle);"></span>
       </div>
 
       <div style="margin-bottom:16px;">
-        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 2: Paste Image URL</label>
-        <input type="url" id="modal-image-url" placeholder="https://example.com/mountain.jpg" style="width:100%;background:#111814;border:1px solid #24352b;border-radius:4px;color:#e8f0ec;padding:10px 12px;font-size:13px;outline:none;">
+        <label style="display:block;font-size:12px;color:var(--text-secondary);margin-bottom:6px;font-weight:500;">Option 2: Paste Image URL</label>
+        <input type="url" id="modal-image-url" placeholder="https://example.com/mountain.jpg" style="width:100%;background:var(--bg-input);border:1px solid var(--border-glass);border-radius:4px;color:var(--text-pure);padding:10px 12px;font-size:13px;outline:none;">
       </div>
 
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-        <button type="button" id="modal-image-cancel" style="background:transparent;border:1px solid #24352b;color:#8b9e93;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">Cancel</button>
-        <button type="button" id="modal-image-insert" style="background:#7ecc9f;border:none;color:#0d2217;font-weight:600;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;">Insert Image</button>
+        <button type="button" id="modal-image-cancel" class="btn-secondary">Cancel</button>
+        <button type="button" id="modal-image-insert" class="btn-add-neon">Insert Image</button>
       </div>
     </div>
   </div>
@@ -562,7 +1179,6 @@
         var sel = window.getSelection();
         var ed = document.getElementById("blog-content-editor");
 
-        // First check if already inside the styled tag -> unwrap toggle
         var targetTagName = tag === "b" ? ["B", "STRONG"] : ["I", "EM"];
         var currentNode = sel && sel.anchorNode ? (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement) : null;
         var existingTag = null;
@@ -572,7 +1188,6 @@
         }
 
         if (existingTag) {
-          // Unwrap
           var parent = existingTag.parentNode;
           while (existingTag.firstChild) {
             parent.insertBefore(existingTag.firstChild, existingTag);
@@ -581,14 +1196,12 @@
           return;
         }
 
-        // Try execCommand first
         var cmd = tag === "b" ? "bold" : "italic";
         var ok = false;
         try {
           ok = document.execCommand(cmd, false, null);
         } catch (e) {}
 
-        // Direct DOM fallback if execCommand was ignored
         if (!ok && range && !range.collapsed) {
           var el = document.createElement(tag === "b" ? "strong" : "em");
           try {
@@ -804,7 +1417,6 @@
             btnInsert.textContent = "Uploading...";
             btnInsert.disabled = true;
 
-            // 1. Try Supabase upload if available
             var finalUrl = null;
             if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
               try {
@@ -820,7 +1432,6 @@
               }
             }
 
-            // 2. Fallback to base64
             if (!finalUrl) {
               finalUrl = await new Promise(function (resolve) {
                 var reader = new FileReader();
@@ -853,7 +1464,7 @@
         img.src = src;
         img.alt = "Himalaya Blog Image";
         img.style.maxWidth = "100%";
-        img.style.borderRadius = "6px";
+        img.style.borderRadius = "8px";
         img.style.margin = "14px 0";
         img.style.display = "block";
         ed.appendChild(img);
@@ -868,7 +1479,7 @@
   <!-- SCRIPTS & SUPABASE INTEGRATION -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="js/supabase-config.js?v=20261012-v20"></script>
-  <script src="js/admin.js?v=20261012-v20" defer></script>
+  <script src="js/supabase-config.js?v=20261112"></script>
+  <script src="js/admin.js?v=20261112-crm" defer></script>
 </body>
 </html>

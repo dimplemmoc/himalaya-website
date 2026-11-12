@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#121815">
+  <title>Blog Admin Panel | Live Local Himalaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body class="journal-admin">
+
+  <!-- =========================================================================
+       1. LOGIN VIEW (Shown when unauthenticated)
+       ========================================================================= -->
+  <div id="login-view" class="login-wrapper">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="login-kicker">LIVE LOCAL HIMALAYA</span>
+        <h1 class="login-title">Blog Admin</h1>
+        <p class="login-subtitle">Sign in to manage and publish journal blogs</p>
+      </div>
+
+      <form id="login-form">
+        <div class="floating-group">
+          <input id="login-username" name="username" type="text" autocomplete="username" placeholder=" " required>
+          <label for="login-username">Email or Username</label>
+        </div>
+
+        <div class="floating-group">
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder=" " required>
+          <label for="login-password">Password</label>
+          <button type="button" id="toggle-password" class="toggle-password-btn" aria-label="Toggle password visibility">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+
+        <button class="btn-login" type="submit">Sign in to Admin <span>→</span></button>
+        <p id="login-message" class="form-feedback" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. DASHBOARD VIEW (Shown when authenticated)
+       ========================================================================= -->
+  <div id="dashboard-view" class="admin-layout hidden">
+    
+    <!-- LEFT SIDEBAR (Mint Green) -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <h2>Blog Admin</h2>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button id="nav-all-blogs" class="nav-link active" type="button">
+          All blogs
+        </button>
+        <button id="nav-add-blog" class="nav-link" type="button">
+          Add new blog
+        </button>
+        <button id="nav-trip-inquiries" class="nav-link" type="button">
+          Trip Inquiries <span id="badge-trips" class="sidebar-badge">0</span>
+        </button>
+        <button id="nav-contact-messages" class="nav-link" type="button">
+          Contact Messages <span id="badge-contacts" class="sidebar-badge">0</span>
+        </button>
+        <button id="nav-newsletter" class="nav-link" type="button">
+          Newsletter List <span id="badge-newsletter" class="sidebar-badge">0</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="blog.html" target="_blank" rel="noopener">View public site ↗</a>
+        <button id="sidebar-logout" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <main class="admin-main">
+      
+      <!-- TOP NAVIGATION BAR -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="topbar-dropdown" type="button">
+            Blog Admin Panel <span style="font-size:10px;">⌄</span>
+          </button>
+        </div>
+
+        <div class="topbar-right">
+          <button class="topbar-btn" type="button" onclick="window.open('contact.html','_blank')">↗ Chat</button>
+          <button class="topbar-icon-btn" type="button" title="Mobile view">📱</button>
+          <button class="topbar-icon-btn" type="button" title="Status">○</button>
+          <button class="topbar-btn" id="btn-export-json" type="button" title="Export blogs as JSON">↓ Export</button>
+          <a href="blog.html" class="topbar-btn" target="_blank" rel="noopener">Public Journal ↗</a>
+          <button id="logout-button" class="topbar-btn" type="button">Sign out</button>
+        </div>
+      </header>
+
+      <!-- CONTENT CONTAINER -->
+      <div class="admin-container">
+        
+        <!-- -------------------------------------------------------------------
+             SCREEN A: ALL BLOGS VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-all-blogs">
+          
+          <div class="view-header">
+            <h1 class="view-title">All blogs</h1>
+            
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-blogs" class="search-input" type="text" placeholder="Search blogs">
+              </div>
+
+              <button id="btn-refresh-blogs" class="topbar-btn" type="button" title="Sync live blogs from Supabase" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh Live Data</button>
+
+              <select id="filter-site" class="filter-select">
+                <option value="">All sites</option>
+                <option value="Main site">Main site</option>
+                <option value="Himalaya Journal">Himalaya Journal</option>
+              </select>
+
+              <button id="btn-create-new" class="btn-add-blog" type="button">
+                + Add new blog
+              </button>
+            </div>
+          </div>
+
+          <!-- STATUS TABS -->
+          <div class="status-tabs">
+            <button class="status-tab active" data-status="all" type="button">All (<span id="count-all">0</span>)</button>
+            <button class="status-tab" data-status="published" type="button">Published (<span id="count-published">0</span>)</button>
+            <button class="status-tab" data-status="draft" type="button">Drafts (<span id="count-drafts">0</span>)</button>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-card">
+            <table class="blogs-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Site</th>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="blogs-table-body">
+                <tr>
+                  <td colspan="6" class="empty-state">
+                    No blogs yet. Click "Add new blog" to write your first one.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+        <!-- -------------------------------------------------------------------
+             SCREEN B: ADD / EDIT BLOG VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-add-blog" class="hidden">
+          
+          <div class="view-header">
+            <h1 id="editor-heading" class="view-title">Add new blog</h1>
+            <button id="btn-back-to-all" class="btn-back" type="button">
+              Back to all blogs
+            </button>
+          </div>
+
+          <form id="blog-form">
+            <input id="blog-id" type="hidden">
+            <input id="blog-status" type="hidden" value="published">
+
+            <!-- SECTION 1: BLOG DETAILS -->
+            <div class="form-section-card">
+              <h3 class="section-title">Blog details</h3>
+
+              <div class="form-group">
+                <label for="blog-title">Blog heading (H1)</label>
+                <input id="blog-title" type="text" placeholder="Write the main blog heading" required maxlength="300">
+              </div>
+
+              <div class="form-group">
+                <label for="blog-seo-title">SEO title</label>
+                <input id="blog-seo-title" type="text" placeholder="Title shown in Google search results" maxlength="300">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-site">Publish on site</label>
+                  <select id="blog-site">
+                    <option value="Main site">Main site</option>
+                    <option value="Himalaya Journal">Himalaya Journal</option>
+                    <option value="All sites">All sites</option>
+                  </select>
+                  <span class="sub-note">Add or remove sites in the code (SITES list).</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-category">Blog category</label>
+                  <div class="input-with-button">
+                    <select id="blog-category">
+                      <option value="Village Life">Village Life</option>
+                      <option value="Nature">Nature</option>
+                      <option value="Food">Food</option>
+                      <option value="Culture">Culture</option>
+                      <option value="Adventure">Adventure</option>
+                      <option value="Wellness">Wellness</option>
+                      <option value="Remote Work">Remote Work</option>
+                      <option value="Stargazing">Stargazing</option>
+                      <option value="Himalayan Travel">Himalayan Travel</option>
+                      <option value="Homestays">Homestays</option>
+                      <option value="General">General</option>
+                    </select>
+                    <button id="btn-add-category" class="btn-secondary" type="button">Add category</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-top: 14px;">
+                <label for="blog-date">Publish date</label>
+                <input id="blog-date" type="date" required style="max-width: 260px;">
+              </div>
+            </div>
+
+            <!-- SECTION 2: FEATURED IMAGE -->
+            <div class="form-section-card">
+              <h3 class="section-title">Featured image</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-image-file">Upload from your device</label>
+                  <div class="file-upload-wrap">
+                    <input id="blog-image-file" type="file" accept="image/*">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-image-url">Or use image URL</label>
+                  <input id="blog-image-url" type="url" placeholder="https://example.com/image.jpg">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="blog-image-alt">Image alt text</label>
+                <input id="blog-image-alt" type="text" placeholder="Describe what is shown in the image">
+              </div>
+
+              <div id="image-preview-box" class="hidden" style="margin-top: 14px;">
+                <img id="image-preview" src="" alt="Preview" style="max-height: 160px; border-radius: 4px; border: 1px solid var(--border-color); object-fit: cover;" decoding="async">
+              </div>
+            </div>
+
+            <!-- SECTION 3: BLOG CONTENT -->
+            <div class="form-section-card">
+              <h3 class="section-title">Blog content</h3>
+
+              <div class="form-group">
+                <label for="blog-excerpt">Short introduction / Excerpt <span style="font-size:11px;color:var(--text-muted);font-weight:normal;">(Optional)</span></label>
+                <textarea id="blog-excerpt" rows="2" placeholder="Brief summary of the story (Optional - leave blank if you don't want an intro)"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Main blog content</label>
+
+
+                <!-- TOOLBAR -->
+                <div class="editor-toolbar">
+                  <button type="button" class="toolbar-btn" data-tag="h2" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('h2')">H2</button>
+                  <button type="button" class="toolbar-btn" data-tag="h3" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('h3')">H3</button>
+                  <button type="button" class="toolbar-btn" data-tag="b" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('b')"><strong>B</strong></button>
+                  <button type="button" class="toolbar-btn" data-tag="i" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('i')"><em>I</em></button>
+                  <button type="button" class="toolbar-btn" data-tag="ul" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('ul')">• List</button>
+                  <button type="button" class="toolbar-btn" data-tag="ol" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('ol')">1. List</button>
+                  <button type="button" class="toolbar-btn" data-tag="quote" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('quote')">Quote</button>
+                  <button type="button" class="toolbar-btn" data-tag="link" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('link')">Link</button>
+                  <button type="button" data-tag="image" class="toolbar-btn" onmousedown="event.preventDefault()" onclick="window.formatBlogTag('image')">Image</button>
+                </div>
+
+                <!-- VISUAL WYSIWYG EDITOR -->
+                <div id="blog-content-editor" class="editor-visual-box" contenteditable="true" data-placeholder="Click here and paste your blog, or start writing..."></div>
+                <textarea id="blog-content" name="content" style="display:none;" required></textarea>
+              </div>
+            </div>
+
+            <!-- SECTION 4: TARGET LINK AND POST DETAILS -->
+            <div class="form-section-card">
+              <h3 class="section-title">Target link and post details</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-target-url">Target URL</label>
+                  <input id="blog-target-url" type="url" placeholder="https://your-website.com/page">
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-anchor-text">Anchor text</label>
+                  <input id="blog-anchor-text" type="text" placeholder="Words that link to the target URL">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="blog-link-type">Link type</label>
+                  <select id="blog-link-type">
+                    <option value="DoFollow">DoFollow</option>
+                    <option value="NoFollow">NoFollow</option>
+                    <option value="Sponsored">Sponsored</option>
+                    <option value="UGC">UGC</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="blog-post-type">Post type</label>
+                  <select id="blog-post-type">
+                    <option value="Normal">Normal</option>
+                    <option value="Featured">Featured</option>
+                    <option value="Sponsored">Sponsored</option>
+                    <option value="Announcement">Announcement</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM ACTIONS BAR -->
+            <div class="form-actions-bar">
+              <button id="btn-clear-form" class="btn-secondary" type="button">Clear form</button>
+              
+              <div class="action-buttons-right">
+                <button id="btn-save-draft" class="btn-draft" type="button">Save as Draft</button>
+                <button id="btn-update-blog" class="btn-update" type="button">Update blog</button>
+                <button id="btn-publish-submit" class="btn-publish" type="submit">Publish blog ↗</button>
+              </div>
+            </div>
+
+            <p id="post-message" class="form-feedback" aria-live="polite"></p>
+          </form>
+
+        </section>
+
+        <!-- -------------------------------------------------------------------
+             SCREEN C: TRIP INQUIRIES VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-trip-inquiries" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Trip Planning Inquiries</h1>
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-trips" class="search-input" type="text" placeholder="Search by name, phone or destination">
+              </div>
+              <button id="btn-refresh-trips" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
+              <button id="btn-export-trips" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div style="overflow-x: auto;">
+              <table class="blogs-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Customer Name</th>
+                    <th>Phone / WhatsApp</th>
+                    <th>Destination</th>
+                    <th>Style</th>
+                    <th>Travelers</th>
+                    <th>Dates</th>
+                    <th>Budget</th>
+                    <th>Special Requests</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="trips-table-body">
+                  <tr>
+                    <td colspan="11" class="empty-state">Loading trip inquiries...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------------
+             SCREEN D: CONTACT FORM MESSAGES VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-contact-messages" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Contact Form Inquiries</h1>
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-contacts" class="search-input" type="text" placeholder="Search by name, email or message">
+              </div>
+              <button id="btn-refresh-contacts" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
+              <button id="btn-export-contacts" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div style="overflow-x: auto;">
+              <table class="blogs-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Travel Date</th>
+                    <th>Travellers</th>
+                    <th>Interested In</th>
+                    <th>Budget</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="contacts-table-body">
+                  <tr>
+                    <td colspan="11" class="empty-state">Loading contact inquiries...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- -------------------------------------------------------------------
+             SCREEN E: NEWSLETTER SUBSCRIBERS VIEW
+             ------------------------------------------------------------------- -->
+        <section id="view-newsletter" class="hidden">
+          <div class="view-header">
+            <h1 class="view-title">Newsletter Subscribers</h1>
+            <div class="header-controls">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input id="search-newsletters" class="search-input" type="text" placeholder="Search email address">
+              </div>
+              <button id="btn-refresh-newsletter" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↻ Refresh</button>
+              <button id="btn-export-newsletters" class="topbar-btn" type="button" style="display:inline-flex;align-items:center;gap:6px;background:#1b2520;border:1px solid #2a3d33;color:#d5e5db;padding:9px 15px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↓ Export CSV</button>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div style="overflow-x: auto;">
+              <table class="blogs-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Email Address</th>
+                    <th>Source Page</th>
+                    <th>Subscribed On</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="newsletter-table-body">
+                  <tr>
+                    <td colspan="5" class="empty-state">Loading subscribers...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- INSERT IMAGE MODAL -->
+  <div id="image-insert-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;place-items:center;z-index:99999;padding:16px;">
+    <div style="background:#17221c;border:1px solid #24352b;border-radius:8px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+      <h3 style="color:#7ecc9f;font-size:17px;font-weight:600;margin-bottom:16px;">Insert Image into Blog</h3>
+      
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 1: Upload from device</label>
+        <input type="file" id="modal-image-file" accept="image/*" style="font-size:12px;color:#8b9e93;width:100%;">
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin:12px 0;">
+        <span style="flex:1;height:1px;background:#24352b;"></span>
+        <span style="font-size:11px;color:#60756a;text-transform:uppercase;">or</span>
+        <span style="flex:1;height:1px;background:#24352b;"></span>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;color:#c9d8d0;margin-bottom:6px;font-weight:500;">Option 2: Paste Image URL</label>
+        <input type="url" id="modal-image-url" placeholder="https://example.com/mountain.jpg" style="width:100%;background:#111814;border:1px solid #24352b;border-radius:4px;color:#e8f0ec;padding:10px 12px;font-size:13px;outline:none;">
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+        <button type="button" id="modal-image-cancel" style="background:transparent;border:1px solid #24352b;color:#8b9e93;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;">Cancel</button>
+        <button type="button" id="modal-image-insert" style="background:#7ecc9f;border:none;color:#0d2217;font-weight:600;padding:8px 18px;border-radius:4px;cursor:pointer;font-size:13px;">Insert Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INLINE GUARANTEED VISUAL WYSIWYG FORMATTER -->
+  <script>
+    (function () {
+      var editor = document.getElementById("blog-content-editor");
+      var hiddenTextarea = document.getElementById("blog-content");
+      var savedRange = null;
+
+      function syncToHidden() {
+        if (editor && hiddenTextarea) {
+          hiddenTextarea.value = editor.innerHTML;
+        }
+      }
+
+      function saveSelection() {
+        var sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && editor && editor.contains(sel.anchorNode)) {
+          savedRange = sel.getRangeAt(0).cloneRange();
+        }
+      }
+
+      function restoreSelection() {
+        if (!editor) return null;
+        editor.focus();
+        var sel = window.getSelection();
+        if (savedRange && sel) {
+          sel.removeAllRanges();
+          sel.addRange(savedRange);
+          return savedRange;
+        }
+        if (sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode)) {
+          return sel.getRangeAt(0);
+        }
+        return null;
+      }
+
+      if (editor) {
+        editor.addEventListener("input", function() {
+          saveSelection();
+          syncToHidden();
+        });
+        editor.addEventListener("keyup", saveSelection);
+        editor.addEventListener("mouseup", saveSelection);
+        editor.addEventListener("blur", function() {
+          saveSelection();
+          syncToHidden();
+        });
+      }
+
+      function wrapSelectionInline(tag) {
+        var range = restoreSelection();
+        var sel = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+
+        // First check if already inside the styled tag -> unwrap toggle
+        var targetTagName = tag === "b" ? ["B", "STRONG"] : ["I", "EM"];
+        var currentNode = sel && sel.anchorNode ? (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement) : null;
+        var existingTag = null;
+        if (currentNode) {
+          existingTag = currentNode.closest(targetTagName.join(","));
+          if (existingTag && !ed.contains(existingTag)) existingTag = null;
+        }
+
+        if (existingTag) {
+          // Unwrap
+          var parent = existingTag.parentNode;
+          while (existingTag.firstChild) {
+            parent.insertBefore(existingTag.firstChild, existingTag);
+          }
+          parent.removeChild(existingTag);
+          return;
+        }
+
+        // Try execCommand first
+        var cmd = tag === "b" ? "bold" : "italic";
+        var ok = false;
+        try {
+          ok = document.execCommand(cmd, false, null);
+        } catch (e) {}
+
+        // Direct DOM fallback if execCommand was ignored
+        if (!ok && range && !range.collapsed) {
+          var el = document.createElement(tag === "b" ? "strong" : "em");
+          try {
+            el.appendChild(range.extractContents());
+            range.insertNode(el);
+            var newRange = document.createRange();
+            newRange.selectNodeContents(el);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+            savedRange = newRange.cloneRange();
+          } catch(e) {}
+        }
+      }
+
+      function wrapOrInsertBlock(tag) {
+        var range = restoreSelection();
+        var sel = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+
+        if (tag === "ul" || tag === "ol") {
+          var cmd = (tag === "ul") ? "insertUnorderedList" : "insertOrderedList";
+          var success = false;
+          try {
+            success = document.execCommand(cmd, false, null);
+          } catch (e) {}
+
+          if (!success) {
+            var selectedText = range ? range.toString().trim() : "";
+            var listEl = document.createElement(tag);
+            if (selectedText) {
+              var lines = selectedText.split(/\r?\n/).filter(function(l){ return l.trim().length > 0; });
+              lines.forEach(function (line) {
+                var li = document.createElement("li");
+                li.textContent = line;
+                listEl.appendChild(li);
+              });
+            } else {
+              var li = document.createElement("li");
+              li.innerHTML = "<br>";
+              listEl.appendChild(li);
+            }
+
+            if (range && !range.collapsed) {
+              range.deleteContents();
+              range.insertNode(listEl);
+              var newR = document.createRange();
+              newR.selectNodeContents(listEl.firstChild);
+              newR.collapse(true);
+              sel.removeAllRanges();
+              sel.addRange(newR);
+              savedRange = newR.cloneRange();
+            } else {
+              ed.appendChild(listEl);
+            }
+          }
+        } else if (tag === "quote") {
+          var parentBq = null;
+          if (sel && sel.anchorNode) {
+            parentBq = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest("blockquote") : sel.anchorNode.parentElement.closest("blockquote");
+          }
+          if (parentBq && ed.contains(parentBq)) {
+            try {
+              document.execCommand("formatBlock", false, "<p>");
+            } catch(e) {
+              var p = document.createElement("p");
+              p.innerHTML = parentBq.innerHTML;
+              parentBq.parentNode.replaceChild(p, parentBq);
+            }
+          } else {
+            var okQ = false;
+            try { okQ = document.execCommand("formatBlock", false, "<blockquote>"); } catch(e){}
+            if (!okQ) {
+              var quoteText = range ? range.toString().trim() : "";
+              var bq = document.createElement("blockquote");
+              bq.innerHTML = quoteText ? quoteText : "<br>";
+              if (range && !range.collapsed) {
+                range.deleteContents();
+                range.insertNode(bq);
+                var newRQ = document.createRange();
+                newRQ.selectNodeContents(bq);
+                newRQ.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(newRQ);
+                savedRange = newRQ.cloneRange();
+              } else {
+                ed.appendChild(bq);
+              }
+            }
+          }
+        }
+      }
+
+      function formatHeading(headingTag) {
+        restoreSelection();
+        var sel = window.getSelection();
+        var ed = document.getElementById("blog-content-editor");
+        if (sel && sel.anchorNode) {
+          var parentH = sel.anchorNode.nodeType === 1 ? sel.anchorNode.closest(headingTag) : sel.anchorNode.parentElement.closest(headingTag);
+          if (parentH && ed.contains(parentH)) {
+            try {
+              document.execCommand("formatBlock", false, "<p>");
+            } catch(e) {
+              var p = document.createElement("p");
+              p.innerHTML = parentH.innerHTML;
+              parentH.parentNode.replaceChild(p, parentH);
+            }
+            return;
+          }
+        }
+        try {
+          var hOk = document.execCommand("formatBlock", false, "<" + headingTag + ">");
+          if (!hOk) throw new Error("not supported");
+        } catch(e) {
+          var rangeH = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0) : null;
+          if (rangeH && !rangeH.collapsed) {
+            var hEl = document.createElement(headingTag);
+            hEl.appendChild(rangeH.extractContents());
+            rangeH.insertNode(hEl);
+          }
+        }
+      }
+
+      var isFormatting = false;
+      window.formatBlogTag = function (tag) {
+        if (isFormatting) return;
+        isFormatting = true;
+
+        try {
+          var ed = document.getElementById("blog-content-editor");
+          if (!ed) return;
+
+          restoreSelection();
+
+          switch (tag) {
+            case "b":
+              wrapSelectionInline("b");
+              break;
+            case "i":
+              wrapSelectionInline("i");
+              break;
+            case "ul":
+              wrapOrInsertBlock("ul");
+              break;
+            case "ol":
+              wrapOrInsertBlock("ol");
+              break;
+            case "quote":
+              wrapOrInsertBlock("quote");
+              break;
+            case "h2":
+              formatHeading("h2");
+              break;
+            case "h3":
+              formatHeading("h3");
+              break;
+            case "link":
+              var url = prompt("Enter link URL:", "https://");
+              if (url && url.trim()) {
+                restoreSelection();
+                document.execCommand("createLink", false, url.trim());
+              }
+              break;
+            case "image":
+              openImageModal();
+              break;
+          }
+
+          saveSelection();
+          syncToHidden();
+        } finally {
+          setTimeout(function () {
+            isFormatting = false;
+          }, 80);
+        }
+      };
+
+      // Modal handling
+      var imageModal = document.getElementById("image-insert-modal");
+      var fileInput = document.getElementById("modal-image-file");
+      var urlInput = document.getElementById("modal-image-url");
+      var btnCancel = document.getElementById("modal-image-cancel");
+      var btnInsert = document.getElementById("modal-image-insert");
+
+      function openImageModal() {
+        if (!imageModal) return;
+        fileInput.value = "";
+        urlInput.value = "";
+        imageModal.style.display = "grid";
+      }
+      window.openBlogImageModal = openImageModal;
+
+      function closeImageModal() {
+        if (!imageModal) return;
+        imageModal.style.display = "none";
+      }
+
+      if (btnCancel) btnCancel.onclick = closeImageModal;
+      if (imageModal) {
+        imageModal.onclick = function (e) {
+          if (e.target === imageModal) closeImageModal();
+        };
+      }
+
+      if (btnInsert) {
+        btnInsert.onclick = async function () {
+          var ed = document.getElementById("blog-content-editor");
+          if (!ed) return;
+
+          var url = urlInput.value.trim();
+          var file = fileInput.files && fileInput.files[0];
+
+          if (file) {
+            btnInsert.textContent = "Uploading...";
+            btnInsert.disabled = true;
+
+            // 1. Try Supabase upload if available
+            var finalUrl = null;
+            if (window.supabase && window.HIMALAYA_SUPABASE_URL && window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY) {
+              try {
+                var sb = window.supabase.createClient(window.HIMALAYA_SUPABASE_URL, window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY);
+                var safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]+/g, "-");
+                var path = "public/" + Date.now() + "-" + safeName;
+                var res = await sb.storage.from("blog-media").upload(path, file, { upsert: false, contentType: file.type });
+                if (!res.error) {
+                  finalUrl = sb.storage.from("blog-media").getPublicUrl(path).data.publicUrl;
+                }
+              } catch (e) {
+                console.warn(e);
+              }
+            }
+
+            // 2. Fallback to base64
+            if (!finalUrl) {
+              finalUrl = await new Promise(function (resolve) {
+                var reader = new FileReader();
+                reader.onload = function (evt) { resolve(evt.target.result); };
+                reader.readAsDataURL(file);
+              });
+            }
+
+            btnInsert.textContent = "Insert Image";
+            btnInsert.disabled = false;
+
+            if (finalUrl) {
+              insertImageTag(finalUrl);
+              closeImageModal();
+            }
+          } else if (url) {
+            insertImageTag(url);
+            closeImageModal();
+          } else {
+            alert("Please select a file or enter an image URL.");
+          }
+        };
+      }
+
+      function insertImageTag(src) {
+        var ed = document.getElementById("blog-content-editor");
+        if (!ed) return;
+        ed.focus();
+        var img = document.createElement("img");
+        img.src = src;
+        img.alt = "Himalaya Blog Image";
+        img.style.maxWidth = "100%";
+        img.style.borderRadius = "6px";
+        img.style.margin = "14px 0";
+        img.style.display = "block";
+        ed.appendChild(img);
+        var p = document.createElement("p");
+        p.innerHTML = "<br>";
+        ed.appendChild(p);
+        syncToHidden();
+      }
+    })();
+  </script>
+
+  <!-- SCRIPTS & SUPABASE INTEGRATION -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="js/supabase-config.js?v=20261012-v20"></script>
+  <script src="js/admin.js?v=20261012-v20" defer></script>
+</body>
+</html>

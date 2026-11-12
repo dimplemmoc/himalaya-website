@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8f7f3"/><stop offset="1" stop-color="#e9edf5"/></linearGradient>
+ <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#ffeaa0"/><stop offset=".52" stop-color="#d69a37"/><stop offset="1" stop-color="#fff0b8"/></linearGradient>
+ <linearGradient id="navy" x2="0" y2="1"><stop stop-color="#17223e"/><stop offset="1" stop-color="#090e20"/></linearGradient>
+ <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#8bb5ff"/><stop offset="1" stop-color="#3f5ed1"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="26" stdDeviation="22" flood-color="#19233a" flood-opacity=".18"/></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
+ <style>.sans{font-family:Inter,Arial,sans-serif}.tiny{font-size:12px;fill:#8490a5}.label{font-size:13px;letter-spacing:2px;font-weight:700;fill:#b7791c}</style>
+</defs>
+<rect width="1600" height="1100" fill="url(#bg)"/>
+<circle cx="1400" cy="100" r="230" fill="#f4ddb0" opacity=".35" filter="url(#soft)"/><circle cx="120" cy="980" r="250" fill="#cbdcff" opacity=".45" filter="url(#soft)"/>
+<text x="82" y="76" class="sans" font-size="14" font-weight="700" letter-spacing="3" fill="#7d8798">BALAJI PRIME MEDIA · VISUAL CONCEPT</text>
+<text x="82" y="132" class="sans" font-size="39" font-weight="750" fill="#101a31">A sharper, more dimensional BPM</text>
+<text x="83" y="166" class="sans" font-size="17" fill="#66728a">Three directions for bringing the current clean interface into 3D.</text>
+<!-- concept 1 -->
+<g filter="url(#shadow)" transform="translate(90 220)">
+ <rect width="900" height="540" rx="30" fill="#fff"/>
+ <rect width="900" height="54" rx="30" fill="#fafbfc"/><path d="M0 30a30 30 0 0 1 30-30h840a30 30 0 0 1 30 30v24H0z" fill="#f9fafc"/>
+ <circle cx="28" cy="27" r="5" fill="#f0b65a"/><circle cx="47" cy="27" r="5" fill="#d9e0eb"/><circle cx="66" cy="27" r="5" fill="#d9e0eb"/><rect x="333" y="16" width="235" height="22" rx="11" fill="#eef1f6"/><text x="410" y="31" class="sans tiny">balajiprime.media</text>
+ <!-- left content -->
+ <rect x="44" y="88" width="53" height="53" rx="16" fill="url(#navy)"/><path d="M55 119l13-23 18 23-18 12z" fill="none" stroke="url(#gold)" stroke-width="2"/><text x="64" y="119" class="sans" font-size="14" font-weight="800" fill="#f7d684">B</text>
+ <text x="112" y="109" class="sans" font-size="14" font-weight="800" fill="#17223e">BPM</text><text x="112" y="126" class="sans" font-size="9" letter-spacing="1.4" fill="#8a91a0">BALAJI PRIME MEDIA</text>
+ <rect x="44" y="172" width="116" height="25" rx="12" fill="#fff8e7" stroke="#f2d695"/><text x="59" y="189" class="sans label">OUR PURPOSE</text>
+ <text x="44" y="246" class="sans" font-size="32" font-weight="750" fill="#111a30">We help businesses win</text><text x="44" y="283" class="sans" font-size="32" font-weight="750" fill="#111a30">in competitive search.</text>
+ <text x="44" y="326" class="sans" font-size="15" fill="#69758b">Ethical digital marketing, built on measurable</text><text x="44" y="350" class="sans" font-size="15" fill="#69758b">growth, deep engineering, and human outreach.</text>
+ <rect x="44" y="390" width="146" height="46" rx="23" fill="url(#navy)"/><text x="66" y="418" class="sans" font-size="13" font-weight="700" fill="#fff">Explore our work</text><path d="M169 407l8 7-8 7" fill="none" stroke="#efc66d" stroke-width="2"/>
+ <!-- metrics cards -->
+ <g transform="translate(500 90)"><rect width="165" height="137" rx="20" fill="#fffbef" stroke="#f5d993"/><text x="23" y="53" class="sans" font-size="33" font-weight="800" fill="#142039">850+</text><text x="23" y="80" class="sans" font-size="13" font-weight="700" fill="#35415a">Vetted publishers</text><text x="23" y="105" class="sans tiny">DR 50–90+</text></g>
+ <g transform="translate(682 90)"><rect width="165" height="137" rx="20" fill="#f6f8fc" stroke="#e2e8f2"/><text x="24" y="53" class="sans" font-size="33" font-weight="800" fill="#142039">100%</text><text x="24" y="80" class="sans" font-size="13" font-weight="700" fill="#35415a">Manual outreach</text><text x="24" y="105" class="sans tiny">Zero PBNs or spam</text></g>
+ <g transform="translate(500 244)"><rect width="165" height="137" rx="20" fill="#f3f7ff" stroke="#dce7ff"/><text x="23" y="53" class="sans" font-size="33" font-weight="800" fill="#3155c7">7–14d</text><text x="23" y="80" class="sans" font-size="13" font-weight="700" fill="#35415a">Turnaround</text><text x="23" y="105" class="sans tiny">Fast publication</text></g>
+ <g transform="translate(682 244)"><rect width="165" height="137" rx="20" fill="#fffbef" stroke="#f5d993"/><text x="23" y="53" class="sans" font-size="33" font-weight="800" fill="#d47c08">95+</text><text x="23" y="80" class="sans" font-size="13" font-weight="700" fill="#35415a">PageSpeed</text><text x="23" y="105" class="sans tiny">Core Web Vitals</text></g>
+ <text x="500" y="425" class="sans" font-size="13" font-weight="700" fill="#59657c">Proof that compounds</text><path d="M500 447h347" stroke="#edf0f5"/><path d="M510 486c42-45 74 1 111-30s61 9 96-17 73 15 121-37" fill="none" stroke="#5979df" stroke-width="4"/><path d="M510 495c40-13 70-7 108-22s70-2 106-22 68-10 114-32" fill="none" stroke="#e6b251" stroke-width="2" opacity=".8"/>
+</g>
+<!-- floating 3d emblem -->
+<g filter="url(#shadow)" transform="translate(1120 270)">
+ <ellipse cx="190" cy="364" rx="145" ry="29" fill="#263350" opacity=".12"/>
+ <path d="M190 30L340 110v150l-150 87L40 260V110z" fill="url(#navy)" stroke="#263250" stroke-width="2"/>
+ <path d="M190 30l150 80-150 86L40 110z" fill="#202d4b"/><path d="M40 110l150 86v151L40 260z" fill="#111a31"/><path d="M190 196l150-86v150l-150 87z" fill="#080e20"/>
+ <path d="M190 68l90 49-90 53-89-53z" fill="none" stroke="url(#gold)" stroke-width="4"/><path d="M101 117v102l89 51 90-51V117" fill="none" stroke="url(#gold)" stroke-width="4"/>
+ <text x="139" y="194" class="sans" font-size="53" font-weight="800" fill="#f5d781" stroke="#8d672c" stroke-width="1">BPM</text>
+ <text x="134" y="228" class="sans" font-size="10" font-weight="700" letter-spacing="2" fill="#f3d588">GROWTH, ENGINEERED</text>
+ <path d="M338 92l34-21 14 18-37 21z" fill="#f4d482" opacity=".88"/><circle cx="371" cy="85" r="4" fill="#fff1c5"/>
+</g>
+<!-- small orbiting cards -->
+<g filter="url(#shadow)" transform="translate(1120 710) rotate(-7)"><rect width="160" height="94" rx="17" fill="#fff"/><circle cx="27" cy="30" r="13" fill="#fff4d6"/><path d="M20 32l6-7 7 8" fill="none" stroke="#c78a2e" stroke-width="2"/><text x="50" y="33" class="sans" font-size="12" font-weight="700" fill="#33405a">Organic reach</text><text x="20" y="71" class="sans" font-size="22" font-weight="800" fill="#1a2948">+148%</text><path d="M100 69l13-13 12 5 18-22" fill="none" stroke="#5274d5" stroke-width="3"/></g>
+<g filter="url(#shadow)" transform="translate(1320 642) rotate(8)"><rect width="175" height="106" rx="18" fill="#fff"/><text x="19" y="31" class="sans tiny">LIVE CAMPAIGNS</text><circle cx="25" cy="60" r="5" fill="#48b58a"/><text x="39" y="65" class="sans" font-size="12" font-weight="700" fill="#35415a">Outreach active</text><rect x="19" y="80" width="135" height="7" rx="3" fill="#e8edf7"/><rect x="19" y="80" width="102" height="7" rx="3" fill="url(#blue)"/></g>
+<text x="90" y="830" class="sans label">01  ·  WEBSITE HERO</text><text x="90" y="859" class="sans" font-size="17" font-weight="700" fill="#18233b">Depth through soft elevation, responsive metric tiles, and floating brand forms.</text>
+<!-- bottom thumbnails / concepts -->
+<g transform="translate(90 920)"><rect width="690" height="125" rx="22" fill="#111a31"/><text x="26" y="37" class="sans" font-size="12" letter-spacing="2" font-weight="700" fill="#dfb657">02 · BRAND OBJECT</text><text x="26" y="72" class="sans" font-size="21" font-weight="750" fill="#fff">A sculpted BPM monogram</text><text x="26" y="98" class="sans" font-size="13" fill="#bbc5d8">Obsidian body · champagne metal · restrained glow</text><g transform="translate(500 16)"><path d="M80 8l63 34v53l-63 36-64-36V42z" fill="#080d1b" stroke="#c49a50" stroke-width="2"/><path d="M80 8l63 34-63 34-64-34z" fill="#26314c"/><text x="44" y="79" class="sans" font-size="22" font-weight="800" fill="#f6dc95">BPM</text></g></g>
+<g transform="translate(820 920)"><rect width="690" height="125" rx="22" fill="#fff" stroke="#e1e6ee"/><text x="26" y="37" class="sans label">03 · PERFORMANCE CARD</text><text x="26" y="72" class="sans" font-size="21" font-weight="750" fill="#18233b">Campaign results, made tangible</text><text x="26" y="98" class="sans" font-size="13" fill="#6b778d">Layered chart card · clean data · a quiet gold accent</text><g transform="translate(500 17)"><rect width="155" height="91" rx="14" fill="#f7f9fc" stroke="#e6ebf3"/><text x="13" y="23" class="sans tiny">VISIBILITY</text><text x="13" y="52" class="sans" font-size="24" font-weight="800" fill="#1b2c50">+42.8%</text><path d="M13 75l24-12 21 7 25-23 20 11 25-21" fill="none" stroke="#5574d5" stroke-width="3"/></g></g>
+</svg>
