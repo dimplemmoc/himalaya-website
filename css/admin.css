@@ -824,6 +824,14 @@ body.journal-admin {
   width: 100%;
   height: 240px;
   position: relative;
+  overflow: hidden;
+}
+
+.deals-chart-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  display: block;
 }
 
 /* 3D PIPELINE FUNNEL CARD (Image 1 Style) */
@@ -1699,6 +1707,10 @@ body.journal-admin {
   .topbar-center {
     max-width: 320px;
     margin: 0 14px;
+  }
+
+  .topbar-right .topbar-action-btn:not(#logout-button) {
+    display: none;
   }
 
   .user-role-sub {

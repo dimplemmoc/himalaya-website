@@ -4172,52 +4172,57 @@ body {
     line-height: 1;
 }
 
-/* Modal Overlay */
+/* Modal Overlay - Single robust scroll container (Never clips content on any screen) */
 .auth-modal-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(11, 25, 20, 0.78);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(11, 25, 20, 0.82);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 999999;
-    padding: 16px;
+    align-items: flex-start;
+    z-index: 9999999;
+    padding: 24px 16px;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
     animation: authFadeIn 0.25s ease-out;
 }
 
 .auth-modal-dialog {
     background: #ffffff;
     border: 1px solid #dfe6e2;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
     border-radius: 16px;
-    max-width: 440px;
+    max-width: 420px;
     width: 100%;
-    max-height: calc(100vh - 32px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: 24px 22px 20px;
+    padding: 22px 20px 20px;
     position: relative;
-    margin: auto;
+    margin: auto 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 /* Modal Smooth Custom Scrollbar */
-.auth-modal-dialog::-webkit-scrollbar {
+.auth-modal-overlay::-webkit-scrollbar {
     width: 6px;
 }
-.auth-modal-dialog::-webkit-scrollbar-track {
-    background: #f1f5f3;
+.auth-modal-overlay::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+.auth-modal-overlay::-webkit-scrollbar-thumb {
+    background: #3d6a59;
     border-radius: 4px;
 }
-.auth-modal-dialog::-webkit-scrollbar-thumb {
-    background: #c3d2ca;
-    border-radius: 4px;
-}
-.auth-modal-dialog::-webkit-scrollbar-thumb:hover {
-    background: #8fa99c;
+.auth-modal-overlay::-webkit-scrollbar-thumb:hover {
+    background: #629480;
 }
 
 .auth-modal-close {
@@ -4411,6 +4416,39 @@ body {
     text-align: center;
     min-height: 18px;
     margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+    .auth-modal-overlay {
+        padding: 16px 10px;
+    }
+    .auth-modal-dialog {
+        padding: 18px 16px 18px;
+        border-radius: 14px;
+        max-width: 100%;
+    }
+    .auth-modal-title {
+        font-size: 19px;
+    }
+    .auth-modal-subtitle {
+        font-size: 11px;
+    }
+    .btn-google-auth {
+        padding: 8px 12px;
+        font-size: 12.5px;
+    }
+    .auth-input-group label {
+        font-size: 11px;
+    }
+    .auth-input-group input {
+        padding: 9px 12px;
+        font-size: 14px;
+    }
+    .btn-auth-submit {
+        padding: 12px 14px;
+        font-size: 13.5px;
+        min-height: 44px;
+    }
 }
 
 .user-logged-info {
