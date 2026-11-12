@@ -124,11 +124,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           Database & Backups
         </button>
-
-        <button id="nav-settings" class="nav-link" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Developer Settings
-        </button>
       </nav>
 
       <div class="sidebar-footer">
@@ -379,19 +374,19 @@
                 <div class="funnel-metrics-list">
                   <div class="funnel-metric-row">
                     <span class="funnel-metric-name">1. Form & WhatsApp Inquiries</span>
-                    <span class="funnel-metric-val">100% (2,570)</span>
+                    <span class="funnel-metric-val" id="funnel-stage-1">100% (0)</span>
                   </div>
                   <div class="funnel-metric-row">
                     <span class="funnel-metric-name">2. Contacted & Engaged</span>
-                    <span class="funnel-metric-val">68% (1,748)</span>
+                    <span class="funnel-metric-val" id="funnel-stage-2">0% (0)</span>
                   </div>
                   <div class="funnel-metric-row">
                     <span class="funnel-metric-name">3. Itinerary & Quote Sent</span>
-                    <span class="funnel-metric-val">38% (976)</span>
+                    <span class="funnel-metric-val" id="funnel-stage-3">0% (0)</span>
                   </div>
                   <div class="funnel-metric-row">
                     <span class="funnel-metric-name">4. Confirmed Himalaya Bookings</span>
-                    <span class="funnel-metric-val" style="color:#34d399;">18% (462)</span>
+                    <span class="funnel-metric-val" id="funnel-stage-4" style="color:#34d399;">0% (0)</span>
                   </div>
                 </div>
               </div>
@@ -1017,80 +1012,23 @@
             </table>
           </div>
 
-          <!-- Role Separation Clarity Card -->
+          <!-- Data Ownership & Security Info -->
           <div class="role-separation-card">
-            <div class="role-box">
+            <div class="role-box" style="grid-column: 1 / -1;">
               <h4>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2"/></svg>
-                Client Ownership Controls
+                Client Full Data Ownership & Privacy Controls
               </h4>
-              <ul>
-                <li>✓ Full access to customer leads, emails, and phone numbers</li>
-                <li>✓ Direct 1-click WhatsApp customer communication</li>
-                <li>✓ Write, edit, and publish blogs directly to the website</li>
-                <li>✓ One-click complete database backups download anytime</li>
-                <li>✓ 100% data portability without developer lock-in</li>
-              </ul>
-            </div>
-
-            <div class="role-box">
-              <h4>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
-                Developer Super Admin Controls
-              </h4>
-              <ul>
-                <li>✓ Website source code, layout, and front-end design</li>
-                <li>✓ Navigation menus, header, footer, and brand pages</li>
-                <li>✓ Domain DNS, Vercel/cPanel hosting, and SSL certificates</li>
-                <li>✓ WhatsApp Business Cloud API & Webhook integrations</li>
-                <li>✓ Server-side security and regular technical maintenance</li>
+              <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+                <li>✓ 100% ownership of customer leads, trips, emails, and contacts</li>
+                <li>✓ Direct WhatsApp integration for real-time customer messaging</li>
+                <li>✓ Live blog & journal publishing system with instant updates</li>
+                <li>✓ Instant single-click database backup downloads in JSON & CSV formats</li>
+                <li>✓ Secure cloud storage & encrypted data backup ready anytime</li>
               </ul>
             </div>
           </div>
 
-        </section>
-
-
-        <!-- -------------------------------------------------------------------
-             SCREEN 9: DEVELOPER SETTINGS VIEW (SEPARATION OF CONCERNS)
-             ------------------------------------------------------------------- -->
-        <section id="view-settings" class="hidden">
-          <div class="view-header">
-            <h1 class="view-title">Developer & System Configuration</h1>
-          </div>
-
-          <div class="form-section-card">
-            <h3 class="section-title">Website Technical Settings</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-              As per the project architecture, complex technical settings (domain routing, page templating, and API secrets) are managed by the Developer Super Admin. This keeps the client dashboard simple and error-free.
-            </p>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label>Active Domain</label>
-                <input type="text" value="livelocalhimalaya.com" readonly>
-              </div>
-              <div class="form-group">
-                <label>Hosting Infrastructure</label>
-                <input type="text" value="Vercel Serverless + Supabase" readonly>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label>WhatsApp API Gateway</label>
-                <input type="text" value="Meta WhatsApp Cloud API (Connected)" readonly>
-              </div>
-              <div class="form-group">
-                <label>Database RLS Status</label>
-                <input type="text" value="Row Level Security Enforced (Safe)" readonly>
-              </div>
-            </div>
-
-            <div style="margin-top: 10px;">
-              <button type="button" class="btn-neon-action" onclick="alert('Developer contact: For code changes, page updates or new features, reach out to your developer.')">Contact Developer Support</button>
-            </div>
-          </div>
         </section>
 
       </div>

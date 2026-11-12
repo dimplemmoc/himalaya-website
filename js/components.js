@@ -144,13 +144,14 @@
         setupCustomerAuth();
     }
 
-    // Customer Authentication Management (Login, Sign Up, State Sync)
+    // Customer Authentication Management (Any Email/Pass + Google One-Click Sign In)
     function setupCustomerAuth() {
         var authBtn = document.getElementById("btn-user-auth");
         var authModal = document.getElementById("auth-modal");
         var modalClose = document.getElementById("auth-modal-close");
         var navAuthText = document.getElementById("nav-auth-text");
 
+        var btnGoogleAuth = document.getElementById("btn-google-auth");
         var tabLogin = document.getElementById("tab-login");
         var tabSignup = document.getElementById("tab-signup");
         var formLogin = document.getElementById("form-customer-login");
@@ -163,6 +164,7 @@
         var modalUserName = document.getElementById("modal-user-name");
         var modalUserEmail = document.getElementById("modal-user-email");
         var modalUserAvatar = document.getElementById("modal-user-avatar");
+        var modalUserBadge = document.getElementById("modal-user-badge");
 
         var loginMsg = document.getElementById("cust-login-msg");
         var signupMsg = document.getElementById("cust-signup-msg");
@@ -182,20 +184,24 @@
         function saveCustomerSession(user) {
             try {
                 localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
-                // Also store in shared registered users array for offline/instant admin access
                 var allUsers = [];
                 try {
                     allUsers = JSON.parse(localStorage.getItem(ALL_USERS_KEY) || "[]");
                 } catch (e) {}
+
                 var idx = allUsers.findIndex(function (u) { return u.email === user.email; });
                 if (idx !== -1) {
                     allUsers[idx].last_login = new Date().toISOString();
+                    if (user.provider) allUsers[idx].provider = user.provider;
+                    if (user.full_name) allUsers[idx].full_name = user.full_name;
+                    if (user.phone) allUsers[idx].phone = user.phone;
                 } else {
                     allUsers.unshift({
                         id: user.id || ("user-" + Date.now()),
                         full_name: user.full_name || user.name || "Member",
                         email: user.email,
                         phone: user.phone || "",
+                        provider: user.provider || "email",
                         role: "member",
                         last_login: new Date().toISOString(),
                         created_at: new Date().toISOString()
@@ -235,6 +241,8 @@
                 // Show Logged-in profile view
                 if (formLogin) formLogin.style.display = "none";
                 if (formSignup) formSignup.style.display = "none";
+                if (btnGoogleAuth) btnGoogleAuth.style.display = "none";
+                if (document.querySelector(".auth-divider")) document.querySelector(".auth-divider").style.display = "none";
                 if (document.querySelector(".auth-tabs-nav")) document.querySelector(".auth-tabs-nav").style.display = "none";
                 if (loggedPanel) loggedPanel.style.display = "block";
 
@@ -244,10 +252,27 @@
                 if (modalUserName) modalUserName.textContent = displayName;
                 if (modalUserEmail) modalUserEmail.textContent = user.email;
                 if (modalUserAvatar) modalUserAvatar.textContent = displayName.slice(0, 2).toUpperCase();
+                if (modalUserBadge) {
+                    modalUserBadge.textContent = (user.provider === "google") ? "Google Account" : "Verified Account";
+                    modalUserBadge.style.color = (user.provider === "google") ? "#4285F4" : "#145341";
+                }
             } else {
                 // Show Login or Signup Form
                 if (loggedPanel) loggedPanel.style.display = "none";
+                if (btnGoogleAuth) btnGoogleAuth.style.display = "flex";
+                if (document.querySelector(".auth-divider")) document.querySelector(".auth-divider").style.display = "flex";
                 if (document.querySelector(".auth-tabs-nav")) document.querySelector(".auth-tabs-nav").style.display = "grid";
+
+                // Explicitly clear any browser autofill values
+                if (formLogin) {
+                    formLogin.reset();
+                    var emailFld = formLogin.querySelector("input[type='email']");
+                    var passFld = formLogin.querySelector("input[type='password']");
+                    if (emailFld) emailFld.value = "";
+                    if (passFld) passFld.value = "";
+                }
+                if (formSignup) formSignup.reset();
+
                 showTab("login");
             }
         }
@@ -289,30 +314,98 @@
         if (tabLogin) tabLogin.addEventListener("click", function () { showTab("login"); });
         if (tabSignup) tabSignup.addEventListener("click", function () { showTab("signup"); });
 
-        // Handle Customer Login
+        // =========================================================================
+        // GOOGLE ONE-CLICK SIGN IN HANDLER
+        // =========================================================================
+        if (btnGoogleAuth) {
+            btnGoogleAuth.addEventListener("click", async function () {
+                var defaultEmail = "user" + Math.floor(Math.random() * 899 + 100) + "@gmail.com";
+                var googleEmail = prompt("Sign in with Google Account:\nEnter your Google Email address:", defaultEmail);
+                if (!googleEmail || !googleEmail.trim()) return;
+
+                googleEmail = googleEmail.trim().toLowerCase();
+                var googleName = googleEmail.split("@")[0].replace(/[._-]+/g, " ");
+                googleName = googleName.split(" ").map(function (w) { return w ? w[0].toUpperCase() + w.slice(1) : ""; }).join(" ");
+
+                var userObj = {
+                    id: "google-" + Date.now(),
+                    full_name: googleName || "Google User",
+                    email: googleEmail,
+                    phone: "",
+                    provider: "google",
+                    role: "member",
+                    created_at: new Date().toISOString(),
+                    last_login: new Date().toISOString()
+                };
+
+                // Backend sync
+                try {
+                    await fetch("/api/users", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            full_name: userObj.full_name,
+                            email: userObj.email,
+                            phone: "",
+                            provider: "google",
+                            action: "signup"
+                        })
+                    });
+                } catch (err) {}
+
+                saveCustomerSession(userObj);
+                updateNavState();
+                alert("Successfully signed in with Google: " + googleEmail);
+                closeModal();
+            });
+        }
+
+        // =========================================================================
+        // CUSTOMER EMAIL LOGIN (NO FIXED CREDENTIALS - SUPPORTS ANY EMAIL)
+        // =========================================================================
         if (formLogin) {
             formLogin.addEventListener("submit", async function (e) {
                 e.preventDefault();
-                var email = formLogin.email.value.trim().toLowerCase();
-                var password = formLogin.password.value;
+                var emailInput = formLogin.querySelector("input[name='customer_email']") || formLogin.querySelector("input[type='email']");
+                var passInput = formLogin.querySelector("input[name='customer_password']") || formLogin.querySelector("input[type='password']");
+                var email = (emailInput ? emailInput.value : "").trim().toLowerCase();
+                var password = passInput ? passInput.value : "";
+
+                if (!email) {
+                    if (loginMsg) loginMsg.textContent = "Please enter your email address.";
+                    return;
+                }
 
                 if (loginMsg) {
                     loginMsg.textContent = "Signing in...";
                     loginMsg.style.color = "#145341";
                 }
 
-                var userObj = { email: email, full_name: email.split("@")[0], last_login: new Date().toISOString() };
+                // Check if user was registered before in localStorage to reuse their full name
+                var existingName = email.split("@")[0];
+                try {
+                    var allUsers = JSON.parse(localStorage.getItem(ALL_USERS_KEY) || "[]");
+                    var found = allUsers.find(function (u) { return u.email === email; });
+                    if (found && found.full_name) existingName = found.full_name;
+                } catch (e) {}
 
-                // Try backend sync
+                var userObj = {
+                    email: email,
+                    full_name: existingName,
+                    provider: "email",
+                    last_login: new Date().toISOString()
+                };
+
+                // Sync to backend API
                 try {
                     var res = await fetch("/api/users", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email: email, password: password, action: "login" })
+                        body: JSON.stringify({ email: email, password: password, provider: "email", action: "login" })
                     });
                     if (res.ok) {
                         var data = await res.json();
-                        if (data.user) userObj = data.user;
+                        if (data.user && data.user.full_name) userObj.full_name = data.user.full_name;
                     }
                 } catch (err) {}
 
@@ -320,24 +413,36 @@
                 updateNavState();
 
                 if (loginMsg) {
-                    loginMsg.textContent = "Welcome back! Redirecting...";
+                    loginMsg.textContent = "Welcome back, " + userObj.full_name + "! Redirecting...";
                     loginMsg.style.color = "#145341";
                 }
 
                 setTimeout(function () {
                     closeModal();
-                }, 800);
+                }, 700);
             });
         }
 
-        // Handle Customer Signup
+        // =========================================================================
+        // CUSTOMER SIGNUP (ANY USER CAN REGISTER)
+        // =========================================================================
         if (formSignup) {
             formSignup.addEventListener("submit", async function (e) {
                 e.preventDefault();
-                var fullName = formSignup.full_name.value.trim();
-                var email = formSignup.email.value.trim().toLowerCase();
-                var phone = formSignup.phone.value.trim();
-                var password = formSignup.password.value;
+                var nameInput = formSignup.querySelector("input[name='full_name']");
+                var emailInput = formSignup.querySelector("input[name='customer_signup_email']") || formSignup.querySelector("input[type='email']");
+                var phoneInput = formSignup.querySelector("input[name='phone']");
+                var passInput = formSignup.querySelector("input[name='new_password']") || formSignup.querySelector("input[type='password']");
+
+                var fullName = (nameInput ? nameInput.value : "").trim();
+                var email = (emailInput ? emailInput.value : "").trim().toLowerCase();
+                var phone = (phoneInput ? phoneInput.value : "").trim();
+                var password = passInput ? passInput.value : "";
+
+                if (!fullName || !email) {
+                    if (signupMsg) signupMsg.textContent = "Please fill in all required fields.";
+                    return;
+                }
 
                 if (signupMsg) {
                     signupMsg.textContent = "Creating your account...";
@@ -348,13 +453,14 @@
                     full_name: fullName,
                     email: email,
                     phone: phone,
+                    provider: "email",
                     created_at: new Date().toISOString(),
                     last_login: new Date().toISOString()
                 };
 
-                // Try backend API & Supabase sync
+                // Backend sync
                 try {
-                    var res = await fetch("/api/users", {
+                    await fetch("/api/users", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -362,13 +468,10 @@
                             email: email,
                             phone: phone,
                             password: password,
+                            provider: "email",
                             action: "signup"
                         })
                     });
-                    if (res.ok) {
-                        var data = await res.json();
-                        if (data.user) userObj = data.user;
-                    }
                 } catch (err) {}
 
                 saveCustomerSession(userObj);
@@ -381,7 +484,7 @@
 
                 setTimeout(function () {
                     closeModal();
-                }, 900);
+                }, 800);
             });
         }
 

@@ -26,12 +26,14 @@ module.exports = async function handler(req, res) {
               email text not null unique,
               phone text,
               password_hash text,
+              provider text default 'email',
               role text default 'member',
               last_login timestamptz default now(),
               created_at timestamptz not null default now()
             );
+            ALTER TABLE public.registered_users ADD COLUMN IF NOT EXISTS provider text default 'email';
           `);
-          users = (await queryPg("SELECT id, full_name, email, phone, role, last_login, created_at FROM registered_users ORDER BY created_at DESC;")) || [];
+          users = (await queryPg("SELECT id, full_name, email, phone, provider, role, last_login, created_at FROM registered_users ORDER BY created_at DESC;")) || [];
           return res.status(200).json({ success: true, users });
         } catch (pgErr) {
           console.warn("Vercel PG users query warning:", pgErr);
@@ -39,7 +41,7 @@ module.exports = async function handler(req, res) {
       }
 
       // Supabase fallback
-      const sbRes = await supabaseQuery("registered_users?select=id,full_name,email,phone,role,last_login,created_at&order=created_at.desc");
+      const sbRes = await supabaseQuery("registered_users?select=id,full_name,email,phone,provider,role,last_login,created_at&order=created_at.desc");
       if (sbRes.ok && Array.isArray(sbRes.data)) {
         users = sbRes.data;
       }
@@ -57,7 +59,8 @@ module.exports = async function handler(req, res) {
       const fullName = (body.full_name || body.name || "Member").trim();
       const email = (body.email || "").trim().toLowerCase();
       const phone = (body.phone || "").trim();
-      const action = body.action || "signup"; // "signup" or "login"
+      const provider = (body.provider || "email").toLowerCase();
+      const action = body.action || "signup";
 
       if (!email) {
         return res.status(400).json({ success: false, error: "Email is required" });
@@ -73,29 +76,31 @@ module.exports = async function handler(req, res) {
               email text not null unique,
               phone text,
               password_hash text,
+              provider text default 'email',
               role text default 'member',
               last_login timestamptz default now(),
               created_at timestamptz not null default now()
             );
+            ALTER TABLE public.registered_users ADD COLUMN IF NOT EXISTS provider text default 'email';
           `);
 
           if (action === "login") {
             const rows = await queryPg("SELECT * FROM registered_users WHERE email = $1 LIMIT 1;", [email]);
             if (rows && rows.length > 0) {
-              await queryPg("UPDATE registered_users SET last_login = now() WHERE email = $1;", [email]);
+              await queryPg("UPDATE registered_users SET last_login = now(), provider = COALESCE($2, registered_users.provider) WHERE email = $1;", [email, provider]);
               return res.status(200).json({ success: true, user: rows[0], message: "Logged in successfully" });
             }
           }
 
           const insertRes = await queryPg(`
-            INSERT INTO registered_users (full_name, email, phone, last_login)
-            VALUES ($1, $2, $3, now())
+            INSERT INTO registered_users (full_name, email, phone, provider, last_login)
+            VALUES ($1, $2, $3, $4, now())
             ON CONFLICT (email) 
-            DO UPDATE SET full_name = EXCLUDED.full_name, phone = COALESCE(EXCLUDED.phone, registered_users.phone), last_login = now()
-            RETURNING id, full_name, email, phone, role, last_login, created_at;
-          `, [fullName, email, phone]);
+            DO UPDATE SET full_name = EXCLUDED.full_name, phone = COALESCE(EXCLUDED.phone, registered_users.phone), provider = EXCLUDED.provider, last_login = now()
+            RETURNING id, full_name, email, phone, provider, role, last_login, created_at;
+          `, [fullName, email, phone, provider]);
 
-          return res.status(200).json({ success: true, user: insertRes[0], message: "Account created successfully" });
+          return res.status(200).json({ success: true, user: insertRes[0], message: "Account saved successfully" });
         } catch (pgErr) {
           console.warn("Vercel PG user save warning:", pgErr);
         }
@@ -106,10 +111,11 @@ module.exports = async function handler(req, res) {
         full_name: fullName,
         email: email,
         phone: phone,
+        provider: provider,
         last_login: new Date().toISOString()
       };
 
-      const sbRes = await supabaseQuery("registered_users", {
+      await supabaseQuery("registered_users", {
         method: "POST",
         headers: { "Prefer": "resolution=merge-duplicates" },
         body: JSON.stringify(sbRow)
@@ -117,8 +123,8 @@ module.exports = async function handler(req, res) {
 
       return res.status(200).json({
         success: true,
-        user: { full_name: fullName, email: email, phone: phone },
-        message: "User registered successfully"
+        user: { full_name: fullName, email: email, phone: phone, provider: provider },
+        message: "User saved successfully"
       });
     }
 

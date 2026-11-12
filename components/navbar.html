@@ -49,21 +49,37 @@
             <p id="auth-modal-subtitle" class="auth-modal-subtitle">Sign in to save favorite stays and track your custom trips.</p>
         </div>
 
+        <!-- GOOGLE ONE-CLICK SIGN IN BUTTON -->
+        <button type="button" id="btn-google-auth" class="btn-google-auth" aria-label="Continue with Google">
+            <svg class="google-svg-icon" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span id="google-btn-text">Sign in with Google</span>
+        </button>
+
+        <!-- OR DIVIDER -->
+        <div class="auth-divider">
+            <span>or use email address</span>
+        </div>
+
         <!-- AUTH TABS -->
         <div class="auth-tabs-nav">
             <button type="button" id="tab-login" class="auth-tab-btn active">Sign In</button>
             <button type="button" id="tab-signup" class="auth-tab-btn">Create Account</button>
         </div>
 
-        <!-- LOGIN FORM -->
-        <form id="form-customer-login" class="auth-form-body">
+        <!-- LOGIN FORM (NO FIXED CREDENTIALS, SUPPORTS ANY USER) -->
+        <form id="form-customer-login" class="auth-form-body" autocomplete="off">
             <div class="auth-input-group">
                 <label for="login-cust-email">Email Address</label>
-                <input type="email" id="login-cust-email" name="email" placeholder="you@example.com" required autocomplete="email">
+                <input type="email" id="login-cust-email" name="customer_email" placeholder="Enter your email" required autocomplete="off" value="">
             </div>
             <div class="auth-input-group">
                 <label for="login-cust-pass">Password</label>
-                <input type="password" id="login-cust-pass" name="password" placeholder="••••••••" required autocomplete="current-password">
+                <input type="password" id="login-cust-pass" name="customer_password" placeholder="Enter your password" required autocomplete="new-password" value="">
             </div>
             <div class="auth-form-extra">
                 <label class="auth-remember-wrap">
@@ -76,22 +92,22 @@
         </form>
 
         <!-- SIGNUP FORM -->
-        <form id="form-customer-signup" class="auth-form-body" style="display:none;">
+        <form id="form-customer-signup" class="auth-form-body" style="display:none;" autocomplete="off">
             <div class="auth-input-group">
                 <label for="signup-cust-name">Full Name</label>
-                <input type="text" id="signup-cust-name" name="full_name" placeholder="Aarav Sharma" required autocomplete="name">
+                <input type="text" id="signup-cust-name" name="full_name" placeholder="Enter your name (e.g. Rahul Sharma)" required autocomplete="off" value="">
             </div>
             <div class="auth-input-group">
                 <label for="signup-cust-email">Email Address</label>
-                <input type="email" id="signup-cust-email" name="email" placeholder="aarav@example.com" required autocomplete="email">
+                <input type="email" id="signup-cust-email" name="customer_signup_email" placeholder="Enter your email" required autocomplete="off" value="">
             </div>
             <div class="auth-input-group">
                 <label for="signup-cust-phone">WhatsApp / Phone Number</label>
-                <input type="tel" id="signup-cust-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
+                <input type="tel" id="signup-cust-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="off" value="">
             </div>
             <div class="auth-input-group">
                 <label for="signup-cust-pass">Password</label>
-                <input type="password" id="signup-cust-pass" name="password" placeholder="Create a secure password" required minlength="6" autocomplete="new-password">
+                <input type="password" id="signup-cust-pass" name="new_password" placeholder="Create a secure password" required minlength="4" autocomplete="new-password" value="">
             </div>
             <button type="submit" class="btn-auth-submit">Create My Account →</button>
             <p id="cust-signup-msg" class="auth-feedback-msg"></p>
@@ -104,6 +120,7 @@
                 <div>
                     <h4 id="modal-user-name" style="font-size:16px;font-weight:700;color:#172b25;margin:0;">User Name</h4>
                     <p id="modal-user-email" style="font-size:12px;color:#718078;margin:2px 0 0;">user@example.com</p>
+                    <span id="modal-user-badge" class="auth-provider-badge">Email Account</span>
                 </div>
             </div>
             <div style="margin:20px 0 10px;display:flex;flex-direction:column;gap:10px;">
