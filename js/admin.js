@@ -481,26 +481,54 @@
     var sbUrl = window.HIMALAYA_SUPABASE_URL;
     var sbKey = window.HIMALAYA_SUPABASE_PUBLISHABLE_KEY;
 
+    // 1. ALWAYS load registered users from localStorage first so NO login/signup data is ever lost on reload
+    try {
+      var localCust = JSON.parse(localStorage.getItem("llh-all-registered-users") || "[]");
+      if (Array.isArray(localCust) && localCust.length > 0) {
+        allRegisteredUsers = localCust;
+      }
+    } catch (e) {}
+
+    // 2. Fetch users from API /api/users to sync across devices
+    try {
+      var uRes = await fetch("/api/users");
+      if (uRes.ok) {
+        var uData = await uRes.json();
+        if (uData.success && Array.isArray(uData.users) && uData.users.length > 0) {
+          var userMap = {};
+          allRegisteredUsers.forEach(function (u) { userMap[u.email || u.id] = u; });
+          uData.users.forEach(function (u) { userMap[u.email || u.id] = Object.assign({}, userMap[u.email || u.id] || {}, u); });
+          allRegisteredUsers = Object.values(userMap);
+          try {
+            localStorage.setItem("llh-all-registered-users", JSON.stringify(allRegisteredUsers));
+          } catch (e) {}
+        }
+      }
+    } catch (e) {}
+
+    // 3. Fetch Inquiries from /api/inquiries
+    var inquiriesLoaded = false;
     try {
       var apiRes = await fetch("/api/inquiries?type=all");
       if (apiRes.ok) {
         var apiData = await apiRes.json();
         if (apiData.success) {
-          allTripInquiries = apiData.tripInquiries || [];
-          allContactInquiries = apiData.contactInquiries || [];
-          allNewsletterSubscribers = apiData.newsletterSubscribers || [];
-          updateInquiryBadges();
-          renderTripInquiriesTable();
-          renderContactInquiriesTable();
-          renderWhatsappInquiriesTable();
-          renderNewsletterTable();
-          renderDashboardOverview();
-          return;
+          if (Array.isArray(apiData.tripInquiries) && apiData.tripInquiries.length > 0) {
+            allTripInquiries = apiData.tripInquiries;
+          }
+          if (Array.isArray(apiData.contactInquiries) && apiData.contactInquiries.length > 0) {
+            allContactInquiries = apiData.contactInquiries;
+          }
+          if (Array.isArray(apiData.newsletterSubscribers) && apiData.newsletterSubscribers.length > 0) {
+            allNewsletterSubscribers = apiData.newsletterSubscribers;
+          }
+          inquiriesLoaded = true;
         }
       }
     } catch (e) {}
 
-    if (sbUrl && sbKey) {
+    // 4. Supabase direct fallback if needed
+    if (!inquiriesLoaded && sbUrl && sbKey) {
       try {
         var h = { "apikey": sbKey, "Authorization": "Bearer " + sbKey };
         var [tripRes, contactRes, newsRes] = await Promise.allSettled([
@@ -509,13 +537,13 @@
           fetch(sbUrl + "/rest/v1/newsletter_subscribers?select=*&order=created_at.desc", { headers: h }).then(function (r) { return r.ok ? r.json() : []; })
         ]);
 
-        if (tripRes.status === "fulfilled" && Array.isArray(tripRes.value)) allTripInquiries = tripRes.value;
-        if (contactRes.status === "fulfilled" && Array.isArray(contactRes.value)) allContactInquiries = contactRes.value;
-        if (newsRes.status === "fulfilled" && Array.isArray(newsRes.value)) allNewsletterSubscribers = newsRes.value;
+        if (tripRes.status === "fulfilled" && Array.isArray(tripRes.value) && tripRes.value.length) allTripInquiries = tripRes.value;
+        if (contactRes.status === "fulfilled" && Array.isArray(contactRes.value) && contactRes.value.length) allContactInquiries = contactRes.value;
+        if (newsRes.status === "fulfilled" && Array.isArray(newsRes.value) && newsRes.value.length) allNewsletterSubscribers = newsRes.value;
       } catch (err) {}
     }
 
-    // Default Seed Leads if empty so client can test and view immediate rich CRM data
+    // 5. Default Seed Leads if empty so client can test and view immediate rich CRM data
     if (!allTripInquiries.length && !allContactInquiries.length) {
       allTripInquiries = [
         {
@@ -584,12 +612,7 @@
       ];
     }
 
-    // Seed registered users if empty
-    try {
-      var localCust = JSON.parse(localStorage.getItem("llh-all-registered-users") || "[]");
-      if (Array.isArray(localCust) && localCust.length) allRegisteredUsers = localCust;
-    } catch (e) {}
-
+    // Default Seed registered users if completely empty
     if (!allRegisteredUsers.length) {
       allRegisteredUsers = [
         {
@@ -597,6 +620,7 @@
           full_name: "Aarav Sharma",
           email: "aarav.sharma@example.com",
           phone: "+91 98765 43210",
+          provider: "google",
           role: "member",
           created_at: "2026-11-12T09:30:00Z",
           last_login: "2026-11-12T10:15:00Z"
@@ -606,13 +630,18 @@
           full_name: "Neha Kapoor",
           email: "neha.k@example.com",
           phone: "+91 98200 88776",
+          provider: "email",
           role: "member",
           created_at: "2026-11-11T14:20:00Z",
           last_login: "2026-11-11T16:00:00Z"
         }
       ];
+      try {
+        localStorage.setItem("llh-all-registered-users", JSON.stringify(allRegisteredUsers));
+      } catch (e) {}
     }
 
+    // 6. RENDER EVERYTHING (Guarantees users table and badges are always rendered!)
     updateInquiryBadges();
     renderTripInquiriesTable();
     renderContactInquiriesTable();
@@ -1471,14 +1500,14 @@
   // =========================================================================
   // 1. Silent background auto-polling every 10 seconds
   setInterval(function () {
-    if (localStorage.getItem(AUTH_STORAGE_KEY) === "true") {
+    if (localStorage.getItem(AUTH_STORAGE_KEY) === "authenticated") {
       syncInquiries();
     }
   }, 10000);
 
   // 2. Instant sync whenever admin tab is focused/re-opened
   window.addEventListener("focus", function () {
-    if (localStorage.getItem(AUTH_STORAGE_KEY) === "true") {
+    if (localStorage.getItem(AUTH_STORAGE_KEY) === "authenticated") {
       syncInquiries();
       syncFromSupabase();
     }
