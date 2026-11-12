@@ -5,7 +5,7 @@
    ========================================================================== */
 
 :root {
-  /* Core Dark Blue & Cosmic Palette */
+  /* Core Dark Blue & Cosmic Forest Palette */
   --bg-deep: #070b14;
   --bg-body: #0b1120;
   --bg-sidebar: #0b1325;
@@ -15,30 +15,30 @@
   --bg-input: rgba(11, 19, 38, 0.9);
   --bg-dropdown: #0d172e;
 
-  /* Neon Cyan & Blue Glow Accents */
-  --neon-cyan: #00f2fe;
-  --neon-cyan-dim: rgba(0, 242, 254, 0.2);
-  --neon-cyan-glow: 0 0 20px rgba(0, 242, 254, 0.35);
-  --neon-blue: #38bdf8;
-  --neon-royal: #2563eb;
-  --neon-indigo: #6366f1;
-  --neon-teal: #14b8a6;
+  /* Emerald Mountain Green Accents (Replaced skyblue with luxury Himalayan green) */
+  --neon-cyan: #10b981;
+  --neon-cyan-dim: rgba(16, 185, 129, 0.2);
+  --neon-cyan-glow: 0 0 20px rgba(16, 185, 129, 0.45);
+  --neon-blue: #34d399;
+  --neon-royal: #059669;
+  --neon-indigo: #047857;
+  --neon-teal: #10b981;
   --accent-gold: #f59e0b;
   --accent-emerald: #10b981;
   --accent-coral: #f43f5e;
 
   /* Borders & Glass Dividers */
-  --border-glass: rgba(56, 189, 248, 0.16);
+  --border-glass: rgba(16, 185, 129, 0.22);
   --border-subtle: rgba(148, 163, 184, 0.1);
-  --border-focus: rgba(0, 242, 254, 0.65);
-  --glass-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(56, 189, 248, 0.12);
+  --border-focus: rgba(16, 185, 129, 0.75);
+  --glass-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(16, 185, 129, 0.18);
 
   /* Typography Colors */
   --text-pure: #ffffff;
   --text-main: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-dim: #64748b;
-  --text-cyan: #38bdf8;
+  --text-cyan: #34d399;
 
   /* Font Families */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -131,14 +131,14 @@ body.journal-admin {
   height: 58px;
   margin: 0 auto 16px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #00f2fe, #2563eb);
+  background: linear-gradient(135deg, #10b981, #047857);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   font-size: 26px;
   font-weight: 800;
-  box-shadow: 0 0 24px rgba(0, 242, 254, 0.45);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
 }
 
 .login-kicker {
@@ -223,7 +223,7 @@ body.journal-admin {
 
 .btn-login {
   width: 100%;
-  background: linear-gradient(135deg, #00f2fe 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
   border: none;
   border-radius: var(--radius-sm);
   color: #fff;
@@ -235,13 +235,13 @@ body.journal-admin {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.35);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
   transition: all 0.25s ease;
 }
 
 .btn-login:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 26px rgba(0, 242, 254, 0.5);
+  box-shadow: 0 8px 26px rgba(16, 185, 129, 0.5);
 }
 
 .form-feedback {
@@ -288,15 +288,30 @@ body.journal-admin {
   margin-bottom: 16px;
 }
 
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.brand-link:hover {
+  opacity: 0.92;
+  transform: translateX(2px);
+}
+
 .brand-icon-wrap {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #00f2fe 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 16px rgba(0, 242, 254, 0.45);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
 }
 
 .brand-icon-svg {
@@ -384,11 +399,11 @@ body.journal-admin {
 }
 
 .nav-link.active {
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.14) 0%, rgba(37, 99, 235, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.12) 100%);
   color: var(--neon-cyan);
   font-weight: 600;
-  border: 1px solid rgba(0, 242, 254, 0.35);
-  box-shadow: 0 0 18px rgba(0, 242, 254, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.2);
 }
 
 .nav-link.active svg {
@@ -398,9 +413,9 @@ body.journal-admin {
 
 .sidebar-badge {
   margin-left: auto;
-  background: rgba(0, 242, 254, 0.18);
+  background: rgba(16, 185, 129, 0.2);
   color: var(--neon-cyan);
-  border: 1px solid rgba(0, 242, 254, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   font-size: 11px;
   font-weight: 700;
   padding: 2px 7px;
@@ -600,14 +615,14 @@ body.journal-admin {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  background: linear-gradient(135deg, #34d399, #059669);
   display: grid;
   place-items: center;
   font-weight: 700;
   font-size: 13px;
   color: #fff;
   position: relative;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
 }
 
 .user-avatar-circle::after {
@@ -998,14 +1013,14 @@ body.journal-admin {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  background: linear-gradient(135deg, #34d399, #059669);
   color: #fff;
   font-weight: 700;
   font-size: 13px;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.35);
 }
 
 .deal-info strong {
@@ -1189,7 +1204,7 @@ body.journal-admin {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, #00f2fe 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
   border: none;
   color: #fff;
   padding: 9px 18px;
@@ -1197,7 +1212,7 @@ body.journal-admin {
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.35);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
   transition: all 0.2s;
 }
 
@@ -1439,7 +1454,7 @@ body.journal-admin {
 }
 
 .btn-publish {
-  background: linear-gradient(135deg, #00f2fe 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
   border: none;
   color: #fff;
   font-size: 13px;
@@ -1447,20 +1462,20 @@ body.journal-admin {
   padding: 10px 22px;
   border-radius: var(--radius-xs);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.35);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
 }
 
 .btn-publish:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
 }
 
 /* ==========================================================================
    DATABASE MANAGEMENT & CLIENT OWNERSHIP SCREEN (NEW FEATURE)
    ========================================================================== */
 .db-ownership-banner {
-  background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
-  border: 1px solid rgba(0, 242, 254, 0.35);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.1) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   border-radius: var(--radius-md);
   padding: 24px;
   margin-bottom: 24px;

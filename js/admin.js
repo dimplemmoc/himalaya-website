@@ -271,19 +271,60 @@
   var mobileCloseBtn = document.getElementById("btn-mobile-sidebar-close");
   var mobileOverlay = document.getElementById("sidebar-mobile-overlay");
 
-  function openMobileSidebar() {
+  function openMobileSidebar(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!sidebarEl) sidebarEl = document.getElementById("admin-sidebar");
+    if (!mobileOverlay) mobileOverlay = document.getElementById("sidebar-mobile-overlay");
     if (sidebarEl) sidebarEl.classList.add("mobile-open");
     if (mobileOverlay) mobileOverlay.classList.add("active");
   }
 
-  function closeMobileSidebar() {
+  function closeMobileSidebar(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!sidebarEl) sidebarEl = document.getElementById("admin-sidebar");
+    if (!mobileOverlay) mobileOverlay = document.getElementById("sidebar-mobile-overlay");
     if (sidebarEl) sidebarEl.classList.remove("mobile-open");
     if (mobileOverlay) mobileOverlay.classList.remove("active");
   }
 
-  if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", openMobileSidebar);
-  if (mobileCloseBtn) mobileCloseBtn.addEventListener("click", closeMobileSidebar);
-  if (mobileOverlay) mobileOverlay.addEventListener("click", closeMobileSidebar);
+  function toggleMobileSidebar(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!sidebarEl) sidebarEl = document.getElementById("admin-sidebar");
+    if (!mobileOverlay) mobileOverlay = document.getElementById("sidebar-mobile-overlay");
+    if (sidebarEl) {
+      if (sidebarEl.classList.contains("mobile-open")) {
+        closeMobileSidebar(e);
+      } else {
+        openMobileSidebar(e);
+      }
+    }
+  }
+
+  window.openMobileSidebar = openMobileSidebar;
+  window.closeMobileSidebar = closeMobileSidebar;
+  window.toggleMobileSidebar = toggleMobileSidebar;
+
+  if (mobileToggleBtn) {
+    mobileToggleBtn.addEventListener("click", toggleMobileSidebar);
+    mobileToggleBtn.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      toggleMobileSidebar(e);
+    });
+  }
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener("click", closeMobileSidebar);
+    mobileCloseBtn.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      closeMobileSidebar(e);
+    });
+  }
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener("click", closeMobileSidebar);
+    mobileOverlay.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      closeMobileSidebar(e);
+    });
+  }
 
   // --- View Switching ---
   function showView(view) {
@@ -312,7 +353,7 @@
     if (view === "dashboard" || !view) {
       if (viewDashboard) viewDashboard.classList.remove("hidden");
       if (navDashboard) navDashboard.classList.add("active");
-      if (topTitle) topTitle.textContent = "CRM Dashboard ▾";
+      if (topTitle) topTitle.textContent = "Live Local Dashboard ▾";
       renderDashboardOverview();
     } else if (view === "all") {
       if (viewAllBlogs) viewAllBlogs.classList.remove("hidden");
