@@ -265,8 +265,29 @@
     };
   }
 
+  // Mobile Drawer Controls
+  var sidebarEl = document.getElementById("admin-sidebar");
+  var mobileToggleBtn = document.getElementById("btn-mobile-sidebar-toggle");
+  var mobileCloseBtn = document.getElementById("btn-mobile-sidebar-close");
+  var mobileOverlay = document.getElementById("sidebar-mobile-overlay");
+
+  function openMobileSidebar() {
+    if (sidebarEl) sidebarEl.classList.add("mobile-open");
+    if (mobileOverlay) mobileOverlay.classList.add("active");
+  }
+
+  function closeMobileSidebar() {
+    if (sidebarEl) sidebarEl.classList.remove("mobile-open");
+    if (mobileOverlay) mobileOverlay.classList.remove("active");
+  }
+
+  if (mobileToggleBtn) mobileToggleBtn.addEventListener("click", openMobileSidebar);
+  if (mobileCloseBtn) mobileCloseBtn.addEventListener("click", closeMobileSidebar);
+  if (mobileOverlay) mobileOverlay.addEventListener("click", closeMobileSidebar);
+
   // --- View Switching ---
   function showView(view) {
+    closeMobileSidebar();
     // Hide all
     var allSections = [
       viewDashboard, viewAllBlogs, viewAddBlog, viewTripInquiries,

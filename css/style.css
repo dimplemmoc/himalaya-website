@@ -4176,13 +4176,16 @@ body {
 .auth-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(11, 25, 20, 0.72);
+    background: rgba(11, 25, 20, 0.78);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 999999;
-    padding: 20px;
+    padding: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     animation: authFadeIn 0.25s ease-out;
 }
 
@@ -4193,25 +4196,47 @@ body {
     border-radius: 16px;
     max-width: 440px;
     width: 100%;
-    padding: 34px 30px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 24px 22px 20px;
     position: relative;
+    margin: auto;
+}
+
+/* Modal Smooth Custom Scrollbar */
+.auth-modal-dialog::-webkit-scrollbar {
+    width: 6px;
+}
+.auth-modal-dialog::-webkit-scrollbar-track {
+    background: #f1f5f3;
+    border-radius: 4px;
+}
+.auth-modal-dialog::-webkit-scrollbar-thumb {
+    background: #c3d2ca;
+    border-radius: 4px;
+}
+.auth-modal-dialog::-webkit-scrollbar-thumb:hover {
+    background: #8fa99c;
 }
 
 .auth-modal-close {
     position: absolute;
-    top: 16px;
-    right: 18px;
+    top: 14px;
+    right: 14px;
     background: #f1f5f3;
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     display: grid;
     place-items: center;
-    font-size: 20px;
+    font-size: 18px;
+    line-height: 1;
     color: #60756a;
     cursor: pointer;
     transition: all 0.2s;
+    z-index: 10;
 }
 
 .auth-modal-close:hover {
@@ -4221,31 +4246,34 @@ body {
 
 .auth-modal-header {
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: 14px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .auth-brand-kicker {
     display: inline-block;
-    font-size: 10.5px;
+    font-size: 10px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #c68b4f;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .auth-modal-title {
     font-family: Georgia, "Playfair Display", serif;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: 700;
     color: #172b25;
+    margin: 2px 0;
 }
 
 .auth-modal-subtitle {
-    font-size: 12.5px;
+    font-size: 11.5px;
     color: #718078;
-    margin-top: 4px;
-    line-height: 1.5;
+    margin-top: 2px;
+    line-height: 1.4;
 }
 
 /* Tabs */
@@ -4253,17 +4281,17 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     background: #f4f7f5;
-    padding: 4px;
+    padding: 3px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     gap: 4px;
 }
 
 .auth-tab-btn {
     border: none;
     background: transparent;
-    padding: 10px;
-    font-size: 13px;
+    padding: 8px 10px;
+    font-size: 12.5px;
     font-weight: 600;
     color: #718078;
     border-radius: 8px;
@@ -4281,31 +4309,32 @@ body {
 .auth-form-body {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 
 .auth-input-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .auth-input-group label {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
     color: #274d3d;
 }
 
 .auth-input-group input {
     width: 100%;
-    padding: 12px 14px;
+    padding: 10px 12px;
     border: 1px solid #dfe5dd;
     border-radius: 8px;
-    font-size: 13.5px;
+    font-size: 13px;
     color: #172b25;
     background: #fafbfa;
     outline: none;
     transition: all 0.2s;
+    box-sizing: border-box;
 }
 
 .auth-input-group input:focus {
@@ -4318,8 +4347,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 11.5px;
     color: #718078;
+    margin-top: 2px;
 }
 
 .auth-remember-wrap {
@@ -4344,12 +4374,12 @@ body {
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    padding: 13px;
-    font-size: 13.5px;
+    padding: 11px 14px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.5px;
     cursor: pointer;
-    margin-top: 6px;
+    margin-top: 4px;
     box-shadow: 0 4px 16px rgba(20, 83, 65, 0.25);
     transition: all 0.2s;
 }
@@ -4426,18 +4456,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     background: #ffffff;
     border: 1px solid #dfe5dd;
     color: #172b25;
     border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 13.5px;
+    padding: 9px 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .btn-google-auth:hover {
@@ -4455,9 +4485,9 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
-    margin: 16px 0 18px;
+    margin: 10px 0 12px;
     color: #8c9e95;
-    font-size: 11.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }

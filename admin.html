@@ -58,8 +58,11 @@
        ========================================================================= -->
   <div id="dashboard-view" class="admin-layout hidden">
     
+    <!-- Mobile Backdrop Overlay -->
+    <div id="sidebar-mobile-overlay" class="sidebar-mobile-overlay"></div>
+
     <!-- LEFT SIDEBAR (Dark Navy with Neon Glow) -->
-    <aside class="admin-sidebar">
+    <aside id="admin-sidebar" class="admin-sidebar">
       <div class="sidebar-brand">
         <div class="brand-icon-wrap">
           <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -71,6 +74,7 @@
         <div class="brand-info">
           <h2>CRM <span>Live Local Himalaya</span></h2>
         </div>
+        <button id="btn-mobile-sidebar-close" class="mobile-sidebar-close" type="button" aria-label="Close menu">✕</button>
       </div>
 
       <nav class="sidebar-nav">
@@ -144,6 +148,9 @@
       <!-- TOP NAVIGATION BAR -->
       <header class="admin-topbar">
         <div class="topbar-left">
+          <button id="btn-mobile-sidebar-toggle" class="mobile-menu-toggle" type="button" aria-label="Toggle navigation menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
           <div class="kpi-pill">
             <span class="kpi-dot"></span>
             KPI LIVE
