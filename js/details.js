@@ -122,6 +122,16 @@
             description: "Spend quiet mornings among pine forests, mountain air and peaceful Himalayan landscapes. This retreat is a simple place to rest, take short walks and reconnect with the calm of the hills.",
             highlights: ["A peaceful setting close to forest trails", "Quiet mornings and open mountain air", "A restful base for exploring Uttarakhand nearby"]
         },
+        "kinnaur-road-trip": {
+            type: "package", title: "Take the Long Way Through Kinnaur", category: "APPLE ORCHARDS • VILLAGE STAYS • CHANGING LANDSCAPES",
+            image: "images/k1.jpg", imageAlt: "Scenic view of Kinnaur valley road and mountains",
+            gallery: ["images/pexels-zen-chung-5528993.jpg", "images/h5.jpg"],
+            meta: "Kinnaur, Himachal Pradesh · 6 days", place: "Kinnaur, Himachal Pradesh", length: "6 days", style: "Scenic road trip and village encounters",
+            price: "Ask for a quote", categoryLine: "SIX DAYS • KINNAUR VALLEY",
+            headline: "Stop at little villages, drive past apple orchards and take in the changing landscapes.",
+            description: "Stop at the little villages along the way, drive past apple orchards, meet the locals and take in the changing landscapes. Kinnaur is the kind of place where you'll probably want to stop more often than you planned.",
+            highlights: ["Winding valley roads past apple orchards", "Warm village stays and encounters with local hosts", "Time to stop and explore whenever the view invites you"]
+        },
         "kumaon-explorer": {
             type: "package", title: "Kumaon Explorer", category: "NATURE • VILLAGE STAY • LOCAL FOOD",
             image: "images/pexels-alemdennbiri-2155534134-38322669.jpg", imageAlt: "Kumaon mountain landscape",
