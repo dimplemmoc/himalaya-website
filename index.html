@@ -24,7 +24,7 @@
     <!-- Open Graph SEO -->
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css?v=20261112-v4">
+    <link rel="stylesheet" href="css/style.css?v=20261121-mood-v2">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,28 +49,33 @@
 
         <div class="hero-content">
             <h1 class="hero-title">
-                <span>Not just a trip,</span>
-                <span class="italic">but a way of</span>
-                <span class="italic">life.</span>
+                <span class="italic">Beyond the Routes.</span>
+                <span>Into the Stories.</span>
             </h1>
 
+            <h2 class="hero-subtitle">
+                Somewhere Between Lost and Found. That's Where the Himalayas Begin.
+            </h2>
+
             <p class="hero-description">
-                Live like a local, explore like a friend. Feel the real Himalayas through village stays, local culture, authentic food, and experiences shaped by the people who call these mountains home.
+                For the roads you haven't taken, the stories you haven't heard and the moments that make you want to stay a little longer.
             </p>
 
             <div class="hero-actions">
-                <a href="experience.html" class="explore-btn">
-                    <span>EXPLORE EXPERIENCES</span>
+                <a href="explore.html" class="explore-btn">
+                    <span>EXPLORE THE HIMALAYAS</span>
                     <span class="explore-arrow">→</span>
                 </a>
 
-                <a href="#real-stories" class="story-btn">
-                    <span class="play-circle">
-                        <span class="play-icon"></span>
-                    </span>
-                    <span class="story-text">Watch Our Story</span>
+                <a href="plan-trip.html" class="plan-journey-btn">
+                    <span>PLAN YOUR JOURNEY</span>
+                    <span class="plan-arrow">→</span>
                 </a>
             </div>
+
+            <p class="hero-tagline">
+                <em>Come curious. Leave with a story.</em>
+            </p>
         </div>
 
         <div class="authentic-text">
@@ -85,84 +90,94 @@
         <div class="journey-left">
 
             <h2 class="journey-title">
-                What kind of journey<br>
-                are you looking for?
+                <span class="journey-number-prefix">02.</span> Pick a mood.<br>
+                <span>We'll find a mountain.</span>
             </h2>
 
             <p class="journey-description">
-                Whether you want to unwind in a village, work with a view, explore hidden trails
-                <br>
-                or simply be — we have something for every kind of traveller.
+                Not every traveller is looking for the same thing. And honestly, that's the beauty of it.
             </p>
 
-            <div class="journey-cards">
+            <div class="journey-cards mood-cards">
 
-                <a href="details.html?type=experience&amp;slug=local-village-stays" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M3 10.5L12 3l9 7.5"></path>
-                            <path d="M5 9.5V21h14V9.5"></path>
-                            <path d="M9 21v-7h6v7"></path>
-                        </svg>
+                <!-- 1. The Explorers -->
+                <a href="details.html?type=experience&amp;slug=nature-walks" class="journey-card mood-card">
+                    <div class="mood-card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14 4l7 14H3L9 8l4 6 1-10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="mood-name">The Explorers</h3>
                     </div>
-                    <span>Village Stays</span>
+                    <p class="mood-desc">
+                        Mountain passes, winding roads, trekking trails and landscapes that make you stop mid-sentence.
+                    </p>
+                    <div class="mood-punchline">
+                        <span>Less scrolling. More exploring.</span>
+                        <span class="punchline-arrow">→</span>
+                    </div>
                 </a>
 
-                <a href="details.html?type=experience&amp;slug=nature-walks" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M20 4C11 4 5 8 5 15c0 2 1 4 3 5"></path>
-                            <path d="M4 20c4-7 9-10 16-12"></path>
-                        </svg>
+                <!-- 2. The Curious -->
+                <a href="details.html?type=experience&amp;slug=kinnaur-food-culture" class="journey-card mood-card">
+                    <div class="mood-card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 3"></path>
+                                <circle cx="12" cy="12" r="1.5"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="mood-name">The Curious</h3>
                     </div>
-                    <span>Nature &amp; Forests</span>
+                    <p class="mood-desc">
+                        Village walks, regional food, local traditions and the little details that make every place different.
+                    </p>
+                    <div class="mood-punchline">
+                        <span>The best souvenirs don't fit in a suitcase.</span>
+                        <span class="punchline-arrow">→</span>
+                    </div>
                 </a>
 
-                <a href="details.html?type=experience&amp;slug=kinnaur-food-culture" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M6 3v8"></path>
-                            <path d="M3 3v5a3 3 0 0 0 6 0V3"></path>
-                            <path d="M6 11v10"></path>
-                            <path d="M14 3v18"></path>
-                            <path d="M14 3c4 2 5 5 0 7"></path>
-                        </svg>
+                <!-- 3. The Slow Souls -->
+                <a href="details.html?type=experience&amp;slug=local-village-stays" class="journey-card mood-card">
+                    <div class="mood-card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M5.6 18.4l2.1-2.1M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="mood-name">The Slow Souls</h3>
                     </div>
-                    <span>Local Food</span>
+                    <p class="mood-desc">
+                        Slow mornings, mountain views, peaceful surroundings and absolutely no rush to be anywhere.
+                    </p>
+                    <div class="mood-punchline">
+                        <span>Sometimes, doing nothing is the whole plan.</span>
+                        <span class="punchline-arrow">→</span>
+                    </div>
                 </a>
 
-                <a href="details.html?type=experience&amp;slug=kinnaur-food-culture" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="8" cy="7" r="3"></circle>
-                            <circle cx="17" cy="8" r="2.5"></circle>
-                            <path d="M2 21c0-4 2.5-6 6-6s6 2 6 6"></path>
-                            <path d="M14 15c4 0 7 2 7 6"></path>
-                        </svg>
+                <!-- 4. The Free Spirits -->
+                <a href="details.html?type=package&amp;slug=kumaon-explorer" class="journey-card mood-card">
+                    <div class="mood-card-header">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 19c4-6 8-8 16-8"></path>
+                                <path d="M16 7l4 4-4 4"></path>
+                                <circle cx="6" cy="19" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="mood-name">The Free Spirits</h3>
                     </div>
-                    <span>Culture &amp; People</span>
-                </a>
-
-                <a href="details.html?type=experience&amp;slug=remote-work" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="4" y="5" width="16" height="12" rx="1"></rect>
-                            <path d="M2 20h20"></path>
-                            <path d="M8 20v-3"></path>
-                            <path d="M16 20v-3"></path>
-                        </svg>
+                    <p class="mood-desc">
+                        Road trips, weekend escapes, unexpected detours and plans that get better along the way.
+                    </p>
+                    <div class="mood-punchline">
+                        <span>Take the long way. It's usually the better story.</span>
+                        <span class="punchline-arrow">→</span>
                     </div>
-                    <span>Remote Work Stays</span>
-                </a>
-
-                <a href="details.html?type=experience&amp;slug=stargazing" class="journey-card">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2l1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7L12 2z"></path>
-                            <path d="M19 16l.7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16z"></path>
-                        </svg>
-                    </div>
-                    <span>Stargazing</span>
                 </a>
 
             </div>
