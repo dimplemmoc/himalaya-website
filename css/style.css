@@ -3657,8 +3657,24 @@ body {
     color: #c5d7cf;
     font-family: "DM Sans", sans-serif;
     font-size: 15px;
-
     line-height: 1.5;
+}
+
+.footer-tagline-title {
+    display: block;
+    color: #ffffff;
+    font-family: "Playfair Display", serif;
+    font-size: 17.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 8px;
+}
+
+.footer-tagline-text {
+    display: block;
+    color: #b7cbbf;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 
