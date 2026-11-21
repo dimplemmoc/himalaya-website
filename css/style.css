@@ -3241,13 +3241,13 @@ body {
 
     font-family: "Playfair Display", serif;
 
-    font-size: clamp(32px, 3.2vw, 42px);
+    font-size: clamp(28px, 2.8vw, 40px);
 
-    font-weight: 400;
+    font-weight: 500;
 
-    line-height: 1.15;
+    line-height: 1.18;
 
-    letter-spacing: -1px;
+    letter-spacing: -0.8px;
 }
 
 
